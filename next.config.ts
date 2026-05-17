@@ -11,6 +11,13 @@ const withMDX = createMDX();
 const nextConfig: NextConfig = {
   /* config options here */
   reactCompiler: true,
+   images: {
+        remotePatterns: [
+            {
+                hostname: "*",
+            },
+        ],
+    }
 };
 
 export default withMDX(nextConfig);
