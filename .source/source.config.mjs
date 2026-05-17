@@ -1,10 +1,22 @@
 // source.config.ts
-import { defineDocs, defineConfig } from "fumadocs-mdx/config";
-var docs = defineDocs({
-  dir: "content/docs"
+import {
+  defineCollections,
+  frontmatterSchema,
+  metaSchema
+} from "fumadocs-mdx/config";
+var docs = defineCollections({
+  type: "doc",
+  dir: "content/docs",
+  schema: frontmatterSchema
+  // zod schema to validate frontmatter
 });
-var source_config_default = defineConfig();
+var meta = defineCollections({
+  type: "meta",
+  dir: "content/docs",
+  schema: metaSchema
+  // zod schema to validate JSON data
+});
 export {
-  source_config_default as default,
-  docs
+  docs,
+  meta
 };

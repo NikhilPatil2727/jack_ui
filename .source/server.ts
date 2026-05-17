@@ -8,4 +8,6 @@ const create = server<typeof Config, import("fumadocs-mdx/runtime/types").Intern
   }
 }>({"doc":{"passthroughs":["extractedReferences"]}});
 
-export const docs = await create.docs("docs", "content/docs", {}, {"index.mdx": __fd_glob_0, });
+export const docs = await create.doc("docs", "content/docs", {"index.mdx": __fd_glob_0, });
+
+export const meta = await create.meta("meta", "content/docs", {});

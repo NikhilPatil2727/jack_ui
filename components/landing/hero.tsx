@@ -102,7 +102,7 @@ export default function HeroSection() {
             <span className="text-sm text-zinc-500 dark:text-zinc-400 block text-center mb-2">
               {"<Card/>"}
             </span>
-            <Card02 />
+            {/* <Card02 /> */}
           </div>
 
           {/* Action Search Bar */}
