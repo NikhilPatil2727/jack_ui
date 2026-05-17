@@ -4,6 +4,7 @@ import "./globals.css";
 import { ViewTransitions } from "next-view-transitions";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/Providers/theme-provider";
+import { RootProvider } from 'fumadocs-ui/provider/next';
 
 const figtree = Figtree({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -47,7 +48,9 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-          {children}
+             <RootProvider>
+                {children}
+          </RootProvider>
           </ThemeProvider>
           </body>
       </html>
