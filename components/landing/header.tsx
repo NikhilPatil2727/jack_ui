@@ -1,4 +1,4 @@
-// import { ThemeToggle } from "@/lib/theme-toggle";
+
 import Link from "next/link";
 import { Link as ViewTransitionsLink } from "next-view-transitions";
 import Image from "next/image";
@@ -77,7 +77,7 @@ export function Header() {
                   {/* Desktop Navigation Links */}
                   <div className="hidden sm:flex items-center gap-4">
                     <ViewTransitionsLink
-                      href="/docs/components/background-paths"
+                      href="/docs"
                       className="text-sm text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 transition-colors"
                     >
                       Components
@@ -89,7 +89,7 @@ export function Header() {
                                             Pricing
                                         </ViewTransitionsLink>
                     <Link
-                      href="https://codesnippetui.pro/templates?utm_source=codesnippetui.com&utm_medium=header"
+                      href="/doc"
                       target="_blank"
                       className="text-sm text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 transition-colors flex items-center gap-2"
                     >
@@ -111,7 +111,7 @@ export function Header() {
                 {/* Mobile Navigation remains unchanged */}
                 <div className="flex sm:hidden items-center gap-4">
                   <ViewTransitionsLink
-                    href="/docs/components/action-search-bar"
+                    href="/docs"
                     className="text-sm text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 transition-colors"
                   >
                     Components

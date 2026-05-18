@@ -1,7 +1,151 @@
 ---
-title: Hello World
+title: Installation
+description: Get started with Jack UI
+icon: Rocket
 ---
 
-## Introduction
+### 1. Install dependencies
 
-I love Anime.
+All components in Jack UI are built with Tailwind CSS v4, so make sure Tailwind CSS is already configured in your project.
+
+Jack UI also uses shared utility functions and helpers. Install them using the CLI below:
+
+<Tabs items={["bun", "npx", "pnpm"]}>
+
+```bash tab="bun"
+bunx shadcn@latest add https://ui.jackui.dev/r/utils.json
+```
+
+```bash tab="npx"
+npx shadcn@latest add https://ui.jackui.dev/r/utils.json
+```
+
+```bash tab="pnpm"
+pnpm dlx shadcn@latest add https://ui.jackui.dev/r/utils.json
+```
+
+</Tabs>
+
+---
+
+### 2. Add your first component ✨
+
+Install any component directly using the CLI.
+
+Example: installing the `glass-card` component.
+
+<Tabs items={["bun", "npx", "pnpm"]}>
+
+```bash tab="bun"
+bunx shadcn@latest add https://ui.jackui.dev/r/glass-card.json
+```
+
+```bash tab="npx"
+npx shadcn@latest add https://ui.jackui.dev/r/glass-card.json
+```
+
+```bash tab="pnpm"
+pnpm dlx shadcn@latest add https://ui.jackui.dev/r/glass-card.json
+```
+
+</Tabs>
+
+Then use it inside your app:
+
+```jsx
+import GlassCard from "@/components/jackui/glass-card";
+
+export default function Page() {
+  return <GlassCard />;
+}
+```
+
+---
+
+### 3. Blocks
+
+Blocks are complete production-ready UI sections built with multiple components.
+
+To install a block, use the CLI.
+
+Example: installing the `ai-dashboard` block.
+
+<Tabs items={["bun", "npx", "pnpm"]}>
+
+```bash tab="bun"
+bunx shadcn@latest add https://ui.jackui.dev/r/ai-dashboard.json
+```
+
+```bash tab="npx"
+npx shadcn@latest add https://ui.jackui.dev/r/ai-dashboard.json
+```
+
+```bash tab="pnpm"
+pnpm dlx shadcn@latest add https://ui.jackui.dev/r/ai-dashboard.json
+```
+
+</Tabs>
+
+Then use it in your page:
+
+```jsx
+import AIDashboard from "@/components/jackui/AIDashboard";
+
+export default function Page() {
+  return <AIDashboard />;
+}
+```
+
+---
+
+### 4. Optional dependencies
+
+Some components may require additional packages like:
+
+- framer-motion
+- lucide-react
+- recharts
+- sonner
+
+Required dependencies will be listed on each component page.
+
+---
+
+### 5. Monorepo support
+
+If you're using a monorepo, pass the `-c` flag with your app path.
+
+<Tabs items={["bun", "npx", "pnpm"]}>
+
+```bash tab="bun"
+bunx shadcn@latest add https://ui.jackui.dev/r/glass-card.json -c ./apps/web
+```
+
+```bash tab="npx"
+npx shadcn@latest add https://ui.jackui.dev/r/glass-card.json -c ./apps/web
+```
+
+```bash tab="pnpm"
+pnpm dlx shadcn@latest add https://ui.jackui.dev/r/glass-card.json -c ./apps/web
+```
+
+</Tabs>
+
+---
+
+### 6. Recommended
+
+We strongly recommend using the CLI instead of manually copying code.
+
+Benefits:
+
+- Correct file structure
+- Automatic dependency installation
+- Easier updates
+- Better compatibility
+
+---
+
+### 7. You're ready 🚀
+
+Start building beautiful, modern, production-ready interfaces with Jack UI.

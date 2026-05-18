@@ -42,7 +42,10 @@ export const SettingsGeneration = ({
                 <Select
                     value={settings.style}
                     onValueChange={(value) =>
-                        onSettingsChange({ ...settings, style: value })
+                        onSettingsChange({
+                            ...settings,
+                            style: value ?? settings.style,
+                        })
                     }
                 >
                     <SelectTrigger className="w-[140px] h-8 bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-700">
@@ -70,7 +73,8 @@ export const SettingsGeneration = ({
                     onValueChange={(value) =>
                         onSettingsChange({
                             ...settings,
-                            backgroundColor: value,
+                            backgroundColor:
+                                value ?? settings.backgroundColor,
                         })
                     }
                 >
@@ -95,7 +99,10 @@ export const SettingsGeneration = ({
                 <Select
                     value={settings.lighting}
                     onValueChange={(value) =>
-                        onSettingsChange({ ...settings, lighting: value })
+                        onSettingsChange({
+                            ...settings,
+                            lighting: value ?? settings.lighting,
+                        })
                     }
                 >
                     <SelectTrigger className="w-[140px] h-8 bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-700">
@@ -119,7 +126,10 @@ export const SettingsGeneration = ({
                 <Select
                     value={settings.pose}
                     onValueChange={(value) =>
-                        onSettingsChange({ ...settings, pose: value })
+                        onSettingsChange({
+                            ...settings,
+                            pose: value ?? settings.pose,
+                        })
                     }
                 >
                     <SelectTrigger className="w-[140px] h-8 bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-700">

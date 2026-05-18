@@ -18,6 +18,15 @@ import { BrowseComponentsButton } from "../ui/browse-button";
 import { BrowseBlocksButton } from "../ui/browse-blocks";
 import Features from "./feature-block";
 
+import Card02 from "../jackui/cards/card-02";
+import Card01 from "../jackui/cards/card-01";
+import Card_03 from "../jackui/cards/card-03";
+import Card_04 from "../jackui/cards/card-04";
+import Card_05 from "../jackui/cards/card-05";
+import Card03 from "../jackui/cards/card-03";
+import Card04 from "../jackui/cards/card-04";
+import Card05 from "../jackui/cards/card-05";
+
 export default function HeroSection() {
   return (
     <div className="mx-auto w-full max-w-7xl min-h-screen flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12 px-4 sm:px-6 py-12 md:py-16 lg:py-20">
@@ -93,7 +102,7 @@ export default function HeroSection() {
             <span className="text-sm text-zinc-500 dark:text-zinc-400 block text-center mb-2">
               {"<Card/>"}
             </span>
-            {/* <Card08 href="/docs/components/card" /> */}
+            {/* <Card02 /> */}
           </div>
 
           {/* Action Search Bar */}

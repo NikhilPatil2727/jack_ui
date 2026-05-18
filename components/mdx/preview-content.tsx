@@ -1,0 +1,257 @@
+"use client";
+
+import {
+    useActionState,
+    useEffect,
+    useState,
+    useTransition,
+    useRef,
+} from "react";
+import { Button } from "@/components/ui/button";
+import { ArrowUpRight, Copy, CheckCheck, Terminal } from "lucide-react";
+import { copyComponent } from "@/lib/action";
+import { cn } from "@/lib/utils";
+import { OpenInV0Button } from "../open-in-v0-button";
+import { AnimatePresence, motion } from "motion/react";
+
+const particleOffsets = [
+    { x: -34, y: -42 },
+    { x: 28, y: -48 },
+    { x: -52, y: -24 },
+    { x: 48, y: -28 },
+    { x: -20, y: -58 },
+    { x: 16, y: -34 },
+];
+
+function SuccessParticles({ x, y }: { x: number; y: number }) {
+
+    return (
+        <AnimatePresence>
+            {[...Array(6)].map((_, i) => (
+                <motion.div
+                    key={i}
+                    className="fixed w-1 h-1 bg-black dark:bg-white rounded-full"
+                    style={{ left: x, top: y }}
+                    initial={{
+                        scale: 0,
+                        x: 0,
+                        y: 0,
+                    }}
+                    animate={{
+                        scale: [0, 1, 0],
+                        x: [0, particleOffsets[i].x],
+                        y: [0, particleOffsets[i].y],
+                    }}
+                    transition={{
+                        duration: 0.6,
+                        delay: i * 0.1,
+                        ease: "easeOut",
+                    }}
+                />
+            ))}
+        </AnimatePresence>
+    );
+}
+
+export default function PreviewContent({
+    link,
+    prePath,
+    isBlock = false,
+}: {
+    link: string;
+    prePath: string;
+    isBlock?: boolean;
+}) {
+    const [isPending, startTransition] = useTransition();
+    const [state, formAction] = useActionState(copyComponent, {
+        error: "",
+        content: "",
+        success: false,
+    });
+    const [isCopied, setIsCopied] = useState(false);
+    const [isTerminalCopied, setIsTerminalCopied] = useState(false);
+    const [particleOrigin, setParticleOrigin] = useState<{
+        x: number;
+        y: number;
+    } | null>(null);
+
+    const showParticlesFrom = (
+        buttonRef: React.RefObject<HTMLButtonElement | null>
+    ) => {
+        const rect = buttonRef.current?.getBoundingClientRect();
+        if (!rect) return;
+
+        setParticleOrigin({
+            x: rect.left + rect.width / 2,
+            y: rect.top + rect.height / 2,
+        });
+    };
+
+    const handleCopyClick = async () => {
+        const [folder, filename] = link.split("/");
+
+        startTransition(async () => {
+            const formData = new FormData();
+            formData.append("folder", folder);
+            formData.append("fileName", filename);
+
+            formAction(formData);
+        });
+    };
+
+    const getFileName = () => {
+        const [folder, filename] = link.split("/");
+        return filename ? filename : folder;
+    };
+
+    const handleTerminalClick = () => {
+        const [folder, filename] = link.split("/");
+        const COPY = `bunx shadcn@latest add ${prePath}/r/${
+            filename ? filename : folder
+        }.json`;
+        navigator.clipboard.writeText(COPY);
+        showParticlesFrom(terminalButtonRef);
+        setIsTerminalCopied(true);
+        setTimeout(() => {
+            setIsTerminalCopied(false);
+        }, 1000);
+    };
+
+    const openInV0 = () => {
+        const [folder, filename] = link.split("/");
+
+        return filename ? filename : folder;
+    };
+
+    useEffect(() => {
+        if (state.success && state.content) {
+            navigator.clipboard.writeText(state.content);
+
+            const showCopiedTimeout = setTimeout(() => {
+                showParticlesFrom(copyButtonRef);
+                setIsCopied(true);
+            }, 0);
+            setTimeout(() => {
+                setIsCopied(false);
+            }, 2000);
+            return () => clearTimeout(showCopiedTimeout);
+        }
+    }, [state.content, state.success]);
+
+    const terminalButtonRef = useRef<HTMLButtonElement>(null);
+    const copyButtonRef = useRef<HTMLButtonElement>(null);
+
+    return (
+        <>
+            {(isTerminalCopied || isCopied) && particleOrigin && (
+                <SuccessParticles x={particleOrigin.x} y={particleOrigin.y} />
+            )}
+
+            <div className={cn("relative mt-4", "rounded-xl px-0 py-3 sm:p-3")}>
+                <div className="relative flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+                    <a
+                        href={`${prePath}/preview/${link}`}
+                        target="_blank"
+                        rel="noreferrer"
+                        className={cn(
+                            "flex items-center gap-2",
+                            "text-sm font-medium",
+                            "text-zinc-800 dark:text-zinc-200",
+                            "hover:text-zinc-600 dark:hover:text-zinc-400",
+                            "transition-all duration-200 no-underline group"
+                        )}
+                    >
+                        Live Preview
+                        <ArrowUpRight
+                            className={cn(
+                                "h-4 w-4",
+                                "transition-transform duration-200 group-hover:rotate-12"
+                            )}
+                        />
+                    </a>
+
+                    <div className="flex w-full flex-wrap items-center gap-2 lg:w-auto lg:justify-end">
+                        <OpenInV0Button name={openInV0()} prePath={prePath} />
+                        <Button
+                            ref={terminalButtonRef}
+                            onClick={handleTerminalClick}
+                            variant="ghost"
+                            size="sm"
+                            className={cn(
+                                "relative overflow-hidden",
+                                "h-8 max-w-full px-3 text-xs font-medium sm:h-7",
+                                "bg-black dark:bg-white",
+                                "text-white dark:text-black",
+                                "hover:bg-black/90 dark:hover:bg-white/90",
+                                "hover:text-white dark:hover:text-black",
+                                "transition-all duration-200",
+                                "group flex min-w-0 items-center gap-1",
+                                "rounded-lg",
+                                "shadow-none"
+                            )}
+                        >
+                            {isTerminalCopied ? (
+                                <>
+                                    <CheckCheck className="h-3.5 w-3.5 text-white dark:text-black" />
+                                </>
+                            ) : (
+                                <Terminal
+                                    className={cn(
+                                        "h-3.5 w-3.5",
+                                        "transition-all duration-200",
+                                        "group-hover:rotate-12"
+                                    )}
+                                />
+                            )}
+                            <span className="truncate">npx shadcn add {getFileName()}</span>
+                        </Button>
+
+                        {!isBlock && (
+                            <form
+                                onSubmit={(e) => {
+                                    e.preventDefault();
+                                    handleCopyClick();
+                                }}
+                            >
+                                <Button
+                                    ref={copyButtonRef}
+                                    type="submit"
+                                    variant="ghost"
+                                    size="sm"
+                                    disabled={isPending}
+                                    className={cn(
+                                        "relative overflow-hidden",
+                                        "h-8 px-3 text-xs font-medium sm:h-7",
+                                        "bg-black dark:bg-white",
+                                        "text-white dark:text-black",
+                                        "hover:bg-black/90 dark:hover:bg-white/90",
+                                        "hover:text-white dark:hover:text-black",
+                                        "transition-all duration-200",
+                                        "group flex items-center gap-1",
+                                        "rounded-lg",
+                                        "shadow-none"
+                                    )}
+                                >
+                                    {isCopied ? (
+                                        <>
+                                            <CheckCheck className="h-3.5 w-3.5 text-white dark:text-black" />
+                                        </>
+                                    ) : (
+                                        <Copy
+                                            className={cn(
+                                                "h-3.5 w-3.5",
+                                                "transition-all duration-200",
+                                                "group-hover:rotate-12"
+                                            )}
+                                        />
+                                    )}
+                                    <span>Copy</span>
+                                </Button>
+                            </form>
+                        )}
+                    </div>
+                </div>
+            </div>
+        </>
+    );
+}
