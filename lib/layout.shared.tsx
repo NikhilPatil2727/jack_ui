@@ -5,5 +5,8 @@ export function baseOptions(): BaseLayoutProps {
     nav: {
       title: 'My App',
     },
+    themeSwitch: {
+      enabled: false,
+    },
   };
 }
