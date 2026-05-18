@@ -1,8 +1,4 @@
-import Input_10 from "@/components/codesnippetui/input/input-10";
-import Alert04 from "@/components/codesnippetui/alert/alert-04";
-import Input_08 from "@/components/codesnippetui/input/input-08";
-import Btn12 from "@/components/codesnippetui/button/btn-12";
-import Btn13 from "@/components/codesnippetui/button/btn-13";
+import { CheckCircle2, Search } from "lucide-react";
 
 interface ComponentShowcaseCardProps {
     className: string;
@@ -20,13 +16,33 @@ export function ComponentShowcaseCard({
             <div className="space-y-12">
                 <div className="space-y-20 mt-8">
                     {[
-                        { component: <Input_10 />, label: "Input 10" },
-                        { component: <Alert04 />, label: "Alert 04" },
+                        {
+                            component: (
+                                <div className="flex w-64 items-center gap-2 rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-500 shadow-sm dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-400">
+                                    <Search className="size-4" />
+                                    <span>Search components</span>
+                                </div>
+                            ),
+                            label: "Input",
+                        },
+                        {
+                            component: (
+                                <div className="flex items-center gap-2 rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm text-emerald-700 dark:border-emerald-900 dark:bg-emerald-950 dark:text-emerald-300">
+                                    <CheckCircle2 className="size-4" />
+                                    <span>Component copied</span>
+                                </div>
+                            ),
+                            label: "Alert",
+                        },
                         {
                             component: (
                                 <div className="w-full flex justify-center gap-4">
-                                    <Btn13 className="w-full" label="Welcome" />
-                                    <Btn12 className="w-full" label="Button" />
+                                    <button className="w-full rounded-lg border border-zinc-200 px-4 py-2 text-sm font-medium text-zinc-700 dark:border-zinc-800 dark:text-zinc-200">
+                                        Welcome
+                                    </button>
+                                    <button className="w-full rounded-lg bg-zinc-900 px-4 py-2 text-sm font-medium text-white dark:bg-zinc-100 dark:text-zinc-950">
+                                        Button
+                                    </button>
                                 </div>
                             ),
                             label: "Welcome",
@@ -44,7 +60,9 @@ export function ComponentShowcaseCard({
                 </div>
 
                 <div className="flex flex-col items-center pt-8">
-                    <Input_08 label="" />
+                    <div className="h-10 w-56 rounded-lg border border-zinc-200 bg-white px-3 py-2 text-left text-sm text-zinc-400 shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
+                        Email address
+                    </div>
                 </div>
             </div>
 

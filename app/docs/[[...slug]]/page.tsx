@@ -3,8 +3,8 @@ import { DocsBody, DocsDescription, DocsPage, DocsTitle } from 'fumadocs-ui/layo
 import { notFound } from 'next/navigation';
 // import { getMDXComponents } from '@/components/mdx';
 import defaultMdxComponents from "fumadocs-ui/mdx";
+import { Tab, Tabs } from "fumadocs-ui/components/tabs";
 import type { Metadata } from 'next';
-import { createRelativeLink } from 'fumadocs-ui/mdx';
 import { Preview } from "@/components/mdx/preview";
 import { PreviewClient } from "@/components/mdx/preview-client";
 import type { ComponentProps, ComponentType } from "react";
@@ -35,7 +35,7 @@ export default async function Page(props: DocsPageProps) {
       <DocsDescription>{page.data.description}</DocsDescription>
       <DocsBody>
         <MDX
-          components={{...defaultMdxComponents, Preview, PreviewClient}}
+          components={{...defaultMdxComponents, Tab, Tabs, Preview, PreviewClient}}
         />
       </DocsBody>
     </DocsPage>

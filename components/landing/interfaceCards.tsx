@@ -1,6 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Github, Zap } from "lucide-react";
-import AIInput_04 from "@/components/codesnippetui/ai-input/ai-input-04";
+import { ArrowRight, GitBranch, Send, Sparkles, Zap } from "lucide-react";
 
 function Header() {
     return (
@@ -32,10 +31,18 @@ export function BuildInterfacesCard({ className }: BuildInterfacesCardProps) {
                 <Header />
                 <div>
                     <p className="text-sm text-zinc-500 dark:text-zinc-400 mb-2">
-                        components / AI-Input-04
+                        components / AI Input
                     </p>
                     <div className="select-none cursor-default touch-none pointer-events-none">
-                        <AIInput_04 />
+                        <div className="flex items-center gap-3 rounded-xl border border-zinc-200 bg-white px-3 py-2 shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
+                            <Sparkles className="size-4 text-amber-500" />
+                            <span className="flex-1 text-left text-sm text-zinc-500 dark:text-zinc-400">
+                                Ask Jack UI to build a form...
+                            </span>
+                            <span className="inline-flex size-8 items-center justify-center rounded-lg bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-950">
+                                <Send className="size-4" />
+                            </span>
+                        </div>
                     </div>
                 </div>
 
@@ -62,7 +69,7 @@ export function BuildInterfacesCard({ className }: BuildInterfacesCardProps) {
                             hover:shadow-lg hover:shadow-zinc-900/10 dark:hover:shadow-zinc-100/10
                             transition-all duration-200"
                     >
-                        <Github className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                        <GitBranch className="w-4 h-4 group-hover:scale-110 transition-transform" />
                         <span className="font-medium">View on GitHub</span>
                         <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
                     </Link>

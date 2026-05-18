@@ -1,16 +1,14 @@
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
-import Text02 from "@/components/codesnippetui/text/text-02";
 
 export function ShowcaseSection() {
     return (
         <div className="py-8 sm:py-24 text-center relative">
             <div className="inline-block mb-12">
                 <h2 className="text-2xl sm:text-4xl font-bold tracking-tight">
-                    <Text02
-                        text="Showcase"
-                        className="bg-clip-text text-transparent bg-linear-to-r from-pink-500 to-amber-500 dark:from-pink-400 dark:to-amber-400 text-4xl sm:text-7xl"
-                    />
+                    <span className="bg-clip-text text-transparent bg-linear-to-r from-pink-500 to-amber-500 dark:from-pink-400 dark:to-amber-400 text-4xl sm:text-7xl">
+                        Showcase
+                    </span>
                 </h2>
             </div>
 
