@@ -147,10 +147,8 @@ export default function PreviewContent({
                 <SuccessParticles x={particleOrigin.x} y={particleOrigin.y} />
             )}
 
-            <div
-                className={cn("relative mt-4", "rounded-xl p-3")}
-            >
-                <div className="relative flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div className={cn("relative mt-4", "rounded-xl px-0 py-3 sm:p-3")}>
+                <div className="relative flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
                     <a
                         href={`${prePath}/preview/${link}`}
                         target="_blank"
@@ -172,7 +170,7 @@ export default function PreviewContent({
                         />
                     </a>
 
-                    <div className="flex items-center gap-2">
+                    <div className="flex w-full flex-wrap items-center gap-2 lg:w-auto lg:justify-end">
                         <OpenInV0Button name={openInV0()} prePath={prePath} />
                         <Button
                             ref={terminalButtonRef}
@@ -181,13 +179,13 @@ export default function PreviewContent({
                             size="sm"
                             className={cn(
                                 "relative overflow-hidden",
-                                "h-7 px-3 text-xs font-medium",
+                                "h-8 max-w-full px-3 text-xs font-medium sm:h-7",
                                 "bg-black dark:bg-white",
                                 "text-white dark:text-black",
                                 "hover:bg-black/90 dark:hover:bg-white/90",
                                 "hover:text-white dark:hover:text-black",
                                 "transition-all duration-200",
-                                "group flex items-center gap-1",
+                                "group flex min-w-0 items-center gap-1",
                                 "rounded-lg",
                                 "shadow-none"
                             )}
@@ -205,7 +203,7 @@ export default function PreviewContent({
                                     )}
                                 />
                             )}
-                            <span>npx shadcn add {getFileName()}</span>
+                            <span className="truncate">npx shadcn add {getFileName()}</span>
                         </Button>
 
                         {!isBlock && (
@@ -223,7 +221,7 @@ export default function PreviewContent({
                                     disabled={isPending}
                                     className={cn(
                                         "relative overflow-hidden",
-                                        "h-7 px-3 text-xs font-medium",
+                                        "h-8 px-3 text-xs font-medium sm:h-7",
                                         "bg-black dark:bg-white",
                                         "text-white dark:text-black",
                                         "hover:bg-black/90 dark:hover:bg-white/90",

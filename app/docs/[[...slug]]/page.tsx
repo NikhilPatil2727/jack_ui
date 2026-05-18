@@ -7,6 +7,7 @@ import { Tab, Tabs } from "fumadocs-ui/components/tabs";
 import type { Metadata } from 'next';
 import { Preview } from "@/components/mdx/preview";
 import { PreviewClient } from "@/components/mdx/preview-client";
+import { cn } from "@/lib/utils";
 import type { ComponentProps, ComponentType } from "react";
 
 type DocsPageProps = {
@@ -30,7 +31,14 @@ export default async function Page(props: DocsPageProps) {
   const MDX = pageData.body;
 
   return (
-    <DocsPage toc={pageData.toc} full={pageData.full}>
+    <DocsPage
+      toc={pageData.toc}
+      full={pageData.full}
+      className={cn(
+        pageData.full &&
+          "max-w-[min(100%,72rem)] px-4 sm:px-6 lg:px-8 xl:max-w-[72rem]",
+      )}
+    >
       <DocsTitle>{page.data.title}</DocsTitle>
       <DocsDescription>{page.data.description}</DocsDescription>
       <DocsBody>

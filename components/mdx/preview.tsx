@@ -29,12 +29,12 @@ export function Preview({
   console.log(prePath + link);
   return (
     <>
-      <div className={cn("w-full overflow-hidden", className)}>
+      <div className={cn("w-full min-w-0 overflow-hidden", className)}>
         <PreviewContent link={link} prePath={prePath} isBlock={isBlock} />
 
         {useIframe ? (
           <div className="w-full my-4 border rounded-2xl border-zinc-400 dark:border-zinc-700">
-            <div className="relative w-full h-[100dvh] overflow-hidden">
+            <div className="relative h-[70dvh] min-h-[420px] w-full overflow-hidden sm:h-[80dvh]">
               <iframe
                 title={link}
                 src={`${prePath}/preview/${link}`}
@@ -49,9 +49,11 @@ export function Preview({
         ) : (
           <div
             className={cn(
-              "p-2 md:p-8 flex justify-center items-center relative border rounded-2xl my-4 border-zinc-400 dark:border-zinc-800 not-prose",
-              compact ? "min-h-[100px]" : "min-h-[400px]",
-              isBlock ? "md:p-0" : ""
+              "relative my-4 flex w-full min-w-0 items-center justify-center overflow-hidden rounded-xl border border-zinc-400 p-3 not-prose dark:border-zinc-800 sm:p-5 md:p-6",
+              compact
+                ? "min-h-[120px]"
+                : "min-h-[220px] sm:min-h-[300px] lg:min-h-[360px]",
+              isBlock ? "md:p-0" : "",
             )}
           >
             {children}

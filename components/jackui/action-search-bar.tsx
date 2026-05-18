@@ -312,11 +312,6 @@ export default function ActionSearchBar({
 
   const visibleActions = getAllVisibleActions()
 
-  // Reset selected index when results change
-  useEffect(() => {
-    setSelectedIndex(0)
-  }, [query, activeCategory])
-
   // Handle keyboard navigation
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     switch (e.key) {
@@ -354,7 +349,7 @@ export default function ActionSearchBar({
 
   // Global keyboard shortcut to focus search
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
+    const handleKeyDown = (e: globalThis.KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key === "k") {
         e.preventDefault()
         inputRef.current?.focus()
@@ -362,8 +357,8 @@ export default function ActionSearchBar({
       }
     }
 
-    window.addEventListener("keydown", handleKeyDown as any)
-    return () => window.removeEventListener("keydown", handleKeyDown as any)
+    window.addEventListener("keydown", handleKeyDown)
+    return () => window.removeEventListener("keydown", handleKeyDown)
   }, [])
 
   const executeAction = (action: Action) => {
@@ -378,6 +373,7 @@ export default function ActionSearchBar({
 
   const handleCategoryClick = (category: string) => {
     setActiveCategory((prev) => (prev === category ? null : category))
+    setSelectedIndex(0)
   }
 
   // Animation variants
@@ -421,9 +417,9 @@ export default function ActionSearchBar({
   }
 
   return (
-    <div className={cn("w-full max-w-2xl mx-auto", className)}>
+    <div className={cn("w-full max-w-[min(100%,42rem)] min-w-0 mx-auto px-0", className)}>
       <div className="relative flex flex-col justify-start items-center">
-        <div className="w-full sticky top-0 bg-background z-10 pt-4 pb-1">
+        <div className="w-full sticky top-0 bg-background z-10 pt-1 pb-1 sm:pt-3">
           <div className="flex items-center justify-between mb-2">
             <label className="text-xs font-medium text-muted-foreground" htmlFor="action-search">
               Search Commands
@@ -446,11 +442,14 @@ export default function ActionSearchBar({
               type="text"
               placeholder="Type a command or search..."
               value={query}
-              onChange={(e) => setQuery(e.target.value)}
+              onChange={(e) => {
+                setQuery(e.target.value)
+                setSelectedIndex(0)
+              }}
               onFocus={() => setIsFocused(true)}
               onBlur={() => setTimeout(() => setIsFocused(false), 200)}
               onKeyDown={handleKeyDown}
-              className="pl-9 pr-9 py-2 h-10 text-sm rounded-lg focus-visible:ring-offset-0 bg-background border-border"
+              className="h-10 min-w-0 rounded-lg border-border bg-background py-2 pl-9 pr-9 text-sm focus-visible:ring-offset-0"
             />
 
             <div className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4">
@@ -485,7 +484,7 @@ export default function ActionSearchBar({
           <AnimatePresence>
             {isFocused && (
               <motion.div
-                className="w-full border rounded-lg shadow-lg overflow-hidden bg-popover mt-1 max-h-[70vh] overflow-y-auto"
+                className="mt-1 max-h-[min(22rem,60vh)] w-full overflow-hidden overflow-y-auto rounded-lg border bg-popover shadow-lg sm:max-h-[min(28rem,70vh)]"
                 variants={containerVariants}
                 initial="hidden"
                 animate="visible"
@@ -519,25 +518,25 @@ export default function ActionSearchBar({
                           key={action.id}
                           data-index={idx}
                           className={cn(
-                            "px-3 py-2 mx-1 my-0.5 flex items-center justify-between hover:bg-accent hover:text-accent-foreground cursor-pointer rounded-md transition-colors",
+                            "mx-1 my-0.5 flex min-w-0 items-center justify-between gap-2 rounded-md px-2.5 py-2 transition-colors hover:bg-accent hover:text-accent-foreground cursor-pointer sm:gap-3 sm:px-3",
                             selectedIndex === idx ? "bg-accent text-accent-foreground" : "",
                           )}
                           variants={itemVariants}
                           onClick={() => executeAction(action)}
                         >
-                          <div className="flex items-center gap-3">
+                          <div className="flex min-w-0 items-center gap-2.5 sm:gap-3">
                             <div
                               className="flex items-center justify-center w-6 h-6 rounded-md"
                               style={{ backgroundColor: `${action.color}20` }}
                             >
                               {action.icon}
                             </div>
-                            <div>
-                              <div className="text-sm font-medium">{action.label}</div>
-                              <div className="text-xs text-muted-foreground">{action.description}</div>
+                            <div className="min-w-0">
+                              <div className="truncate text-sm font-medium">{action.label}</div>
+                              <div className="truncate text-xs text-muted-foreground">{action.description}</div>
                             </div>
                           </div>
-                          <div className="flex items-center gap-2">
+                          <div className="hidden shrink-0 items-center gap-2 md:flex">
                             {action.shortcut && (
                               <kbd className="px-1.5 py-0.5 text-[10px] font-mono font-medium text-muted-foreground bg-muted rounded border border-border">
                                 {action.shortcut}
@@ -564,22 +563,22 @@ export default function ActionSearchBar({
                             key={action.id}
                             data-index={actionIndex}
                             className={cn(
-                              "px-3 py-2 mx-1 my-0.5 flex items-center justify-between hover:bg-accent hover:text-accent-foreground cursor-pointer rounded-md transition-colors",
+                              "mx-1 my-0.5 flex min-w-0 items-center justify-between gap-2 rounded-md px-2.5 py-2 transition-colors hover:bg-accent hover:text-accent-foreground cursor-pointer sm:gap-3 sm:px-3",
                               selectedIndex === actionIndex ? "bg-accent text-accent-foreground" : "",
                             )}
                             variants={itemVariants}
                             onClick={() => executeAction(action)}
                           >
-                            <div className="flex items-center gap-3">
+                            <div className="flex min-w-0 items-center gap-2.5 sm:gap-3">
                               <div
                                 className="flex items-center justify-center w-6 h-6 rounded-md"
                                 style={{ backgroundColor: `${action.color}20` }}
                               >
                                 {action.icon}
                               </div>
-                              <div>
-                                <div className="flex items-center gap-2">
-                                  <span className="text-sm font-medium">{action.label}</span>
+                              <div className="min-w-0">
+                                <div className="flex min-w-0 items-center gap-1.5 sm:gap-2">
+                                  <span className="truncate text-sm font-medium">{action.label}</span>
                                   {action.isNew && (
                                     <Badge
                                       variant="default"
@@ -589,10 +588,10 @@ export default function ActionSearchBar({
                                     </Badge>
                                   )}
                                 </div>
-                                <div className="text-xs text-muted-foreground">{action.description}</div>
+                                <div className="truncate text-xs text-muted-foreground">{action.description}</div>
                               </div>
                             </div>
-                            <div className="flex items-center gap-2">
+                            <div className="hidden shrink-0 items-center gap-2 md:flex">
                               {action.shortcut && (
                                 <kbd className="px-1.5 py-0.5 text-[10px] font-mono font-medium text-muted-foreground bg-muted rounded border border-border">
                                   {action.shortcut}
@@ -629,22 +628,22 @@ export default function ActionSearchBar({
                               key={action.id}
                               data-index={actionIndex}
                               className={cn(
-                                "px-3 py-2 mx-1 my-0.5 flex items-center justify-between hover:bg-accent hover:text-accent-foreground cursor-pointer rounded-md transition-colors",
+                                "mx-1 my-0.5 flex min-w-0 items-center justify-between gap-2 rounded-md px-2.5 py-2 transition-colors hover:bg-accent hover:text-accent-foreground cursor-pointer sm:gap-3 sm:px-3",
                                 selectedIndex === actionIndex ? "bg-accent text-accent-foreground" : "",
                               )}
                               variants={itemVariants}
                               onClick={() => executeAction(action)}
                             >
-                              <div className="flex items-center gap-3">
+                              <div className="flex min-w-0 items-center gap-2.5 sm:gap-3">
                                 <div
                                   className="flex items-center justify-center w-6 h-6 rounded-md"
                                   style={{ backgroundColor: `${action.color}20` }}
                                 >
                                   {action.icon}
                                 </div>
-                                <div>
-                                  <div className="flex items-center gap-2">
-                                    <span className="text-sm font-medium">{action.label}</span>
+                                <div className="min-w-0">
+                                  <div className="flex min-w-0 items-center gap-1.5 sm:gap-2">
+                                    <span className="truncate text-sm font-medium">{action.label}</span>
                                     {action.isNew && (
                                       <Badge
                                         variant="default"
@@ -654,10 +653,10 @@ export default function ActionSearchBar({
                                       </Badge>
                                     )}
                                   </div>
-                                  <div className="text-xs text-muted-foreground">{action.description}</div>
+                                  <div className="truncate text-xs text-muted-foreground">{action.description}</div>
                                 </div>
                               </div>
-                              <div className="flex items-center gap-2">
+                              <div className="hidden shrink-0 items-center gap-2 md:flex">
                                 {action.shortcut && (
                                   <kbd className="px-1.5 py-0.5 text-[10px] font-mono font-medium text-muted-foreground bg-muted rounded border border-border">
                                     {action.shortcut}
@@ -674,10 +673,10 @@ export default function ActionSearchBar({
 
                 {/* Footer with keyboard shortcuts */}
                 <motion.div
-                  className="mt-1 px-3 py-2 border-t flex items-center justify-between text-xs text-muted-foreground"
+                  className="mt-1 flex flex-col gap-2 border-t px-3 py-2 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between"
                   variants={itemVariants}
                 >
-                  <div className="flex items-center gap-3">
+                  <div className="flex flex-wrap items-center gap-3">
                     <div className="flex items-center gap-1">
                       <kbd className="px-1 py-0.5 text-[10px] font-mono font-medium text-muted-foreground bg-muted rounded border border-border">
                         ↑
