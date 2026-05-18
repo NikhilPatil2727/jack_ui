@@ -1,11 +1,12 @@
 "use client";
 
-import { useState, useRef, type RefObject } from "react";
+import { useState, useRef, type ComponentProps, type RefObject } from "react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "motion/react";
 import { cn } from "@/lib/utils";
-import type { ButtonProps } from "@/components/ui/button";
 import { MousePointerClick } from "lucide-react";
+
+type ButtonProps = ComponentProps<typeof Button>;
 
 interface ParticleButtonProps extends ButtonProps {
     onSuccess?: () => void;
@@ -62,8 +63,10 @@ export default function ParticleButton({
     const [showParticles, setShowParticles] = useState(false);
     const buttonRef = useRef<HTMLButtonElement>(null);
 
-    const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    const handleClick: ButtonProps["onClick"] = async (e) => {
+        await onClick?.(e);
         setShowParticles(true);
+        onSuccess?.();
 
         setTimeout(() => {
             setShowParticles(false);

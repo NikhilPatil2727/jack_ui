@@ -9,6 +9,23 @@ const config = {
 const withMDX = createMDX();
 
 const nextConfig: NextConfig = {
+    pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
+    outputFileTracingIncludes: {
+        "/**": ["components/jackui/**/*"],
+    },
+     async headers() {
+        return [
+            {
+                source: "/r/:path*",
+                headers: [
+                    {
+                        key: "Cache-Control",
+                        value: "public, max-age=31536000, immutable",
+                    },
+                ],
+            },
+        ];
+    },
   /* config options here */
   reactCompiler: true,
    images: {
@@ -17,7 +34,10 @@ const nextConfig: NextConfig = {
                 hostname: "*",
             },
         ],
-    }
+    },
+   
+
+    
 };
 
 export default withMDX(nextConfig);

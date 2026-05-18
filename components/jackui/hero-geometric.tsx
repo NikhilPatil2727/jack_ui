@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
+import type { Variants } from "motion/react";
 import { Pacifico } from "next/font/google";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
@@ -41,7 +42,7 @@ function ElegantShape({
             transition={{
                 duration: 2.4,
                 delay,
-                ease: [0.23, 0.86, 0.39, 0.96],
+                ease: [0.23, 0.86, 0.39, 0.96] as const,
                 opacity: { duration: 1.2 },
             }}
             className={cn("absolute", className)}
@@ -94,10 +95,10 @@ export default function HeroGeometric({
             transition: {
                 duration: 1,
                 delay: 0.5 + i * 0.2,
-                ease: [0.25, 0.4, 0.25, 1],
+                ease: [0.25, 0.4, 0.25, 1] as const,
             },
         }),
-    };
+    } satisfies Variants;
 
     return (
         <div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-[#030303]">

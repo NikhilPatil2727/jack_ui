@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { AnimatePresence, motion } from "motion/react";
+import type { Transition, Variants } from "motion/react";
 import { cn } from "@/lib/utils";
 import {
     Filter,
@@ -40,19 +41,19 @@ const buttonVariants = {
         paddingLeft: isSelected ? "1rem" : ".5rem",
         paddingRight: isSelected ? "1rem" : ".5rem",
     }),
-};
+} satisfies Variants;
 
 const spanVariants = {
     initial: { width: 0, opacity: 0 },
     animate: { width: "auto", opacity: 1 },
     exit: { width: 0, opacity: 0 },
-};
+} satisfies Variants;
 
 const notificationVariants = {
     initial: { opacity: 0, y: 10 },
     animate: { opacity: 1, y: -10 },
     exit: { opacity: 0, y: -20 },
-};
+} satisfies Variants;
 
 const lineVariants = {
     initial: { scaleX: 0, x: "-50%" },
@@ -66,9 +67,9 @@ const lineVariants = {
         x: "50%",
         transition: { duration: 0.2, ease: "easeIn" },
     },
-};
+} satisfies Variants;
 
-const transition = { type: "spring", bounce: 0, duration: 0.4 };
+const transition = { type: "spring", bounce: 0, duration: 0.4 } satisfies Transition;
 
 export function Toolbar({
     className,

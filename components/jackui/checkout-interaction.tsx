@@ -6,7 +6,6 @@ import { Minus, Plus, ShoppingCart, X, CreditCard } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
-import NumberFlow from "@number-flow/react";
 
 interface Product {
     id: string;
@@ -98,6 +97,12 @@ export default function CheckoutInteraction({
         (sum, item) => sum + item.price * item.quantity,
         0
     );
+    const formattedTotalPrice = new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+    }).format(totalPrice);
 
     return (
         <div className="w-full max-w-4xl mx-auto">
@@ -299,22 +304,9 @@ export default function CheckoutInteraction({
                                 layout
                                 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100 inline-block min-w-[80px] text-right"
                             >
-                                <NumberFlow
-                                    value={totalPrice}
-                                    willChange
-                                    format={{
-                                        style: "currency",
-                                        currency: "USD",
-                                        minimumFractionDigits: 2,
-                                        maximumFractionDigits: 2,
-                                        signDisplay: "auto",
-                                    }}
-                                    className="font-mono tabular-nums"
-                                    transformTiming={{
-                                        duration: 400,
-                                        easing: "ease-out",
-                                    }}
-                                />
+                                <span className="font-mono tabular-nums">
+                                    {formattedTotalPrice}
+                                </span>
                             </motion.span>
                         </div>
                         <Button size="sm" className="w-full gap-2">

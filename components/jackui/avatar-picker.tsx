@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "motion/react";
+import type { Variants } from "motion/react";
 import { cn } from "@/lib/utils";
 import { Card, CardContent } from "@/components/ui/card";
 
@@ -284,7 +285,7 @@ const mainAvatarVariants = {
             duration: 0.2,
         },
     },
-};
+} satisfies Variants;
 
 const pickerVariants = {
     container: {
@@ -312,6 +313,9 @@ const pickerVariants = {
             },
         },
     },
+} satisfies {
+    container: Variants;
+    item: Variants;
 };
 
 const selectedVariants = {
@@ -335,7 +339,7 @@ const selectedVariants = {
             duration: 0.2,
         },
     },
-};
+} satisfies Variants;
 
 export default function AvatarPicker() {
     const [selectedAvatar, setSelectedAvatar] = useState<Avatar>(avatars[0]);

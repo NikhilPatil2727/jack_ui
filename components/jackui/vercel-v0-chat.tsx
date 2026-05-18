@@ -7,7 +7,7 @@ import { useAutoResizeTextarea } from "@/hooks/use-auto-resize-textarea";
 import {
     ImageIcon,
     FileUp,
-    Figma,
+    PenTool,
     MonitorIcon,
     CircleUserRound,
     ArrowUpIcon,
@@ -117,7 +117,7 @@ export function VercelV0Chat() {
                             label="Clone a Screenshot"
                         />
                         <ActionButton
-                            icon={<Figma className="w-4 h-4" />}
+                            icon={<PenTool className="w-4 h-4" />}
                             label="Import from Figma"
                         />
                         <ActionButton

@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
+import type { Variants } from "motion/react";
 interface HandWrittenTitleProps {
     title?: string;
     subtitle?: string;
@@ -16,11 +17,14 @@ export default function HandWrittenTitle({
             pathLength: 1,
             opacity: 1,
             transition: {
-                pathLength: { duration: 2.5, ease: [0.43, 0.13, 0.23, 0.96] },
+                pathLength: {
+                    duration: 2.5,
+                    ease: [0.43, 0.13, 0.23, 0.96] as const,
+                },
                 opacity: { duration: 0.5 },
             },
         },
-    };
+    } satisfies Variants;
 
     return (
         <div className="relative w-full max-w-4xl mx-auto py-24">

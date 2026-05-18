@@ -1,6 +1,7 @@
 "use client"
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
+import type { Variants } from "framer-motion"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, RefreshCw, Copy, Check } from "lucide-react"
@@ -28,7 +29,7 @@ const draw = {
       opacity: { delay: i * 0.2, duration: 0.2 },
     },
   }),
-}
+} satisfies Variants
 
 export function Checkmark({ size = 100, strokeWidth = 2, color = "currentColor", className = "" }: CheckmarkProps) {
   return (
