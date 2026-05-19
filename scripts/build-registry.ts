@@ -20,6 +20,12 @@ const PUBLIC_FOLDER_BASE_PATH = "public/r";
  */
 type File = z.infer<typeof registryItemFileSchema>;
 
+const toPosixRelativePath = (filePath: string) =>
+    filePath.replace(/\\/g, "/").replace(/^\/+/, "");
+
+const resolveRegistryFilePath = (filePath: string) =>
+    path.resolve(REGISTRY_BASE_PATH, toPosixRelativePath(filePath));
+
 async function writeFileRecursive(filePath: string, data: string) {
     const dir = path.dirname(filePath);
 
@@ -38,47 +44,45 @@ async function writeFileRecursive(filePath: string, data: string) {
 const getComponentFiles = async (files: File[], registryType: string) => {
     const filesArrayPromises = (files ?? []).map(async (file) => {
         if (typeof file === "string") {
-            const normalizedPath = file.startsWith("/") ? file : `/${file}`;
-            const filePath = path.join(REGISTRY_BASE_PATH, normalizedPath);
+            const normalizedPath = toPosixRelativePath(file);
+            const filePath = resolveRegistryFilePath(normalizedPath);
             const fileContent = await fs.readFile(filePath, "utf-8");
-            
-            const fileName = normalizedPath.split('/').pop() || '';
-            
+
+            const fileName = normalizedPath.split("/").pop() || "";
+
             return {
                 type: registryType,
                 content: fileContent,
                 path: normalizedPath,
-                target: `/components/jackui/${fileName}`,
+                target: `components/jackui/${fileName}`,
             };
         }
-        const normalizedPath = file.path.startsWith("/")
-            ? file.path
-            : `/${file.path}`;
-        const filePath = path.join(REGISTRY_BASE_PATH, normalizedPath);
+        const normalizedPath = toPosixRelativePath(file.path);
+        const filePath = resolveRegistryFilePath(normalizedPath);
         const fileContent = await fs.readFile(filePath, "utf-8");
-        
-        const fileName = normalizedPath.split('/').pop() || '';
-        
+
+        const fileName = normalizedPath.split("/").pop() || "";
+
         const getTargetPath = (type: string) => {
             switch (type) {
                 case "registry:hook":
-                    return `/hooks/${fileName}`;
+                    return `hooks/${fileName}`;
                 case "registry:lib":
-                    return `/lib/${fileName}`;
+                    return `lib/${fileName}`;
                 case "registry:block":
-                    return `/blocks/${fileName}`;
+                    return `blocks/${fileName}`;
                 default:
-                    return `/components/jackui/${fileName}`;
+                    return `components/jackui/${fileName}`;
             }
         };
-        
-        const fileType = typeof file === 'string' ? registryType : (file.type || registryType);
-        
+
+        const fileType = file.type || registryType;
+
         return {
             type: fileType,
             content: fileContent,
             path: normalizedPath,
-            target: typeof file === 'string' ? getTargetPath(registryType) : (file.target || getTargetPath(fileType)),
+            target: toPosixRelativePath(file.target || getTargetPath(fileType)),
         };
     });
 
