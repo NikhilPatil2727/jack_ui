@@ -2,6 +2,7 @@
 
 import { motion } from "motion/react";
 import TailwindCSS from "@/components/icons/tailwindcss";
+import Link from "next/link";
 import {
   PlaneTakeoff,
   BarChart2,
@@ -12,20 +13,18 @@ import {
   Sparkles,
   Code,
   Layers,
-  Link,
 } from "lucide-react";
 import { BrowseComponentsButton } from "../ui/browse-button";
 import { BrowseBlocksButton } from "../ui/browse-blocks";
 import Features from "./feature-block";
 
-import Card02 from "../jackui/cards/card-02";
-import Card01 from "../jackui/cards/card-01";
-import Card_03 from "../jackui/cards/card-03";
-import Card_04 from "../jackui/cards/card-04";
-import Card_05 from "../jackui/cards/card-05";
-import Card03 from "../jackui/cards/card-03";
-import Card04 from "../jackui/cards/card-04";
-import Card05 from "../jackui/cards/card-05";
+
+import Btn02 from "../jackui/buttons/btn-02";
+import Btn03 from "../jackui/buttons/btn-03";
+import Btn04 from "../jackui/buttons/btn-04";
+import Btn05 from "../jackui/buttons/btn-05";
+import Btn06 from "../jackui/buttons/btn-06";
+import Btn01 from "../jackui/buttons/btn-01";
 
 export default function HeroSection() {
   return (
@@ -37,27 +36,26 @@ export default function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.1] text-zinc-900 dark:text-zinc-100">
-            Craft with{" "}
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-rose-500 via-fuchsia-500 to-purple-500 dark:from-rose-400 dark:via-fuchsia-400 dark:to-purple-400">
-              precision
-            </span>
+          <h1 className="text-2xl sm:text-5xl lg:text-6xl font-bold font-heading tracking-tight leading-[1.1] text-zinc-900 dark:text-zinc-100">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-lime-500 via-yellow-400 to-amber-500 dark:from-lime-400 dark:via-yellow-300 dark:to-amber-400">
+              Interactive
+            </span>{" "}
+            by design,
             <br />
-            build with{" "}
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-500 via-fuchsia-500 to-rose-500 dark:from-purple-400 dark:via-fuchsia-400 dark:to-rose-400">
-              ease
-            </span>
-            .
+            <span className="bg-clip-text font-lavishly-yours text-transparent bg-gradient-to-r from-amber-500 via-yellow-400 to-lime-500 dark:from-amber-400 dark:via-yellow-300 dark:to-lime-400">
+              premium
+            </span>{" "}
+            by default.
           </h1>
           <p className="mt-6 text-base md:text-xl text-zinc-700 dark:text-zinc-300 max-w-lg">
             A curated collection of{" "}
             <span className="font-semibold">100+ premium UI components</span>{" "}
             crafted with{" "}
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-rose-500 to-fuchsia-500 dark:from-rose-400 dark:to-fuchsia-400">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-lime-500 via-yellow-400 to-amber-500 dark:from-lime-400 dark:via-yellow-300 dark:to-amber-400">
               Tailwind CSS
             </span>{" "}
             and{" "}
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-fuchsia-500 to-purple-500 dark:from-fuchsia-400 dark:to-purple-400">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-amber-500 via-yellow-400 to-lime-500 dark:from-amber-400 dark:via-yellow-300 dark:to-lime-400">
               shadcn/ui
             </span>{" "}
             for modern React and Next.js applications.
@@ -83,6 +81,7 @@ export default function HeroSection() {
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-start gap-3">
             <BrowseComponentsButton />
             <BrowseBlocksButton />
+
           </div>
         </motion.div>
         <Features />
@@ -146,12 +145,10 @@ export default function HeroSection() {
             <span className="text-sm text-zinc-500 dark:text-zinc-400 block text-center mb-2">
               Buttons
             </span>
-            <div className="w-full h-48 rounded-xl  border border-zinc-200 dark:border-zinc-800 flex flex-col items-center justify-center gap-3">
+            <div className="w-full min-h-[12rem] py-6 px-4 rounded-xl border border-zinc-200 dark:border-zinc-800 flex flex-col items-center justify-center gap-4">
+             
               <Link href="/docs/components/button">
-                {/* <Btn14 label="Bring me" className=" w-42 py-5" /> */}
-              </Link>
-              <Link href="/docs/components/button">
-                {/* <Btn03 className=" w-42 py-5" /> */}
+                <Btn05></Btn05>
               </Link>
             </div>
           </div>

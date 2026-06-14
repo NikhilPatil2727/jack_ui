@@ -62,11 +62,11 @@ export function Header() {
                   <Link href="/" className="flex items-center gap-2">
                     {/* <Flame className="w-6 h-6 text-green-500 dark:text-green-400" /> */}
                     <Image
-                      src="/image.png"
+                      src="/logo.png"
                       alt="Jack UI logo"
-                      width={40}
-                      height={40}
-                      className="h-10 w-10 rounded-md"
+                      width={60}
+                      height={60}
+                      className="h-12 w-12 rounded-md"
                     />
 
                     <span className="hidden sm:block font-semibold">

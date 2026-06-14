@@ -24,11 +24,11 @@ export function baseOptions(): BaseLayoutProps {
       title: (
         <div className="flex min-w-0 items-center gap-2">
           <Image
-            src="/image.png"
+            src="/logo.png"
             alt="Jack UI logo"
-            width={34}
-            height={34}
-            className="size-8 rounded-md"
+            width={60}
+            height={60}
+            className="size-10 rounded-md"
           />
           <span className="truncate text-lg font-bold tracking-tight text-black dark:text-white">
             JackUI

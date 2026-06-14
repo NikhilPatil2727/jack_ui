@@ -77,15 +77,15 @@ export default function Sidebar() {
                             <Image
                                 src="https://ui.codesnipet.dev/logo.svg"
                                 alt="Acme"
-                                width={32}
-                                height={32}
+                                width={48}
+                                height={48}
                                 className="flex-shrink-0 hidden dark:block"
                             />
                             <Image
                                 src="https://ui.codesnipet.dev/logo-black.svg"
                                 alt="Acme"
-                                width={32}
-                                height={32}
+                                width={48}
+                                height={48}
                                 className="flex-shrink-0 block dark:hidden"
                             />
                             <span className="text-lg font-semibold hover:cursor-pointer text-gray-900 dark:text-white">

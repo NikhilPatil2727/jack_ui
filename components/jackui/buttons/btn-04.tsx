@@ -1,103 +1,101 @@
 "use client";
 
+import * as React from "react";
+import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
-import { motion, useAnimation } from "motion/react";
-import { Zap } from "lucide-react";
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 
 interface Btn04Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-    onPowerUp?: () => void;
-    chargeDuration?: number;
+  children?: React.ReactNode;
 }
 
 export default function Btn04({
-    className,
-    onPowerUp,
-    chargeDuration = 2000,
-    ...props
+  className,
+  children,
+  ...props
 }: Btn04Props) {
-    const [isCharging, setIsCharging] = useState(false);
-    const particleControls = useAnimation();
-    const chargeControls = useAnimation();
+  return (
+    <motion.div
+      className="inline-block [perspective:1000px]"
+      whileHover={{
+        rotateX: 8,
+        rotateY: -8,
+        y: -2,
+        scale: 1.01,
+      }}
+      whileTap={{
+        rotateX: 0,
+        rotateY: 0,
+        y: 0,
+        scale: 0.98,
+      }}
+      transition={{
+        type: "spring",
+        stiffness: 300,
+        damping: 20,
+      }}
+    >
+      <Button
+        className={cn(
+          "group relative isolate overflow-hidden rounded-2xl",
+          "border border-white/10 px-6 py-5",
+          "bg-slate-950 text-white shadow-[0_14px_40px_rgba(0,0,0,0.35)]",
+          "transform-gpu transition-none",
+          "hover:shadow-[0_18px_55px_rgba(0,0,0,0.45)]",
+          className
+        )}
+        {...props}
+      >
+        {/* Rainbow border */}
+        <span
+          aria-hidden="true"
+          className="absolute inset-0 rounded-[inherit] bg-[linear-gradient(90deg,#ff4d6d,#ffb84d,#7cff6b,#4dd9ff,#b84dff,#ff4d6d)] bg-[length:300%_300%] opacity-90"
+        />
 
-    async function handleStart() {
-        setIsCharging(true);
-        chargeControls.set({ height: "100%", y: "100%" });
-        await chargeControls.start({
-            y: "0%",
-            transition: {
-                duration: chargeDuration / 1000,
-                ease: "easeOut",
-            },
-        });
+        {/* Inner glass layer */}
+        <span
+          aria-hidden="true"
+          className="absolute inset-[1px] rounded-[inherit] bg-slate-950/90 backdrop-blur-md"
+        />
 
-        await particleControls.start({
-            scale: [1, 1.5],
-            opacity: [1, 0],
-            transition: { duration: 0.3 },
-        });
+        {/* Soft moving glow */}
+        <motion.span
+          aria-hidden="true"
+          className="absolute inset-0 rounded-[inherit] opacity-0 blur-xl group-hover:opacity-100"
+          style={{
+            backgroundImage:
+              "linear-gradient(90deg, rgba(255,77,109,0.18), rgba(255,184,77,0.18), rgba(124,255,107,0.18), rgba(77,217,255,0.18), rgba(184,77,255,0.18))",
+            backgroundSize: "300% 300%",
+          }}
+          animate={{
+            backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+          }}
+          transition={{
+            duration: 6,
+            repeat: Infinity,
+            ease: "linear",
+          }}
+        />
 
-        onPowerUp?.();
-    }
+        {/* Shimmer sweep */}
+        <motion.span
+          aria-hidden="true"
+          className="absolute -inset-y-2 left-[-40%] w-1/2 rotate-12 bg-white/20 opacity-0 blur-md group-hover:opacity-100"
+          animate={{ x: ["0%", "260%"] }}
+          transition={{
+            duration: 1.8,
+            repeat: Infinity,
+            ease: "easeInOut",
+            repeatDelay: 1.2,
+          }}
+        />
 
-    function handleEnd() {
-        setIsCharging(false);
-        chargeControls.stop();
-        chargeControls.start({
-            y: "100%",
-            transition: { duration: 0.2 },
-        });
-    }
-
-    return (
-        <Button
-            className={cn(
-                "min-w-[120px] sm:min-w-40 relative overflow-hidden",
-                "bg-indigo-100 dark:bg-indigo-900",
-                "hover:bg-indigo-200 dark:hover:bg-indigo-800",
-                "text-indigo-900 dark:text-indigo-300",
-                "border border-indigo-300 dark:border-indigo-700",
-                "transition-colors duration-300",
-                "touch-none",
-                className
-            )}
-            onMouseDown={handleStart}
-            onMouseUp={handleEnd}
-            onMouseLeave={handleEnd}
-            onTouchStart={handleStart}
-            onTouchEnd={handleEnd}
-            onTouchCancel={handleEnd}
-            {...props}
-        >
-            <motion.div
-                initial={{ height: "100%", y: "100%" }}
-                animate={chargeControls}
-                className={cn(
-                    "absolute left-0 bottom-0 w-full",
-                    "bg-linear-to-t from-indigo-400 to-indigo-300",
-                    "dark:from-indigo-500 dark:to-indigo-400",
-                    "opacity-50"
-                )}
-            />
-            <motion.div
-                initial={{ scale: 0, opacity: 0 }}
-                animate={particleControls}
-                className={cn(
-                    "absolute inset-0",
-                    "bg-indigo-200 dark:bg-indigo-400",
-                    "rounded-full"
-                )}
-            />
-            <span className="relative z-10 w-full flex items-center justify-center gap-2">
-                <Zap
-                    className={cn(
-                        "w-4 h-4 transition-transform",
-                        isCharging && "animate-bounce"
-                    )}
-                />
-                {!isCharging ? "Power Up!" : "Charging..."}
-            </span>
-        </Button>
-    );
+        {/* Content */}
+        <span className="relative z-10 flex items-center gap-2 text-sm font-semibold tracking-wide">
+          <span className="h-2 w-2 rounded-full bg-gradient-to-r from-pink-400 via-amber-300 to-cyan-400 shadow-[0_0_14px_rgba(255,255,255,0.35)]" />
+          {children ?? "Hover me"}
+        </span>
+      </Button>
+    </motion.div>
+  );
 }
