@@ -2,7 +2,7 @@
 
 /**
  * Btn06 — Dot-rail + status-sweep button
- * Part of your UI library — compatible with Next.js 13+ App Router
+ * Part of Jack UI library — compatible with Next.js 13+ App Router
  *
  * Dependencies:
  *   npm install motion

@@ -19,9 +19,9 @@ export interface Btn02Props
 // ─── Size config ──────────────────────────────────────────────────────────────
 
 const sizes: Record<Btn02Size, { w: number; h: number; fs: number }> = {
-  sm: { w: 140, h: 42,  fs: 13 },
-  md: { w: 210, h: 60,  fs: 18 },
-  lg: { w: 280, h: 76,  fs: 22 },
+  sm: { w: 100, h: 38,  fs: 12 },
+  md: { w: 150, h: 50,  fs: 15 },
+  lg: { w: 200, h: 64,  fs: 18 },
 };
 
 const ambientInset: Record<Btn02Size, string> = {

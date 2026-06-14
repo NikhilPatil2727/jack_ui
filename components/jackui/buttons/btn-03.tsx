@@ -205,7 +205,7 @@ export default function Btn03({ className, label = "Click me 🎉", onClick, ...
         transition={{ type: "spring", stiffness: 400, damping: 25 }}
         className={cn(
           "relative group isolate",
-          "w-[220px] h-[56px]",
+          "w-[180px] h-[52px]",
           "rounded-[10px]",
           "outline-none focus-visible:ring-2 focus-visible:ring-[#c8a96e]/60 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0d0d0d]",
           "cursor-pointer select-none",
