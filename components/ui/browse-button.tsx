@@ -22,60 +22,44 @@ export function BrowseComponentsButton() {
             ease: "easeOut",
           },
         }}
-        whileHover={{
-          x: 4,
-          transition: {
-            duration: 0.2,
-          },
-        }}
       >
         <Button
           className={cn(
-            // Layout
             "relative h-12 min-w-72 overflow-hidden rounded-2xl px-6 md:min-w-56",
-
-            // Flex
             "inline-flex items-center justify-center gap-3",
-
-            // Base colors
-            "bg-black text-white",
-            "dark:bg-white dark:text-black",
-
-            // Border
-            "border border-white/10 dark:border-black/10",
-
-            // Modern lime glow
-            "shadow-[0_10px_30px_-10px_rgba(132,204,22,0.45),0_0_25px_-5px_rgba(190,242,100,0.25)]",
-
-            // Hover glow
-            "hover:shadow-[0_18px_40px_-12px_rgba(132,204,22,0.65),0_0_40px_-4px_rgba(190,242,100,0.45)]",
-
-            // Hover scale
-            "hover:scale-[1.015]",
-
-            // Smooth transition
+            "bg-zinc-900 text-white",
+            "dark:bg-white dark:text-zinc-900",
+            "border border-white/15 dark:border-zinc-900/15",
+            "shadow-lg shadow-zinc-900/10",
+            "hover:shadow-xl hover:shadow-zinc-900/15 hover:-translate-y-0.5",
             "transition-all duration-300 ease-out",
-
-            // Blur effect
             "backdrop-blur-xl"
           )}
         >
-          {/* Glow layer */}
+          {/* Top edge highlight */}
+          <div
+            className={cn(
+              "absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/25 to-transparent dark:via-zinc-900/20",
+              "opacity-0 transition-opacity duration-300",
+              "group-hover:opacity-100"
+            )}
+          />
+
+          {/* Subtle glow layer */}
           <div
             className={cn(
               "absolute inset-0 opacity-0",
-              "bg-[radial-gradient(circle_at_top,rgba(190,242,100,0.18),transparent_70%)]",
+              "bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.08),transparent_70%)]",
+              "dark:bg-[radial-gradient(circle_at_center,rgba(0,0,0,0.06),transparent_70%)]",
               "transition-opacity duration-300",
               "group-hover:opacity-100"
             )}
           />
 
-          {/* Text */}
           <span className="relative z-10 font-medium tracking-tight">
             Browse Components
           </span>
 
-          {/* Icon */}
           <motion.div
             className="relative z-10"
             whileHover={{ rotate: -45 }}
