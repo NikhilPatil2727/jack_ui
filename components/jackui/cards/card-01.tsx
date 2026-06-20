@@ -99,8 +99,8 @@ function SingleEnvelope({ item }: SingleEnvelopeProps) {
     <motion.div
       className="relative flex-shrink-0"
       style={{ 
-        width: 280, 
-        height: 460, 
+        width: 220, 
+        height: 350, 
         cursor: "pointer", 
         zIndex: isHovered ? 50 : 1 
       }}
@@ -112,9 +112,9 @@ function SingleEnvelope({ item }: SingleEnvelopeProps) {
       {/* ── 1. Envelope Back ── */}
       <div
         aria-hidden="true"
-        className="absolute bottom-0 w-full rounded-b-[18px] shadow-lg"
+        className="absolute bottom-0 w-full rounded-b-[14px] shadow-md"
         style={{
-          height: 200,
+          height: 150,
           background: t.backGradient,
           zIndex: 0,
         }}
@@ -123,20 +123,20 @@ function SingleEnvelope({ item }: SingleEnvelopeProps) {
       {/* ── 2. Card (animates upward on hover) ── */}
       <motion.article
         variants={{
-          initial: { y: 24, x: "-50%" },
-          hover: { y: -100, x: "-50%" },
+          initial: { y: 20, x: "-50%" },
+          hover: { y: -80, x: "-50%" },
         }}
         transition={{ type: "spring", stiffness: 280, damping: 22 }}
-        className="absolute overflow-hidden rounded-[14px]"
+        className="absolute overflow-hidden rounded-[10px]"
         style={{
           left: "50%",
-          bottom: 56,
-          width: 248,
-          height: 300,
+          bottom: 40,
+          width: 196,
+          height: 230,
           zIndex: 10,
           boxShadow: isHovered 
-            ? "0 30px 60px rgba(0,0,0,0.35)" 
-            : "0 20px 40px rgba(0,0,0,0.15)",
+            ? "0 20px 40px rgba(0,0,0,0.30)" 
+            : "0 10px 25px rgba(0,0,0,0.12)",
         }}
       >
         {/* Car photo */}
@@ -148,7 +148,7 @@ function SingleEnvelope({ item }: SingleEnvelopeProps) {
           draggable={false}
           style={{
             width: "100%",
-            height: "65%",
+            height: "60%",
             objectFit: "cover",
             display: "block",
             filter: "brightness(0.95) saturate(1.15)",
@@ -158,20 +158,20 @@ function SingleEnvelope({ item }: SingleEnvelopeProps) {
         {/* Card body */}
         <div
           style={{
-            padding: "14px 16px 12px",
-            height: "35%",
+            padding: "10px 12px 8px",
+            height: "40%",
             background: "#fff",
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
-            gap: 4,
+            gap: 2,
           }}
         >
           <span
             style={{
-              fontSize: 10,
+              fontSize: 8,
               fontWeight: 700,
-              letterSpacing: "0.12em",
+              letterSpacing: "0.1em",
               textTransform: "uppercase",
               color: t.accentColor,
               opacity: 0.75,
@@ -182,7 +182,7 @@ function SingleEnvelope({ item }: SingleEnvelopeProps) {
 
           <h3
             style={{
-              fontSize: 16,
+              fontSize: 14,
               fontWeight: 700,
               lineHeight: 1.2,
               color: "#111",
@@ -192,16 +192,16 @@ function SingleEnvelope({ item }: SingleEnvelopeProps) {
             {item.title}
           </h3>
 
-          <p style={{ fontSize: 12, color: "#666", margin: 0 }}>
+          <p style={{ fontSize: 10, color: "#666", margin: 0, lineHeight: 1.1 }}>
             {item.description}
           </p>
 
           <p
             style={{
-              fontSize: 13,
+              fontSize: 11,
               fontWeight: 700,
               color: t.accentColor,
-              margin: "4px 0 0",
+              margin: "2px 0 0",
             }}
           >
             {item.price}
@@ -214,9 +214,9 @@ function SingleEnvelope({ item }: SingleEnvelopeProps) {
         aria-hidden="true"
         className="absolute bottom-0 w-full pointer-events-none"
         style={{
-          height: 200,
+          height: 150,
           zIndex: 20,
-          filter: "drop-shadow(0 -4px 16px rgba(0,0,0,0.10))",
+          filter: "drop-shadow(0 -3px 12px rgba(0,0,0,0.08))",
         }}
       >
         <svg
@@ -252,17 +252,46 @@ function SingleEnvelope({ item }: SingleEnvelopeProps) {
 
 // ─── Main export ──────────────────────────────────────────────────────────────
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 30, scale: 0.95 },
+  show: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      type: "spring",
+      stiffness: 100,
+      damping: 15,
+    },
+  },
+};
+
 export default function EnvelopeCard({
   items = DEFAULT_ITEMS,
   className = "",
 }: EnvelopeCardProps) {
   return (
-    <div
-      className={`flex flex-wrap items-start justify-center gap-x-12 gap-y-16 p-12 ${className}`}
+    <motion.div
+      variants={containerVariants}
+      initial="hidden"
+      animate="show"
+      className={`flex flex-wrap items-start justify-center gap-x-8 gap-y-12 p-8 ${className}`}
     >
       {items.map((item) => (
-        <SingleEnvelope key={item.id} item={item} />
+        <motion.div key={item.id} variants={itemVariants}>
+          <SingleEnvelope item={item} />
+        </motion.div>
       ))}
-    </div>
+    </motion.div>
   );
 }
