@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
-import React from "react";
+import React, { useState } from "react";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -13,13 +13,11 @@ export interface EnvelopeCardItem {
   price: string;
   imageUrl: string;
   imageAlt: string;
-  /** Colour theme for the envelope. Defaults to "crimson". */
   theme?: "crimson" | "midnight" | "forest";
 }
 
 export interface EnvelopeCardProps {
   items?: EnvelopeCardItem[];
-  /** Extra className applied to the outermost wrapper. */
   className?: string;
 }
 
@@ -31,7 +29,7 @@ const themes = {
     frontFill: "#f0ebe5",
     edgeStroke: "#d4cfc9",
     accentColor: "#c0392b",
-    sealGradient: "radial-gradient(circle at 40% 35%, #e74c3c, #a93226)",
+    sealGradient: "radial-gradient(circle at 40% 35%, #e74c3c, #a93226)", // Kept in theme just in case, but no longer used
   },
   midnight: {
     backGradient: "linear-gradient(160deg, #f5f7f8 60%, #eaecee)",
@@ -95,15 +93,21 @@ interface SingleEnvelopeProps {
 
 function SingleEnvelope({ item }: SingleEnvelopeProps) {
   const t = themes[item.theme ?? "crimson"];
-  // First letter of first word in title
-  const sealLetter = item.title.charAt(0);
+  const [isHovered, setIsHovered] = useState(false);
 
   return (
     <motion.div
       className="relative flex-shrink-0"
-      style={{ width: 280, height: 380, cursor: "pointer" }}
+      style={{ 
+        width: 280, 
+        height: 460, 
+        cursor: "pointer", 
+        zIndex: isHovered ? 50 : 1 
+      }}
       initial="initial"
       whileHover="hover"
+      onHoverStart={() => setIsHovered(true)}
+      onHoverEnd={() => setIsHovered(false)}
     >
       {/* ── 1. Envelope Back ── */}
       <div
@@ -119,21 +123,20 @@ function SingleEnvelope({ item }: SingleEnvelopeProps) {
       {/* ── 2. Card (animates upward on hover) ── */}
       <motion.article
         variants={{
-          initial: { y: 24 },
-          hover: { y: -100 },
+          initial: { y: 24, x: "-50%" },
+          hover: { y: -100, x: "-50%" },
         }}
         transition={{ type: "spring", stiffness: 280, damping: 22 }}
         className="absolute overflow-hidden rounded-[14px]"
         style={{
           left: "50%",
-          transform: "translateX(-50%)",
           bottom: 56,
           width: 248,
           height: 300,
           zIndex: 10,
-          boxShadow: "0 20px 60px rgba(0,0,0,0.28)",
-          // translateX is baked in, so we re-apply via the style below
-          // motion will merge the transforms
+          boxShadow: isHovered 
+            ? "0 30px 60px rgba(0,0,0,0.35)" 
+            : "0 20px 40px rgba(0,0,0,0.15)",
         }}
       >
         {/* Car photo */}
@@ -206,38 +209,7 @@ function SingleEnvelope({ item }: SingleEnvelopeProps) {
         </div>
       </motion.article>
 
-      {/* ── 3. Wax Seal (fades out on hover) ── */}
-      <motion.div
-        aria-hidden="true"
-        variants={{
-          initial: { opacity: 1, scale: 1 },
-          hover: { opacity: 0, scale: 0.8 },
-        }}
-        transition={{ duration: 0.2 }}
-        style={{
-          position: "absolute",
-          bottom: 188,
-          left: "50%",
-          transform: "translateX(-50%)",
-          width: 36,
-          height: 36,
-          borderRadius: "50%",
-          background: t.sealGradient,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          fontSize: 14,
-          fontWeight: 900,
-          color: "rgba(255,255,255,0.92)",
-          zIndex: 25,
-          boxShadow: "0 2px 8px rgba(0,0,0,0.18)",
-          pointerEvents: "none",
-        }}
-      >
-        {sealLetter}
-      </motion.div>
-
-      {/* ── 4. Envelope Front (SVG) ── */}
+      {/* ── 3. Envelope Front (SVG) ── */}
       <div
         aria-hidden="true"
         className="absolute bottom-0 w-full pointer-events-none"
@@ -280,27 +252,13 @@ function SingleEnvelope({ item }: SingleEnvelopeProps) {
 
 // ─── Main export ──────────────────────────────────────────────────────────────
 
-/**
- * EnvelopeCard
- *
- * A collection of animated envelope cards. Hover any card to slide the
- * inner card upward, revealing a full car photograph, name, specs, and price.
- *
- * @example
- * // Default (uses built-in car data)
- * <EnvelopeCard />
- *
- * @example
- * // Custom data
- * <EnvelopeCard items={myItems} />
- */
 export default function EnvelopeCard({
   items = DEFAULT_ITEMS,
   className = "",
 }: EnvelopeCardProps) {
   return (
     <div
-      className={`flex flex-wrap items-center justify-center gap-12 p-12 ${className}`}
+      className={`flex flex-wrap items-start justify-center gap-x-12 gap-y-16 p-12 ${className}`}
     >
       {items.map((item) => (
         <SingleEnvelope key={item.id} item={item} />
