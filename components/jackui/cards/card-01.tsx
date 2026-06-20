@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "motion/react";
+import { motion, Variants } from "motion/react";
 import React, { useState } from "react";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
@@ -52,35 +52,32 @@ const themes = {
 const DEFAULT_ITEMS: EnvelopeCardItem[] = [
   {
     id: "1",
-    label: "Supercar · Exclusive",
-    title: "Ferrari 488 GTB",
-    description: "660 hp · 0–100 in 3.0 s",
-    price: "From $280,000",
-    imageUrl:
-      "https://images.unsplash.com/photo-1592198084033-aade902d1aae?w=600&q=85&auto=format&fit=crop",
-    imageAlt: "Ferrari 488 GTB in red",
+    label: "Cabin · Cozy Woods",
+    title: "The A-Frame Retreat",
+    description: "Deep forest escape · Wood fireplace",
+    price: "From $180 / night",
+    imageUrl: "/nature_cabin_1.png",
+    imageAlt: "Cozy A-frame cabin in autumn woods",
     theme: "crimson",
   },
   {
     id: "2",
-    label: "Sports · Heritage",
-    title: "Porsche 911 GT3",
-    description: "510 hp · Naturally aspirated",
-    price: "From $194,000",
-    imageUrl:
-      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600&q=85&auto=format&fit=crop",
-    imageAlt: "Porsche 911 GT3 on track",
+    label: "Cabin · Lakeside",
+    title: "Lakeside Glow Cottage",
+    description: "Waterfront deck · Warm cozy fireplace",
+    price: "From $220 / night",
+    imageUrl: "/nature_cabin_2.png",
+    imageAlt: "Cozy wooden cottage by a lake at dusk",
     theme: "midnight",
   },
   {
     id: "3",
-    label: "Hypercar · Limited",
-    title: "Lamborghini Huracán",
-    description: "640 hp · V10 naturally aspirated",
-    price: "From $248,000",
-    imageUrl:
-      "https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=600&q=85&auto=format&fit=crop",
-    imageAlt: "Lamborghini Huracán on highway",
+    label: "Lodge · Pine Forest",
+    title: "Misty Mountain Lodge",
+    description: "Surrounded by pines · Outdoor hot tub",
+    price: "From $260 / night",
+    imageUrl: "/nature_cabin_3.png",
+    imageAlt: "Lodge surrounded by green forest trees",
     theme: "forest",
   },
 ];
@@ -148,65 +145,12 @@ function SingleEnvelope({ item }: SingleEnvelopeProps) {
           draggable={false}
           style={{
             width: "100%",
-            height: "60%",
+            height: "100%",
             objectFit: "cover",
             display: "block",
             filter: "brightness(0.95) saturate(1.15)",
           }}
         />
-
-        {/* Card body */}
-        <div
-          style={{
-            padding: "10px 12px 8px",
-            height: "40%",
-            background: "#fff",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            gap: 2,
-          }}
-        >
-          <span
-            style={{
-              fontSize: 8,
-              fontWeight: 700,
-              letterSpacing: "0.1em",
-              textTransform: "uppercase",
-              color: t.accentColor,
-              opacity: 0.75,
-            }}
-          >
-            {item.label}
-          </span>
-
-          <h3
-            style={{
-              fontSize: 14,
-              fontWeight: 700,
-              lineHeight: 1.2,
-              color: "#111",
-              margin: 0,
-            }}
-          >
-            {item.title}
-          </h3>
-
-          <p style={{ fontSize: 10, color: "#666", margin: 0, lineHeight: 1.1 }}>
-            {item.description}
-          </p>
-
-          <p
-            style={{
-              fontSize: 11,
-              fontWeight: 700,
-              color: t.accentColor,
-              margin: "2px 0 0",
-            }}
-          >
-            {item.price}
-          </p>
-        </div>
       </motion.article>
 
       {/* ── 3. Envelope Front (SVG) ── */}
@@ -252,7 +196,7 @@ function SingleEnvelope({ item }: SingleEnvelopeProps) {
 
 // ─── Main export ──────────────────────────────────────────────────────────────
 
-const containerVariants = {
+const containerVariants: Variants = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
@@ -262,7 +206,7 @@ const containerVariants = {
   },
 };
 
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: { opacity: 0, y: 30, scale: 0.95 },
   show: {
     opacity: 1,
