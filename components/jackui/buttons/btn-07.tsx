@@ -2,12 +2,12 @@
 
 /**
  * @component: Btn07
- * @author: your-name
+ * @author: Jack UI library
  * @description: Star Burst Button — colorful star glyphs explode from the
  *               exact click point, scatter outward, then fade. Pure React,
  *               no external UI dependencies.
- * @version: 1.0.0
- * @license: MIT
+ *
+ * Part of your UI library — compatible with Next.js 13+ App Router
  */
 
 import {
