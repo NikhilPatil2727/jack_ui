@@ -32,11 +32,51 @@ export const hooks: Registry = [
         ],
     },
     {
+        name: "use-debounce",
+        type: "registry:hook",
+        files: [
+            {
+                path: "hooks/use-debounce.ts",
+                type: "registry:hook",
+            },
+        ],
+    },
+    {
+        name: "use-file-input",
+        type: "registry:hook",
+        files: [
+            {
+                path: "hooks/use-file-input.ts",
+                type: "registry:hook",
+            },
+        ],
+    },
+    {
+        name: "use-intersection",
+        type: "registry:hook",
+        files: [
+            {
+                path: "hooks/use-intersection.ts",
+                type: "registry:hook",
+            },
+        ],
+    },
+    {
         name: "use-mobile",
         type: "registry:hook",
         files: [
             {
                 path: "hooks/use-mobile.ts",
+                type: "registry:hook",
+            },
+        ],
+    },
+    {
+        name: "use-tags",
+        type: "registry:hook",
+        files: [
+            {
+                path: "hooks/use-tags.ts",
                 type: "registry:hook",
             },
         ],
