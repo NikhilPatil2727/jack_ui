@@ -216,47 +216,18 @@ export default function PreviewContent({
                         </Btn07>
 
                         {!isBlock && (
-                            <form
-                                onSubmit={(e) => {
-                                    e.preventDefault();
-                                    handleCopyClick();
-                                }}
+                            <Btn07
+                                onClick={handleCopyClick}
+                                disabled={isPending}
+                                className="!rounded-[5px] !h-7 !px-3 !text-xs !bg-black dark:!bg-white !text-white dark:!text-black hover:!bg-black/90 dark:hover:!bg-white/90"
                             >
-                                <Button
-                                    ref={copyButtonRef}
-                                    type="submit"
-                                    variant="ghost"
-                                    size="sm"
-                                    disabled={isPending}
-                                    className={cn(
-                                        "relative overflow-hidden",
-                                        "h-8 px-3 text-xs font-medium sm:h-7",
-                                        "bg-black dark:bg-white",
-                                        "text-white dark:text-black",
-                                        "hover:bg-black/90 dark:hover:bg-white/90",
-                                        "hover:text-white dark:hover:text-black",
-                                        "transition-all duration-200",
-                                        "group flex items-center gap-1",
-                                        "rounded-[5px]",
-                                        "shadow-none"
-                                    )}
-                                >
-                                    {isCopied ? (
-                                        <>
-                                            <CheckCheck className="h-3.5 w-3.5 text-white dark:text-black" />
-                                        </>
-                                    ) : (
-                                        <Copy
-                                            className={cn(
-                                                "h-3.5 w-3.5",
-                                                "transition-all duration-200",
-                                                "group-hover:rotate-12"
-                                            )}
-                                        />
-                                    )}
-                                    <span>Copy</span>
-                                </Button>
-                            </form>
+                                {isCopied ? (
+                                    <CheckCheck className="h-3.5 w-3.5" />
+                                ) : (
+                                    <Copy className="h-3.5 w-3.5" />
+                                )}
+                                <span>Copy</span>
+                            </Btn07>
                         )}
                     </div>
                 </div>
