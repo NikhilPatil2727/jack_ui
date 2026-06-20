@@ -1,0 +1,12 @@
+{
+  "name": "use-debounce",
+  "type": "registry:hook",
+  "files": [
+    {
+      "type": "registry:hook",
+      "content": "import { useEffect, useState } from \"react\";\r\n\r\nfunction useDebounce<T>(value: T, delay: number = 500): T {\r\n    const [debouncedValue, setDebouncedValue] = useState<T>(value);\r\n\r\n    useEffect(() => {\r\n        const timer = setTimeout(() => {\r\n            setDebouncedValue(value);\r\n        }, delay);\r\n\r\n        return () => {\r\n            clearTimeout(timer);\r\n        };\r\n    }, [value, delay]);\r\n\r\n    return debouncedValue;\r\n}\r\n\r\nexport default useDebounce;\r\n",
+      "path": "hooks/use-debounce.ts",
+      "target": "hooks/use-debounce.ts"
+    }
+  ]
+}
