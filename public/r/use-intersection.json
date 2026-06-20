@@ -1,0 +1,12 @@
+{
+  "name": "use-intersection",
+  "type": "registry:hook",
+  "files": [
+    {
+      "type": "registry:hook",
+      "content": "\"use client\";\r\n\r\nimport { useState, useEffect } from \"react\";\r\n\r\ninterface UseIntersectionOptions {\r\n    threshold?: number;\r\n    prefix?: string;\r\n}\r\n\r\nexport function useIntersection(\r\n    items: { id: string | number }[],\r\n    options: UseIntersectionOptions = {}\r\n) {\r\n    const [visibleIds, setVisibleIds] = useState<Set<string | number>>(\r\n        new Set()\r\n    );\r\n\r\n    useEffect(() => {\r\n        const handleIntersection = (entries: IntersectionObserverEntry[]) => {\r\n            setVisibleIds((prev) => {\r\n                const next = new Set(prev);\r\n                for (const entry of entries) {\r\n                    const id = entry.target.id.replace(\r\n                        `${options.prefix}-`,\r\n                        \"\"\r\n                    );\r\n                    const parsedId = Number.isNaN(Number(id)) ? id : Number(id);\r\n\r\n                    if (entry.isIntersecting) {\r\n                        next.add(parsedId);\r\n                    } else {\r\n                        next.delete(parsedId);\r\n                    }\r\n                }\r\n                return next;\r\n            });\r\n        };\r\n\r\n        const observer = new IntersectionObserver(handleIntersection, {\r\n            threshold: options.threshold || 0.2,\r\n            rootMargin: \"-50px 0px\",\r\n        });\r\n\r\n        for (const item of items) {\r\n            const element = document.getElementById(\r\n                `${options.prefix}-${item.id}`\r\n            );\r\n            if (element) observer.observe(element);\r\n        }\r\n\r\n        return () => observer.disconnect();\r\n    }, [items, options.prefix, options.threshold]);\r\n\r\n    return { visibleIds };\r\n}\r\n",
+      "path": "hooks/use-intersection.ts",
+      "target": "hooks/use-intersection.ts"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "name": "use-file-input",
+  "type": "registry:hook",
+  "files": [
+    {
+      "type": "registry:hook",
+      "content": "import { useState, useRef } from \"react\";\r\n\r\ninterface UseFileInputOptions {\r\n    accept?: string;\r\n    maxSize?: number;\r\n}\r\n\r\nexport function useFileInput({ accept, maxSize }: UseFileInputOptions) {\r\n    const [fileName, setFileName] = useState<string>(\"\");\r\n    const [error, setError] = useState<string>(\"\");\r\n    const fileInputRef = useRef<HTMLInputElement>(null);\r\n    const [fileSize, setFileSize] = useState<number>(0);\r\n\r\n    const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {\r\n        const file = e.target.files?.[0];\r\n        validateAndSetFile(file);\r\n    };\r\n\r\n    const validateAndSetFile = (file: File | undefined) => {\r\n        setError(\"\");\r\n\r\n        if (file) {\r\n            if (maxSize && file.size > maxSize * 1024 * 1024) {\r\n                setError(`File size must be less than ${maxSize}MB`);\r\n                return;\r\n            }\r\n\r\n            if (\r\n                accept &&\r\n                !file.type.match(accept.replace(\"/*\", \"/\"))\r\n            ) {\r\n                setError(`File type must be ${accept}`);\r\n                return;\r\n            }\r\n\r\n            setFileSize(file.size);\r\n            setFileName(file.name);\r\n        }\r\n    };\r\n\r\n    const clearFile = () => {\r\n        setFileName(\"\");\r\n        setError(\"\");\r\n        setFileSize(0);\r\n        if (fileInputRef.current) {\r\n            fileInputRef.current.value = \"\";\r\n        }\r\n    };\r\n\r\n    return {\r\n        fileName,\r\n        error,\r\n        fileInputRef,\r\n        handleFileSelect,\r\n        validateAndSetFile,\r\n        clearFile,\r\n        fileSize,\r\n    };\r\n}\r\n",
+      "path": "hooks/use-file-input.ts",
+      "target": "hooks/use-file-input.ts"
+    }
+  ]
+}
