@@ -1,210 +1,310 @@
 "use client";
 
-import { motion, useMotionValue, useTransform, animate } from "motion/react";
-import { useRef, useState } from "react";
+import { motion } from "motion/react";
+import React from "react";
 
-interface CardData {
-  id: number;
+// ─── Types ───────────────────────────────────────────────────────────────────
+
+export interface EnvelopeCardItem {
+  id: string;
+  label: string;
   title: string;
   description: string;
-  tag: string;
-  color: string;
+  price: string;
+  imageUrl: string;
+  imageAlt: string;
+  /** Colour theme for the envelope. Defaults to "crimson". */
+  theme?: "crimson" | "midnight" | "forest";
 }
 
-const cards: CardData[] = [
+export interface EnvelopeCardProps {
+  items?: EnvelopeCardItem[];
+  /** Extra className applied to the outermost wrapper. */
+  className?: string;
+}
+
+// ─── Theme tokens ─────────────────────────────────────────────────────────────
+
+const themes = {
+  crimson: {
+    backGradient: "linear-gradient(160deg, #f8f4f0 60%, #ede8e3)",
+    frontFill: "#f0ebe5",
+    edgeStroke: "#d4cfc9",
+    accentColor: "#c0392b",
+    sealGradient: "radial-gradient(circle at 40% 35%, #e74c3c, #a93226)",
+  },
+  midnight: {
+    backGradient: "linear-gradient(160deg, #f5f7f8 60%, #eaecee)",
+    frontFill: "#edf0f2",
+    edgeStroke: "#c8cdd2",
+    accentColor: "#1a3a5c",
+    sealGradient: "radial-gradient(circle at 40% 35%, #2980b9, #1a5276)",
+  },
+  forest: {
+    backGradient: "linear-gradient(160deg, #f4f7f4 60%, #e8ede8)",
+    frontFill: "#edf2ed",
+    edgeStroke: "#c5ccc5",
+    accentColor: "#1e5631",
+    sealGradient: "radial-gradient(circle at 40% 35%, #27ae60, #1e5631)",
+  },
+} as const;
+
+// ─── Default data ─────────────────────────────────────────────────────────────
+
+const DEFAULT_ITEMS: EnvelopeCardItem[] = [
   {
-    id: 1,
-    title: "Design System",
-    description: "A unified visual language crafted for scale and clarity across every surface.",
-    tag: "UI / UX",
-    color: "#C8F0DC",
+    id: "1",
+    label: "Supercar · Exclusive",
+    title: "Ferrari 488 GTB",
+    description: "660 hp · 0–100 in 3.0 s",
+    price: "From $280,000",
+    imageUrl:
+      "https://images.unsplash.com/photo-1592198084033-aade902d1aae?w=600&q=85&auto=format&fit=crop",
+    imageAlt: "Ferrari 488 GTB in red",
+    theme: "crimson",
   },
   {
-    id: 2,
-    title: "Motion Lab",
-    description: "Interactions that feel alive — micro-moments that guide and delight.",
-    tag: "Animation",
-    color: "#D4C8F0",
+    id: "2",
+    label: "Sports · Heritage",
+    title: "Porsche 911 GT3",
+    description: "510 hp · Naturally aspirated",
+    price: "From $194,000",
+    imageUrl:
+      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600&q=85&auto=format&fit=crop",
+    imageAlt: "Porsche 911 GT3 on track",
+    theme: "midnight",
   },
   {
-    id: 3,
-    title: "Brand Identity",
-    description: "Visual stories told through mark, type, and colour that endure.",
-    tag: "Branding",
-    color: "#F0E0C8",
+    id: "3",
+    label: "Hypercar · Limited",
+    title: "Lamborghini Huracán",
+    description: "640 hp · V10 naturally aspirated",
+    price: "From $248,000",
+    imageUrl:
+      "https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=600&q=85&auto=format&fit=crop",
+    imageAlt: "Lamborghini Huracán on highway",
+    theme: "forest",
   },
 ];
 
-function EnvelopeCard({ card }: { card: CardData }) {
-  const [hovered, setHovered] = useState(false);
-  const cardY = useMotionValue(0);
+// ─── Sub-components ───────────────────────────────────────────────────────────
 
-  const handleEnter = () => {
-    setHovered(true);
-    animate(cardY, -28, { type: "spring", stiffness: 300, damping: 22 });
-  };
+interface SingleEnvelopeProps {
+  item: EnvelopeCardItem;
+}
 
-  const handleLeave = () => {
-    setHovered(false);
-    animate(cardY, 0, { type: "spring", stiffness: 300, damping: 22 });
-  };
+function SingleEnvelope({ item }: SingleEnvelopeProps) {
+  const t = themes[item.theme ?? "crimson"];
+  // First letter of first word in title
+  const sealLetter = item.title.charAt(0);
 
   return (
-    <div
-      className="relative flex flex-col items-center"
-      style={{ width: 300 }}
-      onMouseEnter={handleEnter}
-      onMouseLeave={handleLeave}
+    <motion.div
+      className="relative flex-shrink-0"
+      style={{ width: 280, height: 380, cursor: "pointer" }}
+      initial="initial"
+      whileHover="hover"
     >
-      {/* ── CARD ── */}
-      <motion.div
-        style={{ y: cardY, zIndex: 10, position: "relative" }}
-        className="w-full rounded-2xl overflow-hidden cursor-pointer"
-      >
-        {/* Card face */}
-        <div
-          className="relative w-full rounded-2xl p-7 flex flex-col justify-between"
-          style={{
-            height: 340,
-            background: "#F3F3F3",
-            boxShadow: hovered
-              ? "0 32px 64px rgba(0,0,0,0.28), 0 8px 24px rgba(0,0,0,0.18)"
-              : "0 4px 24px rgba(0,0,0,0.10)",
-            transition: "box-shadow 0.35s ease",
-          }}
-        >
-          {/* Tag pill */}
-          <span
-            className="self-start text-xs font-semibold tracking-widest uppercase px-3 py-1 rounded-full"
-            style={{
-              background: card.color,
-              color: "#1a1a1a",
-              letterSpacing: "0.12em",
-            }}
-          >
-            {card.tag}
-          </span>
-
-          {/* Content */}
-          <div>
-            <h2
-              className="text-2xl font-bold mb-2 leading-tight"
-              style={{ color: "#111", fontFamily: "'Inter', sans-serif" }}
-            >
-              {card.title}
-            </h2>
-            <p
-              className="text-sm leading-relaxed"
-              style={{ color: "#666", fontFamily: "'Inter', sans-serif" }}
-            >
-              {card.description}
-            </p>
-          </div>
-
-          {/* Arrow hint */}
-          <motion.div
-            animate={{ x: hovered ? 5 : 0, opacity: hovered ? 1 : 0.4 }}
-            transition={{ duration: 0.3 }}
-            className="self-end text-xs font-medium tracking-wide"
-            style={{ color: "#aaa" }}
-          >
-            Open ↗
-          </motion.div>
-        </div>
-      </motion.div>
-
-      {/* ── ENVELOPE ── */}
+      {/* ── 1. Envelope Back ── */}
       <div
-        className="absolute bottom-0 left-0 w-full"
+        aria-hidden="true"
+        className="absolute bottom-0 w-full rounded-b-[18px] shadow-lg"
         style={{
-          height: 160,
-          zIndex: 5,
+          height: 200,
+          background: t.backGradient,
+          zIndex: 0,
+        }}
+      />
+
+      {/* ── 2. Card (animates upward on hover) ── */}
+      <motion.article
+        variants={{
+          initial: { y: 24 },
+          hover: { y: -100 },
+        }}
+        transition={{ type: "spring", stiffness: 280, damping: 22 }}
+        className="absolute overflow-hidden rounded-[14px]"
+        style={{
+          left: "50%",
+          transform: "translateX(-50%)",
+          bottom: 56,
+          width: 248,
+          height: 300,
+          zIndex: 10,
+          boxShadow: "0 20px 60px rgba(0,0,0,0.28)",
+          // translateX is baked in, so we re-apply via the style below
+          // motion will merge the transforms
         }}
       >
-        {/* Envelope body */}
-        <div
-          className="absolute inset-0 rounded-b-2xl rounded-t-none"
+        {/* Car photo */}
+        <img
+          src={item.imageUrl}
+          alt={item.imageAlt}
+          loading="lazy"
+          decoding="async"
+          draggable={false}
           style={{
-            background: "#1a1a1a",
-            border: "1.5px solid #333",
-            borderTop: "none",
+            width: "100%",
+            height: "65%",
+            objectFit: "cover",
+            display: "block",
+            filter: "brightness(0.95) saturate(1.15)",
           }}
         />
 
-        {/* Envelope flap (top V shape) */}
-        <svg
-          viewBox="0 0 300 80"
-          className="absolute top-0 left-0 w-full"
-          style={{ height: 80 }}
-          preserveAspectRatio="none"
+        {/* Card body */}
+        <div
+          style={{
+            padding: "14px 16px 12px",
+            height: "35%",
+            background: "#fff",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            gap: 4,
+          }}
         >
-          {/* flap background */}
-          <polygon points="0,0 300,0 300,4 150,68 0,4" fill="#1a1a1a" />
-          {/* flap crease lines */}
-          <polyline
-            points="0,0 150,68 300,0"
-            fill="none"
-            stroke="#ffffff"
-            strokeWidth="1.5"
-            strokeLinejoin="round"
+          <span
+            style={{
+              fontSize: 10,
+              fontWeight: 700,
+              letterSpacing: "0.12em",
+              textTransform: "uppercase",
+              color: t.accentColor,
+              opacity: 0.75,
+            }}
+          >
+            {item.label}
+          </span>
+
+          <h3
+            style={{
+              fontSize: 16,
+              fontWeight: 700,
+              lineHeight: 1.2,
+              color: "#111",
+              margin: 0,
+            }}
+          >
+            {item.title}
+          </h3>
+
+          <p style={{ fontSize: 12, color: "#666", margin: 0 }}>
+            {item.description}
+          </p>
+
+          <p
+            style={{
+              fontSize: 13,
+              fontWeight: 700,
+              color: t.accentColor,
+              margin: "4px 0 0",
+            }}
+          >
+            {item.price}
+          </p>
+        </div>
+      </motion.article>
+
+      {/* ── 3. Wax Seal (fades out on hover) ── */}
+      <motion.div
+        aria-hidden="true"
+        variants={{
+          initial: { opacity: 1, scale: 1 },
+          hover: { opacity: 0, scale: 0.8 },
+        }}
+        transition={{ duration: 0.2 }}
+        style={{
+          position: "absolute",
+          bottom: 188,
+          left: "50%",
+          transform: "translateX(-50%)",
+          width: 36,
+          height: 36,
+          borderRadius: "50%",
+          background: t.sealGradient,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          fontSize: 14,
+          fontWeight: 900,
+          color: "rgba(255,255,255,0.92)",
+          zIndex: 25,
+          boxShadow: "0 2px 8px rgba(0,0,0,0.18)",
+          pointerEvents: "none",
+        }}
+      >
+        {sealLetter}
+      </motion.div>
+
+      {/* ── 4. Envelope Front (SVG) ── */}
+      <div
+        aria-hidden="true"
+        className="absolute bottom-0 w-full pointer-events-none"
+        style={{
+          height: 200,
+          zIndex: 20,
+          filter: "drop-shadow(0 -4px 16px rgba(0,0,0,0.10))",
+        }}
+      >
+        <svg
+          viewBox="0 0 100 100"
+          preserveAspectRatio="none"
+          style={{ width: "100%", height: "100%" }}
+          aria-hidden="true"
+        >
+          {/* Main flap */}
+          <path
+            d="M0,0 L50,42 L100,0 L100,100 L0,100 Z"
+            fill={t.frontFill}
           />
-          <line x1="0" y1="0" x2="300" y2="0" stroke="#333" strokeWidth="1.5" />
-        </svg>
-
-        {/* Content peeking inside envelope (visible at rest, slides with card) */}
-        <motion.div
-          className="absolute left-0 w-full flex flex-col items-center justify-center"
-          style={{ top: 40, opacity: hovered ? 0 : 0.55 }}
-          animate={{ opacity: hovered ? 0 : 0.55 }}
-          transition={{ duration: 0.25 }}
-        >
-          <span
-            className="text-xs font-semibold tracking-widest uppercase mb-1"
-            style={{ color: card.color, letterSpacing: "0.14em" }}
-          >
-            {card.tag}
-          </span>
-          <span
-            className="text-sm font-medium"
-            style={{ color: "#fff", fontFamily: "'Inter', sans-serif" }}
-          >
-            {card.title}
-          </span>
-        </motion.div>
-
-        {/* Envelope side lines */}
-        <svg
-          viewBox="0 0 300 160"
-          className="absolute inset-0 w-full h-full"
-          preserveAspectRatio="none"
-          style={{ pointerEvents: "none" }}
-        >
-          <line x1="0" y1="0" x2="0" y2="160" stroke="#333" strokeWidth="1.5" />
-          <line x1="300" y1="0" x2="300" y2="160" stroke="#333" strokeWidth="1.5" />
-          <line x1="0" y1="160" x2="300" y2="160" stroke="#333" strokeWidth="1.5" />
+          {/* Top crease */}
+          <path
+            d="M0,0 L50,42 L100,0"
+            fill="none"
+            stroke={t.edgeStroke}
+            strokeWidth="1.2"
+          />
+          {/* Bottom crease */}
+          <path
+            d="M0,100 L50,58 L100,100"
+            fill="none"
+            stroke={t.edgeStroke}
+            strokeWidth="0.8"
+          />
         </svg>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
-export default function Card_01() {
+// ─── Main export ──────────────────────────────────────────────────────────────
+
+/**
+ * EnvelopeCard
+ *
+ * A collection of animated envelope cards. Hover any card to slide the
+ * inner card upward, revealing a full car photograph, name, specs, and price.
+ *
+ * @example
+ * // Default (uses built-in car data)
+ * <EnvelopeCard />
+ *
+ * @example
+ * // Custom data
+ * <EnvelopeCard items={myItems} />
+ */
+export default function EnvelopeCard({
+  items = DEFAULT_ITEMS,
+  className = "",
+}: EnvelopeCardProps) {
   return (
-    <section
-      className="min-h-screen flex flex-col items-center justify-center gap-4"
-      style={{ background: "#111" }}
+    <div
+      className={`flex flex-wrap items-center justify-center gap-12 p-12 ${className}`}
     >
-      <p
-        className="text-xs tracking-widest uppercase mb-8"
-        style={{ color: "#555", letterSpacing: "0.2em" }}
-      >
-        Hover to reveal
-      </p>
-      <div className="flex flex-wrap items-end justify-center gap-10">
-        {cards.map((card) => (
-          <EnvelopeCard key={card.id} card={card} />
-        ))}
-      </div>
-    </section>
+      {items.map((item) => (
+        <SingleEnvelope key={item.id} item={item} />
+      ))}
+    </div>
   );
 }
