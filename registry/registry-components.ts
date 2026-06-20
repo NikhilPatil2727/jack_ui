@@ -113,17 +113,17 @@ export const component: Registry = [
                 type: "registry:component",
             },
         ],
-    }
-    // {
-    //     name: "card-01",
-    //     type: "registry:component",
-    //     dependencies: ["lucide-react"],
-    //     files: [
-    //         {
-    //             path: "components/jackui/cards/card-01.tsx",
-    //             type: "registry:component",
-    //         },
-    //     ],
-    // },
+    },
+    {
+        name: "card-01",
+        type: "registry:component",
+        dependencies: ["motion"],
+        files: [
+            {
+                path: "components/jackui/cards/card-01.tsx",
+                type: "registry:component",
+            },
+        ],
+    },
     
 ];

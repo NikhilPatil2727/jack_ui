@@ -40,7 +40,7 @@ export function Header() {
           <Link
             href="/"
             className={cn(
-              "flex shrink-0 items-center gap-2.5 pr-5 mr-5",
+              "flex shrink-0 items-center gap-2.5 pr-5 mr-5 cursor-pointer",
               isDark ? "border-r border-white/[0.07]" : "border-r border-black/[0.07]"
             )}
           >
@@ -98,7 +98,7 @@ export function Header() {
             onClick={() => setTheme(isDark ? "light" : "dark")}
             aria-label="Toggle theme"
             className={cn(
-              "flex h-[34px] w-[34px] items-center justify-center rounded-[9px] border transition-all duration-150",
+              "flex h-[34px] w-[34px] cursor-pointer items-center justify-center rounded-[9px] border transition-all duration-150",
               "focus-visible:outline-none focus-visible:ring-1",
               isDark
                 ? "border-white/[0.08] text-white/40 hover:border-white/[0.14] hover:bg-white/[0.06] hover:text-white/80 focus-visible:ring-white/20"
@@ -116,7 +116,7 @@ export function Header() {
             href="#"
             target="_blank"
             className={cn(
-              "inline-flex h-[34px] items-center gap-1.5 rounded-[9px] px-3.5",
+              "inline-flex h-[34px] cursor-pointer items-center gap-1.5 rounded-[9px] px-3.5",
               "text-[12.5px] font-[650] tracking-[-0.2px]",
               "transition-opacity duration-150 hover:opacity-85 active:scale-[0.97]",
               "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
@@ -135,7 +135,7 @@ export function Header() {
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             aria-expanded={menuOpen}
             className={cn(
-              "flex sm:hidden h-[34px] w-[34px] items-center justify-center rounded-[9px] border transition-all duration-150",
+              "flex sm:hidden h-[34px] w-[34px] cursor-pointer items-center justify-center rounded-[9px] border transition-all duration-150",
               "focus-visible:outline-none focus-visible:ring-1",
               isDark
                 ? "border-white/[0.08] text-white/40 hover:border-white/[0.14] hover:bg-white/[0.06] hover:text-white/80 focus-visible:ring-white/20"
@@ -166,7 +166,7 @@ export function Header() {
               href={href}
               onClick={() => setMenuOpen(false)}
               className={cn(
-                "flex items-center justify-between rounded-[10px] px-3 py-2.5",
+                "flex cursor-pointer items-center justify-between rounded-[10px] px-3 py-2.5",
                 "text-[14px] font-[450] transition-all duration-[140ms]",
                 isDark
                   ? "text-white/55 hover:bg-white/[0.05] hover:text-white/90"
@@ -193,7 +193,7 @@ export function Header() {
             target="_blank"
             onClick={() => setMenuOpen(false)}
             className={cn(
-              "flex items-center justify-center gap-1.5 rounded-[10px] py-2.5",
+              "flex cursor-pointer items-center justify-center gap-1.5 rounded-[10px] py-2.5",
               "text-[13.5px] font-[650] tracking-[-0.2px]",
               "transition-opacity duration-150 hover:opacity-85",
               isDark ? "bg-white text-[#0a0a0a]" : "bg-black text-white"
@@ -219,7 +219,7 @@ function NavLink({
     <Link
       href={href}
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-[8px] px-3 py-[6px]",
+        "inline-flex cursor-pointer items-center gap-1.5 rounded-[8px] px-3 py-[6px]",
         "text-[13px] font-[450] transition-all duration-[140ms]",
         "focus-visible:outline-none focus-visible:ring-1",
         isDark
