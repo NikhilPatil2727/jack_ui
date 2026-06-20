@@ -2,7 +2,6 @@
 
 import { cn } from "@/lib/utils";
 import { motion } from "motion/react";
-import Image from "next/image";
 import Nextjs from "@/components/icons/nextjs";
 import ReactIcon from "@/components/icons/react";
 import ShadcnIcon from "@/components/icons/shadcn";
@@ -21,8 +20,8 @@ export default function Features() {
     };
 
     return (
-        <div className="w-full max-w-none flex flex-col justify-start items-center z-10 mx-auto">
-            <div className="grid grid-cols-3 md:flex md:flex-wrap items-center justify-start gap-6 md:gap-8 w-[95%] mx-auto py-4">
+        <div className="w-full flex justify-center z-10">
+            <div className="flex flex-row flex-wrap items-center justify-center gap-6 md:gap-8 py-4">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -133,7 +132,7 @@ export default function Features() {
                         ease: [0.23, 1, 0.32, 1],
                     }}
                     className={cn(
-                        "text-black dark:text-white flex flex-col items-center gap-2 relative col-span-1 col-start-1 md:col-auto"
+                        "text-black dark:text-white flex flex-col items-center gap-2 relative"
                     )}
                     onMouseEnter={() => handleMouseEnter("Next.js")}
                     onMouseLeave={handleMouseLeave}
@@ -159,7 +158,7 @@ export default function Features() {
                         ease: [0.23, 1, 0.32, 1],
                     }}
                     className={cn(
-                        "text-black dark:text-white flex flex-col items-center gap-2 relative col-span-1 col-start-3 md:col-auto"
+                        "text-black dark:text-white flex flex-col items-center gap-2 relative"
                     )}
                     onMouseEnter={() => handleMouseEnter("React")}
                     onMouseLeave={handleMouseLeave}

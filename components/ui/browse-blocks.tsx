@@ -4,7 +4,7 @@ import { Link } from "next-view-transitions";
 import { Button } from "./button";
 import { cn } from "@/lib/utils";
 import { motion } from "motion/react";
-import { ArrowDownRight, ArrowRight, BlocksIcon } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 /**
  *
@@ -15,30 +15,47 @@ export function BrowseBlocksButton() {
         <Link
             id="browse-blocks-button"
             href="https://kokonutui.pro/templates"
-            className="flex items-center gap-8"
+            className="group flex items-center"
         >
             <motion.div
                 initial={{ x: 200, opacity: 0 }}
                 animate={{ x: 0, opacity: 1, transition: { duration: 0.2 } }}
-                whileHover={{ x: 5, transition: { duration: 0.2 } }}
                 className="relative"
             >
                 <Button
                     className={cn(
-                        "relative inline-flex items-center justify-center gap-4 rounded-xl font-medium",
-                        "relative h-12 px-6 min-w-72 md:min-w-56",
-                        "bg-white dark:bg-black",
-                        "text-black dark:text-white",
-                        "border-2 border-black/20 dark:border-white/20",
-                        "hover:bg-black/5 dark:hover:bg-white/10",
-                        "backdrop-blur-xs",
-                        "shadow-md hover:shadow-lg transition-all duration-200"
+                        "relative h-12 min-w-72 overflow-hidden rounded-2xl px-6 md:min-w-56",
+                        "inline-flex items-center justify-center gap-3",
+                        "bg-transparent",
+                        "text-zinc-700 dark:text-zinc-300",
+                        "border border-zinc-300 dark:border-zinc-700",
+                        "hover:bg-zinc-100 dark:hover:bg-zinc-800/50",
+                        "hover:border-zinc-400 dark:hover:border-zinc-600",
+                        "hover:-translate-y-0.5",
+                        "shadow-sm hover:shadow-md",
+                        "transition-all duration-300 ease-out"
                     )}
                 >
-                    <span className="font-medium flex items-center gap-2">
-                        Go to Templates
+                    {/* Top edge highlight */}
+                    <div
+                        className={cn(
+                            "absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-zinc-400/20 to-transparent dark:via-zinc-500/20",
+                            "opacity-0 transition-opacity duration-300",
+                            "group-hover:opacity-100"
+                        )}
+                    />
+
+                    <span className="relative z-10 font-medium tracking-tight">
+                        Browse Blocks
                     </span>
-                    <ArrowRight className="w-5 h-5" />
+
+                    <motion.div
+                        className="relative z-10"
+                        whileHover={{ x: 3 }}
+                        transition={{ duration: 0.2 }}
+                    >
+                        <ArrowRight className="w-5 h-5" />
+                    </motion.div>
                 </Button>
             </motion.div>
         </Link>

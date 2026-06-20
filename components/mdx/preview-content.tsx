@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowUpRight, Copy, CheckCheck, Terminal } from "lucide-react";
 import { copyComponent } from "@/lib/action";
 import { cn } from "@/lib/utils";
+import Btn07 from "@/components/jackui/buttons/btn-07";
 import { OpenInV0Button } from "../open-in-v0-button";
 import { AnimatePresence, motion } from "motion/react";
 
@@ -74,6 +75,14 @@ export default function PreviewContent({
         x: number;
         y: number;
     } | null>(null);
+    const [pm, setPm] = useState("npx");
+
+    const pkgManagers: Record<string, { label: string; command: string }> = {
+        npx: { label: "npx", command: `npx shadcn@latest add ${prePath}/r/` },
+        bun: { label: "bun", command: `bunx shadcn@latest add ${prePath}/r/` },
+        pnpm: { label: "pnpm", command: `pnpm dlx shadcn@latest add ${prePath}/r/` },
+        yarn: { label: "yarn", command: `yarn dlx shadcn@latest add ${prePath}/r/` },
+    };
 
     const showParticlesFrom = (
         buttonRef: React.RefObject<HTMLButtonElement | null>
@@ -106,9 +115,8 @@ export default function PreviewContent({
 
     const handleTerminalClick = () => {
         const [folder, filename] = link.split("/");
-        const COPY = `bunx shadcn@latest add ${prePath}/r/${
-            filename ? filename : folder
-        }.json`;
+        const name = filename ? filename : folder;
+        const COPY = `${pkgManagers[pm].command}${name}.json`;
         navigator.clipboard.writeText(COPY);
         showParticlesFrom(terminalButtonRef);
         setIsTerminalCopied(true);
@@ -148,8 +156,8 @@ export default function PreviewContent({
             )}
 
             <div className={cn("relative mt-4", "rounded-xl px-0 py-3 sm:p-3")}>
-                <div className="relative flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
-                    <a
+                <div className="relative flex flex-col gap-3 lg:flex-row lg:items-center">
+                    {/* <a
                         href={`${prePath}/preview/${link}`}
                         target="_blank"
                         rel="noreferrer"
@@ -168,43 +176,44 @@ export default function PreviewContent({
                                 "transition-transform duration-200 group-hover:rotate-12"
                             )}
                         />
-                    </a>
+                    </a> */}
 
-                    <div className="flex w-full flex-wrap items-center gap-2 lg:w-auto lg:justify-end">
-                        <OpenInV0Button name={openInV0()} prePath={prePath} />
-                        <Button
-                            ref={terminalButtonRef}
+                    <div className="flex w-full flex-wrap items-center gap-2 lg:w-auto lg:justify-start">
+                        <div className="inline-flex items-center rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 p-0.5 shadow-xs">
+                            {Object.entries(pkgManagers).map(([key, { label }]) => (
+                                <button
+                                    key={key}
+                                    type="button"
+                                    onClick={() => setPm(key)}
+                                    className={cn(
+                                        "px-3 py-1.5 text-xs font-medium rounded-md transition-all duration-200 select-none",
+                                        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1",
+                                        pm === key
+                                            ? "bg-black text-white dark:bg-white dark:text-black shadow-sm"
+                                            : "bg-transparent text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200"
+                                    )}
+                                >
+                                    {label}
+                                </button>
+                            ))}
+                        </div>
+
+                        <OpenInV0Button
+                            name={openInV0()}
+                            prePath={prePath}
+                            className="rounded-[5px]"
+                        />
+                        <Btn07
                             onClick={handleTerminalClick}
-                            variant="ghost"
-                            size="sm"
-                            className={cn(
-                                "relative overflow-hidden",
-                                "h-8 max-w-full px-3 text-xs font-medium sm:h-7",
-                                "bg-black dark:bg-white",
-                                "text-white dark:text-black",
-                                "hover:bg-black/90 dark:hover:bg-white/90",
-                                "hover:text-white dark:hover:text-black",
-                                "transition-all duration-200",
-                                "group flex min-w-0 items-center gap-1",
-                                "rounded-lg",
-                                "shadow-none"
-                            )}
+                            className="!rounded-[5px] !h-7 !px-3 !text-xs"
                         >
                             {isTerminalCopied ? (
-                                <>
-                                    <CheckCheck className="h-3.5 w-3.5 text-white dark:text-black" />
-                                </>
+                                <CheckCheck className="h-3.5 w-3.5" />
                             ) : (
-                                <Terminal
-                                    className={cn(
-                                        "h-3.5 w-3.5",
-                                        "transition-all duration-200",
-                                        "group-hover:rotate-12"
-                                    )}
-                                />
+                                <Terminal className="h-3.5 w-3.5" />
                             )}
-                            <span className="truncate">npx shadcn add {getFileName()}</span>
-                        </Button>
+                            <span className="truncate">{pm} shadcn add {getFileName()}</span>
+                        </Btn07>
 
                         {!isBlock && (
                             <form
@@ -228,7 +237,7 @@ export default function PreviewContent({
                                         "hover:text-white dark:hover:text-black",
                                         "transition-all duration-200",
                                         "group flex items-center gap-1",
-                                        "rounded-lg",
+                                        "rounded-[5px]",
                                         "shadow-none"
                                     )}
                                 >

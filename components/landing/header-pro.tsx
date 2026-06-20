@@ -4,7 +4,7 @@ import { ArrowUpRight, PartyPopper, Rocket } from "lucide-react";
 import Link from "next/link";
 import XIcon from "../icons/x-icon";
 import { ConfettiOutline } from "../icons/conffeti";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 interface HeaderContent {
   text: string;
@@ -12,29 +12,15 @@ interface HeaderContent {
   link: string;
 }
 
-export function HeaderPro() {
-  const [content, setContent] = useState<HeaderContent>({
-    text: "",
-    productName: "",
-    link: "",
-  });
+function getRandomContent(): HeaderContent {
+  const random = Math.random();
+  return random < 0.75
+    ? { text: "Built app fast", productName: "CodeSnippet Boilerplate", link: "#" }
+    : { text: "Explore new components", productName: "CodeSnippet UI Pro", link: "#" };
+}
 
-  useEffect(() => {
-    const random = Math.random();
-    if (random < 0.75) {
-      setContent({
-        text: "Built app fast",
-        productName: "CodeSnippet Boilerplate",
-        link: "#",
-      });
-    } else {
-      setContent({
-        text: "Explore new components",
-        productName: "CodeSnippet UI Pro",
-        link: "#",
-      });
-    }
-  }, []);
+export function HeaderPro() {
+  const [content] = useState(getRandomContent);
 
   return (
     <div className="flex items-center justify-end gap-1 flex-1">

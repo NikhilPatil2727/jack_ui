@@ -1,256 +1,268 @@
-import { cn } from "@/lib/utils";
+"use client";
 
-import {
-    Heart,
-    MessageCircle,
-    Share2,
-    Bookmark,
-    MoreHorizontal,
-    Link as LinkIcon,
-} from "lucide-react";
+import { motion } from "motion/react";
+import React, { useState } from "react";
 
-interface Card01Props {
-    author?: {
-        name?: string;
-        username?: string;
-        avatar?: string;
-        timeAgo?: string;
-    };
-    content?: {
-        text?: string;
-        link?: {
-            title?: string;
-            description?: string;
-            icon?: React.ReactNode;
-        };
-    };
-    engagement?: {
-        likes?: number;
-        comments?: number;
-        shares?: number;
-        isLiked?: boolean;
-        isBookmarked?: boolean;
-    };
-    onLike?: () => void;
-    onComment?: () => void;
-    onShare?: () => void;
-    onBookmark?: () => void;
+// ─── Types ───────────────────────────────────────────────────────────────────
+
+export interface EnvelopeCardItem {
+  id: string;
+  label: string;
+  title: string;
+  description: string;
+  price: string;
+  imageUrl: string;
+  imageAlt: string;
+  theme?: "crimson" | "midnight" | "forest";
 }
 
-const defaultProps: Card01Props = {
-    author: {
-        name: "Dorian Baffier",
-        username: "dorian_baffier",
-        avatar: "https://ferf1mheo22r9ira.public.blob.vercel-storage.com/avatar-04-uuYHWIRvVPi01gEt6NwnGyjqLeeZhz.png",
-        timeAgo: "2h ago",
-    },
-    content: {
-        text: "Just launched CodeSnippet UI! Check out the documentation and let me know what you think 🎨",
-        link: {
-            title: "CodeSnippet UI Documentation",
-            description: "A comprehensive guide to CodeSnippet UI",
-            icon: <LinkIcon className="w-5 h-5 text-blue-500" />,
-        },
-    },
-    engagement: {
-        likes: 128,
-        comments: 32,
-        shares: 24,
-        isLiked: true,
-        isBookmarked: false,
-    },
-};
+export interface EnvelopeCardProps {
+  items?: EnvelopeCardItem[];
+  className?: string;
+}
 
-export default function Card_01({
-    author = defaultProps.author,
-    content = defaultProps.content,
-    engagement = defaultProps.engagement,
-    onLike,
-    onComment,
-    onShare,
-    onBookmark,
-}: Card01Props) {
-    return (
+// ─── Theme tokens ─────────────────────────────────────────────────────────────
+
+const themes = {
+  crimson: {
+    backGradient: "linear-gradient(160deg, #f8f4f0 60%, #ede8e3)",
+    frontFill: "#f0ebe5",
+    edgeStroke: "#d4cfc9",
+    accentColor: "#c0392b",
+    sealGradient: "radial-gradient(circle at 40% 35%, #e74c3c, #a93226)", // Kept in theme just in case, but no longer used
+  },
+  midnight: {
+    backGradient: "linear-gradient(160deg, #f5f7f8 60%, #eaecee)",
+    frontFill: "#edf0f2",
+    edgeStroke: "#c8cdd2",
+    accentColor: "#1a3a5c",
+    sealGradient: "radial-gradient(circle at 40% 35%, #2980b9, #1a5276)",
+  },
+  forest: {
+    backGradient: "linear-gradient(160deg, #f4f7f4 60%, #e8ede8)",
+    frontFill: "#edf2ed",
+    edgeStroke: "#c5ccc5",
+    accentColor: "#1e5631",
+    sealGradient: "radial-gradient(circle at 40% 35%, #27ae60, #1e5631)",
+  },
+} as const;
+
+// ─── Default data ─────────────────────────────────────────────────────────────
+
+const DEFAULT_ITEMS: EnvelopeCardItem[] = [
+  {
+    id: "1",
+    label: "Supercar · Exclusive",
+    title: "Ferrari 488 GTB",
+    description: "660 hp · 0–100 in 3.0 s",
+    price: "From $280,000",
+    imageUrl:
+      "https://images.unsplash.com/photo-1592198084033-aade902d1aae?w=600&q=85&auto=format&fit=crop",
+    imageAlt: "Ferrari 488 GTB in red",
+    theme: "crimson",
+  },
+  {
+    id: "2",
+    label: "Sports · Heritage",
+    title: "Porsche 911 GT3",
+    description: "510 hp · Naturally aspirated",
+    price: "From $194,000",
+    imageUrl:
+      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600&q=85&auto=format&fit=crop",
+    imageAlt: "Porsche 911 GT3 on track",
+    theme: "midnight",
+  },
+  {
+    id: "3",
+    label: "Hypercar · Limited",
+    title: "Lamborghini Huracán",
+    description: "640 hp · V10 naturally aspirated",
+    price: "From $248,000",
+    imageUrl:
+      "https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=600&q=85&auto=format&fit=crop",
+    imageAlt: "Lamborghini Huracán on highway",
+    theme: "forest",
+  },
+];
+
+// ─── Sub-components ───────────────────────────────────────────────────────────
+
+interface SingleEnvelopeProps {
+  item: EnvelopeCardItem;
+}
+
+function SingleEnvelope({ item }: SingleEnvelopeProps) {
+  const t = themes[item.theme ?? "crimson"];
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <motion.div
+      className="relative flex-shrink-0"
+      style={{ 
+        width: 280, 
+        height: 460, 
+        cursor: "pointer", 
+        zIndex: isHovered ? 50 : 1 
+      }}
+      initial="initial"
+      whileHover="hover"
+      onHoverStart={() => setIsHovered(true)}
+      onHoverEnd={() => setIsHovered(false)}
+    >
+      {/* ── 1. Envelope Back ── */}
+      <div
+        aria-hidden="true"
+        className="absolute bottom-0 w-full rounded-b-[18px] shadow-lg"
+        style={{
+          height: 200,
+          background: t.backGradient,
+          zIndex: 0,
+        }}
+      />
+
+      {/* ── 2. Card (animates upward on hover) ── */}
+      <motion.article
+        variants={{
+          initial: { y: 24, x: "-50%" },
+          hover: { y: -100, x: "-50%" },
+        }}
+        transition={{ type: "spring", stiffness: 280, damping: 22 }}
+        className="absolute overflow-hidden rounded-[14px]"
+        style={{
+          left: "50%",
+          bottom: 56,
+          width: 248,
+          height: 300,
+          zIndex: 10,
+          boxShadow: isHovered 
+            ? "0 30px 60px rgba(0,0,0,0.35)" 
+            : "0 20px 40px rgba(0,0,0,0.15)",
+        }}
+      >
+        {/* Car photo */}
+        <img
+          src={item.imageUrl}
+          alt={item.imageAlt}
+          loading="lazy"
+          decoding="async"
+          draggable={false}
+          style={{
+            width: "100%",
+            height: "65%",
+            objectFit: "cover",
+            display: "block",
+            filter: "brightness(0.95) saturate(1.15)",
+          }}
+        />
+
+        {/* Card body */}
         <div
-            className={cn(
-                "w-full max-w-2xl mx-auto",
-                "bg-white/50 dark:bg-zinc-900/50 backdrop-blur-xl",
-                "border border-zinc-200/50 dark:border-zinc-800/50",
-                "rounded-3xl shadow-lg",
-                "transition-all duration-300 ease-in-out",
-                "hover:shadow-xl hover:shadow-zinc-200/20 dark:hover:shadow-zinc-900/20",
-                "hover:border-zinc-300/50 dark:hover:border-zinc-700/50",
-                "hover:translate-y-[-2px]"
-            )}
+          style={{
+            padding: "14px 16px 12px",
+            height: "35%",
+            background: "#fff",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            gap: 4,
+          }}
         >
-            <div className="divide-y divide-zinc-200/50 dark:divide-zinc-800/50">
-                <div className="p-7">
-                    <div className="flex items-center justify-between mb-5">
-                        <div className="flex items-center gap-4">
-                            <div className="relative">
-                                <img
-                                    src={author?.avatar}
-                                    alt={author?.name}
-                                    className={cn(
-                                        "w-11 h-11 rounded-full",
-                                        "ring-2 ring-white dark:ring-zinc-800",
-                                        "object-cover",
-                                        "transition-transform duration-300",
-                                        "group-hover:scale-105"
-                                    )}
-                                />
-                                <div className="absolute inset-0 rounded-full bg-linear-to-tr from-rose-500 to-blue-500 opacity-0 hover:opacity-10 transition-opacity duration-300" />
-                            </div>
-                            <div>
-                                <h3 className="text-[15px] font-semibold text-zinc-900 dark:text-zinc-100 tracking-tight">
-                                    {author?.name}
-                                </h3>
-                                <p className="text-[13px] text-zinc-500 dark:text-zinc-400 tracking-tight">
-                                    @{author?.username} · {author?.timeAgo}
-                                </p>
-                            </div>
-                        </div>
-                        <button
-                            type="button"
-                            className={cn(
-                                "p-2 rounded-full",
-                                "transition-all duration-200",
-                                "hover:bg-zinc-100/80 dark:hover:bg-zinc-800/80",
-                                "active:bg-zinc-200 dark:active:bg-zinc-700",
-                                "focus:outline-hidden focus:ring-2 focus:ring-zinc-500/20"
-                            )}
-                        >
-                            <MoreHorizontal className="w-5 h-5 text-zinc-400" />
-                        </button>
-                    </div>
+          <span
+            style={{
+              fontSize: 10,
+              fontWeight: 700,
+              letterSpacing: "0.12em",
+              textTransform: "uppercase",
+              color: t.accentColor,
+              opacity: 0.75,
+            }}
+          >
+            {item.label}
+          </span>
 
-                    <p className="text-[15px] leading-relaxed text-zinc-600 dark:text-zinc-300 mb-5">
-                        {content?.text}
-                    </p>
+          <h3
+            style={{
+              fontSize: 16,
+              fontWeight: 700,
+              lineHeight: 1.2,
+              color: "#111",
+              margin: 0,
+            }}
+          >
+            {item.title}
+          </h3>
 
-                    {content?.link && (
-                        <div
-                            className={cn(
-                                "mb-5 rounded-2xl",
-                                "border border-zinc-200/80 dark:border-zinc-700/80",
-                                "overflow-hidden group cursor-pointer",
-                                "transition-all duration-300",
-                                "hover:border-zinc-300 dark:hover:border-zinc-600",
-                                "hover:shadow-md hover:shadow-zinc-200/20 dark:hover:shadow-zinc-900/20",
-                                "hover:translate-y-[-1px]"
-                            )}
-                        >
-                            <div
-                                className={cn(
-                                    "p-5",
-                                    "bg-linear-to-b from-zinc-50/50 to-white dark:from-zinc-800/30 dark:to-zinc-800/50",
-                                    "group-hover:from-zinc-100/50 group-hover:to-zinc-50/50",
-                                    "dark:group-hover:from-zinc-800/50 dark:group-hover:to-zinc-800/70",
-                                    "transition-colors duration-300"
-                                )}
-                            >
-                                <div className="flex items-center gap-4">
-                                    <div className="p-2.5 bg-white/80 dark:bg-zinc-700/80 rounded-xl shadow-xs backdrop-blur-xs">
-                                        {content?.link.icon}
-                                    </div>
-                                    <div>
-                                        <h4 className="text-[14px] font-medium text-zinc-900 dark:text-zinc-100 mb-0.5">
-                                            {content?.link.title}
-                                        </h4>
-                                        <p className="text-[13px] text-zinc-500 dark:text-zinc-400">
-                                            {content?.link.description}
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    )}
+          <p style={{ fontSize: 12, color: "#666", margin: 0 }}>
+            {item.description}
+          </p>
 
-                    <div className="flex items-center justify-between pt-2">
-                        <div className="flex items-center gap-6">
-                            <button
-                                type="button"
-                                onClick={onLike}
-                                className={cn(
-                                    "flex items-center gap-2.5 text-[13px] font-medium p-2.5 rounded-full",
-                                    "transition-all duration-300",
-                                    "hover:bg-rose-50/80 dark:hover:bg-rose-950/30",
-                                    "active:bg-rose-100 dark:active:bg-rose-950/50",
-                                    "focus:outline-hidden focus:ring-2 focus:ring-rose-500/20",
-                                    engagement?.isLiked
-                                        ? "text-rose-600"
-                                        : "text-zinc-500 dark:text-zinc-400 hover:text-rose-600"
-                                )}
-                            >
-                                <Heart
-                                    className={cn(
-                                        "w-[18px] h-[18px]",
-                                        "transition-all duration-300",
-                                        "hover:scale-110",
-                                        "active:scale-95",
-                                        engagement?.isLiked && "fill-current"
-                                    )}
-                                />
-                                <span>{engagement?.likes}</span>
-                            </button>
-                            <button
-                                type="button"
-                                onClick={onComment}
-                                className={cn(
-                                    "flex items-center gap-2.5 text-[13px] font-medium p-2.5 rounded-full",
-                                    "transition-all duration-300",
-                                    "hover:bg-blue-50/80 dark:hover:bg-blue-950/30",
-                                    "active:bg-blue-100 dark:active:bg-blue-950/50",
-                                    "focus:outline-hidden focus:ring-2 focus:ring-blue-500/20",
-                                    "text-zinc-500 dark:text-zinc-400 hover:text-blue-500"
-                                )}
-                            >
-                                <MessageCircle className="w-[18px] h-[18px] transition-transform duration-300 hover:scale-110" />
-                                <span>{engagement?.comments}</span>
-                            </button>
-                            <button
-                                type="button"
-                                onClick={onShare}
-                                className={cn(
-                                    "flex items-center gap-2.5 text-[13px] font-medium p-2.5 rounded-full",
-                                    "transition-all duration-300",
-                                    "hover:bg-green-50/80 dark:hover:bg-green-950/30",
-                                    "active:bg-green-100 dark:active:bg-green-950/50",
-                                    "focus:outline-hidden focus:ring-2 focus:ring-green-500/20",
-                                    "text-zinc-500 dark:text-zinc-400 hover:text-green-500"
-                                )}
-                            >
-                                <Share2 className="w-[18px] h-[18px] transition-transform duration-300 hover:scale-110" />
-                                <span>{engagement?.shares}</span>
-                            </button>
-                        </div>
-                        <button
-                            type="button"
-                            onClick={onBookmark}
-                            className={cn(
-                                "p-2.5 rounded-full",
-                                "transition-all duration-300",
-                                "hover:bg-zinc-100/80 dark:hover:bg-zinc-800/80",
-                                "active:bg-zinc-200 dark:active:bg-zinc-700",
-                                "focus:outline-hidden focus:ring-2 focus:ring-zinc-500/20",
-                                engagement?.isBookmarked
-                                    ? "text-zinc-900 dark:text-zinc-100"
-                                    : "text-zinc-400"
-                            )}
-                        >
-                            <Bookmark
-                                className={cn(
-                                    "w-[18px] h-[18px]",
-                                    "transition-all duration-300",
-                                    "hover:scale-110",
-                                    "active:scale-95",
-                                    engagement?.isBookmarked && "fill-current"
-                                )}
-                            />
-                        </button>
-                    </div>
-                </div>
-            </div>
+          <p
+            style={{
+              fontSize: 13,
+              fontWeight: 700,
+              color: t.accentColor,
+              margin: "4px 0 0",
+            }}
+          >
+            {item.price}
+          </p>
         </div>
-    );
+      </motion.article>
+
+      {/* ── 3. Envelope Front (SVG) ── */}
+      <div
+        aria-hidden="true"
+        className="absolute bottom-0 w-full pointer-events-none"
+        style={{
+          height: 200,
+          zIndex: 20,
+          filter: "drop-shadow(0 -4px 16px rgba(0,0,0,0.10))",
+        }}
+      >
+        <svg
+          viewBox="0 0 100 100"
+          preserveAspectRatio="none"
+          style={{ width: "100%", height: "100%" }}
+          aria-hidden="true"
+        >
+          {/* Main flap */}
+          <path
+            d="M0,0 L50,42 L100,0 L100,100 L0,100 Z"
+            fill={t.frontFill}
+          />
+          {/* Top crease */}
+          <path
+            d="M0,0 L50,42 L100,0"
+            fill="none"
+            stroke={t.edgeStroke}
+            strokeWidth="1.2"
+          />
+          {/* Bottom crease */}
+          <path
+            d="M0,100 L50,58 L100,100"
+            fill="none"
+            stroke={t.edgeStroke}
+            strokeWidth="0.8"
+          />
+        </svg>
+      </div>
+    </motion.div>
+  );
+}
+
+// ─── Main export ──────────────────────────────────────────────────────────────
+
+export default function EnvelopeCard({
+  items = DEFAULT_ITEMS,
+  className = "",
+}: EnvelopeCardProps) {
+  return (
+    <div
+      className={`flex flex-wrap items-start justify-center gap-x-12 gap-y-16 p-12 ${className}`}
+    >
+      {items.map((item) => (
+        <SingleEnvelope key={item.id} item={item} />
+      ))}
+    </div>
+  );
 }

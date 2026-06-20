@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Figtree } from "next/font/google";
+import { Geist, Geist_Mono, Figtree, Outfit,Lavishly_Yours} from "next/font/google";
 import "./globals.css";
 import { ViewTransitions } from "next-view-transitions";
 import { cn } from "@/lib/utils";
@@ -7,7 +7,7 @@ import { ThemeProvider } from "@/components/Providers/theme-provider";
 import { RootProvider } from 'fumadocs-ui/provider/next';
 
 const figtree = Figtree({ subsets: ["latin"], variable: "--font-sans" });
-
+const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" });
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -17,6 +17,8 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
+
+const lavishlyYours = Lavishly_Yours({ weight: "400", subsets: ["latin"], variable: "--font-lavishly-yours" });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -39,6 +41,8 @@ export default function RootLayout({
           geistMono.variable,
           "font-sans",
           figtree.variable,
+          outfit.variable,
+          lavishlyYours.variable
         )}
       >
         <body className="min-h-full flex flex-col">
