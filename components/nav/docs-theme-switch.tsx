@@ -33,7 +33,7 @@ export function DocsThemeSwitch({ className }: DocsThemeSwitchProps) {
           aria-label={label}
           onClick={() => setTheme(value)}
           className={cn(
-            "inline-flex size-7 items-center justify-center rounded-full text-fd-muted-foreground transition-colors hover:text-fd-foreground",
+            "inline-flex size-7 items-center justify-center rounded-full text-fd-muted-foreground transition-colors hover:text-fd-foreground cursor-pointer",
             activeTheme === value && "bg-fd-accent text-fd-accent-foreground"
           )}
         >

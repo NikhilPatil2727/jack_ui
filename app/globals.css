@@ -137,4 +137,14 @@
   #nd-sidebar, .fd-sidebar {
     background-color: var(--sidebar) !important;
   }
+  #nd-sidebar button, 
+  .fd-sidebar button, 
+  [data-theme-toggle],
+  .fd-sidebar-footer button,
+  .fd-sidebar-theme-toggle,
+  [aria-label="Theme Toggle"],
+  button[aria-label*="theme"],
+  button[aria-label*="Theme"] {
+    cursor: pointer !important;
+  }
 }
