@@ -22,28 +22,34 @@ export interface EnvelopeCardProps {
 }
 
 // ─── Theme tokens ─────────────────────────────────────────────────────────────
-
+// Organic, soft, tactile paper-like color palettes and layered shadows.
 const themes = {
   crimson: {
-    backGradient: "linear-gradient(160deg, #f8f4f0 60%, #ede8e3)",
-    frontFill: "#f0ebe5",
-    edgeStroke: "#d4cfc9",
-    accentColor: "#c0392b",
-    sealGradient: "radial-gradient(circle at 40% 35%, #e74c3c, #a93226)", // Kept in theme just in case, but no longer used
+    backGradient: "linear-gradient(160deg, #fbfaf8 30%, #ede8e3 100%)",
+    frontGradStart: "#f6f2ee",
+    frontGradEnd: "#e6e0d8",
+    edgeStroke: "rgba(180, 170, 160, 0.4)",
+    edgeHighlight: "rgba(255, 255, 255, 0.85)",
+    shadowColor: "rgba(65, 55, 45, 0.08)",
+    hoverShadow: "rgba(65, 55, 45, 0.18)",
   },
   midnight: {
-    backGradient: "linear-gradient(160deg, #f5f7f8 60%, #eaecee)",
-    frontFill: "#edf0f2",
-    edgeStroke: "#c8cdd2",
-    accentColor: "#1a3a5c",
-    sealGradient: "radial-gradient(circle at 40% 35%, #2980b9, #1a5276)",
+    backGradient: "linear-gradient(160deg, #fafbfb 30%, #e2e5e8 100%)",
+    frontGradStart: "#edf1f3",
+    frontGradEnd: "#dae0e5",
+    edgeStroke: "rgba(150, 160, 170, 0.4)",
+    edgeHighlight: "rgba(255, 255, 255, 0.85)",
+    shadowColor: "rgba(35, 45, 55, 0.08)",
+    hoverShadow: "rgba(35, 45, 55, 0.18)",
   },
   forest: {
-    backGradient: "linear-gradient(160deg, #f4f7f4 60%, #e8ede8)",
-    frontFill: "#edf2ed",
-    edgeStroke: "#c5ccc5",
-    accentColor: "#1e5631",
-    sealGradient: "radial-gradient(circle at 40% 35%, #27ae60, #1e5631)",
+    backGradient: "linear-gradient(160deg, #fafbfa 30%, #e1e7e1 100%)",
+    frontGradStart: "#edf2ed",
+    frontGradEnd: "#d7e0d7",
+    edgeStroke: "rgba(150, 170, 150, 0.4)",
+    edgeHighlight: "rgba(255, 255, 255, 0.85)",
+    shadowColor: "rgba(35, 55, 35, 0.08)",
+    hoverShadow: "rgba(35, 55, 35, 0.18)",
   },
 } as const;
 
@@ -94,7 +100,7 @@ function SingleEnvelope({ item }: SingleEnvelopeProps) {
 
   return (
     <motion.div
-      className="relative flex-shrink-0"
+      className="relative flex-shrink-0 select-none"
       style={{ 
         width: 220, 
         height: 350, 
@@ -109,11 +115,15 @@ function SingleEnvelope({ item }: SingleEnvelopeProps) {
       {/* ── 1. Envelope Back ── */}
       <div
         aria-hidden="true"
-        className="absolute bottom-0 w-full rounded-b-[14px] shadow-md"
+        className="absolute bottom-0 w-full rounded-b-[14px]"
         style={{
           height: 150,
           background: t.backGradient,
           zIndex: 0,
+          boxShadow: isHovered 
+            ? `0 12px 28px ${t.hoverShadow}` 
+            : `0 4px 12px ${t.shadowColor}`,
+          transition: "box-shadow 0.3s ease",
         }}
       />
 
@@ -123,7 +133,7 @@ function SingleEnvelope({ item }: SingleEnvelopeProps) {
           initial: { y: 20, x: "-50%" },
           hover: { y: -80, x: "-50%" },
         }}
-        transition={{ type: "spring", stiffness: 280, damping: 22 }}
+        transition={{ type: "spring", stiffness: 260, damping: 24 }}
         className="absolute overflow-hidden rounded-[10px]"
         style={{
           left: "50%",
@@ -132,11 +142,10 @@ function SingleEnvelope({ item }: SingleEnvelopeProps) {
           height: 230,
           zIndex: 10,
           boxShadow: isHovered 
-            ? "0 20px 40px rgba(0,0,0,0.30)" 
-            : "0 10px 25px rgba(0,0,0,0.12)",
+            ? `0 24px 38px ${t.hoverShadow}` 
+            : `0 8px 16px ${t.shadowColor}`,
         }}
       >
-        {/* Car photo */}
         <img
           src={item.imageUrl}
           alt={item.imageAlt}
@@ -160,7 +169,7 @@ function SingleEnvelope({ item }: SingleEnvelopeProps) {
         style={{
           height: 150,
           zIndex: 20,
-          filter: "drop-shadow(0 -3px 12px rgba(0,0,0,0.08))",
+          filter: `drop-shadow(0 -4px 10px ${t.shadowColor})`,
         }}
       >
         <svg
@@ -169,24 +178,45 @@ function SingleEnvelope({ item }: SingleEnvelopeProps) {
           style={{ width: "100%", height: "100%" }}
           aria-hidden="true"
         >
+          <defs>
+            <linearGradient id={`frontGrad-${item.id}`} x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor={t.frontGradStart} />
+              <stop offset="100%" stopColor={t.frontGradEnd} />
+            </linearGradient>
+          </defs>
           {/* Main flap */}
           <path
             d="M0,0 L50,42 L100,0 L100,100 L0,100 Z"
-            fill={t.frontFill}
+            fill={`url(#frontGrad-${item.id})`}
           />
-          {/* Top crease */}
+          {/* Creases with highlight and shadow */}
+          {/* Top crease shadow */}
           <path
             d="M0,0 L50,42 L100,0"
             fill="none"
             stroke={t.edgeStroke}
             strokeWidth="1.2"
           />
-          {/* Bottom crease */}
+          {/* Top crease highlight offset slightly down */}
+          <path
+            d="M0,1 L50,43 L100,1"
+            fill="none"
+            stroke={t.edgeHighlight}
+            strokeWidth="0.8"
+          />
+          {/* Bottom crease shadow */}
           <path
             d="M0,100 L50,58 L100,100"
             fill="none"
             stroke={t.edgeStroke}
             strokeWidth="0.8"
+          />
+          {/* Bottom crease highlight offset slightly up */}
+          <path
+            d="M0,99 L50,57.2 L100,99"
+            fill="none"
+            stroke={t.edgeHighlight}
+            strokeWidth="0.6"
           />
         </svg>
       </div>
