@@ -1,5 +1,15 @@
 "use client";
 
+/**
+ * @component: EnvelopeCard
+ * @author: Jack UI library
+ * @description: 3D Envelope Card — premium paper-like envelope card components
+ *               with ambient lighting, 3-stop diagonal gradients, and responsive
+ *               photo-sheen glare transitions on hover.
+ *
+ * Part of your UI library — compatible with Next.js 13+ App Router
+ */
+
 import { motion, Variants } from "motion/react";
 import React, { useState } from "react";
 
