@@ -216,7 +216,7 @@ export default function PreviewContent({
                                         {/* Elastic spring background pill */}
                                         {isSelected && (
                                             <motion.div
-                                                layoutId="activeTabPill"
+                                                layoutId={`activeTabPill-${link}`}
                                                 className="absolute inset-0 bg-black dark:bg-white rounded-md -z-10 shadow-sm"
                                                 transition={{
                                                     type: "spring",
