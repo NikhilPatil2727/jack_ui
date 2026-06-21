@@ -22,34 +22,37 @@ export interface EnvelopeCardProps {
 }
 
 // ─── Theme tokens ─────────────────────────────────────────────────────────────
-// Organic, soft, tactile paper-like color palettes and layered shadows.
+// Highly refined HSL/Hex values with 3-stop lighting gradients and ambient shadows.
 const themes = {
   crimson: {
-    backGradient: "linear-gradient(160deg, #fbfaf8 30%, #ede8e3 100%)",
-    frontGradStart: "#f6f2ee",
-    frontGradEnd: "#e6e0d8",
-    edgeStroke: "rgba(180, 170, 160, 0.4)",
-    edgeHighlight: "rgba(255, 255, 255, 0.85)",
-    shadowColor: "rgba(65, 55, 45, 0.08)",
-    hoverShadow: "rgba(65, 55, 45, 0.18)",
+    backGradient: "linear-gradient(135deg, #fdfcfb 0%, #f4f0eb 50%, #e6e0d8 100%)",
+    frontGradStart: "#fbfaf9",
+    frontGradMiddle: "#f0ebe5",
+    frontGradEnd: "#ded7ce",
+    edgeStroke: "rgba(139, 115, 92, 0.22)",
+    edgeHighlight: "rgba(255, 255, 255, 0.95)",
+    shadowColor: "rgba(45, 35, 25, 0.05)",
+    hoverShadow: "rgba(45, 35, 25, 0.14)",
   },
   midnight: {
-    backGradient: "linear-gradient(160deg, #fafbfb 30%, #e2e5e8 100%)",
-    frontGradStart: "#edf1f3",
-    frontGradEnd: "#dae0e5",
-    edgeStroke: "rgba(150, 160, 170, 0.4)",
-    edgeHighlight: "rgba(255, 255, 255, 0.85)",
-    shadowColor: "rgba(35, 45, 55, 0.08)",
-    hoverShadow: "rgba(35, 45, 55, 0.18)",
+    backGradient: "linear-gradient(135deg, #fbfcfc 0%, #eff2f4 50%, #e0e5ea 100%)",
+    frontGradStart: "#f6f8f9",
+    frontGradMiddle: "#ebedf0",
+    frontGradEnd: "#d3dae0",
+    edgeStroke: "rgba(92, 115, 139, 0.22)",
+    edgeHighlight: "rgba(255, 255, 255, 0.95)",
+    shadowColor: "rgba(25, 35, 45, 0.05)",
+    hoverShadow: "rgba(25, 35, 45, 0.14)",
   },
   forest: {
-    backGradient: "linear-gradient(160deg, #fafbfa 30%, #e1e7e1 100%)",
-    frontGradStart: "#edf2ed",
-    frontGradEnd: "#d7e0d7",
-    edgeStroke: "rgba(150, 170, 150, 0.4)",
-    edgeHighlight: "rgba(255, 255, 255, 0.85)",
-    shadowColor: "rgba(35, 55, 35, 0.08)",
-    hoverShadow: "rgba(35, 55, 35, 0.18)",
+    backGradient: "linear-gradient(135deg, #fcfdfc 0%, #edf2ed 50%, #dae2da 100%)",
+    frontGradStart: "#f5f8f5",
+    frontGradMiddle: "#e6ede6",
+    frontGradEnd: "#cfdacf",
+    edgeStroke: "rgba(92, 139, 92, 0.22)",
+    edgeHighlight: "rgba(255, 255, 255, 0.95)",
+    shadowColor: "rgba(25, 45, 25, 0.05)",
+    hoverShadow: "rgba(25, 45, 25, 0.14)",
   },
 } as const;
 
@@ -121,9 +124,9 @@ function SingleEnvelope({ item }: SingleEnvelopeProps) {
           background: t.backGradient,
           zIndex: 0,
           boxShadow: isHovered 
-            ? `0 12px 28px ${t.hoverShadow}` 
-            : `0 4px 12px ${t.shadowColor}`,
-          transition: "box-shadow 0.3s ease",
+            ? `0 16px 36px ${t.hoverShadow}` 
+            : `0 4px 16px ${t.shadowColor}`,
+          transition: "box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1)",
         }}
       />
 
@@ -131,9 +134,9 @@ function SingleEnvelope({ item }: SingleEnvelopeProps) {
       <motion.article
         variants={{
           initial: { y: 20, x: "-50%" },
-          hover: { y: -80, x: "-50%" },
+          hover: { y: -85, x: "-50%" },
         }}
-        transition={{ type: "spring", stiffness: 260, damping: 24 }}
+        transition={{ type: "spring", stiffness: 220, damping: 22 }}
         className="absolute overflow-hidden rounded-[10px]"
         style={{
           left: "50%",
@@ -142,24 +145,40 @@ function SingleEnvelope({ item }: SingleEnvelopeProps) {
           height: 230,
           zIndex: 10,
           boxShadow: isHovered 
-            ? `0 24px 38px ${t.hoverShadow}` 
-            : `0 8px 16px ${t.shadowColor}`,
+            ? `0 24px 44px ${t.hoverShadow}` 
+            : `0 8px 20px ${t.shadowColor}`,
         }}
       >
-        <img
-          src={item.imageUrl}
-          alt={item.imageAlt}
-          loading="lazy"
-          decoding="async"
-          draggable={false}
-          style={{
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            display: "block",
-            filter: "brightness(0.95) saturate(1.15)",
-          }}
-        />
+        {/* Photo wrapper */}
+        <div className="relative w-full h-full">
+          <img
+            src={item.imageUrl}
+            alt={item.imageAlt}
+            loading="lazy"
+            decoding="async"
+            draggable={false}
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              display: "block",
+              filter: "brightness(0.95) saturate(1.1)",
+            }}
+          />
+          {/* Real paper-gloss sheen/glare overlay sweeping across the photo card on hover */}
+          <motion.div
+            variants={{
+              initial: { x: "-100%", y: "-100%" },
+              hover: { x: "100%", y: "100%" }
+            }}
+            transition={{ duration: 0.75, ease: "easeInOut" }}
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background: "linear-gradient(135deg, rgba(255,255,255,0) 30%, rgba(255,255,255,0.18) 50%, rgba(255,255,255,0) 70%)",
+              zIndex: 2,
+            }}
+          />
+        </div>
       </motion.article>
 
       {/* ── 3. Envelope Front (SVG) ── */}
@@ -169,7 +188,7 @@ function SingleEnvelope({ item }: SingleEnvelopeProps) {
         style={{
           height: 150,
           zIndex: 20,
-          filter: `drop-shadow(0 -4px 10px ${t.shadowColor})`,
+          filter: `drop-shadow(0 -5px 12px ${t.shadowColor})`,
         }}
       >
         <svg
@@ -179,8 +198,10 @@ function SingleEnvelope({ item }: SingleEnvelopeProps) {
           aria-hidden="true"
         >
           <defs>
-            <linearGradient id={`frontGrad-${item.id}`} x1="0%" y1="0%" x2="0%" y2="100%">
+            {/* Diagonal 3-stop light gradient representing light shining from top-left */}
+            <linearGradient id={`frontGrad-${item.id}`} x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" stopColor={t.frontGradStart} />
+              <stop offset="42%" stopColor={t.frontGradMiddle} />
               <stop offset="100%" stopColor={t.frontGradEnd} />
             </linearGradient>
           </defs>
