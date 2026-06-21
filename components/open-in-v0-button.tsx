@@ -18,7 +18,7 @@ export function OpenInV0Button({
             target="_blank"
             rel="noreferrer"
             className={cn(
-                "inline-flex h-7 min-w-fit shrink-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-lg bg-black px-3 text-xs font-medium leading-none text-white no-underline shadow-none transition-colors duration-200 hover:bg-zinc-800 hover:text-white dark:bg-white dark:text-black dark:hover:bg-zinc-200 dark:hover:text-black not-prose",
+                "inline-flex h-7 min-w-fit shrink-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-lg bg-black px-3 text-xs font-medium leading-none text-white no-underline shadow-none transition-colors duration-200 hover:bg-zinc-800 hover:text-white dark:bg-white dark:text-black dark:hover:bg-zinc-200 dark:hover:text-black not-prose cursor-pointer",
                 className
             )}
         >

@@ -180,13 +180,13 @@ export default function PreviewContent({
 
                     <div className="flex w-full flex-wrap items-center gap-2 lg:w-auto lg:justify-start">
                         <div className="inline-flex items-center rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 p-0.5 shadow-xs">
-                            {Object.entries(pkgManagers).map(([key, { label }]) => (
+                             {Object.entries(pkgManagers).map(([key, { label }]) => (
                                 <button
                                     key={key}
                                     type="button"
                                     onClick={() => setPm(key)}
                                     className={cn(
-                                        "px-3 py-1.5 text-xs font-medium rounded-md transition-all duration-200 select-none",
+                                        "px-3 py-1.5 text-xs font-medium rounded-md transition-all duration-200 select-none cursor-pointer",
                                         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1",
                                         pm === key
                                             ? "bg-black text-white dark:bg-white dark:text-black shadow-sm"
