@@ -188,12 +188,12 @@ export const component: Registry = [
         ],
     },
     {
-        name: "card-01",
+        name: "envelope-card",
         type: "registry:component",
         dependencies: ["motion"],
         files: [
             {
-                path: "components/jackui/cards/card-01.tsx",
+                path: "components/jackui/cards/envelope-card.tsx",
                 type: "registry:component",
             },
         ],
