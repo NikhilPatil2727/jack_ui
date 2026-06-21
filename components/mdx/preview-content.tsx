@@ -179,23 +179,56 @@ export default function PreviewContent({
                     </a> */}
 
                     <div className="flex w-full flex-wrap items-center gap-2 lg:w-auto lg:justify-start">
-                        <div className="inline-flex items-center rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 p-0.5 shadow-xs">
-                             {Object.entries(pkgManagers).map(([key, { label }]) => (
-                                <button
-                                    key={key}
-                                    type="button"
-                                    onClick={() => setPm(key)}
-                                    className={cn(
-                                        "px-3 py-1.5 text-xs font-medium rounded-md transition-all duration-200 select-none cursor-pointer",
-                                        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1",
-                                        pm === key
-                                            ? "bg-black text-white dark:bg-white dark:text-black shadow-sm"
-                                            : "bg-transparent text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200"
-                                    )}
-                                >
-                                    {label}
-                                </button>
-                            ))}
+                        <div className="inline-flex items-center rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 p-0.5 shadow-xs relative">
+                             {Object.entries(pkgManagers).map(([key, { label }]) => {
+                                const isSelected = pm === key;
+                                return (
+                                    <button
+                                        key={key}
+                                        type="button"
+                                        onClick={() => setPm(key)}
+                                        className={cn(
+                                            "relative px-3 py-1.5 text-xs font-semibold rounded-md transition-colors duration-200 select-none cursor-pointer z-10",
+                                            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1",
+                                            isSelected
+                                                ? "text-white dark:text-black"
+                                                : "text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200"
+                                        )}
+                                    >
+                                        {/* Staggered text character wave animation on selection */}
+                                        <span className="relative z-10 flex items-center justify-center overflow-hidden">
+                                            {label.split("").map((char, i) => (
+                                                <motion.span
+                                                    key={i}
+                                                    animate={isSelected ? { y: [0, -5, 1.5, 0] } : { y: 0 }}
+                                                    transition={{
+                                                        duration: 0.4,
+                                                        delay: isSelected ? i * 0.035 : 0,
+                                                        ease: "easeOut"
+                                                    }}
+                                                    className="inline-block"
+                                                >
+                                                    {char}
+                                                </motion.span>
+                                            ))}
+                                        </span>
+
+                                        {/* Elastic spring background pill */}
+                                        {isSelected && (
+                                            <motion.div
+                                                layoutId="activeTabPill"
+                                                className="absolute inset-0 bg-black dark:bg-white rounded-md -z-10 shadow-sm"
+                                                transition={{
+                                                    type: "spring",
+                                                    stiffness: 480,
+                                                    damping: 24,
+                                                    mass: 0.65
+                                                }}
+                                            />
+                                        )}
+                                    </button>
+                                );
+                             })}
                         </div>
 
                         <OpenInV0Button
