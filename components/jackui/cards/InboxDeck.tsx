@@ -3,6 +3,16 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion"; // or "motion/react" depending on your v12 setup
 
+/**
+ * @component InboxDeck
+ * @description A premium, interactive envelope card stack deck component.
+ * Features realistic SVG flap shadows, depth transitions, hover expansions,
+ * and custom wax seal detailing.
+ * 
+ * @author Jack UI
+
+ */
+
 export interface EnvelopeCardData {
     id: string;
     tag: string;
@@ -49,10 +59,10 @@ const DEFAULT_CARDS: [EnvelopeCardData, EnvelopeCardData, EnvelopeCardData, Enve
 
 // The precise math for a 4-card symmetrical fan arch centered on a 220px wide envelope
 const CHOREOGRAPHY = [
-    { idle: { x: -8, y: 14, rotate: -4 }, hover: { x: -130, y: -110, rotate: -16 } },
-    { idle: { x: -3, y: 11, rotate: -1.5 }, hover: { x: -44, y: -140, rotate: -6 } },
-    { idle: { x: 3, y: 9, rotate: 1.5 }, hover: { x: 44, y: -140, rotate: 6 } },
-    { idle: { x: 8, y: 12, rotate: 4 }, hover: { x: 130, y: -110, rotate: 16 } },
+    { idle: { x: -8, y: -4, rotate: -4 }, hover: { x: -130, y: -120, rotate: -16 } },
+    { idle: { x: -3, y: -7, rotate: -1.5 }, hover: { x: -44, y: -150, rotate: -6 } },
+    { idle: { x: 3, y: -9, rotate: 1.5 }, hover: { x: 44, y: -150, rotate: 6 } },
+    { idle: { x: 8, y: -6, rotate: 4 }, hover: { x: 130, y: -120, rotate: 16 } },
 ];
 
 interface EnvelopeDeckProps {
@@ -112,6 +122,12 @@ export default function EnvelopeDeck({ cards = DEFAULT_CARDS, className = "" }: 
                                     zIndex: isDeckHovered
                                         ? (isThisCardFocused ? 60 : 20 + i)
                                         : 10 + i,
+                                    boxShadow: isThisCardFocused
+                                        ? "0 0 25px 6px rgba(255, 255, 255, 0.4), 0 20px 30px rgba(0, 0, 0, 0.6)"
+                                        : "0 10px 20px rgba(0, 0, 0, 0.3)",
+                                    borderColor: isThisCardFocused
+                                        ? "rgba(255, 255, 255, 0.85)"
+                                        : "rgba(255, 255, 255, 0.15)",
                                 }}
                                 transition={{
                                     type: "spring",
@@ -119,7 +135,7 @@ export default function EnvelopeDeck({ cards = DEFAULT_CARDS, className = "" }: 
                                     damping: 22,
                                     mass: 0.9,
                                 }}
-                                className="absolute inset-0 rounded-2xl overflow-hidden border border-white/20 shadow-2xl bg-neutral-900 group/card"
+                                className="absolute inset-0 rounded-2xl overflow-hidden border bg-neutral-900 group/card"
                             >
                                 {/* Card Background Image */}
                                 <img
@@ -208,8 +224,8 @@ export default function EnvelopeDeck({ cards = DEFAULT_CARDS, className = "" }: 
                     style={{
                         left: "50%",
                         top: "75px",
-                        transform: isDeckHovered 
-                            ? "translate(-50%, -50%) scale(1.08)" 
+                        transform: isDeckHovered
+                            ? "translate(-50%, -50%) scale(1.08)"
                             : "translate(-50%, -50%) scale(1)",
                         width: "36px",
                         height: "36px",
