@@ -198,4 +198,15 @@ export const component: Registry = [
             },
         ],
     },
+    {
+        name: "inbox-deck",
+        type: "registry:component",
+        dependencies: ["motion"],
+        files: [
+            {
+                path: "components/jackui/cards/InboxDeck.tsx",
+                type: "registry:component",
+            },
+        ],
+    },
 ];
