@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowUpRight, Sun, Moon, Menu, X, ChevronRight } from "lucide-react";
 import { useTheme } from "next-themes";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 
 type BadgeVariant = "default" | "green";
@@ -19,17 +19,19 @@ const NAV_LINKS: NavLinkItem[] = [
 ];
 
 export function Header() {
-  const { setTheme, resolvedTheme } = useTheme();
-  const isDark = resolvedTheme === "dark";
+  const { setTheme, resolvedTheme } = useTheme() || {};
   const [menuOpen, setMenuOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <header
       className={cn(
         "sticky top-0 z-50 w-full border-b backdrop-blur-[16px]",
-        isDark
-          ? "border-white/[0.06] bg-[#0a0a0a]/97"
-          : "border-black/[0.06] bg-white/97"
+        "border-black/[0.06] bg-white/97 dark:border-white/[0.06] dark:bg-[#0a0a0a]/97"
       )}
     >
       {/* ── Top bar ── */}
@@ -41,7 +43,7 @@ export function Header() {
             href="/"
             className={cn(
               "flex shrink-0 items-center gap-2.5 pr-5 mr-5 cursor-pointer",
-              isDark ? "border-r border-white/[0.07]" : "border-r border-black/[0.07]"
+              "border-r border-black/[0.07] dark:border-white/[0.07]"
             )}
           >
             <Image
@@ -54,7 +56,7 @@ export function Header() {
             <span
               className={cn(
                 "text-[15px] font-bold tracking-[-0.4px]",
-                isDark ? "text-white" : "text-black"
+                "text-black dark:text-white"
               )}
             >
               Jack UI
@@ -64,7 +66,7 @@ export function Header() {
           {/* Desktop nav — hidden on mobile */}
           <nav className="hidden sm:flex items-center gap-0.5" aria-label="Primary navigation">
             {NAV_LINKS.map(({ label, href, badge }) => (
-              <NavLink key={label} href={href} badge={badge} isDark={isDark}>
+              <NavLink key={label} href={href} badge={badge}>
                 {label}
               </NavLink>
             ))}
@@ -78,9 +80,7 @@ export function Header() {
           <div
             className={cn(
               "hidden sm:flex items-center gap-2 rounded-full border px-3 py-1.5 text-[11.5px]",
-              isDark
-                ? "border-white/[0.07] bg-white/[0.02] text-white/35"
-                : "border-black/[0.07] bg-black/[0.02] text-black/35"
+              "border-black/[0.07] bg-black/[0.02] text-black/35 dark:border-white/[0.07] dark:bg-white/[0.02] dark:text-white/35"
             )}
           >
             <PulseDot />
@@ -89,26 +89,30 @@ export function Header() {
 
           {/* Divider — desktop only */}
           <div
-            className={cn("hidden sm:block h-5 w-px mx-0.5", isDark ? "bg-white/[0.07]" : "bg-black/[0.07]")}
+            className={cn("hidden sm:block h-5 w-px mx-0.5", "bg-black/[0.07] dark:bg-white/[0.07]")}
             aria-hidden
           />
 
           {/* Theme toggle */}
           <button
-            onClick={() => setTheme(isDark ? "light" : "dark")}
+            onClick={() => setTheme?.(resolvedTheme === "dark" ? "light" : "dark")}
             aria-label="Toggle theme"
             className={cn(
               "flex h-[34px] w-[34px] cursor-pointer items-center justify-center rounded-[9px] border transition-all duration-150",
               "focus-visible:outline-none focus-visible:ring-1",
-              isDark
-                ? "border-white/[0.08] text-white/40 hover:border-white/[0.14] hover:bg-white/[0.06] hover:text-white/80 focus-visible:ring-white/20"
-                : "border-black/[0.08] text-black/40 hover:border-black/[0.14] hover:bg-black/[0.06] hover:text-black/80 focus-visible:ring-black/20"
+              "border-black/[0.08] text-black/40 hover:border-black/[0.14] hover:bg-black/[0.06] hover:text-black/80 focus-visible:ring-black/20",
+              "dark:border-white/[0.08] dark:text-white/40 dark:hover:border-white/[0.14] dark:hover:bg-white/[0.06] dark:hover:text-white/80 dark:focus-visible:ring-white/20"
             )}
           >
-            {isDark
-              ? <Sun className="h-[15px] w-[15px]" aria-hidden />
-              : <Moon className="h-[15px] w-[15px]" aria-hidden />
-            }
+            {mounted ? (
+              resolvedTheme === "dark" ? (
+                <Sun className="h-[15px] w-[15px]" aria-hidden />
+              ) : (
+                <Moon className="h-[15px] w-[15px]" aria-hidden />
+              )
+            ) : (
+              <span className="h-[15px] w-[15px]" />
+            )}
           </button>
 
           {/* Get Pro — always visible */}
@@ -120,9 +124,8 @@ export function Header() {
               "text-[12.5px] font-[650] tracking-[-0.2px]",
               "transition-opacity duration-150 hover:opacity-85 active:scale-[0.97]",
               "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
-              isDark
-                ? "bg-white text-[#0a0a0a] focus-visible:ring-white/30 focus-visible:ring-offset-[#0a0a0a]"
-                : "bg-black text-white focus-visible:ring-black/30 focus-visible:ring-offset-white"
+              "bg-black text-white focus-visible:ring-black/30 focus-visible:ring-offset-white",
+              "dark:bg-white dark:text-[#0a0a0a] dark:focus-visible:ring-white/30 dark:focus-visible:ring-offset-[#0a0a0a]"
             )}
           >
             Get Pro
@@ -137,9 +140,8 @@ export function Header() {
             className={cn(
               "flex sm:hidden h-[34px] w-[34px] cursor-pointer items-center justify-center rounded-[9px] border transition-all duration-150",
               "focus-visible:outline-none focus-visible:ring-1",
-              isDark
-                ? "border-white/[0.08] text-white/40 hover:border-white/[0.14] hover:bg-white/[0.06] hover:text-white/80 focus-visible:ring-white/20"
-                : "border-black/[0.08] text-black/40 hover:border-black/[0.14] hover:bg-black/[0.06] hover:text-black/80 focus-visible:ring-black/20"
+              "border-black/[0.08] text-black/40 hover:border-black/[0.14] hover:bg-black/[0.06] hover:text-black/80 focus-visible:ring-black/20",
+              "dark:border-white/[0.08] dark:text-white/40 dark:hover:border-white/[0.14] dark:hover:bg-white/[0.06] dark:hover:text-white/80 dark:focus-visible:ring-white/20"
             )}
           >
             {menuOpen
@@ -154,7 +156,7 @@ export function Header() {
       <div
         className={cn(
           "sm:hidden overflow-hidden transition-all duration-[280ms] ease-[cubic-bezier(0.4,0,0.2,1)]",
-          isDark ? "border-white/[0.06]" : "border-black/[0.06]",
+          "border-black/[0.06] dark:border-white/[0.06]",
           menuOpen ? "max-h-[320px] opacity-100 border-b" : "max-h-0 opacity-0"
         )}
         aria-hidden={!menuOpen}
@@ -168,24 +170,22 @@ export function Header() {
               className={cn(
                 "flex cursor-pointer items-center justify-between rounded-[10px] px-3 py-2.5",
                 "text-[14px] font-[450] transition-all duration-[140ms]",
-                isDark
-                  ? "text-white/55 hover:bg-white/[0.05] hover:text-white/90"
-                  : "text-black/55 hover:bg-black/[0.05] hover:text-black/90"
+                "text-black/55 hover:bg-black/[0.05] hover:text-black/90 dark:text-white/55 dark:hover:bg-white/[0.05] dark:hover:text-white/90"
               )}
             >
               <span className="flex items-center gap-2">
                 {label}
-                {badge && <NavBadge badge={badge} isDark={isDark} />}
+                {badge && <NavBadge badge={badge} />}
               </span>
               <ChevronRight
-                className={cn("h-3.5 w-3.5", isDark ? "text-white/20" : "text-black/20")}
+                className={cn("h-3.5 w-3.5", "text-black/20 dark:text-white/20")}
                 aria-hidden
               />
             </Link>
           ))}
 
           {/* Divider */}
-          <div className={cn("my-2 h-px", isDark ? "bg-white/[0.05]" : "bg-black/[0.05]")} aria-hidden />
+          <div className={cn("my-2 h-px", "bg-black/[0.05] dark:bg-white/[0.05]")} aria-hidden />
 
           {/* Mobile CTA — full width */}
           <Link
@@ -196,7 +196,7 @@ export function Header() {
               "flex cursor-pointer items-center justify-center gap-1.5 rounded-[10px] py-2.5",
               "text-[13.5px] font-[650] tracking-[-0.2px]",
               "transition-opacity duration-150 hover:opacity-85",
-              isDark ? "bg-white text-[#0a0a0a]" : "bg-black text-white"
+              "bg-black text-white dark:bg-white dark:text-[#0a0a0a]"
             )}
           >
             Get Pro
@@ -211,9 +211,9 @@ export function Header() {
 /* ── Sub-components ── */
 
 function NavLink({
-  href, children, badge, isDark,
+  href, children, badge,
 }: {
-  href: string; children: React.ReactNode; badge?: Badge | null; isDark: boolean;
+  href: string; children: React.ReactNode; badge?: Badge | null;
 }) {
   return (
     <Link
@@ -222,27 +222,24 @@ function NavLink({
         "inline-flex cursor-pointer items-center gap-1.5 rounded-[8px] px-3 py-[6px]",
         "text-[13px] font-[450] transition-all duration-[140ms]",
         "focus-visible:outline-none focus-visible:ring-1",
-        isDark
-          ? "text-white/45 hover:bg-white/[0.05] hover:text-white/88 focus-visible:ring-white/20"
-          : "text-black/45 hover:bg-black/[0.05] hover:text-black/88 focus-visible:ring-black/20"
+        "text-black/45 hover:bg-black/[0.05] hover:text-black/88 focus-visible:ring-black/20",
+        "dark:text-white/45 dark:hover:bg-white/[0.05] dark:hover:text-white/88 dark:focus-visible:ring-white/20"
       )}
     >
       {children}
-      {badge && <NavBadge badge={badge} isDark={isDark} />}
+      {badge && <NavBadge badge={badge} />}
     </Link>
   );
 }
 
-function NavBadge({ badge, isDark }: { badge: Badge; isDark: boolean }) {
+function NavBadge({ badge }: { badge: Badge }) {
   return (
     <span
       className={cn(
         "rounded-[4px] border px-1 py-px text-[9px] font-bold uppercase tracking-[0.5px]",
         badge.variant === "green"
           ? "border-green-400/[0.22] bg-green-400/[0.10] text-green-400"
-          : isDark
-            ? "border-white/[0.09] bg-white/[0.05] text-white/35"
-            : "border-black/[0.09] bg-black/[0.05] text-black/35"
+          : "border-black/[0.09] bg-black/[0.05] text-black/35 dark:border-white/[0.09] dark:bg-white/[0.05] dark:text-white/35"
       )}
     >
       {badge.text}
