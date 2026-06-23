@@ -161,6 +161,9 @@ export default function EnvelopeDeck({ cards = DEFAULT_CARDS, className = "" }: 
                                     priority={i < 2} // Prioritize first two cards for faster initial loading
                                     className="object-cover transition-transform duration-500 group-hover/card:scale-105"
                                 />
+
+                                {/* White flash/shine sweep effect on hover */}
+                                <div className="absolute inset-0 -translate-x-[100%] group-hover/card:translate-x-[100%] transition-transform duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)] bg-gradient-to-r from-transparent via-white/35 to-transparent pointer-events-none -skew-x-20" />
                             </motion.div>
                         );
                     })}
