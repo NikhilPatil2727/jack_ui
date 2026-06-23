@@ -9,6 +9,39 @@ const readFileCache = cache(async (filePath: string) => {
     return await fs.readFile(filePath, "utf-8");
 });
 
+// Helper to find a file case-insensitively and character-insensitively (e.g., matching "inbox-deck" to "InboxDeck.tsx")
+async function findFileCaseInsensitive(dir: string, baseName: string): Promise<string | null> {
+    try {
+        const files = await fs.readdir(dir);
+        const lowerBase = baseName.toLowerCase();
+        const normalizedBase = baseName.replace(/[^a-zA-Z0-9]/g, "").toLowerCase();
+        
+        // 1. Try exact case-insensitive match
+        for (const file of files) {
+            const ext = path.extname(file);
+            if (ext !== ".tsx" && ext !== ".ts" && ext !== ".jsx" && ext !== ".js") continue;
+            const nameWithoutExt = path.basename(file, ext);
+            if (nameWithoutExt.toLowerCase() === lowerBase) {
+                return path.join(dir, file);
+            }
+        }
+        
+        // 2. Try normalized alphanumeric match (ignores hyphens, casing, etc.)
+        for (const file of files) {
+            const ext = path.extname(file);
+            if (ext !== ".tsx" && ext !== ".ts" && ext !== ".jsx" && ext !== ".js") continue;
+            const nameWithoutExt = path.basename(file, ext);
+            const normalizedFile = nameWithoutExt.replace(/[^a-zA-Z0-9]/g, "").toLowerCase();
+            if (normalizedFile === normalizedBase) {
+                return path.join(dir, file);
+            }
+        }
+    } catch (e) {
+        // Directory doesn't exist or cannot be read
+    }
+    return null;
+}
+
 // Improve caching for the entire component getter
 export const getComponent = async (fileName: string | null, folder: string) => {
     const baseDir = path.join(process.cwd(), "components/jackui");
@@ -18,22 +51,26 @@ export const getComponent = async (fileName: string | null, folder: string) => {
     else if (folder === "card") folderToUse = "cards";
 
     if (!fileName || fileName === "undefined") {
-        try {
-            const fullPath = path.join(baseDir, `${folderToUse}.tsx`);
-            return await readFileCache(fullPath);
-        } catch (e) {
-            const fullPath = path.join(baseDir, `${folder}.tsx`);
-            return await readFileCache(fullPath);
+        let foundPath = await findFileCaseInsensitive(baseDir, folderToUse);
+        if (!foundPath) {
+            foundPath = await findFileCaseInsensitive(baseDir, folder);
         }
+        if (foundPath) {
+            return await readFileCache(foundPath);
+        }
+        throw new Error(`Component file not found: ${folderToUse}`);
     }
 
-    try {
-        const fullPath = path.join(baseDir, folderToUse, `${fileName}.tsx`);
-        return await readFileCache(fullPath);
-    } catch (e) {
-        const fullPath = path.join(baseDir, folder, `${fileName}.tsx`);
-        return await readFileCache(fullPath);
+    let foundPath = await findFileCaseInsensitive(path.join(baseDir, folderToUse), fileName);
+    if (!foundPath) {
+        foundPath = await findFileCaseInsensitive(path.join(baseDir, folder), fileName);
     }
+
+    if (foundPath) {
+        return await readFileCache(foundPath);
+    }
+
+    throw new Error(`Component file not found: ${folder}/${fileName}`);
 };
 
 export type CopyComponentState = {
