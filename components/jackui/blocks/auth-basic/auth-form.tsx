@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Loader2, LockIcon } from "lucide-react";
+import { Loader2 } from "lucide-react";
 
 export function AuthForm() {
     const [isLoading, setIsLoading] = useState(false);
@@ -17,9 +17,6 @@ export function AuthForm() {
         const password = formData.get("password") as string;
 
         try {
-            /**
-             * To update with your actual authentication logic
-             */
             await new Promise((resolve) => setTimeout(resolve, 2000));
             console.log("Signing in with:", email, password);
         } catch (error) {
@@ -30,55 +27,79 @@ export function AuthForm() {
     }
 
     return (
-        <form onSubmit={handleSubmit} className="space-y-4" noValidate>
-            <div className="space-y-2">
-                <label
-                    htmlFor="email"
-                    className="text-sm font-medium text-black dark:text-white"
-                >
-                    Email
-                </label>
-                <div className="relative">
-                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 flex items-center justify-center w-4 h-4">
-                        @
-                    </span>
+        <form onSubmit={handleSubmit} className="space-y-5" noValidate>
+            {/* Input Fields */}
+            <div className="space-y-4">
+                <div className="space-y-1.5 text-left">
+                    <label
+                        htmlFor="email"
+                        className="text-xs font-semibold uppercase tracking-wider transition-colors"
+                        style={{ color: "var(--color-text-primary, oklch(0.556 0 0))" }}
+                    >
+                        Email
+                    </label>
                     <Input
                         type="email"
                         name="email"
-                        placeholder="name@example.com"
+                        placeholder="you@example.com"
                         required
                         disabled={isLoading}
-                        className="pl-10 h-12 bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-1 focus-visible:ring-ring"
+                        className="w-full h-11 px-3.5 rounded-xl border transition-all text-sm outline-none focus-visible:ring-2 focus-visible:ring-[oklab(0.140764_0.00120224_-0.00421676_/_0.5)]"
+                        style={{ 
+                            backgroundColor: "var(--color-surface-muted, #ffffff)", 
+                            borderColor: "var(--color-border-default, #e4e4e7)",
+                            color: "var(--color-text-tertiary, oklch(0.205 0 0))"
+                        }}
                         autoComplete="email"
                     />
                 </div>
-            </div>
 
-            <div className="space-y-2">
-                <label className="text-sm font-medium text-black dark:text-white">
-                    Password
-                </label>
-                <div className="relative">
-                    <LockIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500" />
+                <div className="space-y-1.5 text-left">
+                    <div className="flex justify-between items-center">
+                        <label
+                            htmlFor="password"
+                            className="text-xs font-semibold uppercase tracking-wider transition-colors"
+                            style={{ color: "var(--color-text-primary, oklch(0.556 0 0))" }}
+                        >
+                            Password
+                        </label>
+                    </div>
                     <Input
                         type="password"
                         name="password"
-                        placeholder="Enter your password"
+                        placeholder="••••••••"
                         required
                         disabled={isLoading}
-                        className="pl-10 h-12 bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-1 focus-visible:ring-ring"
+                        className="w-full h-11 px-3.5 rounded-xl border transition-all text-sm outline-none focus-visible:ring-2 focus-visible:ring-[oklab(0.140764_0.00120224_-0.00421676_/_0.5)]"
+                        style={{ 
+                            backgroundColor: "var(--color-surface-muted, #ffffff)", 
+                            borderColor: "var(--color-border-default, #e4e4e7)",
+                            color: "var(--color-text-tertiary, oklch(0.205 0 0))"
+                        }}
                     />
                 </div>
             </div>
 
+            {/* Submit Button */}
             <Button
                 type="submit"
                 disabled={isLoading}
-                className="w-full h-12 text-base font-medium bg-black text-white hover:bg-neutral-800 dark:bg-white dark:text-black dark:hover:bg-neutral-200 transition-colors"
+                className="relative w-full h-12 text-[15px] font-semibold text-white rounded-2xl transition-all duration-200 cursor-pointer mt-2 border-0"
+                style={{
+                    background: "linear-gradient(180deg, #2a2a2e 0%, #121214 100%)",
+                    boxShadow: "oklch(0.205 0 0) 0px 0px 0px 2px inset, oklab(0.999994 0.0000455678 0.0000200868 / 0.2) 0px 0px 0px 3px inset, rgba(255, 255, 255, 0.2) 0px 0px 10px 0px inset, rgba(0, 0, 0, 0.35) 0px 14px 28px -6px"
+                }}
             >
-                {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                {isLoading ? "Signing in..." : "Sign in"}
+                {isLoading ? (
+                    <span className="flex items-center justify-center gap-2">
+                        <Loader2 className="h-4 w-4 animate-spin" />
+                        Signing in...
+                    </span>
+                ) : (
+                    "Sign in"
+                )}
             </Button>
         </form>
     );
 }
+
