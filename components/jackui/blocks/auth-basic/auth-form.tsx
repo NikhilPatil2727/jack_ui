@@ -72,7 +72,7 @@ export function AuthForm() {
             <Button
                 type="submit"
                 disabled={isLoading}
-                className="relative w-full h-12 text-sm font-medium bg-gradient-to-b from-neutral-800 to-neutral-950 dark:from-neutral-100 dark:to-neutral-200 text-white dark:text-black hover:from-neutral-900 hover:to-black dark:hover:from-white dark:hover:to-neutral-100 rounded-xl transition-all duration-200 shadow-[0_4px_12px_rgba(0,0,0,0.15)] dark:shadow-[0_4px_12px_rgba(255,255,255,0.05)] cursor-pointer mt-2"
+                className="relative w-full h-12 text-[15px] font-semibold bg-gradient-to-b from-[#2a2a2e] to-[#121214] hover:from-[#323237] hover:to-[#17171a] text-white rounded-2xl transition-all duration-200 border border-[#0f0f11] shadow-[0_14px_28px_-6px_rgba(0,0,0,0.35),_inset_0_1px_0px_rgba(255,255,255,0.15)] cursor-pointer mt-2"
             >
                 {isLoading ? (
                     <span className="flex items-center justify-center gap-2">

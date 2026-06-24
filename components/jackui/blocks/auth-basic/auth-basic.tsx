@@ -12,6 +12,14 @@ export default function AuthBasic() {
                 }}
             />
 
+            {/* Ambient Rainbow/Aurora Background Glows */}
+            <div 
+                className="absolute w-[480px] h-[480px] rounded-full opacity-[0.28] dark:opacity-[0.16] pointer-events-none blur-[90px] select-none"
+                style={{
+                    background: "conic-gradient(from 0deg, #ff3b30, #ff9500, #ffcc00, #4cd964, #5ac8fa, #007aff, #5856d6, #ff2d55, #ff3b30)"
+                }}
+            />
+
             {/* Main Card */}
             <div 
                 className="w-full max-w-[380px] sm:w-[380px] bg-white dark:bg-[#0c0c0e] border-[3px] border-dotted rounded-xl p-8 shadow-[0_12px_40px_-10px_rgba(0,0,0,0.03)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.6)] transition-all duration-300 z-10 relative"
