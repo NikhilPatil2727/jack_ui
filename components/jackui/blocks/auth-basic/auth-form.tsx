@@ -33,7 +33,8 @@ export function AuthForm() {
                 <div className="space-y-1.5 text-left">
                     <label
                         htmlFor="email"
-                        className="text-sm font-medium text-neutral-700 dark:text-neutral-300"
+                        className="text-xs font-semibold uppercase tracking-wider transition-colors"
+                        style={{ color: "var(--color-text-primary, oklch(0.556 0 0))" }}
                     >
                         Email
                     </label>
@@ -43,7 +44,12 @@ export function AuthForm() {
                         placeholder="you@example.com"
                         required
                         disabled={isLoading}
-                        className="w-full h-11 px-3.5 bg-white dark:bg-neutral-950 border border-neutral-200 dark:border-neutral-800 rounded-xl placeholder:text-neutral-400 dark:placeholder:text-neutral-600 text-neutral-900 dark:text-neutral-100 focus-visible:ring-1 focus-visible:ring-neutral-400 focus-visible:border-neutral-400 transition-all text-sm"
+                        className="w-full h-11 px-3.5 rounded-xl border transition-all text-sm outline-none focus-visible:ring-2 focus-visible:ring-[oklab(0.140764_0.00120224_-0.00421676_/_0.5)]"
+                        style={{ 
+                            backgroundColor: "var(--color-surface-muted, #ffffff)", 
+                            borderColor: "var(--color-border-default, #e4e4e7)",
+                            color: "var(--color-text-tertiary, oklch(0.205 0 0))"
+                        }}
                         autoComplete="email"
                     />
                 </div>
@@ -52,7 +58,8 @@ export function AuthForm() {
                     <div className="flex justify-between items-center">
                         <label
                             htmlFor="password"
-                            className="text-sm font-medium text-neutral-700 dark:text-neutral-300"
+                            className="text-xs font-semibold uppercase tracking-wider transition-colors"
+                            style={{ color: "var(--color-text-primary, oklch(0.556 0 0))" }}
                         >
                             Password
                         </label>
@@ -63,7 +70,12 @@ export function AuthForm() {
                         placeholder="••••••••"
                         required
                         disabled={isLoading}
-                        className="w-full h-11 px-3.5 bg-white dark:bg-neutral-950 border border-neutral-200 dark:border-neutral-800 rounded-xl placeholder:text-neutral-400 dark:placeholder:text-neutral-600 text-neutral-900 dark:text-neutral-100 focus-visible:ring-1 focus-visible:ring-neutral-400 focus-visible:border-neutral-400 transition-all text-sm"
+                        className="w-full h-11 px-3.5 rounded-xl border transition-all text-sm outline-none focus-visible:ring-2 focus-visible:ring-[oklab(0.140764_0.00120224_-0.00421676_/_0.5)]"
+                        style={{ 
+                            backgroundColor: "var(--color-surface-muted, #ffffff)", 
+                            borderColor: "var(--color-border-default, #e4e4e7)",
+                            color: "var(--color-text-tertiary, oklch(0.205 0 0))"
+                        }}
                     />
                 </div>
             </div>
@@ -72,7 +84,11 @@ export function AuthForm() {
             <Button
                 type="submit"
                 disabled={isLoading}
-                className="relative w-full h-12 text-[15px] font-semibold bg-gradient-to-b from-[#2a2a2e] to-[#121214] hover:from-[#323237] hover:to-[#17171a] text-white rounded-2xl transition-all duration-200 border border-[#0f0f11] shadow-[0_14px_28px_-6px_rgba(0,0,0,0.35),_inset_0_1px_0px_rgba(255,255,255,0.15)] cursor-pointer mt-2"
+                className="relative w-full h-12 text-[15px] font-semibold text-white rounded-2xl transition-all duration-200 cursor-pointer mt-2 border-0"
+                style={{
+                    background: "linear-gradient(180deg, #2a2a2e 0%, #121214 100%)",
+                    boxShadow: "oklch(0.205 0 0) 0px 0px 0px 2px inset, oklab(0.999994 0.0000455678 0.0000200868 / 0.2) 0px 0px 0px 3px inset, rgba(255, 255, 255, 0.2) 0px 0px 10px 0px inset, rgba(0, 0, 0, 0.35) 0px 14px 28px -6px"
+                }}
             >
                 {isLoading ? (
                     <span className="flex items-center justify-center gap-2">
