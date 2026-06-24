@@ -6,7 +6,7 @@ export default function Home() {
       <main
         className="bg-white dark:bg-black/5 overflow-x-hidden"
         style={{
-          backgroundImage: `radial-gradient(circle at 1px 1px, var(--dot-color) 1px, transparent 0)`,
+          backgroundImage: `radial-gradient(circle at 1px 1px, var(--dot-color) 0.75px, transparent 0)`,
           backgroundSize: "16px 16px",
           backgroundRepeat: "repeat",
         }}
