@@ -314,7 +314,7 @@ export function AudienceHubAnimation({
             <foreignObject x={x - 80} y={y - 18} width={160} height={36} className="pointer-events-auto">
               <button
                 className={[
-                  "w-full h-full flex items-center gap-2.5 px-3.5 rounded-[6px] border-[1.5px] backdrop-blur-md transition-all duration-300 font-sans font-medium uppercase tracking-widest text-[10px] select-none cursor-pointer active:scale-95 outline-none focus-visible:ring-2 focus-visible:ring-white/50",
+                  "w-full h-full flex items-center gap-2.5 px-3.5 border-[1.5px] backdrop-blur-md transition-all duration-300 font-sans font-medium uppercase tracking-widest text-[10px] select-none cursor-pointer active:scale-95 outline-none focus-visible:ring-2 focus-visible:ring-white/50",
                   "bg-white/88 border-white/95 text-slate-900 hover:bg-white/95",
                   "dark:bg-black/65 dark:border-white/14 dark:text-white dark:hover:bg-black/75"
                 ].join(" ")}
