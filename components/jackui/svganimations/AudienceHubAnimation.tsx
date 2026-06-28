@@ -1,17 +1,57 @@
 "use client";
 
-import React, { useId } from "react";
+import React, { useId, useMemo } from "react";
+import { cn } from "@/lib/utils";
 
-// ─── Types ────────────────────────────────────────────────────────────────────
-
+/**
+ * @interface AudienceHubAnimationProps
+ * Defines configuration options for the AudienceHubAnimation component.
+ */
 export interface AudienceHubAnimationProps {
+  /**
+   * Array of exactly 4 strings to be shown in the outer node buttons.
+   * Order: LinkedIn followers, Post engagers, Company page visitors, Post commenters.
+   * @default ["LinkedIn Followers", "Post Engagers", "Company Page Visitors", "Post Commenters"]
+   */
   labels?: [string, string, string, string];
+  /**
+   * Whether the animations should be active.
+   * @default true
+   */
   animated?: boolean;
+  /**
+   * Custom Tailwind classes to apply to the root container.
+   */
   className?: string;
+  /**
+   * Central hub logo top text.
+   * @default "JACK"
+   */
+  logoTextTop?: string;
+  /**
+   * Central hub logo bottom text.
+   * @default "UI"
+   */
+  logoTextBottom?: string;
+  /**
+   * Custom background image URL.
+   * @default "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80"
+   */
+  backgroundImageUrl?: string;
+  /**
+   * Animation cycle duration in milliseconds.
+   * @default 3000
+   */
+  animationDuration?: number;
+  /**
+   * Optional click handler for the node buttons.
+   */
+  onNodeClick?: (nodeId: string, label: string) => void;
 }
 
 // ─── Icons ────────────────────────────────────────────────────────────────────
 
+/* Replace icon here - Customize node SVGs */
 const Icon = {
   Company: () => (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
@@ -108,36 +148,55 @@ const NODE_DEFS: NodeDef[] = [
   },
 ];
 
-const DEFAULT_LABELS: AudienceHubAnimationProps["labels"] = [
+const DEFAULT_LABELS: [string, string, string, string] = [
   "LinkedIn Followers",
   "Post Engagers",
   "Company Page Visitors",
   "Post Commenters",
 ];
 
-// ─── Component ────────────────────────────────────────────────────────────────
+const DEFAULT_BG_IMAGE = "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80";
 
+/**
+ * AudienceHubAnimation
+ *
+ * Displays the animated Audience Hub hero section used across products.
+ * Designed for high reusability, strict performance, and customizability.
+ *
+ * @author Jack UI
+ * @version 1.1.0
+ * @see {@link AudienceHubAnimationProps} for details on customisation.
+ */
 export function AudienceHubAnimation({
   labels = DEFAULT_LABELS,
   animated = true,
   className = "",
+  logoTextTop = "JACK",
+  logoTextBottom = "UI",
+  backgroundImageUrl = DEFAULT_BG_IMAGE,
+  animationDuration = 3000,
+  onNodeClick,
 }: AudienceHubAnimationProps) {
   const uid = useId().replace(/:/g, "");
   const s = (cls: string) => `${cls}-${uid}`;
 
+  // Memoize labels to prevent unnecessary renders/lookups
+  const memoizedLabels = useMemo(() => labels, [labels]);
+
   return (
     <div
-      className={[
+      className={cn(
         "relative w-full max-w-[600px] mx-auto overflow-hidden",
         "flex items-center justify-center font-sans",
         s("hub"),
-        className,
-      ].join(" ")}
+        className
+      )}
       style={{ aspectRatio: "600 / 420" }}
       role="img"
       aria-label="Diagram showing Valley AI aggregating LinkedIn audience sources"
     >
       {/* ── Scoped styles ───────────────────────────────────────────────────── */}
+      {/* Modify colors here - Base colors and gradients for the component */}
       <style>{`
         /* Design tokens — light */
         .${s("hub")} {
@@ -148,9 +207,10 @@ export function AudienceHubAnimation({
           --hub-fg:            #0f172a;
           --hub-border:        rgba(255 255 255 / 0.95);
 
+          /* Replace image here - Custom background image path */
           background-image:
             linear-gradient(to bottom, rgba(0 0 0 / 0.10), rgba(0 0 0 / 0.22)),
-            url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80');
+            url('${backgroundImageUrl}');
           background-size: cover;
           background-position: center;
           box-shadow: inset 0 0 100px rgba(0 0 0 / 0.2);
@@ -165,9 +225,10 @@ export function AudienceHubAnimation({
           --hub-fg:      #ffffff;
           --hub-border:  rgba(255 255 255 / 0.14);
 
+          /* Replace image here - Custom background image path for dark mode */
           background-image:
             linear-gradient(to bottom, rgba(0 0 0 / 0.40), rgba(0 0 0 / 0.60)),
-            url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80');
+            url('${backgroundImageUrl}');
         }
 
         /* Hub enter */
@@ -228,11 +289,13 @@ export function AudienceHubAnimation({
         }
 
         .${s("line-overlay")} {
-          animation: ${s("line-draw")} 3s ease-in-out infinite;
+          /* Update animation duration here - Set animation speed for draw-on overlay */
+          animation: ${s("line-draw")} ${animationDuration}ms ease-in-out infinite;
         }
 
         .${s("line-base")} {
-          animation: ${s("breathe")} 3s ease-in-out infinite;
+          /* Update animation duration here - Set animation speed for breathing lines */
+          animation: ${s("breathe")} ${animationDuration}ms ease-in-out infinite;
         }
 
         .${s("logo-text")} {
@@ -312,18 +375,23 @@ export function AudienceHubAnimation({
             style={animated ? { animationDelay: `${labelDelay}ms`, animationFillMode: "both" } : undefined}
           >
             <foreignObject x={x - 80} y={y - 18} width={160} height={36} className="pointer-events-auto">
+              {/* Change button text here - Labels for node triggers */}
+              {/* Replace CTA link here - Customize button onClick behavior */}
               <button
-                className={[
+                type="button"
+                onClick={() => onNodeClick?.(id, memoizedLabels[labelIndex])}
+                className={cn(
                   "w-full h-full flex items-center gap-2.5 px-3.5 border-[1.5px] backdrop-blur-md transition-all duration-300 font-sans font-medium uppercase tracking-widest text-[10px] select-none cursor-pointer active:scale-95 outline-none focus-visible:ring-2 focus-visible:ring-white/50",
                   "bg-white/88 border-white/95 text-slate-900 hover:bg-white/95",
-                  "dark:bg-black/65 dark:border-white/14 dark:text-white dark:hover:bg-black/75"
-                ].join(" ")}
+                  // The button remains white/light in both dark mode and light mode, per user specification
+                  "dark:bg-white/88 dark:border-white/95 dark:text-slate-900 dark:hover:bg-white/95"
+                )}
               >
                 <span className="shrink-0 opacity-90 flex items-center">
                   <IconComponent />
                 </span>
                 <span className="truncate leading-none mt-px">
-                  {labels![labelIndex]}
+                  {memoizedLabels[labelIndex]}
                 </span>
               </button>
             </foreignObject>
@@ -345,6 +413,7 @@ export function AudienceHubAnimation({
               className="w-full h-full flex flex-col items-center justify-center select-none font-sans"
               style={{ color: "var(--hub-fg)" }}
             >
+              {/* Customize heading text here - Top logo heading */}
               <span
                 className={animated ? s("logo-text") : undefined}
                 style={{
@@ -356,7 +425,7 @@ export function AudienceHubAnimation({
                   lineHeight: 1.1,
                 }}
               >
-                JACK
+                {logoTextTop}
               </span>
               <div
                 className={animated ? s("logo-line") : undefined}
@@ -367,6 +436,7 @@ export function AudienceHubAnimation({
                   margin: "3px 0",
                 }}
               />
+              {/* Customize heading text here - Bottom logo heading */}
               <span
                 className={animated ? s("logo-text") : undefined}
                 style={{
@@ -379,7 +449,7 @@ export function AudienceHubAnimation({
                   paddingLeft: "0.2em",
                 }}
               >
-                UI
+                {logoTextBottom}
               </span>
             </div>
           </foreignObject>

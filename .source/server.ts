@@ -1,18 +1,18 @@
 // @ts-nocheck
 import { default as __fd_glob_14 } from "../content/docs/meta.json?collection=meta"
-import * as __fd_glob_13 from "../content/docs/blocks/minimal-shop.mdx?collection=docs"
-import * as __fd_glob_12 from "../content/docs/blocks/dashboard.mdx?collection=docs"
-import * as __fd_glob_11 from "../content/docs/blocks/auth-basic.mdx?collection=docs"
-import * as __fd_glob_10 from "../content/docs/blocks/ai-chat.mdx?collection=docs"
-import * as __fd_glob_9 from "../content/docs/blocks/ai-card-generation.mdx?collection=docs"
-import * as __fd_glob_8 from "../content/docs/components/svg-animations.mdx?collection=docs"
-import * as __fd_glob_7 from "../content/docs/components/card.mdx?collection=docs"
-import * as __fd_glob_6 from "../content/docs/components/button.mdx?collection=docs"
-import * as __fd_glob_5 from "../content/docs/components/avatar-picker.mdx?collection=docs"
-import * as __fd_glob_4 from "../content/docs/components/ai-input.mdx?collection=docs"
-import * as __fd_glob_3 from "../content/docs/components/action-search-bar.mdx?collection=docs"
-import * as __fd_glob_2 from "../content/docs/hooks/use-click-outside.mdx?collection=docs"
-import * as __fd_glob_1 from "../content/docs/hooks/use-auto-resize-textarea.mdx?collection=docs"
+import * as __fd_glob_13 from "../content/docs/hooks/use-click-outside.mdx?collection=docs"
+import * as __fd_glob_12 from "../content/docs/hooks/use-auto-resize-textarea.mdx?collection=docs"
+import * as __fd_glob_11 from "../content/docs/components/svg-animations.mdx?collection=docs"
+import * as __fd_glob_10 from "../content/docs/components/card.mdx?collection=docs"
+import * as __fd_glob_9 from "../content/docs/components/button.mdx?collection=docs"
+import * as __fd_glob_8 from "../content/docs/components/avatar-picker.mdx?collection=docs"
+import * as __fd_glob_7 from "../content/docs/components/ai-input.mdx?collection=docs"
+import * as __fd_glob_6 from "../content/docs/components/action-search-bar.mdx?collection=docs"
+import * as __fd_glob_5 from "../content/docs/blocks/minimal-shop.mdx?collection=docs"
+import * as __fd_glob_4 from "../content/docs/blocks/dashboard.mdx?collection=docs"
+import * as __fd_glob_3 from "../content/docs/blocks/auth-basic.mdx?collection=docs"
+import * as __fd_glob_2 from "../content/docs/blocks/ai-chat.mdx?collection=docs"
+import * as __fd_glob_1 from "../content/docs/blocks/ai-card-generation.mdx?collection=docs"
 import * as __fd_glob_0 from "../content/docs/index.mdx?collection=docs"
 import { server } from 'fumadocs-mdx/runtime/server';
 import type * as Config from '../source.config';
@@ -22,6 +22,6 @@ const create = server<typeof Config, import("fumadocs-mdx/runtime/types").Intern
   }
 }>({"doc":{"passthroughs":["extractedReferences"]}});
 
-export const docs = await create.doc("docs", "content/docs", {"index.mdx": __fd_glob_0, "hooks/use-auto-resize-textarea.mdx": __fd_glob_1, "hooks/use-click-outside.mdx": __fd_glob_2, "components/action-search-bar.mdx": __fd_glob_3, "components/ai-input.mdx": __fd_glob_4, "components/avatar-picker.mdx": __fd_glob_5, "components/button.mdx": __fd_glob_6, "components/card.mdx": __fd_glob_7, "components/svg-animations.mdx": __fd_glob_8, "blocks/ai-card-generation.mdx": __fd_glob_9, "blocks/ai-chat.mdx": __fd_glob_10, "blocks/auth-basic.mdx": __fd_glob_11, "blocks/dashboard.mdx": __fd_glob_12, "blocks/minimal-shop.mdx": __fd_glob_13, });
+export const docs = await create.doc("docs", "content/docs", {"index.mdx": __fd_glob_0, "blocks/ai-card-generation.mdx": __fd_glob_1, "blocks/ai-chat.mdx": __fd_glob_2, "blocks/auth-basic.mdx": __fd_glob_3, "blocks/dashboard.mdx": __fd_glob_4, "blocks/minimal-shop.mdx": __fd_glob_5, "components/action-search-bar.mdx": __fd_glob_6, "components/ai-input.mdx": __fd_glob_7, "components/avatar-picker.mdx": __fd_glob_8, "components/button.mdx": __fd_glob_9, "components/card.mdx": __fd_glob_10, "components/svg-animations.mdx": __fd_glob_11, "hooks/use-auto-resize-textarea.mdx": __fd_glob_12, "hooks/use-click-outside.mdx": __fd_glob_13, });
 
 export const meta = await create.meta("meta", "content/docs", {"meta.json": __fd_glob_14, });
