@@ -1,4 +1,5 @@
 import HeroSection from "@/components/landing/hero";
+import ComponentGrid from "@/components/landing/component-grid";
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
         }}
       >
         <HeroSection />
+        <ComponentGrid />
       </main>
     </div>
   );
