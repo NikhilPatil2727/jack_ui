@@ -49,6 +49,7 @@ export const getComponent = async (fileName: string | null, folder: string) => {
     let folderToUse = folder;
     if (folder === "button") folderToUse = "buttons";
     else if (folder === "card") folderToUse = "cards";
+    else if (folder === "svg-animations" || folder === "svg-animation") folderToUse = "svganimations";
 
     if (!fileName || fileName === "undefined") {
         let foundPath = await findFileCaseInsensitive(baseDir, folderToUse);

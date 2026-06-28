@@ -58,6 +58,13 @@ export const navigationSections: NavSection[] = [
                 count: 7,
             },
             {
+                id: 11,
+                title: "SVG Animations",
+                href: "/docs/components/svg-animations",
+                description: "Interactive SVG animation components",
+                count: 2,
+            },
+            {
                 id: 5,
                 title: "Faq",
                 href: "/docs/components/faq",
