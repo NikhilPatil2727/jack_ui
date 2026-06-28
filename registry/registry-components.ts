@@ -209,4 +209,15 @@ export const component: Registry = [
             },
         ],
     },
+    {
+        name: "audience-hub-animation",
+        type: "registry:component",
+        dependencies: ["motion", "lucide-react"],
+        files: [
+            {
+                path: "components/jackui/svganimations/AudienceHubAnimation.tsx",
+                type: "registry:component",
+            },
+        ],
+    },
 ];
