@@ -291,6 +291,8 @@ export function AudienceHubAnimation({
         .${s("line-overlay")} {
           /* Update animation duration here - Set animation speed for draw-on overlay */
           animation: ${s("line-draw")} ${animationDuration}ms ease-in-out infinite;
+          /* Add a glowing premium white light-beam effect */
+          filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.95)) drop-shadow(0 0 1px rgba(255, 255, 255, 0.5));
         }
 
         .${s("line-base")} {
