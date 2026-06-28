@@ -277,6 +277,26 @@ export function AudienceHubAnimation({
           to   { opacity: 1; transform: translateY(0); filter: blur(0); }
         }
 
+        /* Expanding square ripple pulse when lines hit the central hub */
+        @keyframes ${s("hub-ripple-pulse")} {
+          0%, 35% {
+            transform: scale(1);
+            opacity: 0;
+          }
+          40% {
+            transform: scale(1);
+            opacity: 0.8;
+          }
+          70% {
+            transform: scale(1.3);
+            opacity: 0;
+          }
+          100% {
+            transform: scale(1.3);
+            opacity: 0;
+          }
+        }
+
         /* ── Animated class applications ─────────────────────────────────── */
 
         .${s("hub-node")} {
@@ -293,6 +313,12 @@ export function AudienceHubAnimation({
           animation: ${s("line-draw")} ${animationDuration}ms ease-in-out infinite;
           /* Add a glowing premium white light-beam effect */
           filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.95)) drop-shadow(0 0 1px rgba(255, 255, 255, 0.5));
+        }
+
+        .${s("hub-ripple")} {
+          transform-origin: 300px 210px;
+          animation: ${s("hub-ripple-pulse")} 3s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+          filter: drop-shadow(0 0 4px var(--line-active));
         }
 
         .${s("line-base")} {
@@ -402,6 +428,18 @@ export function AudienceHubAnimation({
 
         {/* ── Central hub (using custom layout) ─────────────────────────────── */}
         <g className={animated ? s("hub-node") : undefined}>
+          {/* Animated pulse/ripple square behind the central hub */}
+          {animated && (
+            <rect
+              x={268} y={178}
+              width={64} height={64}
+              rx={14} ry={14}
+              fill="none"
+              stroke="var(--line-active)"
+              strokeWidth="1.5"
+              className={s("hub-ripple")}
+            />
+          )}
           <rect
             x={268} y={178}
             width={64} height={64}
