@@ -114,11 +114,11 @@ function SingleEnvelope({ item }: SingleEnvelopeProps) {
   return (
     <motion.div
       className="relative flex-shrink-0 select-none"
-      style={{ 
-        width: 220, 
-        height: 350, 
-        cursor: "pointer", 
-        zIndex: isHovered ? 50 : 1 
+      style={{
+        width: 220,
+        height: 350,
+        cursor: "pointer",
+        zIndex: isHovered ? 50 : 1
       }}
       initial="initial"
       whileHover="hover"
@@ -133,8 +133,8 @@ function SingleEnvelope({ item }: SingleEnvelopeProps) {
           height: 150,
           background: t.backGradient,
           zIndex: 0,
-          boxShadow: isHovered 
-            ? `0 16px 36px ${t.hoverShadow}` 
+          boxShadow: isHovered
+            ? `0 16px 36px ${t.hoverShadow}`
             : `0 4px 16px ${t.shadowColor}`,
           transition: "box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1)",
         }}
@@ -143,19 +143,19 @@ function SingleEnvelope({ item }: SingleEnvelopeProps) {
       {/* ── 2. Card (animates upward on hover) ── */}
       <motion.article
         variants={{
-          initial: { y: 20, x: "-50%" },
-          hover: { y: -85, x: "-50%" },
+          initial: { y: 45, x: "-50%" },
+          hover: { y: -70, x: "-50%" },
         }}
         transition={{ type: "spring", stiffness: 220, damping: 22 }}
         className="absolute overflow-hidden rounded-[10px]"
         style={{
           left: "50%",
-          bottom: 40,
-          width: 196,
-          height: 230,
+          bottom: 50,
+          width: 190,
+          height: 210,
           zIndex: 10,
-          boxShadow: isHovered 
-            ? `0 24px 44px ${t.hoverShadow}` 
+          boxShadow: isHovered
+            ? `0 24px 44px ${t.hoverShadow}`
             : `0 8px 20px ${t.shadowColor}`,
         }}
       >
