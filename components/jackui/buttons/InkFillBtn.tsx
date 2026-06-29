@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 
 type Variant = "dark" | "light" | "coral";
 
-interface Btn01Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface InkFillBtnProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     children?: string;
     variant?: Variant;
     tag?: string; // optional prefix symbol e.g. "→" or "~"
@@ -45,14 +45,14 @@ const variantConfig: Record<
     },
 };
 
-export default function Btn01({
+export default function InkFillBtn({
     className,
     children = "Get Started",
     variant = "dark",
     tag,
     disabled,
     ...props
-}: Btn01Props) {
+}: InkFillBtnProps) {
     const v = variantConfig[variant];
     const label = children;
     const chars = Array.from(label);
