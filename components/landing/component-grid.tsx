@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import InboxDeck from "@/components/jackui/cards/InboxDeck";
 import EnvelopeCard from "@/components/jackui/cards/envelope-card";
 import Btn01 from "@/components/jackui/buttons/btn-01";
@@ -130,41 +130,23 @@ export default function ComponentGrid() {
   ];
 
   return (
-    <section className="w-full py-16 px-4 md:px-8 bg-background relative overflow-hidden">
+    <section 
+      className="w-full py-16 px-4 md:px-8 bg-background relative overflow-hidden"
+      style={{
+        backgroundImage: `repeating-linear-gradient(-45deg, var(--stripe-color) 0px, var(--stripe-color) 1px, transparent 1px, transparent 6px)`
+      }}
+    >
       {/* Header Container */}
       <div className="max-w-6xl mx-auto text-left mb-12">
         <span className="text-pink-500 dark:text-pink-400 font-semibold text-lg tracking-wide uppercase block mb-2">
-          Components
+          Premium Components
         </span>
         <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 mb-3">
-          Marketing on easy mode.
+          Interactive by design.
         </h2>
         <p className="text-lg text-zinc-600 dark:text-zinc-400 max-w-2xl mb-6">
-          Well animated UI blocks for marketing pages and more.
+          Elevate your interface with fluid transitions, tactile feedback, and highly-polished micro-interactions.
         </p>
-
-        {/* Buttons / Badges in header */}
-        <div className="flex flex-wrap items-center gap-3">
-          <button className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-zinc-700 dark:text-zinc-300 text-xs font-semibold hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors">
-            <span>Open with</span>
-            <span className="font-bold tracking-tight text-zinc-950 dark:text-zinc-50 flex items-center gap-0.5">
-              <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 fill-current">
-                <path d="M12 2L2 22h20L12 2zM12 6l6.5 13h-13L12 6z" />
-              </svg>
-              v0
-            </span>
-          </button>
-
-          <button className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-zinc-700 dark:text-zinc-300 text-xs font-semibold hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors">
-            <span>Install with</span>
-            <span className="font-bold tracking-tight text-zinc-950 dark:text-zinc-50 flex items-center gap-1">
-              <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 fill-none stroke-current" strokeWidth="2">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-              CLI
-            </span>
-          </button>
-        </div>
       </div>
 
       {/* Components Grid */}
