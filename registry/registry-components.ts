@@ -18,12 +18,12 @@ export const component: Registry = [
         ],
     },
     {
-        name: "btn-01",
+        name: "InkFillBtn",
         type: "registry:component",
         dependencies: ["motion"],
         files: [
             {
-                path: "components/jackui/buttons/btn-01.tsx",
+                path: "components/jackui/buttons/InkFillBtn.tsx",
                 type: "registry:component",
             },
         ],

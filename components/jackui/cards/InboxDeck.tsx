@@ -12,7 +12,6 @@ import { cn } from "@/lib/utils";
  * Features realistic SVG flap shadows, depth transitions, hover expansions,
  * and custom wax seal detailing.
  * 
- * Optimizations (Senior Dev, 8+ YOE):
  * - Next.js Image component with optimized sizes/priorities for Cumulative Layout Shift (CLS) prevention.
  * - Full Accessibility (a11y) support (keyboard navigation, ARIA roles, states, focus ring).
  * - GPU acceleration optimization (will-change properties for smooth transitions).
