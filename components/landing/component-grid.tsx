@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import InboxDeck from "@/components/jackui/cards/InboxDeck";
 import EnvelopeCard from "@/components/jackui/cards/envelope-card";
-import Btn01 from "@/components/jackui/buttons/btn-01";
+import InkFillBtn from "@/components/jackui/buttons/InkFillBtn";
 import Btn02 from "@/components/jackui/buttons/btn-02";
 import Btn03 from "@/components/jackui/buttons/btn-03";
 import Btn04 from "@/components/jackui/buttons/btn-04";
@@ -74,11 +74,11 @@ export default function ComponentGrid() {
     },
     {
       id: "btn-ink",
-      name: "Button - Ink Fill (Btn01)",
+      name: "Button - Ink Fill (InkFillBtn)",
       category: "Buttons (button.mdx)",
       preview: (
         <div className="relative w-full h-[180px] flex flex-col items-center justify-center gap-3 bg-zinc-50 dark:bg-zinc-950 rounded-xl px-6">
-          <Btn01 />
+          <InkFillBtn />
           <span className="text-[10px] text-zinc-400 dark:text-zinc-500">Hover to see ink fill effect</span>
         </div>
       ),
