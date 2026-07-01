@@ -220,4 +220,15 @@ export const component: Registry = [
             },
         ],
     },
+    {
+        name: "circuit-connections",
+        type: "registry:component",
+        dependencies: ["motion", "lucide-react"],
+        files: [
+            {
+                path: "components/jackui/svganimations/CircuitConnections.tsx",
+                type: "registry:component",
+            },
+        ],
+    },
 ];
