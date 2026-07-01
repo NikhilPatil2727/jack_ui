@@ -39,6 +39,17 @@ const RustLogo = () => (
   </svg>
 );
 
+// ─── Twinkling Star Flare Decoration ─────────────────────────────────────────
+const StarFlare = ({ className, style }: { className?: string; style?: React.CSSProperties }) => (
+  <g className={className} style={style}>
+    <path
+      d="M -6 0 Q 0 0 0 -6 Q 0 0 6 0 Q 0 0 0 6 Q 0 0 -6 0 Z"
+      fill="#ffffff"
+      style={{ filter: "drop-shadow(0 0 4px #ffffff)" }}
+    />
+  </g>
+);
+
 export function CircuitConnections({ className }: { className?: string }) {
   const uid = useId().replace(/:/g, "");
   const s = (cls: string) => `${cls}-${uid}`;
@@ -143,6 +154,49 @@ export function CircuitConnections({ className }: { className?: string }) {
         :is(.dark) .${s("hub-body")} {
           background-color: #1a1a1a;
         }
+
+        /* Flashy White Signal Beam Running Animation */
+        @keyframes ${s("beam-slide")} {
+          0% {
+            stroke-dashoffset: 350;
+          }
+          100% {
+            stroke-dashoffset: -350;
+          }
+        }
+
+        .${s("laser-beam")} {
+          stroke: #ffffff;
+          stroke-linecap: round;
+          stroke-dasharray: 30 180;
+          animation: ${s("beam-slide")} 5.5s linear infinite;
+          filter: drop-shadow(0 0 6px #ffffff) drop-shadow(0 0 2px #ffffff);
+        }
+
+        .${s("laser-beam-fast")} {
+          stroke: #ffffff;
+          stroke-linecap: round;
+          stroke-dasharray: 30 180;
+          animation: ${s("beam-slide")} 2.5s linear infinite;
+          filter: drop-shadow(0 0 8px #ffffff) drop-shadow(0 0 3px #ffffff);
+        }
+
+        /* Sparkly Star Flare Rotation and Scaling */
+        @keyframes ${s("sparkle")} {
+          0%, 100% {
+            transform: scale(0.3) rotate(0deg);
+            opacity: 0.3;
+          }
+          50% {
+            transform: scale(1.1) rotate(90deg);
+            opacity: 1;
+          }
+        }
+
+        .${s("twinkle-star")} {
+          transform-origin: center;
+          animation: ${s("sparkle")} 5s ease-in-out infinite;
+        }
       `}</style>
 
       {/* Circuit Board SVG Canvas */}
@@ -227,19 +281,37 @@ export function CircuitConnections({ className }: { className?: string }) {
             />
           </g>
 
-          {/* Moving Signal Particles traveling along paths (using animateMotion for optimized plain glow dot effect) */}
-          <g>
-            <circle r="4.5" fill="#00d8ff" style={{ filter: "drop-shadow(0 0 5px #00d8ff)", opacity: hoveredCard === "react" ? 1 : hoveredCard ? 0.2 : 0.9 }}>
-              <animateMotion dur="2.5s" repeatCount="indefinite" path="M 350 110 H 133 V 220" />
-            </circle>
+          {/* Flashy White Laser/Pulse Beams overlayed on top of active lines */}
+          <g fill="none" strokeWidth="2" strokeLinecap="round">
+            {/* React Flashy Beam */}
+            <path
+              d="M 350 110 H 133 V 220"
+              className={hoveredCard === "react" ? s("laser-beam-fast") : s("laser-beam")}
+              style={{
+                opacity: hoveredCard === "react" ? 1 : hoveredCard ? 0.1 : 0.85,
+                transition: "opacity 0.3s ease",
+              }}
+            />
 
-            <circle r="4.5" fill="#00d8ff" style={{ filter: "drop-shadow(0 0 5px #00d8ff)", opacity: hoveredCard === "turbopack" ? 1 : hoveredCard ? 0.2 : 0.9 }}>
-              <animateMotion dur="3s" repeatCount="indefinite" path="M 400 135 V 170 H 320 V 190 H 400 V 220" />
-            </circle>
+            {/* Turbopack Flashy Beam */}
+            <path
+              d="M 400 135 V 170 H 320 V 190 H 400 V 220"
+              className={hoveredCard === "turbopack" ? s("laser-beam-fast") : s("laser-beam")}
+              style={{
+                opacity: hoveredCard === "turbopack" ? 1 : hoveredCard ? 0.1 : 0.85,
+                transition: "opacity 0.3s ease",
+              }}
+            />
 
-            <circle r="4.5" fill="#f97316" style={{ filter: "drop-shadow(0 0 5px #f97316)", opacity: hoveredCard === "swc" ? 1 : hoveredCard ? 0.2 : 0.9 }}>
-              <animateMotion dur="2.5s" repeatCount="indefinite" path="M 450 110 H 510 V 140 H 667 V 220" />
-            </circle>
+            {/* SWC Flashy Beam */}
+            <path
+              d="M 450 110 H 510 V 140 H 667 V 220"
+              className={hoveredCard === "swc" ? s("laser-beam-fast") : s("laser-beam")}
+              style={{
+                opacity: hoveredCard === "swc" ? 1 : hoveredCard ? 0.1 : 0.85,
+                transition: "opacity 0.3s ease",
+              }}
+            />
           </g>
 
           {/* Decorative Junction dots */}
@@ -249,6 +321,11 @@ export function CircuitConnections({ className }: { className?: string }) {
             <circle cx="490" cy="30" r="3" fill="#ec4899" />
             <circle cx="610" cy="110" r="3" fill="#f97316" className="animate-pulse" />
           </g>
+
+          {/* Flashy Sparkle Star Flares positioned at key junction nodes */}
+          <StarFlare className={s("twinkle-star")} style={{ transform: "translate(210px, 110px)" }} />
+          <StarFlare className={s("twinkle-star")} style={{ transform: "translate(610px, 110px)", animationDelay: "1s" }} />
+          <StarFlare className={s("twinkle-star")} style={{ transform: "translate(490px, 30px)", animationDelay: "0.5s" }} />
         </svg>
 
         {/* Central Core CPU ("Powered By") */}
