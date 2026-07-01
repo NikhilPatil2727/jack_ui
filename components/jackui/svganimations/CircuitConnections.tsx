@@ -4,38 +4,32 @@ import React, { useId, useState } from "react";
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 
-// ─── Inline Brand Logos ──────────────────────────────────────────────────────
-const ReactLogo = () => (
-  <svg viewBox="-11.5 -10.23 23 20.46" className="w-8 h-8 text-[#00d8ff] drop-shadow-[0_0_8px_rgba(0,216,255,0.4)]" fill="none">
-    <circle r="2.05" fill="currentColor" />
-    <g stroke="currentColor" strokeWidth="1">
-      <ellipse rx="11" ry="4.2" />
-      <ellipse rx="11" ry="4.2" transform="rotate(60)" />
-      <ellipse rx="11" ry="4.2" transform="rotate(120)" />
-    </g>
+// ─── Custom Premium SVG Icons (AI Orchestrator Theme) ────────────────────────
+const CognitiveIcon = () => (
+  <svg viewBox="0 0 24 24" className="w-8 h-8 text-violet-400 drop-shadow-[0_0_8px_rgba(167,139,250,0.4)]" fill="none" stroke="currentColor" strokeWidth="1.5">
+    <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15A2.5 2.5 0 0 1 9.5 22M14.5 2a2.5 2.5 0 0 0-2.5 2.5v15a2.5 2.5 0 0 0 2.5 2.5" />
+    <path d="M12 9h5a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-5M12 5h7a2 2 0 0 1 2 2v1a2 2 0 0 1-2 2h-7" />
+    <path d="M12 19H7a2 2 0 0 1-2-2v-2a2 2 0 0 1 2-2h5M12 15H5a2 2 0 0 1-2-2v-1a2 2 0 0 1 2-2h7" />
+    <circle cx="12" cy="4.5" r="1.5" className="fill-violet-400 animate-pulse" />
+    <circle cx="12" cy="19.5" r="1.5" className="fill-violet-400 animate-pulse" />
   </svg>
 );
 
-const TurbopackLogo = () => (
-  <svg viewBox="0 0 24 24" className="w-8 h-8 text-neutral-800 dark:text-neutral-200" fill="none" stroke="currentColor" strokeWidth="1.5">
-    <rect x="3" y="3" width="7" height="7" rx="1.5" />
-    <rect x="14" y="3" width="7" height="7" rx="1.5" />
-    <rect x="14" y="14" width="7" height="7" rx="1.5" />
-    <rect x="3" y="14" width="7" height="7" rx="1.5" />
-    <path d="M9.5 9.5l5 5M14.5 9.5l-5 5" strokeLinecap="round" />
+const MemoryIcon = () => (
+  <svg viewBox="0 0 24 24" className="w-8 h-8 text-emerald-400 drop-shadow-[0_0_8px_rgba(52,211,153,0.4)]" fill="none" stroke="currentColor" strokeWidth="1.5">
+    <ellipse cx="12" cy="5" rx="9" ry="3" />
+    <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+    <path d="M3 12c0 1.66 4 3 9 3s9-1.34 9-3" />
+    <line x1="12" y1="8" x2="12" y2="22" strokeDasharray="3 3" />
+    <circle cx="12" cy="12" r="2" className="fill-emerald-400" />
   </svg>
 );
 
-const SwcLogo = () => (
-  <svg viewBox="0 0 24 24" className="w-8 h-8 text-[#f97316]" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-    <path d="M3 12h18M3 6h18M3 18h18" strokeDasharray="3 3" />
-    <path d="M12 2v22M5 12l7-7 7 7-7 7-7-7" />
-  </svg>
-);
-
-const RustLogo = () => (
-  <svg viewBox="0 0 24 24" className="inline-block w-3.5 h-3.5 mx-1 text-[#f97316] align-middle" fill="currentColor">
-    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14.5h-2v-2h2v2zm0-4h-2v-6h2v6z" />
+const ToolsIcon = () => (
+  <svg viewBox="0 0 24 24" className="w-8 h-8 text-rose-400 drop-shadow-[0_0_8px_rgba(244,63,94,0.4)]" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="4" y="4" width="16" height="16" rx="2" />
+    <path d="M9 22V12h6v10M12 2v2M2 12h2M20 12h2" />
+    <circle cx="12" cy="8" r="1" className="fill-rose-400 animate-ping" />
   </svg>
 );
 
@@ -43,7 +37,7 @@ const RustLogo = () => (
 const StarFlare = ({ className, style }: { className?: string; style?: React.CSSProperties }) => (
   <g className={className} style={style}>
     <path
-      d="M -6 0 Q 0 0 0 -6 Q 0 0 6 0 Q 0 0 0 6 Q 0 0 -6 0 Z"
+      d="M -5 0 Q 0 0 0 -5 Q 0 0 5 0 Q 0 0 0 5 Q 0 0 -5 0 Z"
       fill="#ffffff"
       style={{ filter: "drop-shadow(0 0 4px #ffffff)" }}
     />
@@ -58,14 +52,10 @@ export function CircuitConnections({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "relative w-full max-w-[1000px] mx-auto overflow-hidden transition-colors font-sans",
+        "relative w-full max-w-[1000px] mx-auto overflow-hidden transition-colors font-sans p-6 rounded-[14px] bg-white dark:bg-black border border-zinc-200 dark:border-zinc-800 shadow-xs",
         s("container"),
         className
       )}
-      style={{
-        borderRadius: "var(--radius-md)",
-        padding: "var(--space-6)",
-      }}
     >
       <style>{`
         .${s("container")} {
@@ -75,110 +65,59 @@ export function CircuitConnections({ className }: { className?: string }) {
           font-weight: 400;
           line-height: 17.875px;
 
-          /* Brand Colors */
-          --color-text-primary: lab(48.496 0 0);
-          --color-text-secondary: lab(26.8019 1.35387 -4.68303);
-          --color-text-tertiary: lab(2.75381 0 0);
-          --color-text-inverse: lab(34.924 0 0);
-
-          --color-surface-base: #000000;
-          --color-surface-muted: #ffffff;
-          --color-surface-raised: lab(100 0 0);
-          --color-surface-strong: oklab(0.969998 -0.00000959635 0.0000227094 / 0.8);
-
-          --color-border-default: lab(90.952 0 -0.0000119209);
-          --color-border-strong: oklab(0.921998 -0.00000908971 0.0000215769 / 0.8);
-
-          /* Spacing Scale */
-          --space-1: 4px;
-          --space-2: 5px;
-          --space-3: 6px;
-          --space-4: 8px;
-          --space-5: 12px;
-          --space-6: 16px;
-          --space-7: 20px;
-          --space-8: 24px;
-
-          /* Radii Scale */
-          --radius-xs: 8px;
-          --radius-sm: 10px;
-          --radius-md: 14px;
-          --radius-lg: 40px;
-          --radius-xl: 20971500px;
-
-          /* Shadows Scale */
-          --shadow-1: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px, rgba(0, 0, 0, 0.06) 0px 1px 2px -1px, rgba(0, 0, 0, 0.04) 0px 2px 4px 0px;
-          --shadow-3: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, lab(0 0 0 / 0.02) 0px 1px 0px 0px inset, lab(0 0 0 / 0.02) 0px 0px 0px 1px inset, lab(100 0 0 / 0.25) 0px 0px 0px 1px;
-          --shadow-4: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, lab(0 0 0 / 0.05) 0px 1px 1px 0px, lab(97.6618 1.68431 3.32774 / 0.5) 0px 1px 1px 0px inset, lab(100 0 0 / 0.1) 0px 0px 0px 1px inset, lab(7.20476 1.68892 2.90778 / 0.5) 0px 0px 1px 0px;
-
-          /* Motion Duration */
-          --motion-duration-instant: 150ms;
-          --motion-duration-fast: 200ms;
-
           /* Dynamic Active Colors */
-          --line-active-cyan: #00d8ff;
-          --line-active-orange: #f97316;
-
-          /* Component Theme Maps */
-          background-color: var(--color-surface-muted);
-          border: 1px solid var(--color-border-default);
-          box-shadow: var(--shadow-1);
+          --line-active-violet: #a78bfa;
+          --line-active-emerald: #34d399;
+          --line-active-rose: #fb7185;
         }
 
-        :is(.dark) .${s("container")} {
-          background-color: var(--color-surface-base);
-          border: 1px solid var(--color-border-strong);
+        /* Line draw → hold → fade → reset → hold clear */
+        @keyframes ${s("line-draw")} {
+          0%   { stroke-dashoffset: var(--path-len); opacity: 1; }
+          40%  { stroke-dashoffset: 0;               opacity: 1; }
+          82%  { stroke-dashoffset: 0;               opacity: 1; }
+          90%  { stroke-dashoffset: 0;               opacity: 0; }
+          91%  { stroke-dashoffset: var(--path-len); opacity: 0; }
+          100% { stroke-dashoffset: var(--path-len); opacity: 1; }
         }
 
-        .${s("card-el")} {
-          background-color: var(--color-surface-raised);
-          border: 1px solid var(--color-border-default);
-          border-radius: var(--radius-md);
-          box-shadow: var(--shadow-3);
-          transition: all var(--motion-duration-fast) cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        :is(.dark) .${s("card-el")} {
-          background-color: #050505;
-          border: 1px solid var(--color-border-strong);
-        }
-
-        .${s("hub-body")} {
-          background-color: var(--color-text-tertiary);
-          border: 1px solid var(--color-border-strong);
-          color: var(--color-surface-muted);
-          border-radius: var(--radius-sm);
-          box-shadow: var(--shadow-4);
-        }
-
-        :is(.dark) .${s("hub-body")} {
-          background-color: #1a1a1a;
-        }
-
-        /* Flashy White Signal Beam Running Animation */
-        @keyframes ${s("beam-slide")} {
-          0% {
-            stroke-dashoffset: 350;
-          }
-          100% {
-            stroke-dashoffset: -350;
-          }
-        }
-
-        .${s("laser-beam")} {
+        .${s("laser-beam-violet")} {
           stroke: #ffffff;
           stroke-linecap: round;
-          stroke-dasharray: 30 180;
-          animation: ${s("beam-slide")} 5.5s linear infinite;
-          filter: drop-shadow(0 0 6px #ffffff) drop-shadow(0 0 2px #ffffff);
+          animation: ${s("line-draw")} 5.5s ease-in-out infinite;
+          filter: drop-shadow(0 0 4px #ffffff) drop-shadow(0 0 2px #a78bfa);
         }
-
-        .${s("laser-beam-fast")} {
+        .${s("laser-beam-violet-fast")} {
           stroke: #ffffff;
           stroke-linecap: round;
-          stroke-dasharray: 30 180;
-          animation: ${s("beam-slide")} 2.5s linear infinite;
-          filter: drop-shadow(0 0 8px #ffffff) drop-shadow(0 0 3px #ffffff);
+          animation: ${s("line-draw")} 2.5s ease-in-out infinite;
+          filter: drop-shadow(0 0 5px #ffffff) drop-shadow(0 0 3px #a78bfa);
+        }
+
+        .${s("laser-beam-emerald")} {
+          stroke: #ffffff;
+          stroke-linecap: round;
+          animation: ${s("line-draw")} 5.5s ease-in-out infinite;
+          filter: drop-shadow(0 0 4px #ffffff) drop-shadow(0 0 2px #34d399);
+        }
+        .${s("laser-beam-emerald-fast")} {
+          stroke: #ffffff;
+          stroke-linecap: round;
+          animation: ${s("line-draw")} 2.5s ease-in-out infinite;
+          filter: drop-shadow(0 0 5px #ffffff) drop-shadow(0 0 3px #34d399);
+        }
+
+        .${s("laser-beam-rose")} {
+          stroke: #ffffff;
+          stroke-linecap: round;
+          animation: ${s("line-draw")} 5.5s ease-in-out infinite;
+          filter: drop-shadow(0 0 4px #ffffff) drop-shadow(0 0 2px #fb7185);
+        }
+        .${s("laser-beam-rose-fast")} {
+          stroke: #ffffff;
+          stroke-linecap: round;
+          animation: ${s("line-draw")} 2.5s ease-in-out infinite;
+          filter: drop-shadow(0 0 5px #ffffff) drop-shadow(0 0 3px #fb7185);
         }
 
         /* Sparkly Star Flare Rotation and Scaling */
@@ -200,25 +139,29 @@ export function CircuitConnections({ className }: { className?: string }) {
       `}</style>
 
       {/* Circuit Board SVG Canvas */}
-      <div 
-        className="relative w-full pointer-events-none z-0"
-        style={{ height: "200px" }}
-      >
+      <div className="relative w-full h-[200px] pointer-events-none z-0">
         <svg
           viewBox="0 0 800 220"
           className="w-full h-full"
           preserveAspectRatio="none"
         >
-          {/* SVG Glow Filter Definition */}
+          {/* SVG Glow Filter Definitions */}
           <defs>
-            <filter id={`glow-cyan-${uid}`} x="-20%" y="-20%" width="140%" height="140%">
+            <filter id={`glow-violet-${uid}`} x="-20%" y="-20%" width="140%" height="140%">
               <feGaussianBlur stdDeviation="5" result="blur" />
               <feMerge>
                 <feMergeNode in="blur" />
                 <feMergeNode in="SourceGraphic" />
               </feMerge>
             </filter>
-            <filter id={`glow-orange-${uid}`} x="-20%" y="-20%" width="140%" height="140%">
+            <filter id={`glow-emerald-${uid}`} x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="5" result="blur" />
+              <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+            <filter id={`glow-rose-${uid}`} x="-20%" y="-20%" width="140%" height="140%">
               <feGaussianBlur stdDeviation="5" result="blur" />
               <feMerge>
                 <feMergeNode in="blur" />
@@ -227,299 +170,215 @@ export function CircuitConnections({ className }: { className?: string }) {
             </filter>
           </defs>
 
-          {/* Subtle background lines (matching the photo) */}
+          {/* Unique Creative Background Lines Network */}
           <g stroke="currentColor" className="text-zinc-100 dark:text-zinc-900" strokeWidth="1.5" fill="none">
-            <path d="M 400 40 L 400 20 M 420 50 L 420 10 M 380 55 L 380 15" />
-            <path d="M 420 10 H 480 V 30" />
-            <path d="M 380 15 H 320 V 40" />
-            <path d="M 280 20 H 220 V 70 H 150" />
-            <path d="M 520 20 H 580 V 70 H 650" />
+            <path d="M 400 35 L 400 15 M 430 45 L 450 15 H 510 V 35" />
+            <path d="M 370 45 L 350 15 H 290 V 35" />
+            <path d="M 250 15 H 180 V 65 H 100" />
+            <path d="M 550 15 H 620 V 65 H 700" />
 
-            <path d="M 150 120 H 300 V 70" />
-            <path d="M 650 120 H 500 V 70" />
-            <path d="M 320 120 V 160 H 480" />
+            <path d="M 133 120 H 260 V 55" />
+            <path d="M 667 120 H 540 V 55" />
+            <path d="M 350 145 H 450 V 175 H 400" />
 
-            {/* Inactive main tracks */}
+            {/* Inactive Main paths */}
             <path d="M 350 110 H 133 V 220" />
-            <path d="M 400 135 V 170 H 320 V 190 H 400 V 220" />
-            <path d="M 450 110 H 510 V 140 H 667 V 220" />
+            <path d="M 400 135 V 220" />
+            <path d="M 450 110 H 667 V 220" />
           </g>
 
-          {/* Glowing active solid circuit tracks (no dash array, plain neon gradient effect) */}
+          {/* Glowing active solid circuit tracks (Unique Colors: Violet, Emerald, Rose) */}
           <g fill="none" strokeWidth="2.5" strokeLinecap="round">
-            {/* React Line */}
+            {/* Cognitive Engine (Violet) */}
             <path
               d="M 350 110 H 133 V 220"
-              stroke="var(--line-active-cyan)"
+              stroke="var(--line-active-violet)"
               style={{
-                filter: `url(#glow-cyan-${uid})`,
-                opacity: hoveredCard === "react" ? 1 : hoveredCard ? 0.2 : 0.75,
+                filter: `url(#glow-violet-${uid})`,
+                opacity: hoveredCard === "cognitive" ? 1 : hoveredCard ? 0.2 : 0.75,
                 transition: "opacity 0.3s ease, stroke-width 0.3s ease",
               }}
             />
 
-            {/* Turbopack Line */}
+            {/* Vector Memory (Emerald) */}
             <path
-              d="M 400 135 V 170 H 320 V 190 H 400 V 220"
-              stroke="var(--line-active-cyan)"
+              d="M 400 135 V 220"
+              stroke="var(--line-active-emerald)"
               style={{
-                filter: `url(#glow-cyan-${uid})`,
-                opacity: hoveredCard === "turbopack" ? 1 : hoveredCard ? 0.2 : 0.75,
+                filter: `url(#glow-emerald-${uid})`,
+                opacity: hoveredCard === "memory" ? 1 : hoveredCard ? 0.2 : 0.75,
                 transition: "opacity 0.3s ease, stroke-width 0.3s ease",
               }}
             />
 
-            {/* SWC Line */}
+            {/* Autonomous Tools (Rose) */}
             <path
-              d="M 450 110 H 510 V 140 H 667 V 220"
-              stroke="var(--line-active-orange)"
+              d="M 450 110 H 667 V 220"
+              stroke="var(--line-active-rose)"
               style={{
-                filter: `url(#glow-orange-${uid})`,
-                opacity: hoveredCard === "swc" ? 1 : hoveredCard ? 0.2 : 0.75,
+                filter: `url(#glow-rose-${uid})`,
+                opacity: hoveredCard === "tools" ? 1 : hoveredCard ? 0.2 : 0.75,
                 transition: "opacity 0.3s ease, stroke-width 0.3s ease",
               }}
             />
           </g>
 
-          {/* Flashy White Laser/Pulse Beams overlayed on top of active lines */}
-          <g fill="none" strokeWidth="2" strokeLinecap="round">
-            {/* React Flashy Beam */}
+          {/* Flashy Colored Laser/Pulse Beams overlayed on top of active lines */}
+          <g fill="none" strokeWidth="1.2" strokeLinecap="round">
+            {/* Cognitive Laser (Violet) */}
             <path
               d="M 350 110 H 133 V 220"
-              className={hoveredCard === "react" ? s("laser-beam-fast") : s("laser-beam")}
+              className={hoveredCard === "cognitive" ? s("laser-beam-violet-fast") : s("laser-beam-violet")}
               style={{
-                opacity: hoveredCard === "react" ? 1 : hoveredCard ? 0.1 : 0.85,
+                "--path-len": 328,
+                strokeDasharray: 328,
+                strokeDashoffset: 328,
+                opacity: hoveredCard === "cognitive" ? 1 : hoveredCard ? 0.1 : 0.85,
                 transition: "opacity 0.3s ease",
-              }}
+              } as React.CSSProperties}
             />
 
-            {/* Turbopack Flashy Beam */}
+            {/* Vector Memory Laser (Emerald) */}
             <path
-              d="M 400 135 V 170 H 320 V 190 H 400 V 220"
-              className={hoveredCard === "turbopack" ? s("laser-beam-fast") : s("laser-beam")}
+              d="M 400 135 V 220"
+              className={hoveredCard === "memory" ? s("laser-beam-emerald-fast") : s("laser-beam-emerald")}
               style={{
-                opacity: hoveredCard === "turbopack" ? 1 : hoveredCard ? 0.1 : 0.85,
+                "--path-len": 85,
+                strokeDasharray: 85,
+                strokeDashoffset: 85,
+                opacity: hoveredCard === "memory" ? 1 : hoveredCard ? 0.1 : 0.85,
                 transition: "opacity 0.3s ease",
-              }}
+              } as React.CSSProperties}
             />
 
-            {/* SWC Flashy Beam */}
+            {/* Autonomous Tools Laser (Rose) */}
             <path
-              d="M 450 110 H 510 V 140 H 667 V 220"
-              className={hoveredCard === "swc" ? s("laser-beam-fast") : s("laser-beam")}
+              d="M 450 110 H 667 V 220"
+              className={hoveredCard === "tools" ? s("laser-beam-rose-fast") : s("laser-beam-rose")}
               style={{
-                opacity: hoveredCard === "swc" ? 1 : hoveredCard ? 0.1 : 0.85,
+                "--path-len": 328,
+                strokeDasharray: 328,
+                strokeDashoffset: 328,
+                opacity: hoveredCard === "tools" ? 1 : hoveredCard ? 0.1 : 0.85,
                 transition: "opacity 0.3s ease",
-              }}
+              } as React.CSSProperties}
             />
           </g>
 
           {/* Decorative Junction dots */}
           <g>
-            <circle cx="210" cy="110" r="3" fill="#00d8ff" className="animate-pulse" />
+            <circle cx="210" cy="110" r="3" fill="#a78bfa" className="animate-pulse" />
             <circle cx="150" cy="120" r="2.5" fill="#a1a1aa" />
             <circle cx="490" cy="30" r="3" fill="#ec4899" />
-            <circle cx="610" cy="110" r="3" fill="#f97316" className="animate-pulse" />
+            <circle cx="590" cy="110" r="3" fill="#fb7185" className="animate-pulse" />
           </g>
 
           {/* Flashy Sparkle Star Flares positioned at key junction nodes */}
           <StarFlare className={s("twinkle-star")} style={{ transform: "translate(210px, 110px)" }} />
-          <StarFlare className={s("twinkle-star")} style={{ transform: "translate(610px, 110px)", animationDelay: "1s" }} />
+          <StarFlare className={s("twinkle-star")} style={{ transform: "translate(590px, 110px)", animationDelay: "1s" }} />
           <StarFlare className={s("twinkle-star")} style={{ transform: "translate(490px, 30px)", animationDelay: "0.5s" }} />
         </svg>
 
-        {/* Central Core CPU ("Powered By") */}
+        {/* Central Core CPU ("AGENT GATEWAY") - Clean Button style with no pins */}
         <div className="absolute top-[85px] left-1/2 -translate-x-1/2 flex flex-col items-center pointer-events-auto">
-          {/* Top Pins */}
-          <div className="flex gap-1.5 mb-[-2px]">
-            {[...Array(6)].map((_, i) => (
-              <div key={i} className="w-1.5 h-1.5 bg-zinc-300 dark:bg-zinc-700 rounded-t-xs" />
-            ))}
-          </div>
-
-          {/* Main Hub Body */}
-          <div
-            className={cn(
-              "px-6 py-3.5 text-sm font-bold tracking-wide select-none transition-all",
-              s("hub-body")
-            )}
-          >
-            Powered By
-          </div>
-
-          {/* Bottom Pins */}
-          <div className="flex gap-1.5 mt-[-2px]">
-            {[...Array(6)].map((_, i) => (
-              <div key={i} className="w-1.5 h-1.5 bg-zinc-300 dark:bg-zinc-700 rounded-b-xs" />
-            ))}
+          <div className="px-6 py-3.5 text-sm font-bold tracking-wide select-none transition-all rounded-[10px] shadow-sm bg-neutral-900 dark:bg-zinc-900 text-white border border-neutral-800 dark:border-zinc-800">
+            AGENT GATEWAY
           </div>
         </div>
       </div>
 
       {/* 3 Columns Tech Cards Grid */}
-      <div 
-        className="relative z-10 grid grid-cols-1 md:grid-cols-3 w-full"
-        style={{ gap: "var(--space-6)" }}
-      >
-        {/* Card 1: React */}
+      <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 w-full gap-6">
+        {/* Card 1: Cognitive Engine */}
         <motion.a
-          href="https://react.dev"
-          target="_blank"
-          rel="noopener noreferrer"
-          onMouseEnter={() => setHoveredCard("react")}
+          href="#"
+          onMouseEnter={() => setHoveredCard("cognitive")}
           onMouseLeave={() => setHoveredCard(null)}
           className={cn(
-            "flex flex-col text-left cursor-pointer outline-none no-underline",
-            s("card-el")
+            "flex flex-col text-left cursor-pointer outline-none no-underline p-6 border rounded-[14px] transition-all duration-200 bg-white dark:bg-zinc-950/40",
+            hoveredCard === "cognitive" ? "border-zinc-800 dark:border-zinc-100 shadow-md -translate-y-0.5" : "border-zinc-200 dark:border-zinc-800/80 shadow-xs"
           )}
-          style={{
-            padding: "var(--space-6)",
-            borderColor: hoveredCard === "react" ? "#00d8ff" : "var(--color-border-default)",
-            transform: hoveredCard === "react" ? "translateY(-2px)" : "none",
-          }}
         >
           {/* Logo Container */}
-          <div style={{ marginBottom: "var(--space-5)" }}>
-            <ReactLogo />
+          <div className="mb-3">
+            <CognitiveIcon />
           </div>
 
           {/* Title */}
-          <div 
-            className="flex items-center" 
-            style={{ gap: "var(--space-2)", marginBottom: "var(--space-2)" }}
-          >
-            <h3 
-              className="font-bold tracking-tight font-sans"
-              style={{ 
-                fontSize: "14px", 
-                color: "var(--color-text-secondary)" 
-              }}
-            >
-              React
+          <div className="flex items-center gap-[5px] mb-[5px]">
+            <h3 className="font-bold tracking-tight font-sans text-[14px] text-zinc-800 dark:text-zinc-200">
+              Cognitive Engine
             </h3>
-            <span style={{ color: "var(--color-text-primary)", fontSize: "11px", fontWeight: "bold" }}>
+            <span className="text-zinc-500 dark:text-zinc-400 text-[11px] font-bold">
               ↗
             </span>
           </div>
 
           {/* Description */}
-          <p 
-            className="font-normal font-sans"
-            style={{ 
-              fontSize: "13px", 
-              lineHeight: "17.875px",
-              color: "var(--color-text-primary)" 
-            }}
-          >
-            The library for web and native user interfaces. Next.js is built on the latest React features, including Server Components and Actions.
+          <p className="font-normal font-sans text-[13px] leading-[17.875px] text-zinc-500 dark:text-zinc-400">
+            Deconstructs complex user requests into dynamic workflows, selecting parameters and execution models programmatically.
           </p>
         </motion.a>
 
-        {/* Card 2: Turbopack */}
+        {/* Card 2: Vector Memory */}
         <motion.a
-          href="https://turbo.build"
-          target="_blank"
-          rel="noopener noreferrer"
-          onMouseEnter={() => setHoveredCard("turbopack")}
+          href="#"
+          onMouseEnter={() => setHoveredCard("memory")}
           onMouseLeave={() => setHoveredCard(null)}
           className={cn(
-            "flex flex-col text-left cursor-pointer outline-none no-underline",
-            s("card-el")
+            "flex flex-col text-left cursor-pointer outline-none no-underline p-6 border rounded-[14px] transition-all duration-200 bg-white dark:bg-zinc-950/40",
+            hoveredCard === "memory" ? "border-zinc-800 dark:border-zinc-100 shadow-md -translate-y-0.5" : "border-zinc-200 dark:border-zinc-800/80 shadow-xs"
           )}
-          style={{
-            padding: "var(--space-6)",
-            borderColor: hoveredCard === "turbopack" ? "#00d8ff" : "var(--color-border-default)",
-            transform: hoveredCard === "turbopack" ? "translateY(-2px)" : "none",
-          }}
         >
           {/* Logo Container */}
-          <div style={{ marginBottom: "var(--space-5)" }}>
-            <TurbopackLogo />
+          <div className="mb-3">
+            <MemoryIcon />
           </div>
 
           {/* Title */}
-          <div 
-            className="flex items-center" 
-            style={{ gap: "var(--space-2)", marginBottom: "var(--space-2)" }}
-          >
-            <h3 
-              className="font-bold tracking-tight font-sans"
-              style={{ 
-                fontSize: "14px", 
-                color: "var(--color-text-secondary)" 
-              }}
-            >
-              Turbopack
+          <div className="flex items-center gap-[5px] mb-[5px]">
+            <h3 className="font-bold tracking-tight font-sans text-[14px] text-zinc-800 dark:text-zinc-200">
+              Vector Memory
             </h3>
-            <span style={{ color: "var(--color-text-primary)", fontSize: "11px", fontWeight: "bold" }}>
+            <span className="text-zinc-500 dark:text-zinc-400 text-[11px] font-bold">
               ↗
             </span>
           </div>
 
           {/* Description */}
-          <p 
-            className="font-normal font-sans"
-            style={{ 
-              fontSize: "13px", 
-              lineHeight: "17.875px",
-              color: "var(--color-text-primary)" 
-            }}
-          >
-            An incremental bundler optimized for JavaScript and TypeScript, written in Rust, and built into Next.js.
+          <p className="font-normal font-sans text-[13px] leading-[17.875px] text-zinc-500 dark:text-zinc-400">
+            High-speed multi-modal database retrieving long-term agent memories and contextual semantic maps in real-time.
           </p>
         </motion.a>
 
-        {/* Card 3: SWC */}
+        {/* Card 3: Autonomous Tools */}
         <motion.a
-          href="https://swc.rs"
-          target="_blank"
-          rel="noopener noreferrer"
-          onMouseEnter={() => setHoveredCard("swc")}
+          href="#"
+          onMouseEnter={() => setHoveredCard("tools")}
           onMouseLeave={() => setHoveredCard(null)}
           className={cn(
-            "flex flex-col text-left cursor-pointer outline-none no-underline",
-            s("card-el")
+            "flex flex-col text-left cursor-pointer outline-none no-underline p-6 border rounded-[14px] transition-all duration-200 bg-white dark:bg-zinc-950/40",
+            hoveredCard === "tools" ? "border-rose-400 dark:border-rose-300 shadow-md -translate-y-0.5" : "border-zinc-200 dark:border-zinc-800/80 shadow-xs"
           )}
-          style={{
-            padding: "var(--space-6)",
-            borderColor: hoveredCard === "swc" ? "#f97316" : "var(--color-border-default)",
-            transform: hoveredCard === "swc" ? "translateY(-2px)" : "none",
-          }}
         >
           {/* Logo Container */}
-          <div style={{ marginBottom: "var(--space-5)" }}>
-            <SwcLogo />
+          <div className="mb-3">
+            <ToolsIcon />
           </div>
 
           {/* Title */}
-          <div 
-            className="flex items-center" 
-            style={{ gap: "var(--space-2)", marginBottom: "var(--space-2)" }}
-          >
-            <h3 
-              className="font-bold tracking-tight font-sans"
-              style={{ 
-                fontSize: "14px", 
-                color: "var(--color-text-secondary)" 
-              }}
-            >
-              Speedy Web Compiler
+          <div className="flex items-center gap-[5px] mb-[5px]">
+            <h3 className="font-bold tracking-tight font-sans text-[14px] text-zinc-800 dark:text-zinc-200">
+              Autonomous Tools
             </h3>
-            <span style={{ color: "var(--color-text-primary)", fontSize: "11px", fontWeight: "bold" }}>
+            <span className="text-zinc-500 dark:text-zinc-400 text-[11px] font-bold">
               ↗
             </span>
           </div>
 
           {/* Description */}
-          <p 
-            className="font-normal font-sans"
-            style={{ 
-              fontSize: "13px", 
-              lineHeight: "17.875px",
-              color: "var(--color-text-primary)" 
-            }}
-          >
-            An extensible Rust <RustLogo /> based platform for the next generation of fast developer tools, and can be used for both compilation and minification.
+          <p className="font-normal font-sans text-[13px] leading-[17.875px] text-zinc-500 dark:text-zinc-400">
+            Secure sandbox environment containing code compilers, API interfaces, and file system executors.
           </p>
         </motion.a>
       </div>
