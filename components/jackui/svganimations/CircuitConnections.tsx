@@ -52,7 +52,7 @@ export function CircuitConnections({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "relative w-full max-w-[1000px] mx-auto overflow-hidden transition-colors font-sans p-6 rounded-[14px] bg-white dark:bg-black border border-zinc-200 dark:border-zinc-800 shadow-xs",
+        "relative w-full max-w-[1200px] mx-auto overflow-hidden transition-colors font-sans p-6 rounded-[14px] bg-white dark:bg-black border border-zinc-200 dark:border-zinc-800 shadow-xs",
         s("container"),
         className
       )}
@@ -71,7 +71,7 @@ export function CircuitConnections({ className }: { className?: string }) {
           --line-active-rose: #fb7185;
         }
 
-        /* Line draw → hold → fade → reset → hold clear */
+        /* Premium line draw-on and fade animation matching the user specification */
         @keyframes ${s("line-draw")} {
           0%   { stroke-dashoffset: var(--path-len); opacity: 1; }
           40%  { stroke-dashoffset: 0;               opacity: 1; }
@@ -79,45 +79,6 @@ export function CircuitConnections({ className }: { className?: string }) {
           90%  { stroke-dashoffset: 0;               opacity: 0; }
           91%  { stroke-dashoffset: var(--path-len); opacity: 0; }
           100% { stroke-dashoffset: var(--path-len); opacity: 1; }
-        }
-
-        .${s("laser-beam-violet")} {
-          stroke: #ffffff;
-          stroke-linecap: round;
-          animation: ${s("line-draw")} 5.5s ease-in-out infinite;
-          filter: drop-shadow(0 0 4px #ffffff) drop-shadow(0 0 2px #a78bfa);
-        }
-        .${s("laser-beam-violet-fast")} {
-          stroke: #ffffff;
-          stroke-linecap: round;
-          animation: ${s("line-draw")} 2.5s ease-in-out infinite;
-          filter: drop-shadow(0 0 5px #ffffff) drop-shadow(0 0 3px #a78bfa);
-        }
-
-        .${s("laser-beam-emerald")} {
-          stroke: #ffffff;
-          stroke-linecap: round;
-          animation: ${s("line-draw")} 5.5s ease-in-out infinite;
-          filter: drop-shadow(0 0 4px #ffffff) drop-shadow(0 0 2px #34d399);
-        }
-        .${s("laser-beam-emerald-fast")} {
-          stroke: #ffffff;
-          stroke-linecap: round;
-          animation: ${s("line-draw")} 2.5s ease-in-out infinite;
-          filter: drop-shadow(0 0 5px #ffffff) drop-shadow(0 0 3px #34d399);
-        }
-
-        .${s("laser-beam-rose")} {
-          stroke: #ffffff;
-          stroke-linecap: round;
-          animation: ${s("line-draw")} 5.5s ease-in-out infinite;
-          filter: drop-shadow(0 0 4px #ffffff) drop-shadow(0 0 2px #fb7185);
-        }
-        .${s("laser-beam-rose-fast")} {
-          stroke: #ffffff;
-          stroke-linecap: round;
-          animation: ${s("line-draw")} 2.5s ease-in-out infinite;
-          filter: drop-shadow(0 0 5px #ffffff) drop-shadow(0 0 3px #fb7185);
         }
 
         /* Sparkly Star Flare Rotation and Scaling */
@@ -139,7 +100,7 @@ export function CircuitConnections({ className }: { className?: string }) {
       `}</style>
 
       {/* Circuit Board SVG Canvas */}
-      <div className="relative w-full h-[200px] pointer-events-none z-0">
+      <div className="relative w-full h-[220px] pointer-events-none z-0">
         <svg
           viewBox="0 0 800 220"
           className="w-full h-full"
@@ -147,22 +108,22 @@ export function CircuitConnections({ className }: { className?: string }) {
         >
           {/* SVG Glow Filter Definitions */}
           <defs>
-            <filter id={`glow-violet-${uid}`} x="-20%" y="-20%" width="140%" height="140%">
-              <feGaussianBlur stdDeviation="5" result="blur" />
+            <filter id={`glow-violet-${uid}`} x="-30%" y="-30%" width="160%" height="160%">
+              <feGaussianBlur stdDeviation="6" result="blur" />
               <feMerge>
                 <feMergeNode in="blur" />
                 <feMergeNode in="SourceGraphic" />
               </feMerge>
             </filter>
-            <filter id={`glow-emerald-${uid}`} x="-20%" y="-20%" width="140%" height="140%">
-              <feGaussianBlur stdDeviation="5" result="blur" />
+            <filter id={`glow-emerald-${uid}`} x="-30%" y="-30%" width="160%" height="160%">
+              <feGaussianBlur stdDeviation="6" result="blur" />
               <feMerge>
                 <feMergeNode in="blur" />
                 <feMergeNode in="SourceGraphic" />
               </feMerge>
             </filter>
-            <filter id={`glow-rose-${uid}`} x="-20%" y="-20%" width="140%" height="140%">
-              <feGaussianBlur stdDeviation="5" result="blur" />
+            <filter id={`glow-rose-${uid}`} x="-30%" y="-30%" width="160%" height="160%">
+              <feGaussianBlur stdDeviation="6" result="blur" />
               <feMerge>
                 <feMergeNode in="blur" />
                 <feMergeNode in="SourceGraphic" />
@@ -171,7 +132,7 @@ export function CircuitConnections({ className }: { className?: string }) {
           </defs>
 
           {/* Unique Creative Background Lines Network */}
-          <g stroke="currentColor" className="text-zinc-100 dark:text-zinc-900" strokeWidth="1.5" fill="none">
+          <g stroke="currentColor" className="text-zinc-200 dark:text-zinc-600" strokeWidth="1" fill="none" opacity="0.6">
             <path d="M 400 35 L 400 15 M 430 45 L 450 15 H 510 V 35" />
             <path d="M 370 45 L 350 15 H 290 V 35" />
             <path d="M 250 15 H 180 V 65 H 100" />
@@ -188,15 +149,15 @@ export function CircuitConnections({ className }: { className?: string }) {
           </g>
 
           {/* Glowing active solid circuit tracks (Unique Colors: Violet, Emerald, Rose) */}
-          <g fill="none" strokeWidth="2.5" strokeLinecap="round">
+          <g fill="none" strokeWidth="2" strokeLinecap="round">
             {/* Cognitive Engine (Violet) */}
             <path
               d="M 350 110 H 133 V 220"
               stroke="var(--line-active-violet)"
               style={{
                 filter: `url(#glow-violet-${uid})`,
-                opacity: hoveredCard === "cognitive" ? 1 : hoveredCard ? 0.2 : 0.75,
-                transition: "opacity 0.3s ease, stroke-width 0.3s ease",
+                opacity: hoveredCard === "cognitive" ? 0.9 : 0.4,
+                transition: "opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), stroke-width 0.4s ease",
               }}
             />
 
@@ -206,8 +167,8 @@ export function CircuitConnections({ className }: { className?: string }) {
               stroke="var(--line-active-emerald)"
               style={{
                 filter: `url(#glow-emerald-${uid})`,
-                opacity: hoveredCard === "memory" ? 1 : hoveredCard ? 0.2 : 0.75,
-                transition: "opacity 0.3s ease, stroke-width 0.3s ease",
+                opacity: hoveredCard === "memory" ? 0.9 : 0.4,
+                transition: "opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), stroke-width 0.4s ease",
               }}
             />
 
@@ -217,55 +178,64 @@ export function CircuitConnections({ className }: { className?: string }) {
               stroke="var(--line-active-rose)"
               style={{
                 filter: `url(#glow-rose-${uid})`,
-                opacity: hoveredCard === "tools" ? 1 : hoveredCard ? 0.2 : 0.75,
-                transition: "opacity 0.3s ease, stroke-width 0.3s ease",
+                opacity: hoveredCard === "tools" ? 0.9 : 0.4,
+                transition: "opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), stroke-width 0.4s ease",
               }}
             />
           </g>
 
-          {/* Flashy Colored Laser/Pulse Beams overlayed on top of active lines */}
-          <g fill="none" strokeWidth="1.2" strokeLinecap="round">
+          {/* Flashy Premium Pulse/Laser Beams travelling on paths */}
+          <g fill="none" strokeWidth="3" strokeLinecap="round">
             {/* Cognitive Laser (Violet) */}
             <path
               d="M 350 110 H 133 V 220"
-              className={hoveredCard === "cognitive" ? s("laser-beam-violet-fast") : s("laser-beam-violet")}
+              stroke="var(--line-active-violet)"
               style={{
-                "--path-len": 328,
-                strokeDasharray: 328,
-                strokeDashoffset: 328,
-                opacity: hoveredCard === "cognitive" ? 1 : hoveredCard ? 0.1 : 0.85,
-                transition: "opacity 0.3s ease",
+                filter: "drop-shadow(0 0 5px var(--line-active-violet)) drop-shadow(0 0 1px rgba(255, 255, 255, 0.8))",
+                strokeDasharray: 327,
+                strokeDashoffset: 327,
+                animation: `${s("line-draw")} 3s ease-in-out infinite`,
+                animationDelay: "0ms",
+                "--path-len": 327,
+                opacity: hoveredCard === "cognitive" ? 1 : 0.85,
+                transition: "opacity 0.4s ease",
               } as React.CSSProperties}
             />
 
             {/* Vector Memory Laser (Emerald) */}
             <path
               d="M 400 135 V 220"
-              className={hoveredCard === "memory" ? s("laser-beam-emerald-fast") : s("laser-beam-emerald")}
+              stroke="var(--line-active-emerald)"
               style={{
-                "--path-len": 85,
+                filter: "drop-shadow(0 0 5px var(--line-active-emerald)) drop-shadow(0 0 1px rgba(255, 255, 255, 0.8))",
                 strokeDasharray: 85,
                 strokeDashoffset: 85,
-                opacity: hoveredCard === "memory" ? 1 : hoveredCard ? 0.1 : 0.85,
-                transition: "opacity 0.3s ease",
+                animation: `${s("line-draw")} 3s ease-in-out infinite`,
+                animationDelay: "300ms",
+                "--path-len": 85,
+                opacity: hoveredCard === "memory" ? 1 : 0.85,
+                transition: "opacity 0.4s ease",
               } as React.CSSProperties}
             />
 
             {/* Autonomous Tools Laser (Rose) */}
             <path
               d="M 450 110 H 667 V 220"
-              className={hoveredCard === "tools" ? s("laser-beam-rose-fast") : s("laser-beam-rose")}
+              stroke="var(--line-active-rose)"
               style={{
-                "--path-len": 328,
-                strokeDasharray: 328,
-                strokeDashoffset: 328,
-                opacity: hoveredCard === "tools" ? 1 : hoveredCard ? 0.1 : 0.85,
-                transition: "opacity 0.3s ease",
+                filter: "drop-shadow(0 0 5px var(--line-active-rose)) drop-shadow(0 0 1px rgba(255, 255, 255, 0.8))",
+                strokeDasharray: 327,
+                strokeDashoffset: 327,
+                animation: `${s("line-draw")} 3s ease-in-out infinite`,
+                animationDelay: "600ms",
+                "--path-len": 327,
+                opacity: hoveredCard === "tools" ? 1 : 0.85,
+                transition: "opacity 0.4s ease",
               } as React.CSSProperties}
             />
           </g>
 
-          {/* Decorative Junction dots */}
+          {/* Decorative Junction dots with responsive glow */}
           <g>
             <circle cx="210" cy="110" r="3" fill="#a78bfa" className="animate-pulse" />
             <circle cx="150" cy="120" r="2.5" fill="#a1a1aa" />
@@ -281,41 +251,49 @@ export function CircuitConnections({ className }: { className?: string }) {
 
         {/* Central Core CPU ("AGENT GATEWAY") - Clean Button style with no pins */}
         <div className="absolute top-[85px] left-1/2 -translate-x-1/2 flex flex-col items-center pointer-events-auto">
-          <div className="px-6 py-3.5 text-sm font-bold tracking-wide select-none transition-all rounded-[10px] shadow-sm bg-neutral-900 dark:bg-zinc-900 text-white border border-neutral-800 dark:border-zinc-800">
+          <button
+            className="relative px-6 py-3.5 text-[13px] font-semibold text-white rounded-none transition-all duration-200 cursor-pointer border-0 select-none outline-none"
+            style={{
+              background: "linear-gradient(180deg, #2a2a2e 0%, #121214 100%)",
+              boxShadow: "oklch(0.205 0 0) 0px 0px 0px 2px inset, oklab(0.999994 0.0000455678 0.0000200868 / 0.2) 0px 0px 0px 3px inset, rgba(255, 255, 255, 0.2) 0px 0px 10px 0px inset, rgba(0, 0, 0, 0.35) 0px 14px 28px -6px"
+            }}
+          >
             AGENT GATEWAY
-          </div>
+          </button>
         </div>
       </div>
 
       {/* 3 Columns Tech Cards Grid */}
-      <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 w-full gap-6">
+      <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 w-full max-w-full mx-auto gap-6 px-0 mt-[-2px]">
         {/* Card 1: Cognitive Engine */}
         <motion.a
           href="#"
           onMouseEnter={() => setHoveredCard("cognitive")}
           onMouseLeave={() => setHoveredCard(null)}
           className={cn(
-            "flex flex-col text-left cursor-pointer outline-none no-underline p-6 border rounded-[14px] transition-all duration-200 bg-white dark:bg-zinc-950/40",
-            hoveredCard === "cognitive" ? "border-zinc-800 dark:border-zinc-100 shadow-md -translate-y-0.5" : "border-zinc-200 dark:border-zinc-800/80 shadow-xs"
+            "flex flex-col text-left cursor-pointer outline-none no-underline py-8 px-8 rounded-[20px] transition-all duration-300 border bg-white dark:bg-zinc-950/40",
+            hoveredCard === "cognitive"
+              ? "border-violet-300 dark:border-violet-800 shadow-[0_12px_40px_rgba(167,139,250,0.12)] -translate-y-1"
+              : "border-violet-100/80 dark:border-violet-950/40 shadow-[0_8px_30px_rgba(167,139,250,0.03)]"
           )}
         >
           {/* Logo Container */}
-          <div className="mb-3">
+          <div className="mb-4">
             <CognitiveIcon />
           </div>
 
           {/* Title */}
-          <div className="flex items-center gap-[5px] mb-[5px]">
-            <h3 className="font-bold tracking-tight font-sans text-[14px] text-zinc-800 dark:text-zinc-200">
+          <div className="flex items-center gap-[6px] mb-[6px]">
+            <h3 className="font-bold tracking-tight font-sans text-[15px] text-zinc-800 dark:text-zinc-200">
               Cognitive Engine
             </h3>
-            <span className="text-zinc-500 dark:text-zinc-400 text-[11px] font-bold">
+            <span className="text-zinc-400 dark:text-zinc-500 text-[12px] font-bold">
               ↗
             </span>
           </div>
 
           {/* Description */}
-          <p className="font-normal font-sans text-[13px] leading-[17.875px] text-zinc-500 dark:text-zinc-400">
+          <p className="font-normal font-sans text-[13px] leading-[18.5px] text-zinc-500 dark:text-zinc-400">
             Deconstructs complex user requests into dynamic workflows, selecting parameters and execution models programmatically.
           </p>
         </motion.a>
@@ -326,27 +304,29 @@ export function CircuitConnections({ className }: { className?: string }) {
           onMouseEnter={() => setHoveredCard("memory")}
           onMouseLeave={() => setHoveredCard(null)}
           className={cn(
-            "flex flex-col text-left cursor-pointer outline-none no-underline p-6 border rounded-[14px] transition-all duration-200 bg-white dark:bg-zinc-950/40",
-            hoveredCard === "memory" ? "border-zinc-800 dark:border-zinc-100 shadow-md -translate-y-0.5" : "border-zinc-200 dark:border-zinc-800/80 shadow-xs"
+            "flex flex-col text-left cursor-pointer outline-none no-underline py-8 px-8 rounded-[20px] transition-all duration-300 border bg-white dark:bg-zinc-950/40",
+            hoveredCard === "memory"
+              ? "border-emerald-300 dark:border-emerald-800 shadow-[0_12px_40px_rgba(52,211,153,0.12)] -translate-y-1"
+              : "border-emerald-100/80 dark:border-emerald-950/40 shadow-[0_8px_30px_rgba(52,211,153,0.03)]"
           )}
         >
           {/* Logo Container */}
-          <div className="mb-3">
+          <div className="mb-4">
             <MemoryIcon />
           </div>
 
           {/* Title */}
-          <div className="flex items-center gap-[5px] mb-[5px]">
-            <h3 className="font-bold tracking-tight font-sans text-[14px] text-zinc-800 dark:text-zinc-200">
+          <div className="flex items-center gap-[6px] mb-[6px]">
+            <h3 className="font-bold tracking-tight font-sans text-[15px] text-zinc-800 dark:text-zinc-200">
               Vector Memory
             </h3>
-            <span className="text-zinc-500 dark:text-zinc-400 text-[11px] font-bold">
+            <span className="text-zinc-400 dark:text-zinc-500 text-[12px] font-bold">
               ↗
             </span>
           </div>
 
           {/* Description */}
-          <p className="font-normal font-sans text-[13px] leading-[17.875px] text-zinc-500 dark:text-zinc-400">
+          <p className="font-normal font-sans text-[13px] leading-[18.5px] text-zinc-500 dark:text-zinc-400">
             High-speed multi-modal database retrieving long-term agent memories and contextual semantic maps in real-time.
           </p>
         </motion.a>
@@ -357,27 +337,29 @@ export function CircuitConnections({ className }: { className?: string }) {
           onMouseEnter={() => setHoveredCard("tools")}
           onMouseLeave={() => setHoveredCard(null)}
           className={cn(
-            "flex flex-col text-left cursor-pointer outline-none no-underline p-6 border rounded-[14px] transition-all duration-200 bg-white dark:bg-zinc-950/40",
-            hoveredCard === "tools" ? "border-rose-400 dark:border-rose-300 shadow-md -translate-y-0.5" : "border-zinc-200 dark:border-zinc-800/80 shadow-xs"
+            "flex flex-col text-left cursor-pointer outline-none no-underline py-8 px-8 rounded-[20px] transition-all duration-300 border bg-white dark:bg-zinc-950/40",
+            hoveredCard === "tools"
+              ? "border-rose-300 dark:border-rose-800 shadow-[0_12px_40px_rgba(251,113,133,0.12)] -translate-y-1"
+              : "border-rose-100/80 dark:border-rose-950/40 shadow-[0_8px_30px_rgba(251,113,133,0.03)]"
           )}
         >
           {/* Logo Container */}
-          <div className="mb-3">
+          <div className="mb-4">
             <ToolsIcon />
           </div>
 
           {/* Title */}
-          <div className="flex items-center gap-[5px] mb-[5px]">
-            <h3 className="font-bold tracking-tight font-sans text-[14px] text-zinc-800 dark:text-zinc-200">
+          <div className="flex items-center gap-[6px] mb-[6px]">
+            <h3 className="font-bold tracking-tight font-sans text-[15px] text-zinc-800 dark:text-zinc-200">
               Autonomous Tools
             </h3>
-            <span className="text-zinc-500 dark:text-zinc-400 text-[11px] font-bold">
+            <span className="text-zinc-400 dark:text-zinc-500 text-[12px] font-bold">
               ↗
             </span>
           </div>
 
           {/* Description */}
-          <p className="font-normal font-sans text-[13px] leading-[17.875px] text-zinc-500 dark:text-zinc-400">
+          <p className="font-normal font-sans text-[13px] leading-[18.5px] text-zinc-500 dark:text-zinc-400">
             Secure sandbox environment containing code compilers, API interfaces, and file system executors.
           </p>
         </motion.a>
