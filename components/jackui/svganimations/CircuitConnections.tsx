@@ -132,7 +132,7 @@ export function CircuitConnections({ className }: { className?: string }) {
           </defs>
 
           {/* Unique Creative Background Lines Network */}
-          <g stroke="currentColor" className="text-zinc-200 dark:text-zinc-800" strokeWidth="1.5" fill="none" opacity="0.4">
+          <g stroke="currentColor" className="text-zinc-300 dark:text-zinc-700" strokeWidth="1.5" fill="none" opacity="0.6">
             <path d="M 400 35 L 400 15 M 430 45 L 450 15 H 510 V 35" />
             <path d="M 370 45 L 350 15 H 290 V 35" />
             <path d="M 250 15 H 180 V 65 H 100" />
@@ -251,7 +251,13 @@ export function CircuitConnections({ className }: { className?: string }) {
 
         {/* Central Core CPU ("AGENT GATEWAY") - Clean Button style with no pins */}
         <div className="absolute top-[85px] left-1/2 -translate-x-1/2 flex flex-col items-center pointer-events-auto">
-          <div className="px-6 py-3.5 text-sm font-bold tracking-wide select-none transition-all rounded-[10px] shadow-sm bg-neutral-900 dark:bg-zinc-900 text-white border border-neutral-800 dark:border-zinc-800">
+          <div
+            className="px-6 py-3.5 text-sm font-bold tracking-wide select-none transition-all rounded-[10px] shadow-sm border text-white"
+            style={{
+              backgroundColor: "oklch(0.205 0 0)",
+              borderColor: "oklch(0.97 0 0 / 0.1)",
+            }}
+          >
             AGENT GATEWAY
           </div>
         </div>
