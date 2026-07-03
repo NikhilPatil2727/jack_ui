@@ -258,17 +258,17 @@ export function CircuitConnections({ className }: { className?: string }) {
       </div>
 
       {/* 3 Columns Tech Cards Grid */}
-      <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 w-full max-w-full mx-auto gap-10 px-0 mt-4">
+      <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 w-full max-w-full mx-auto gap-6 px-0 mt-4">
         {/* Card 1: Cognitive Engine */}
         <motion.a
           href="#"
           onMouseEnter={() => setHoveredCard("cognitive")}
           onMouseLeave={() => setHoveredCard(null)}
           className={cn(
-            "flex flex-col text-left cursor-pointer outline-none no-underline py-5 px-6 rounded-[20px] transition-all duration-300 border bg-white dark:bg-zinc-950/40",
+            "flex flex-col text-left cursor-pointer outline-none no-underline py-8 px-8 rounded-[20px] transition-all duration-300 border bg-white dark:bg-zinc-950/40",
             hoveredCard === "cognitive"
-              ? "border-violet-300 dark:border-violet-800 shadow-[0_12px_40px_rgba(167,139,250,0.12)] -translate-y-1"
-              : "border-violet-100/80 dark:border-violet-950/40 shadow-[0_8px_30px_rgba(167,139,250,0.03)]"
+              ? "border-violet-300 dark:border-violet-400 shadow-[0_12px_40px_rgba(167,139,250,0.12)] -translate-y-1"
+              : "border-violet-100/80 dark:border-violet-500/35 shadow-[0_8px_30px_rgba(167,139,250,0.03)]"
           )}
         >
           {/* Logo Container */}
@@ -298,10 +298,10 @@ export function CircuitConnections({ className }: { className?: string }) {
           onMouseEnter={() => setHoveredCard("memory")}
           onMouseLeave={() => setHoveredCard(null)}
           className={cn(
-            "flex flex-col text-left cursor-pointer outline-none no-underline py-5 px-6 rounded-[20px] transition-all duration-300 border bg-white dark:bg-zinc-950/40",
+            "flex flex-col text-left cursor-pointer outline-none no-underline py-8 px-8 rounded-[20px] transition-all duration-300 border bg-white dark:bg-zinc-950/40",
             hoveredCard === "memory"
-              ? "border-emerald-300 dark:border-emerald-800 shadow-[0_12px_40px_rgba(52,211,153,0.12)] -translate-y-1"
-              : "border-emerald-100/80 dark:border-emerald-950/40 shadow-[0_8px_30px_rgba(52,211,153,0.03)]"
+              ? "border-emerald-300 dark:border-emerald-400 shadow-[0_12px_40px_rgba(52,211,153,0.12)] -translate-y-1"
+              : "border-emerald-100/80 dark:border-emerald-500/35 shadow-[0_8px_30px_rgba(52,211,153,0.03)]"
           )}
         >
           {/* Logo Container */}
@@ -331,10 +331,10 @@ export function CircuitConnections({ className }: { className?: string }) {
           onMouseEnter={() => setHoveredCard("tools")}
           onMouseLeave={() => setHoveredCard(null)}
           className={cn(
-            "flex flex-col text-left cursor-pointer outline-none no-underline py-5 px-6 rounded-[20px] transition-all duration-300 border bg-white dark:bg-zinc-950/40",
+            "flex flex-col text-left cursor-pointer outline-none no-underline py-8 px-8 rounded-[20px] transition-all duration-300 border bg-white dark:bg-zinc-950/40",
             hoveredCard === "tools"
-              ? "border-rose-300 dark:border-rose-800 shadow-[0_12px_40px_rgba(251,113,133,0.12)] -translate-y-1"
-              : "border-rose-100/80 dark:border-rose-950/40 shadow-[0_8px_30px_rgba(251,113,133,0.03)]"
+              ? "border-rose-300 dark:border-rose-400 shadow-[0_12px_40px_rgba(251,113,133,0.12)] -translate-y-1"
+              : "border-rose-100/80 dark:border-rose-500/35 shadow-[0_8px_30px_rgba(251,113,133,0.03)]"
           )}
         >
           {/* Logo Container */}
