@@ -132,7 +132,7 @@ export function CircuitConnections({ className }: { className?: string }) {
           </defs>
 
           {/* Unique Creative Background Lines Network */}
-          <g stroke="currentColor" className="text-zinc-300 dark:text-zinc-700" strokeWidth="1.5" fill="none" opacity="0.6">
+          <g stroke="currentColor" className="text-zinc-200 dark:text-zinc-800" strokeWidth="1.5" fill="none" opacity="0.4">
             <path d="M 400 35 L 400 15 M 430 45 L 450 15 H 510 V 35" />
             <path d="M 370 45 L 350 15 H 290 V 35" />
             <path d="M 250 15 H 180 V 65 H 100" />
@@ -251,15 +251,15 @@ export function CircuitConnections({ className }: { className?: string }) {
 
         {/* Central Core CPU ("AGENT GATEWAY") - Clean Button style with no pins */}
         <div className="absolute top-[85px] left-1/2 -translate-x-1/2 flex flex-col items-center pointer-events-auto">
-          <div
-            className="px-6 py-3.5 text-sm font-bold tracking-wide select-none transition-all rounded-[10px] shadow-sm border text-white"
+          <button
+            className="relative px-6 py-3.5 text-[13px] font-semibold text-white rounded-none transition-all duration-200 cursor-pointer border-0 select-none outline-none"
             style={{
-              backgroundColor: "oklch(0.205 0 0)",
-              borderColor: "oklch(0.97 0 0 / 0.1)",
+              background: "linear-gradient(180deg, #2a2a2e 0%, #121214 100%)",
+              boxShadow: "oklch(0.205 0 0) 0px 0px 0px 2px inset, oklab(0.999994 0.0000455678 0.0000200868 / 0.2) 0px 0px 0px 3px inset, rgba(255, 255, 255, 0.2) 0px 0px 10px 0px inset, rgba(0, 0, 0, 0.35) 0px 14px 28px -6px"
             }}
           >
             AGENT GATEWAY
-          </div>
+          </button>
         </div>
       </div>
 
@@ -273,8 +273,8 @@ export function CircuitConnections({ className }: { className?: string }) {
           className={cn(
             "flex flex-col text-left cursor-pointer outline-none no-underline py-8 px-8 rounded-[20px] transition-all duration-300 border bg-white dark:bg-zinc-950/40",
             hoveredCard === "cognitive"
-              ? "border-violet-300 dark:border-violet-400 shadow-[0_12px_40px_rgba(167,139,250,0.12)] -translate-y-1"
-              : "border-violet-100/80 dark:border-violet-500/35 shadow-[0_8px_30px_rgba(167,139,250,0.03)]"
+              ? "border-violet-300 dark:border-violet-800 shadow-[0_12px_40px_rgba(167,139,250,0.12)] -translate-y-1"
+              : "border-violet-100/80 dark:border-violet-950/40 shadow-[0_8px_30px_rgba(167,139,250,0.03)]"
           )}
         >
           {/* Logo Container */}
@@ -306,8 +306,8 @@ export function CircuitConnections({ className }: { className?: string }) {
           className={cn(
             "flex flex-col text-left cursor-pointer outline-none no-underline py-8 px-8 rounded-[20px] transition-all duration-300 border bg-white dark:bg-zinc-950/40",
             hoveredCard === "memory"
-              ? "border-emerald-300 dark:border-emerald-400 shadow-[0_12px_40px_rgba(52,211,153,0.12)] -translate-y-1"
-              : "border-emerald-100/80 dark:border-emerald-500/35 shadow-[0_8px_30px_rgba(52,211,153,0.03)]"
+              ? "border-emerald-300 dark:border-emerald-800 shadow-[0_12px_40px_rgba(52,211,153,0.12)] -translate-y-1"
+              : "border-emerald-100/80 dark:border-emerald-950/40 shadow-[0_8px_30px_rgba(52,211,153,0.03)]"
           )}
         >
           {/* Logo Container */}
@@ -339,8 +339,8 @@ export function CircuitConnections({ className }: { className?: string }) {
           className={cn(
             "flex flex-col text-left cursor-pointer outline-none no-underline py-8 px-8 rounded-[20px] transition-all duration-300 border bg-white dark:bg-zinc-950/40",
             hoveredCard === "tools"
-              ? "border-rose-300 dark:border-rose-400 shadow-[0_12px_40px_rgba(251,113,133,0.12)] -translate-y-1"
-              : "border-rose-100/80 dark:border-rose-500/35 shadow-[0_8px_30px_rgba(251,113,133,0.03)]"
+              ? "border-rose-300 dark:border-rose-800 shadow-[0_12px_40px_rgba(251,113,133,0.12)] -translate-y-1"
+              : "border-rose-100/80 dark:border-rose-950/40 shadow-[0_8px_30px_rgba(251,113,133,0.03)]"
           )}
         >
           {/* Logo Container */}
