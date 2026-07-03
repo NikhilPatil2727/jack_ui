@@ -71,7 +71,7 @@ export function CircuitConnections({ className }: { className?: string }) {
           --line-active-rose: #fb7185;
         }
 
-        /* Line draw → hold → fade → reset → hold clear */
+        /* Premium line draw-on and fade animation matching the user specification */
         @keyframes ${s("line-draw")} {
           0%   { stroke-dashoffset: var(--path-len); opacity: 1; }
           40%  { stroke-dashoffset: 0;               opacity: 1; }
@@ -79,45 +79,6 @@ export function CircuitConnections({ className }: { className?: string }) {
           90%  { stroke-dashoffset: 0;               opacity: 0; }
           91%  { stroke-dashoffset: var(--path-len); opacity: 0; }
           100% { stroke-dashoffset: var(--path-len); opacity: 1; }
-        }
-
-        .${s("laser-beam-violet")} {
-          stroke: #ffffff;
-          stroke-linecap: round;
-          animation: ${s("line-draw")} 5.5s ease-in-out infinite;
-          filter: drop-shadow(0 0 4px #ffffff) drop-shadow(0 0 2px #a78bfa);
-        }
-        .${s("laser-beam-violet-fast")} {
-          stroke: #ffffff;
-          stroke-linecap: round;
-          animation: ${s("line-draw")} 2.5s ease-in-out infinite;
-          filter: drop-shadow(0 0 5px #ffffff) drop-shadow(0 0 3px #a78bfa);
-        }
-
-        .${s("laser-beam-emerald")} {
-          stroke: #ffffff;
-          stroke-linecap: round;
-          animation: ${s("line-draw")} 5.5s ease-in-out infinite;
-          filter: drop-shadow(0 0 4px #ffffff) drop-shadow(0 0 2px #34d399);
-        }
-        .${s("laser-beam-emerald-fast")} {
-          stroke: #ffffff;
-          stroke-linecap: round;
-          animation: ${s("line-draw")} 2.5s ease-in-out infinite;
-          filter: drop-shadow(0 0 5px #ffffff) drop-shadow(0 0 3px #34d399);
-        }
-
-        .${s("laser-beam-rose")} {
-          stroke: #ffffff;
-          stroke-linecap: round;
-          animation: ${s("line-draw")} 5.5s ease-in-out infinite;
-          filter: drop-shadow(0 0 4px #ffffff) drop-shadow(0 0 2px #fb7185);
-        }
-        .${s("laser-beam-rose-fast")} {
-          stroke: #ffffff;
-          stroke-linecap: round;
-          animation: ${s("line-draw")} 2.5s ease-in-out infinite;
-          filter: drop-shadow(0 0 5px #ffffff) drop-shadow(0 0 3px #fb7185);
         }
 
         /* Sparkly Star Flare Rotation and Scaling */
@@ -139,7 +100,7 @@ export function CircuitConnections({ className }: { className?: string }) {
       `}</style>
 
       {/* Circuit Board SVG Canvas */}
-      <div className="relative w-full h-[200px] pointer-events-none z-0">
+      <div className="relative w-full h-[220px] pointer-events-none z-0">
         <svg
           viewBox="0 0 800 220"
           className="w-full h-full"
@@ -147,22 +108,22 @@ export function CircuitConnections({ className }: { className?: string }) {
         >
           {/* SVG Glow Filter Definitions */}
           <defs>
-            <filter id={`glow-violet-${uid}`} x="-20%" y="-20%" width="140%" height="140%">
-              <feGaussianBlur stdDeviation="5" result="blur" />
+            <filter id={`glow-violet-${uid}`} x="-30%" y="-30%" width="160%" height="160%">
+              <feGaussianBlur stdDeviation="6" result="blur" />
               <feMerge>
                 <feMergeNode in="blur" />
                 <feMergeNode in="SourceGraphic" />
               </feMerge>
             </filter>
-            <filter id={`glow-emerald-${uid}`} x="-20%" y="-20%" width="140%" height="140%">
-              <feGaussianBlur stdDeviation="5" result="blur" />
+            <filter id={`glow-emerald-${uid}`} x="-30%" y="-30%" width="160%" height="160%">
+              <feGaussianBlur stdDeviation="6" result="blur" />
               <feMerge>
                 <feMergeNode in="blur" />
                 <feMergeNode in="SourceGraphic" />
               </feMerge>
             </filter>
-            <filter id={`glow-rose-${uid}`} x="-20%" y="-20%" width="140%" height="140%">
-              <feGaussianBlur stdDeviation="5" result="blur" />
+            <filter id={`glow-rose-${uid}`} x="-30%" y="-30%" width="160%" height="160%">
+              <feGaussianBlur stdDeviation="6" result="blur" />
               <feMerge>
                 <feMergeNode in="blur" />
                 <feMergeNode in="SourceGraphic" />
@@ -171,7 +132,7 @@ export function CircuitConnections({ className }: { className?: string }) {
           </defs>
 
           {/* Unique Creative Background Lines Network */}
-          <g stroke="currentColor" className="text-zinc-100 dark:text-zinc-900" strokeWidth="1.5" fill="none">
+          <g stroke="currentColor" className="text-zinc-200 dark:text-zinc-800" strokeWidth="1.5" fill="none" opacity="0.4">
             <path d="M 400 35 L 400 15 M 430 45 L 450 15 H 510 V 35" />
             <path d="M 370 45 L 350 15 H 290 V 35" />
             <path d="M 250 15 H 180 V 65 H 100" />
@@ -188,15 +149,15 @@ export function CircuitConnections({ className }: { className?: string }) {
           </g>
 
           {/* Glowing active solid circuit tracks (Unique Colors: Violet, Emerald, Rose) */}
-          <g fill="none" strokeWidth="2.5" strokeLinecap="round">
+          <g fill="none" strokeWidth="2" strokeLinecap="round">
             {/* Cognitive Engine (Violet) */}
             <path
               d="M 350 110 H 133 V 220"
               stroke="var(--line-active-violet)"
               style={{
                 filter: `url(#glow-violet-${uid})`,
-                opacity: hoveredCard === "cognitive" ? 1 : hoveredCard ? 0.2 : 0.75,
-                transition: "opacity 0.3s ease, stroke-width 0.3s ease",
+                opacity: hoveredCard === "cognitive" ? 0.9 : 0.4,
+                transition: "opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), stroke-width 0.4s ease",
               }}
             />
 
@@ -206,8 +167,8 @@ export function CircuitConnections({ className }: { className?: string }) {
               stroke="var(--line-active-emerald)"
               style={{
                 filter: `url(#glow-emerald-${uid})`,
-                opacity: hoveredCard === "memory" ? 1 : hoveredCard ? 0.2 : 0.75,
-                transition: "opacity 0.3s ease, stroke-width 0.3s ease",
+                opacity: hoveredCard === "memory" ? 0.9 : 0.4,
+                transition: "opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), stroke-width 0.4s ease",
               }}
             />
 
@@ -217,55 +178,64 @@ export function CircuitConnections({ className }: { className?: string }) {
               stroke="var(--line-active-rose)"
               style={{
                 filter: `url(#glow-rose-${uid})`,
-                opacity: hoveredCard === "tools" ? 1 : hoveredCard ? 0.2 : 0.75,
-                transition: "opacity 0.3s ease, stroke-width 0.3s ease",
+                opacity: hoveredCard === "tools" ? 0.9 : 0.4,
+                transition: "opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), stroke-width 0.4s ease",
               }}
             />
           </g>
 
-          {/* Flashy Colored Laser/Pulse Beams overlayed on top of active lines */}
-          <g fill="none" strokeWidth="1.2" strokeLinecap="round">
+          {/* Flashy Premium Pulse/Laser Beams travelling on paths */}
+          <g fill="none" strokeWidth="3" strokeLinecap="round">
             {/* Cognitive Laser (Violet) */}
             <path
               d="M 350 110 H 133 V 220"
-              className={hoveredCard === "cognitive" ? s("laser-beam-violet-fast") : s("laser-beam-violet")}
+              stroke="var(--line-active-violet)"
               style={{
-                "--path-len": 328,
-                strokeDasharray: 328,
-                strokeDashoffset: 328,
-                opacity: hoveredCard === "cognitive" ? 1 : hoveredCard ? 0.1 : 0.85,
-                transition: "opacity 0.3s ease",
+                filter: "drop-shadow(0 0 5px var(--line-active-violet)) drop-shadow(0 0 1px rgba(255, 255, 255, 0.8))",
+                strokeDasharray: 327,
+                strokeDashoffset: 327,
+                animation: `${s("line-draw")} 3s ease-in-out infinite`,
+                animationDelay: "0ms",
+                "--path-len": 327,
+                opacity: hoveredCard === "cognitive" ? 1 : 0.85,
+                transition: "opacity 0.4s ease",
               } as React.CSSProperties}
             />
 
             {/* Vector Memory Laser (Emerald) */}
             <path
               d="M 400 135 V 220"
-              className={hoveredCard === "memory" ? s("laser-beam-emerald-fast") : s("laser-beam-emerald")}
+              stroke="var(--line-active-emerald)"
               style={{
-                "--path-len": 85,
+                filter: "drop-shadow(0 0 5px var(--line-active-emerald)) drop-shadow(0 0 1px rgba(255, 255, 255, 0.8))",
                 strokeDasharray: 85,
                 strokeDashoffset: 85,
-                opacity: hoveredCard === "memory" ? 1 : hoveredCard ? 0.1 : 0.85,
-                transition: "opacity 0.3s ease",
+                animation: `${s("line-draw")} 3s ease-in-out infinite`,
+                animationDelay: "300ms",
+                "--path-len": 85,
+                opacity: hoveredCard === "memory" ? 1 : 0.85,
+                transition: "opacity 0.4s ease",
               } as React.CSSProperties}
             />
 
             {/* Autonomous Tools Laser (Rose) */}
             <path
               d="M 450 110 H 667 V 220"
-              className={hoveredCard === "tools" ? s("laser-beam-rose-fast") : s("laser-beam-rose")}
+              stroke="var(--line-active-rose)"
               style={{
-                "--path-len": 328,
-                strokeDasharray: 328,
-                strokeDashoffset: 328,
-                opacity: hoveredCard === "tools" ? 1 : hoveredCard ? 0.1 : 0.85,
-                transition: "opacity 0.3s ease",
+                filter: "drop-shadow(0 0 5px var(--line-active-rose)) drop-shadow(0 0 1px rgba(255, 255, 255, 0.8))",
+                strokeDasharray: 327,
+                strokeDashoffset: 327,
+                animation: `${s("line-draw")} 3s ease-in-out infinite`,
+                animationDelay: "600ms",
+                "--path-len": 327,
+                opacity: hoveredCard === "tools" ? 1 : 0.85,
+                transition: "opacity 0.4s ease",
               } as React.CSSProperties}
             />
           </g>
 
-          {/* Decorative Junction dots */}
+          {/* Decorative Junction dots with responsive glow */}
           <g>
             <circle cx="210" cy="110" r="3" fill="#a78bfa" className="animate-pulse" />
             <circle cx="150" cy="120" r="2.5" fill="#a1a1aa" />
