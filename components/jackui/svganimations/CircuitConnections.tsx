@@ -132,7 +132,7 @@ export function CircuitConnections({ className }: { className?: string }) {
           </defs>
 
           {/* Unique Creative Background Lines Network */}
-          <g stroke="currentColor" className="text-zinc-200 dark:text-zinc-800" strokeWidth="1.5" fill="none" opacity="0.4">
+          <g stroke="currentColor" className="text-zinc-200 dark:text-zinc-600" strokeWidth="1" fill="none" opacity="0.6">
             <path d="M 400 35 L 400 15 M 430 45 L 450 15 H 510 V 35" />
             <path d="M 370 45 L 350 15 H 290 V 35" />
             <path d="M 250 15 H 180 V 65 H 100" />
