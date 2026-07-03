@@ -52,7 +52,7 @@ export function CircuitConnections({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "relative w-full max-w-[1000px] mx-auto overflow-hidden transition-colors font-sans p-6 rounded-[14px] bg-white dark:bg-black border border-zinc-200 dark:border-zinc-800 shadow-xs",
+        "relative w-full max-w-[1200px] mx-auto overflow-hidden transition-colors font-sans p-6 rounded-[14px] bg-white dark:bg-black border border-zinc-200 dark:border-zinc-800 shadow-xs",
         s("container"),
         className
       )}
@@ -258,34 +258,36 @@ export function CircuitConnections({ className }: { className?: string }) {
       </div>
 
       {/* 3 Columns Tech Cards Grid */}
-      <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 w-full gap-6">
+      <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 w-full max-w-full mx-auto gap-10 px-0 mt-4">
         {/* Card 1: Cognitive Engine */}
         <motion.a
           href="#"
           onMouseEnter={() => setHoveredCard("cognitive")}
           onMouseLeave={() => setHoveredCard(null)}
           className={cn(
-            "flex flex-col text-left cursor-pointer outline-none no-underline p-6 border rounded-[14px] transition-all duration-200 bg-white dark:bg-zinc-950/40",
-            hoveredCard === "cognitive" ? "border-zinc-800 dark:border-zinc-100 shadow-md -translate-y-0.5" : "border-zinc-200 dark:border-zinc-800/80 shadow-xs"
+            "flex flex-col text-left cursor-pointer outline-none no-underline py-5 px-6 rounded-[20px] transition-all duration-300 border bg-white dark:bg-zinc-950/40",
+            hoveredCard === "cognitive"
+              ? "border-violet-300 dark:border-violet-800 shadow-[0_12px_40px_rgba(167,139,250,0.12)] -translate-y-1"
+              : "border-violet-100/80 dark:border-violet-950/40 shadow-[0_8px_30px_rgba(167,139,250,0.03)]"
           )}
         >
           {/* Logo Container */}
-          <div className="mb-3">
+          <div className="mb-4">
             <CognitiveIcon />
           </div>
 
           {/* Title */}
-          <div className="flex items-center gap-[5px] mb-[5px]">
-            <h3 className="font-bold tracking-tight font-sans text-[14px] text-zinc-800 dark:text-zinc-200">
+          <div className="flex items-center gap-[6px] mb-[6px]">
+            <h3 className="font-bold tracking-tight font-sans text-[15px] text-zinc-800 dark:text-zinc-200">
               Cognitive Engine
             </h3>
-            <span className="text-zinc-500 dark:text-zinc-400 text-[11px] font-bold">
+            <span className="text-zinc-400 dark:text-zinc-500 text-[12px] font-bold">
               ↗
             </span>
           </div>
 
           {/* Description */}
-          <p className="font-normal font-sans text-[13px] leading-[17.875px] text-zinc-500 dark:text-zinc-400">
+          <p className="font-normal font-sans text-[13px] leading-[18.5px] text-zinc-500 dark:text-zinc-400">
             Deconstructs complex user requests into dynamic workflows, selecting parameters and execution models programmatically.
           </p>
         </motion.a>
@@ -296,27 +298,29 @@ export function CircuitConnections({ className }: { className?: string }) {
           onMouseEnter={() => setHoveredCard("memory")}
           onMouseLeave={() => setHoveredCard(null)}
           className={cn(
-            "flex flex-col text-left cursor-pointer outline-none no-underline p-6 border rounded-[14px] transition-all duration-200 bg-white dark:bg-zinc-950/40",
-            hoveredCard === "memory" ? "border-zinc-800 dark:border-zinc-100 shadow-md -translate-y-0.5" : "border-zinc-200 dark:border-zinc-800/80 shadow-xs"
+            "flex flex-col text-left cursor-pointer outline-none no-underline py-5 px-6 rounded-[20px] transition-all duration-300 border bg-white dark:bg-zinc-950/40",
+            hoveredCard === "memory"
+              ? "border-emerald-300 dark:border-emerald-800 shadow-[0_12px_40px_rgba(52,211,153,0.12)] -translate-y-1"
+              : "border-emerald-100/80 dark:border-emerald-950/40 shadow-[0_8px_30px_rgba(52,211,153,0.03)]"
           )}
         >
           {/* Logo Container */}
-          <div className="mb-3">
+          <div className="mb-4">
             <MemoryIcon />
           </div>
 
           {/* Title */}
-          <div className="flex items-center gap-[5px] mb-[5px]">
-            <h3 className="font-bold tracking-tight font-sans text-[14px] text-zinc-800 dark:text-zinc-200">
+          <div className="flex items-center gap-[6px] mb-[6px]">
+            <h3 className="font-bold tracking-tight font-sans text-[15px] text-zinc-800 dark:text-zinc-200">
               Vector Memory
             </h3>
-            <span className="text-zinc-500 dark:text-zinc-400 text-[11px] font-bold">
+            <span className="text-zinc-400 dark:text-zinc-500 text-[12px] font-bold">
               ↗
             </span>
           </div>
 
           {/* Description */}
-          <p className="font-normal font-sans text-[13px] leading-[17.875px] text-zinc-500 dark:text-zinc-400">
+          <p className="font-normal font-sans text-[13px] leading-[18.5px] text-zinc-500 dark:text-zinc-400">
             High-speed multi-modal database retrieving long-term agent memories and contextual semantic maps in real-time.
           </p>
         </motion.a>
@@ -327,27 +331,29 @@ export function CircuitConnections({ className }: { className?: string }) {
           onMouseEnter={() => setHoveredCard("tools")}
           onMouseLeave={() => setHoveredCard(null)}
           className={cn(
-            "flex flex-col text-left cursor-pointer outline-none no-underline p-6 border rounded-[14px] transition-all duration-200 bg-white dark:bg-zinc-950/40",
-            hoveredCard === "tools" ? "border-rose-400 dark:border-rose-300 shadow-md -translate-y-0.5" : "border-zinc-200 dark:border-zinc-800/80 shadow-xs"
+            "flex flex-col text-left cursor-pointer outline-none no-underline py-5 px-6 rounded-[20px] transition-all duration-300 border bg-white dark:bg-zinc-950/40",
+            hoveredCard === "tools"
+              ? "border-rose-300 dark:border-rose-800 shadow-[0_12px_40px_rgba(251,113,133,0.12)] -translate-y-1"
+              : "border-rose-100/80 dark:border-rose-950/40 shadow-[0_8px_30px_rgba(251,113,133,0.03)]"
           )}
         >
           {/* Logo Container */}
-          <div className="mb-3">
+          <div className="mb-4">
             <ToolsIcon />
           </div>
 
           {/* Title */}
-          <div className="flex items-center gap-[5px] mb-[5px]">
-            <h3 className="font-bold tracking-tight font-sans text-[14px] text-zinc-800 dark:text-zinc-200">
+          <div className="flex items-center gap-[6px] mb-[6px]">
+            <h3 className="font-bold tracking-tight font-sans text-[15px] text-zinc-800 dark:text-zinc-200">
               Autonomous Tools
             </h3>
-            <span className="text-zinc-500 dark:text-zinc-400 text-[11px] font-bold">
+            <span className="text-zinc-400 dark:text-zinc-500 text-[12px] font-bold">
               ↗
             </span>
           </div>
 
           {/* Description */}
-          <p className="font-normal font-sans text-[13px] leading-[17.875px] text-zinc-500 dark:text-zinc-400">
+          <p className="font-normal font-sans text-[13px] leading-[18.5px] text-zinc-500 dark:text-zinc-400">
             Secure sandbox environment containing code compilers, API interfaces, and file system executors.
           </p>
         </motion.a>
