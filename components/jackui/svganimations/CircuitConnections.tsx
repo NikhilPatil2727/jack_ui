@@ -264,7 +264,7 @@ export function CircuitConnections({ className }: { className?: string }) {
       </div>
 
       {/* 3 Columns Tech Cards Grid */}
-      <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 w-full max-w-full mx-auto gap-6 px-0 mt-4">
+      <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 w-full max-w-full mx-auto gap-6 px-0 mt-[-2px]">
         {/* Card 1: Cognitive Engine */}
         <motion.a
           href="#"
