@@ -58,143 +58,144 @@ export default function HeroSection() {
               },
             },
           }}
-          className="font-heading text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.08] cursor-default"
+          className="font-heading text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.12] cursor-default flex flex-col items-center justify-center gap-y-1 md:gap-y-2"
           style={{ perspective: 1000 }}
         >
-          <motion.span
-            variants={{
-              hidden: {
-                opacity: 0,
-                y: 20,
+          <div className="flex flex-wrap items-center justify-center gap-x-1 sm:gap-x-2">
+            <motion.span
+              variants={{
+                hidden: {
+                  opacity: 0,
+                  y: 20,
+                  filter:
+                    "blur(8px) drop-shadow(0px 0px 0px rgba(244, 63, 94, 0))",
+                },
+                visible: {
+                  opacity: 1,
+                  y: 0,
+                  filter:
+                    "blur(0px) drop-shadow(0px 0px 0px rgba(244, 63, 94, 0))",
+                  transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
+                },
+              }}
+              whileHover={{
+                rotateY: 8,
+                translateZ: 15,
+                scale: 1.03,
                 filter:
-                  "blur(8px) drop-shadow(0px 0px 0px rgba(250, 204, 21, 0))",
-              },
-              visible: {
-                opacity: 1,
-                y: 0,
-                filter:
-                  "blur(0px) drop-shadow(0px 0px 0px rgba(250, 204, 21, 0))",
-                transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
-              },
-            }}
-            whileHover={{
-              rotateY: 5,
-              translateZ: 10,
-              scale: 1.01,
-              // Premium yellow drop shadow
-              filter:
-                "blur(0px) drop-shadow(0px 8px 16px rgba(255, 400, 0, 0.6))",
-              transition: { duration: 0.2, ease: "easeOut" },
-            }}
-            className="bg-clip-text text-transparent bg-gradient-to-r from-zinc-800 via-zinc-500 to-zinc-800 dark:from-zinc-100 dark:via-zinc-300 dark:to-zinc-100 inline-block origin-center"
-          >
-            Interactive
-          </motion.span>
-
-          <motion.span
-            whileHover="hover"
-            initial="initial"
-            variants={{
-              hidden: { opacity: 0, y: 20, filter: "blur(8px)" },
-              visible: {
-                opacity: 1,
-                y: 0,
-                filter: "blur(0px)",
-                transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
-              },
-            }}
-            className="text-rose-600 dark:text-rose-400 font-lavishly-yours lowercase tracking-wide text-5xl sm:text-6xl lg:text-7xl inline-block rotate-[-2deg] origin-center px-2 relative cursor-pointer select-none"
-          >
-            &nbsp;by design,
-            <svg
-              className="absolute left-2 bottom-[-8px] w-[95%] h-2.5 text-rose-600/70 dark:text-rose-400/80 pointer-events-none"
-              viewBox="0 0 100 10"
-              preserveAspectRatio="none"
+                  "blur(0px) drop-shadow(0px 12px 24px rgba(244, 63, 94, 0.45))",
+                transition: { type: "spring", stiffness: 220, damping: 14 },
+              }}
+              className="bg-clip-text text-transparent bg-gradient-to-r from-zinc-800 via-zinc-500 to-zinc-800 dark:from-zinc-100 dark:via-zinc-300 dark:to-zinc-100 inline-block origin-center cursor-pointer select-none"
             >
-              <motion.path
-                d="M 5 3 C 35 6, 65 6, 95 3"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                variants={{
-                  initial: { pathLength: 0 },
-                  hover: {
-                    pathLength: 1,
-                    transition: { type: "spring", stiffness: 140, damping: 12 }
-                  }
-                }}
-              />
-            </svg>
-          </motion.span>
-          <br />
+              Interactive
+            </motion.span>
 
-          <motion.span
-            variants={{
-              hidden: {
-                opacity: 0,
-                y: 20,
-                filter:
-                  "blur(8px) drop-shadow(0px 0px 0px rgba(250, 204, 21, 0))",
-              },
-              visible: {
-                opacity: 1,
-                y: 0,
-                filter:
-                  "blur(0px) drop-shadow(0px 0px 0px rgba(250, 204, 21, 0))",
-                transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
-              },
-            }}
-            whileHover={{
-              rotateY: 5,
-              translateZ: 10,
-              scale: 1.01,
-              // Premium yellow drop shadow
-              filter:
-                "blur(0px) drop-shadow(0px 8px 16px rgba(255, 400, 0, 0.6))",
-              transition: { duration: 0.2, ease: "easeOut" },
-            }}
-            className="bg-clip-text text-transparent bg-gradient-to-r from-zinc-800 via-zinc-500 to-zinc-800 dark:from-zinc-100 dark:via-zinc-300 dark:to-zinc-100 inline-block origin-center"
-          >
-            premium
-          </motion.span>
-
-          <motion.span
-            whileHover="hover"
-            initial="initial"
-            variants={{
-              hidden: { opacity: 0, y: 20, filter: "blur(8px)" },
-              visible: {
-                opacity: 1,
-                y: 0,
-                filter: "blur(0px)",
-                transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
-              },
-            }}
-            className="text-rose-600 dark:text-rose-400 font-lavishly-yours lowercase tracking-wide text-5xl sm:text-6xl lg:text-7xl inline-block rotate-[-2deg] origin-center px-2 relative cursor-pointer select-none"
-          >
-            &nbsp;by default.
-            <svg
-              className="absolute left-2 bottom-[-8px] w-[95%] h-2.5 text-rose-600/70 dark:text-rose-400/80 pointer-events-none"
-              viewBox="0 0 100 10"
-              preserveAspectRatio="none"
+            <motion.span
+              whileHover="hover"
+              initial="initial"
+              variants={{
+                hidden: { opacity: 0, y: 20, filter: "blur(8px)" },
+                visible: {
+                  opacity: 1,
+                  y: 0,
+                  filter: "blur(0px)",
+                  transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
+                },
+              }}
+              className="text-rose-600 dark:text-rose-400 font-lavishly-yours lowercase tracking-wide text-6xl sm:text-7xl lg:text-8xl inline-block rotate-[-2deg] origin-center px-2 relative cursor-pointer select-none align-middle translate-y-[2px]"
             >
-              <motion.path
-                d="M 5 3 C 35 6, 65 6, 95 3"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                variants={{
-                  initial: { pathLength: 0 },
-                  hover: {
-                    pathLength: 1,
-                    transition: { type: "spring", stiffness: 140, damping: 12 }
-                  }
-                }}
-              />
-            </svg>
-          </motion.span>
+              by design,
+              <svg
+                className="absolute left-2 bottom-[-8px] w-[95%] h-2.5 text-rose-600/70 dark:text-rose-400/80 pointer-events-none"
+                viewBox="0 0 100 10"
+                preserveAspectRatio="none"
+              >
+                <motion.path
+                  d="M 5 3 C 35 6, 65 6, 95 3"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  variants={{
+                    initial: { pathLength: 0 },
+                    hover: {
+                      pathLength: 1,
+                      transition: { type: "spring", stiffness: 140, damping: 12 }
+                    }
+                  }}
+                />
+              </svg>
+            </motion.span>
+          </div>
+
+          <div className="flex flex-wrap items-center justify-center gap-x-1 sm:gap-x-2">
+            <motion.span
+              variants={{
+                hidden: {
+                  opacity: 0,
+                  y: 20,
+                  filter:
+                    "blur(8px) drop-shadow(0px 0px 0px rgba(244, 63, 94, 0))",
+                },
+                visible: {
+                  opacity: 1,
+                  y: 0,
+                  filter:
+                    "blur(0px) drop-shadow(0px 0px 0px rgba(244, 63, 94, 0))",
+                  transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
+                },
+              }}
+              whileHover={{
+                rotateY: -8,
+                translateZ: 15,
+                scale: 1.03,
+                filter:
+                  "blur(0px) drop-shadow(0px 12px 24px rgba(244, 63, 94, 0.45))",
+                transition: { type: "spring", stiffness: 220, damping: 14 },
+              }}
+              className="bg-clip-text text-transparent bg-gradient-to-r from-zinc-800 via-zinc-500 to-zinc-800 dark:from-zinc-100 dark:via-zinc-300 dark:to-zinc-100 inline-block origin-center cursor-pointer select-none"
+            >
+              premium
+            </motion.span>
+
+            <motion.span
+              whileHover="hover"
+              initial="initial"
+              variants={{
+                hidden: { opacity: 0, y: 20, filter: "blur(8px)" },
+                visible: {
+                  opacity: 1,
+                  y: 0,
+                  filter: "blur(0px)",
+                  transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
+                },
+              }}
+              className="text-rose-600 dark:text-rose-400 font-lavishly-yours lowercase tracking-wide text-6xl sm:text-7xl lg:text-8xl inline-block rotate-[-2deg] origin-center px-2 relative cursor-pointer select-none align-middle translate-y-[2px]"
+            >
+              by default.
+              <svg
+                className="absolute left-2 bottom-[-8px] w-[95%] h-2.5 text-rose-600/70 dark:text-rose-400/80 pointer-events-none"
+                viewBox="0 0 100 10"
+                preserveAspectRatio="none"
+              >
+                <motion.path
+                  d="M 5 3 C 35 6, 65 6, 95 3"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  variants={{
+                    initial: { pathLength: 0 },
+                    hover: {
+                      pathLength: 1,
+                      transition: { type: "spring", stiffness: 140, damping: 12 }
+                    }
+                  }}
+                />
+              </svg>
+            </motion.span>
+          </div>
         </motion.h1>
 
         <p className="mt-2 text-base md:text-lg text-zinc-600 dark:text-zinc-400 max-w-xl leading-relaxed">

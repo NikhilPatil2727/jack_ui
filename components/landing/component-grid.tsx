@@ -211,12 +211,12 @@ export default function ComponentGrid() {
         <span className="text-rose-600 dark:text-rose-400 font-bold text-sm tracking-widest uppercase block mb-3 font-outfit">
           Gallery
         </span>
-        <h2 className="text-4xl md:text-6xl font-black tracking-tight text-zinc-900 dark:text-zinc-50 mb-4 font-outfit leading-tight">
+        <h2 className="text-4xl md:text-6xl font-black tracking-tight text-zinc-900 dark:text-zinc-50 mb-4 font-outfit leading-tight flex flex-wrap items-center gap-x-2">
           Interactive{" "}
           <motion.span
             whileHover="hover"
             initial="initial"
-            className="font-lavishly-yours text-rose-600 dark:text-rose-400 font-normal lowercase tracking-wide text-5xl md:text-7xl block sm:inline-block rotate-[-2deg] origin-left relative cursor-pointer select-none px-2"
+            className="font-lavishly-yours text-rose-600 dark:text-rose-400 font-normal lowercase tracking-wide text-5xl md:text-7xl lg:text-8xl block sm:inline-block rotate-[-2deg] origin-left relative cursor-pointer select-none px-2 align-middle translate-y-[2px]"
           >
             elements
             <svg
