@@ -221,12 +221,12 @@ export const component: Registry = [
         ],
     },
     {
-        name: "circuit-connections",
+        name: "neural-circuit-orchestrator",
         type: "registry:component",
         dependencies: ["motion", "lucide-react"],
         files: [
             {
-                path: "components/jackui/svganimations/CircuitConnections.tsx",
+                path: "components/jackui/svganimations/NeuralCircuitOrchestrator.tsx",
                 type: "registry:component",
             },
         ],
