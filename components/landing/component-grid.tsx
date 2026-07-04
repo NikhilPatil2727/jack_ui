@@ -1,15 +1,52 @@
 "use client";
 
 import React, { useState } from "react";
-import InboxDeck from "@/components/jackui/cards/InboxDeck";
-import EnvelopeCard from "@/components/jackui/cards/envelope-card";
-import InkFillBtn from "@/components/jackui/buttons/InkFillBtn";
-import Btn02 from "@/components/jackui/buttons/btn-02";
-import Btn03 from "@/components/jackui/buttons/btn-03";
-import Btn04 from "@/components/jackui/buttons/btn-04";
-import Btn07 from "@/components/jackui/buttons/btn-07";
-import AudienceHubAnimation from "@/components/jackui/svganimations/AudienceHubAnimation";
-import NeuralCircuitOrchestrator from "@/components/jackui/svganimations/NeuralCircuitOrchestrator";
+import dynamic from "next/dynamic";
+
+const InboxDeck = dynamic(() => import("@/components/jackui/cards/InboxDeck"), {
+  ssr: false,
+  loading: () => <div className="w-full h-full bg-zinc-100/50 dark:bg-zinc-800/20 animate-pulse rounded-xl" />
+});
+
+const EnvelopeCard = dynamic(() => import("@/components/jackui/cards/envelope-card"), {
+  ssr: false,
+  loading: () => <div className="w-full h-full bg-zinc-100/50 dark:bg-zinc-800/20 animate-pulse rounded-xl" />
+});
+
+const InkFillBtn = dynamic(() => import("@/components/jackui/buttons/InkFillBtn"), {
+  ssr: false,
+  loading: () => <div className="h-10 w-28 bg-zinc-200/50 dark:bg-zinc-800/30 animate-pulse rounded-md" />
+});
+
+const Btn02 = dynamic(() => import("@/components/jackui/buttons/btn-02"), {
+  ssr: false,
+  loading: () => <div className="h-10 w-28 bg-zinc-200/50 dark:bg-zinc-800/30 animate-pulse rounded-md" />
+});
+
+const Btn03 = dynamic(() => import("@/components/jackui/buttons/btn-03"), {
+  ssr: false,
+  loading: () => <div className="h-10 w-28 bg-zinc-200/50 dark:bg-zinc-800/30 animate-pulse rounded-md" />
+});
+
+const Btn04 = dynamic(() => import("@/components/jackui/buttons/btn-04"), {
+  ssr: false,
+  loading: () => <div className="h-10 w-28 bg-zinc-200/50 dark:bg-zinc-800/30 animate-pulse rounded-md" />
+});
+
+const Btn07 = dynamic(() => import("@/components/jackui/buttons/btn-07"), {
+  ssr: false,
+  loading: () => <div className="h-10 w-28 bg-zinc-200/50 dark:bg-zinc-800/30 animate-pulse rounded-md" />
+});
+
+const AudienceHubAnimation = dynamic(() => import("@/components/jackui/svganimations/AudienceHubAnimation"), {
+  ssr: false,
+  loading: () => <div className="w-full h-full bg-zinc-100/50 dark:bg-zinc-800/20 animate-pulse rounded-xl" />
+});
+
+const NeuralCircuitOrchestrator = dynamic(() => import("@/components/jackui/svganimations/NeuralCircuitOrchestrator"), {
+  ssr: false,
+  loading: () => <div className="w-full h-full bg-zinc-100/50 dark:bg-zinc-800/20 animate-pulse rounded-xl" />
+});
 
 interface ComponentItem {
   id: string;
