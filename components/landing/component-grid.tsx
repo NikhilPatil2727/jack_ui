@@ -9,6 +9,7 @@ import Btn03 from "@/components/jackui/buttons/btn-03";
 import Btn04 from "@/components/jackui/buttons/btn-04";
 import Btn07 from "@/components/jackui/buttons/btn-07";
 import AudienceHubAnimation from "@/components/jackui/svganimations/AudienceHubAnimation";
+import NeuralCircuitOrchestrator from "@/components/jackui/svganimations/NeuralCircuitOrchestrator";
 
 interface ComponentItem {
   id: string;
@@ -68,6 +69,18 @@ export default function ComponentGrid() {
         <div className="relative w-full h-[180px] flex items-center justify-center overflow-hidden bg-zinc-50 dark:bg-zinc-950 rounded-xl">
           <div className="absolute scale-[0.55] origin-center">
             <AudienceHubAnimation animated={true} />
+          </div>
+        </div>
+      ),
+    },
+    {
+      id: "neural-circuit",
+      name: "Neural Circuit Orchestrator",
+      category: "SVG Animations (svg-animations.mdx)",
+      preview: (
+        <div className="relative w-full h-[180px] flex items-center justify-center overflow-hidden bg-zinc-50 dark:bg-zinc-950 rounded-xl select-none pointer-events-none">
+          <div className="absolute w-[800px] scale-[0.22] origin-center">
+            <NeuralCircuitOrchestrator />
           </div>
         </div>
       ),
