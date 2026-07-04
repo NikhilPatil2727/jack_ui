@@ -1,19 +1,18 @@
 "use client";
 
-import React, { useId, useMemo } from "react";
+import React, { useId } from "react";
 import { cn } from "@/lib/utils";
 
 /**
- * @interface AudienceHubAnimationProps
- * Defines configuration options for the AudienceHubAnimation component.
+ * Props for the AudienceHubAnimation component.
  */
 export interface AudienceHubAnimationProps {
   /**
-   * Array of exactly 4 strings to be shown in the outer node buttons.
+   * Array of labels to be shown in the outer node buttons.
    * Order: LinkedIn followers, Post engagers, Company page visitors, Post commenters.
    * @default ["LinkedIn Followers", "Post Engagers", "Company Page Visitors", "Post Commenters"]
    */
-  labels?: [string, string, string, string];
+  labels?: string[];
   /**
    * Whether the animations should be active.
    * @default true
@@ -51,52 +50,84 @@ export interface AudienceHubAnimationProps {
 
 // ─── Icons ────────────────────────────────────────────────────────────────────
 
-/* Replace icon here - Customize node SVGs */
-const Icon = {
-  Company: () => (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
-      strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5" aria-hidden="true">
-      <rect x="2" y="3" width="20" height="18" rx="2" ry="2" />
-      <line x1="2" y1="8" x2="22" y2="8" />
-      <line x1="6" y1="3" x2="6" y2="8" />
-    </svg>
-  ),
-  LinkedIn: () => (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
-      strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5" aria-hidden="true">
-      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z" />
-      <rect x="2" y="9" width="4" height="12" />
-      <circle cx="4" cy="4" r="2" />
-    </svg>
-  ),
-  Layers: () => (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
-      strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5" aria-hidden="true">
-      <polygon points="12 2 2 7 12 12 22 7 12 2" />
-      <polyline points="2 17 12 22 22 17" />
-      <polyline points="2 12 12 17 22 12" />
-    </svg>
-  ),
-  Chat: () => (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
-      strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5" aria-hidden="true">
-      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-    </svg>
-  ),
-};
+const LinkedInIcon = () => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className="w-3.5 h-3.5"
+    aria-hidden="true"
+  >
+    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z" />
+    <rect x="2" y="9" width="4" height="12" />
+    <circle cx="4" cy="4" r="2" />
+  </svg>
+);
 
-// ─── Node definitions (stable — no recalculation per render) ──────────────────
+const LayersIcon = () => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className="w-3.5 h-3.5"
+    aria-hidden="true"
+  >
+    <polygon points="12 2 2 7 12 12 22 7 12 2" />
+    <polyline points="2 17 12 22 22 17" />
+    <polyline points="2 12 12 17 22 12" />
+  </svg>
+);
+
+const CompanyIcon = () => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className="w-3.5 h-3.5"
+    aria-hidden="true"
+  >
+    <rect x="2" y="3" width="20" height="18" rx="2" ry="2" />
+    <line x1="2" y1="8" x2="22" y2="8" />
+    <line x1="6" y1="3" x2="6" y2="8" />
+  </svg>
+);
+
+const ChatIcon = () => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className="w-3.5 h-3.5"
+    aria-hidden="true"
+  >
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+  </svg>
+);
+
+// ─── Node definitions (static configs) ────────────────────────────────────────
 
 interface NodeDef {
   id: string;
-  labelIndex: 0 | 1 | 2 | 3;
+  labelIndex: number;
   x: number;
   y: number;
   dotX: number;
   dotY: number;
   path: string;
   pathLength: number;
-  IconComponent: React.FC;
+  IconComponent: React.ComponentType;
   lineDelay: number;
   labelDelay: number;
 }
@@ -105,67 +136,72 @@ const NODE_DEFS: NodeDef[] = [
   {
     id: "linkedin",
     labelIndex: 0,
-    x: 120, y: 88,
-    dotX: 200, dotY: 88,
+    x: 120,
+    y: 88,
+    dotX: 200,
+    dotY: 88,
     path: "M200 88 L285 88 L285 178",
     pathLength: 175,
-    IconComponent: Icon.LinkedIn,
+    IconComponent: LinkedInIcon,
     lineDelay: 0,
     labelDelay: 200,
   },
   {
     id: "engagers",
     labelIndex: 1,
-    x: 480, y: 88,
-    dotX: 400, dotY: 88,
+    x: 480,
+    y: 88,
+    dotX: 400,
+    dotY: 88,
     path: "M400 88 L315 88 L315 178",
     pathLength: 175,
-    IconComponent: Icon.Layers,
+    IconComponent: LayersIcon,
     lineDelay: 150,
     labelDelay: 350,
   },
   {
     id: "company-page",
     labelIndex: 2,
-    x: 120, y: 312,
-    dotX: 200, dotY: 312,
+    x: 120,
+    y: 312,
+    dotX: 200,
+    dotY: 312,
     path: "M200 312 L200 210 L268 210",
     pathLength: 170,
-    IconComponent: Icon.Company,
+    IconComponent: CompanyIcon,
     lineDelay: 300,
     labelDelay: 500,
   },
   {
     id: "commenters",
     labelIndex: 3,
-    x: 480, y: 312,
-    dotX: 400, dotY: 312,
+    x: 480,
+    y: 312,
+    dotX: 400,
+    dotY: 312,
     path: "M400 312 L400 210 L332 210",
     pathLength: 170,
-    IconComponent: Icon.Chat,
+    IconComponent: ChatIcon,
     lineDelay: 450,
     labelDelay: 650,
   },
 ];
 
-const DEFAULT_LABELS: [string, string, string, string] = [
+const DEFAULT_LABELS = [
   "LinkedIn Followers",
   "Post Engagers",
   "Company Page Visitors",
   "Post Commenters",
 ];
 
-const DEFAULT_BG_IMAGE = "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80";
+const DEFAULT_BG_IMAGE =
+  "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80";
 
 /**
  * AudienceHubAnimation
  *
- * Displays the animated Audience Hub hero section used across products.
- * Designed for high reusability, strict performance, and customizability.
- *
- * @author Jack UI
- * @version 1.1.0
- * @see {@link AudienceHubAnimationProps} for details on customisation.
+ * Displays the animated Audience Hub diagram showing integration of audience sources.
+ * Optimized for design-system reuse, accessibility, performance, and cross-framework support.
  */
 export function AudienceHubAnimation({
   labels = DEFAULT_LABELS,
@@ -177,75 +213,45 @@ export function AudienceHubAnimation({
   animationDuration = 3000,
   onNodeClick,
 }: AudienceHubAnimationProps) {
-  const uid = useId().replace(/:/g, "");
-  const s = (cls: string) => `${cls}-${uid}`;
-
-  // Memoize labels to prevent unnecessary renders/lookups
-  const memoizedLabels = useMemo(() => labels, [labels]);
+  // Safe destructuring of labels with fallbacks to avoid indexing undefined values
+  const label0 = labels[0] || DEFAULT_LABELS[0];
+  const label1 = labels[1] || DEFAULT_LABELS[1];
+  const label2 = labels[2] || DEFAULT_LABELS[2];
+  const label3 = labels[3] || DEFAULT_LABELS[3];
+  const activeLabels = [label0, label1, label2, label3];
 
   return (
     <div
       className={cn(
         "relative w-full max-w-[600px] mx-auto overflow-hidden",
-        "flex items-center justify-center font-sans",
-        s("hub"),
+        "flex items-center justify-center font-sans rounded-xl border border-slate-200/20 dark:border-slate-800/20",
+        "bg-cover bg-center shadow-[inset_0_0_80px_rgba(0,0,0,0.15)] dark:shadow-[inset_0_0_80px_rgba(0,0,0,0.45)]",
         className
       )}
-      style={{ aspectRatio: "600 / 420" }}
-      role="img"
-      aria-label="Diagram showing Valley AI aggregating LinkedIn audience sources"
+      style={{
+        aspectRatio: "600 / 420",
+        backgroundImage: `linear-gradient(to bottom, var(--hub-overlay-from), var(--hub-overlay-to)), url('${backgroundImageUrl}')`,
+        ["--hub-overlay-from" as any]: "rgba(0, 0, 0, 0.12)",
+        ["--hub-overlay-to" as any]: "rgba(0, 0, 0, 0.25)",
+        ["--hub-anim-duration" as any]: `${animationDuration}ms`,
+      }}
+      role="region"
+      aria-label="Audience Hub diagram showing connection of audience sources to the central hub"
     >
-      {/* ── Scoped styles ───────────────────────────────────────────────────── */}
-      {/* Modify colors here - Base colors and gradients for the component */}
+      {/* ── Scoped static keyframes ─────────────────────────────────────────── */}
       <style>{`
-        /* Design tokens — light */
-        .${s("hub")} {
-          --card-text:         #0f172a;
-          --line-base:         rgba(255 255 255 / 0.45);
-          --line-active:       #ffffff;
-          --hub-bg:            #ffffff;
-          --hub-fg:            #0f172a;
-          --hub-border:        rgba(255 255 255 / 0.95);
-
-          /* Replace image here - Custom background image path */
-          background-image:
-            linear-gradient(to bottom, rgba(0 0 0 / 0.10), rgba(0 0 0 / 0.22)),
-            url('${backgroundImageUrl}');
-          background-size: cover;
-          background-position: center;
-          box-shadow: inset 0 0 100px rgba(0 0 0 / 0.2);
-        }
-
-        /* Design tokens — dark */
-        :is(.dark) .${s("hub")} {
-          --card-text:   #ffffff;
-          --line-base:   rgba(255 255 255 / 0.25);
-          --line-active: rgba(255 255 255 / 0.80);
-          --hub-bg:      #000000;
-          --hub-fg:      #ffffff;
-          --hub-border:  rgba(255 255 255 / 0.14);
-
-          /* Replace image here - Custom background image path for dark mode */
-          background-image:
-            linear-gradient(to bottom, rgba(0 0 0 / 0.40), rgba(0 0 0 / 0.60)),
-            url('${backgroundImageUrl}');
-        }
-
-        /* Hub enter */
-        @keyframes ${s("hub-in")} {
-          from { transform: scale(0.80); opacity: 0; }
-          60%  { transform: scale(1.05); opacity: 1; }
+        @keyframes jackui-hub-in {
+          from { transform: scale(0.85); opacity: 0; }
+          60%  { transform: scale(1.03); opacity: 1; }
           to   { transform: scale(1.00); opacity: 1; }
         }
 
-        /* Card enter */
-        @keyframes ${s("card-in")} {
-          from { opacity: 0; transform: translateY(8px); }
+        @keyframes jackui-card-in {
+          from { opacity: 0; transform: translateY(6px); }
           to   { opacity: 1; transform: translateY(0);   }
         }
 
-        /* Line draw → hold → fade → reset → hold clear */
-        @keyframes ${s("line-draw")} {
+        @keyframes jackui-line-draw {
           0%   { stroke-dashoffset: var(--path-len); opacity: 1; }
           40%  { stroke-dashoffset: 0;               opacity: 1; }
           82%  { stroke-dashoffset: 0;               opacity: 1; }
@@ -254,103 +260,42 @@ export function AudienceHubAnimation({
           100% { stroke-dashoffset: var(--path-len); opacity: 1; }
         }
 
-        /* Subtle pulse on base lines */
-        @keyframes ${s("breathe")} {
-          0%, 100% { opacity: 0.5; }
-          50%       { opacity: 0.9; }
+        @keyframes jackui-breathe {
+          0%, 100% { opacity: 0.4; }
+          50%       { opacity: 0.85; }
         }
 
-        /* Repeating Hub Logo Animations */
-        @keyframes ${s("pulse-text")} {
-          0%, 100% { opacity: 0.70; }
+        @keyframes jackui-pulse-text {
+          0%, 100% { opacity: 0.75; }
           50%       { opacity: 1.00; }
         }
 
-        @keyframes ${s("expand-line")} {
+        @keyframes jackui-expand-line {
           0%, 100% { width: 14px; }
-          50%       { width: 26px; }
+          50%       { width: 24px; }
         }
 
-        /* Typographic Entrance Animation (Blur + Slide up) */
-        @keyframes ${s("text-reveal")} {
-          from { opacity: 0; transform: translateY(4px); filter: blur(1.5px); }
+        @keyframes jackui-text-reveal {
+          from { opacity: 0; transform: translateY(3px); filter: blur(1px); }
           to   { opacity: 1; transform: translateY(0); filter: blur(0); }
         }
 
-        /* Expanding square ripple pulse when lines hit the central hub */
-        @keyframes ${s("hub-ripple-pulse")} {
+        @keyframes jackui-hub-ripple-pulse {
           0%, 35% {
             transform: scale(1);
             opacity: 0;
           }
           40% {
             transform: scale(1);
-            opacity: 0.8;
+            opacity: 0.7;
           }
           70% {
-            transform: scale(1.3);
+            transform: scale(1.25);
             opacity: 0;
           }
           100% {
-            transform: scale(1.3);
+            transform: scale(1.25);
             opacity: 0;
-          }
-        }
-
-        /* ── Animated class applications ─────────────────────────────────── */
-
-        .${s("hub-node")} {
-          transform-origin: 300px 210px;
-          animation: ${s("hub-in")} 500ms cubic-bezier(0.34,1.56,0.64,1) 100ms both;
-        }
-
-        .${s("card")} {
-          animation: ${s("card-in")} 380ms ease-out both;
-        }
-
-        .${s("line-overlay")} {
-          /* Update animation duration here - Set animation speed for draw-on overlay */
-          animation: ${s("line-draw")} ${animationDuration}ms ease-in-out infinite;
-          /* Add a glowing premium white light-beam effect */
-          filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.95)) drop-shadow(0 0 1px rgba(255, 255, 255, 0.5));
-        }
-
-        .${s("hub-ripple")} {
-          transform-origin: 300px 210px;
-          animation: ${s("hub-ripple-pulse")} 3s cubic-bezier(0.16, 1, 0.3, 1) infinite;
-          filter: drop-shadow(0 0 4px var(--line-active));
-        }
-
-        .${s("line-base")} {
-          /* Update animation duration here - Set animation speed for breathing lines */
-          animation: ${s("breathe")} ${animationDuration}ms ease-in-out infinite;
-        }
-
-        .${s("logo-text")} {
-          animation: 
-            ${s("text-reveal")} 600ms cubic-bezier(0.16, 1, 0.3, 1) 350ms both,
-            ${s("pulse-text")} 2.5s ease-in-out infinite 950ms;
-        }
-
-        .${s("logo-line")} {
-          animation: 
-            ${s("text-reveal")} 600ms cubic-bezier(0.16, 1, 0.3, 1) 350ms both,
-            ${s("expand-line")} 2.5s ease-in-out infinite 950ms;
-        }
-
-        /* Honour reduced-motion preference */
-        @media (prefers-reduced-motion: reduce) {
-          .${s("hub-node")},
-          .${s("card")},
-          .${s("line-overlay")},
-          .${s("line-base")},
-          .${s("logo-text")},
-          .${s("logo-line")} {
-            animation: none !important;
-            opacity: 1 !important;
-            stroke-dashoffset: 0 !important;
-            transform: none !important;
-            filter: none !important;
           }
         }
       `}</style>
@@ -369,9 +314,12 @@ export function AudienceHubAnimation({
             <path
               d={path}
               fill="none"
-              stroke="var(--line-base)"
+              stroke="currentColor"
               strokeWidth="1.5"
-              className={animated ? s("line-base") : undefined}
+              className={cn(
+                "text-white/45 dark:text-white/25",
+                animated && "animate-[jackui-breathe_var(--hub-anim-duration)_ease-in-out_infinite] motion-reduce:animate-none"
+              )}
               style={animated ? { animationDelay: `${lineDelay}ms` } : undefined}
             />
 
@@ -380,10 +328,10 @@ export function AudienceHubAnimation({
               <path
                 d={path}
                 fill="none"
-                stroke="var(--line-active)"
+                stroke="currentColor"
                 strokeWidth="1.5"
                 strokeLinecap="round"
-                className={s("line-overlay")}
+                className="text-white dark:text-white/85 animate-[jackui-line-draw_var(--hub-anim-duration)_ease-in-out_infinite] motion-reduce:animate-none filter-[drop-shadow(0_0_2px_rgba(255,255,255,0.9))]"
                 style={{
                   "--path-len": pathLength,
                   strokeDasharray: pathLength,
@@ -395,69 +343,82 @@ export function AudienceHubAnimation({
           </g>
         ))}
 
-        {/* Interactive Label Cards (Using premium valley button style directly inside foreignObject) */}
-        {NODE_DEFS.map(({ id, x, y, labelIndex, IconComponent, labelDelay }) => (
-          <g
-            key={`card-${id}`}
-            className={animated ? s("card") : undefined}
-            style={animated ? { animationDelay: `${labelDelay}ms`, animationFillMode: "both" } : undefined}
-          >
-            <foreignObject x={x - 80} y={y - 18} width={160} height={36} className="pointer-events-auto">
-              {/* Change button text here - Labels for node triggers */}
-              {/* Replace CTA link here - Customize button onClick behavior */}
-              <button
-                type="button"
-                onClick={() => onNodeClick?.(id, memoizedLabels[labelIndex])}
-                className={cn(
-                  "w-full h-full flex items-center gap-2.5 px-3.5 border-[1.5px] backdrop-blur-md transition-all duration-300 font-sans font-medium uppercase tracking-widest text-[10px] select-none cursor-pointer active:scale-95 outline-none focus-visible:ring-2 focus-visible:ring-white/50",
-                  "bg-white/88 border-white/95 text-slate-900 hover:bg-white/95",
-                  // The button remains white/light in both dark mode and light mode, per user specification
-                  "dark:bg-white/88 dark:border-white/95 dark:text-slate-900 dark:hover:bg-white/95"
-                )}
-              >
-                <span className="shrink-0 opacity-90 flex items-center">
-                  <IconComponent />
-                </span>
-                <span className="truncate leading-none mt-px">
-                  {memoizedLabels[labelIndex]}
-                </span>
-              </button>
-            </foreignObject>
-          </g>
-        ))}
+        {/* Interactive Label Cards */}
+        {NODE_DEFS.map(({ id, x, y, labelIndex, IconComponent, labelDelay }) => {
+          const currentLabel = activeLabels[labelIndex];
+          return (
+            <g
+              key={`card-${id}`}
+              className={cn(
+                animated && "animate-[jackui-card-in_380ms_ease-out_both] motion-reduce:animate-none"
+              )}
+              style={animated ? { animationDelay: `${labelDelay}ms`, animationFillMode: "both" } : undefined}
+            >
+              <foreignObject x={x - 80} y={y - 18} width={160} height={36} className="pointer-events-auto">
+                <button
+                  type="button"
+                  onClick={() => onNodeClick?.(id, currentLabel)}
+                  className={cn(
+                    "w-full h-full flex items-center gap-2.5 px-3.5 border-[1.5px] backdrop-blur-md transition-all duration-300 font-sans font-medium uppercase tracking-widest text-[10px] select-none cursor-pointer active:scale-95 outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-white",
+                    "bg-white/90 border-white/95 text-slate-900 hover:bg-white focus:bg-white",
+                    "dark:bg-white/90 dark:border-white/95 dark:text-slate-900 dark:hover:bg-white"
+                  )}
+                  aria-label={`Interact with ${currentLabel}`}
+                >
+                  <span className="shrink-0 opacity-90 flex items-center">
+                    <IconComponent />
+                  </span>
+                  <span className="truncate leading-none mt-px">
+                    {currentLabel}
+                  </span>
+                </button>
+              </foreignObject>
+            </g>
+          );
+        })}
 
-        {/* ── Central hub (using custom layout) ─────────────────────────────── */}
-        <g className={animated ? s("hub-node") : undefined}>
-          {/* Animated pulse/ripple square behind the central hub */}
+        {/* ── Central hub ───────────────────────────────────────────────────── */}
+        <g
+          className={cn(
+            "origin-[300px_210px]",
+            animated && "animate-[jackui-hub-in_500ms_cubic-bezier(0.34,1.56,0.64,1)_100ms_both] motion-reduce:animate-none"
+          )}
+        >
+          {/* Animated pulse/ripple shape behind the central hub */}
           {animated && (
             <rect
-              x={268} y={178}
-              width={64} height={64}
-              rx={14} ry={14}
+              x={268}
+              y={178}
+              width={64}
+              height={64}
+              rx={14}
+              ry={14}
               fill="none"
-              stroke="var(--line-active)"
+              stroke="currentColor"
               strokeWidth="1.5"
-              className={s("hub-ripple")}
+              className="text-white dark:text-white/85 origin-[300px_210px] animate-[jackui-hub-ripple-pulse_var(--hub-anim-duration)_cubic-bezier(0.16,1,0.3,1)_infinite] motion-reduce:animate-none filter-[drop-shadow(0_0_4px_#fff)] dark:filter-[drop-shadow(0_0_4px_rgba(255,255,255,0.85))]"
             />
           )}
           <rect
-            x={268} y={178}
-            width={64} height={64}
-            rx={14} ry={14}
-            fill="var(--hub-bg)"
-            stroke="var(--hub-border)"
+            x={268}
+            y={178}
+            width={64}
+            height={64}
+            rx={14}
+            ry={14}
+            fill="currentColor"
+            stroke="currentColor"
             strokeWidth="1.5"
+            className="text-white dark:text-zinc-950 stroke-white/95 dark:stroke-white/12"
           />
           <foreignObject x={268} y={178} width={64} height={64}>
-            <div
-              className="w-full h-full flex flex-col items-center justify-center select-none font-sans"
-              style={{ color: "var(--hub-fg)" }}
-            >
-              {/* Customize heading text here - Top logo heading */}
+            <div className="w-full h-full flex flex-col items-center justify-center select-none font-sans text-slate-900 dark:text-white">
               <span
-                className={animated ? s("logo-text") : undefined}
+                className={cn(
+                  animated && "animate-[jackui-text-reveal_600ms_cubic-bezier(0.16,1,0.3,1)_350ms_both,jackui-pulse-text_2.5s_ease-in-out_infinite_950ms] motion-reduce:animate-none"
+                )}
                 style={{
-                  fontFamily: "PP Neue Montreal Medium, sans-serif",
+                  fontFamily: "var(--font-sans, system-ui, sans-serif)",
                   fontSize: "11px",
                   fontWeight: 700,
                   letterSpacing: "0.05em",
@@ -468,7 +429,9 @@ export function AudienceHubAnimation({
                 {logoTextTop}
               </span>
               <div
-                className={animated ? s("logo-line") : undefined}
+                className={cn(
+                  animated && "animate-[jackui-text-reveal_600ms_cubic-bezier(0.16,1,0.3,1)_350ms_both,jackui-expand-line_2.5s_ease-in-out_infinite_950ms] motion-reduce:animate-none"
+                )}
                 style={{
                   height: "1px",
                   backgroundColor: "currentColor",
@@ -476,11 +439,12 @@ export function AudienceHubAnimation({
                   margin: "3px 0",
                 }}
               />
-              {/* Customize heading text here - Bottom logo heading */}
               <span
-                className={animated ? s("logo-text") : undefined}
+                className={cn(
+                  animated && "animate-[jackui-text-reveal_600ms_cubic-bezier(0.16,1,0.3,1)_350ms_both,jackui-pulse-text_2.5s_ease-in-out_infinite_950ms] motion-reduce:animate-none"
+                )}
                 style={{
-                  fontFamily: "PP Neue Montreal Medium, sans-serif",
+                  fontFamily: "var(--font-sans, system-ui, sans-serif)",
                   fontSize: "8px",
                   fontWeight: 500,
                   letterSpacing: "0.2em",
@@ -495,16 +459,18 @@ export function AudienceHubAnimation({
           </foreignObject>
         </g>
 
-        {/* Junction dots (Rendered at the very end so they sit on top of card borders) */}
+        {/* Junction dots */}
         {NODE_DEFS.map(({ id, dotX, dotY, labelDelay }) => (
           <g key={`dots-${id}`}>
-            {/* Junction dot to label card */}
             <circle
               cx={dotX}
               cy={dotY}
               r={3}
-              fill="var(--card-text)"
-              className={animated ? s("card") : undefined}
+              fill="currentColor"
+              className={cn(
+                "text-slate-900 dark:text-white",
+                animated && "animate-[jackui-card-in_380ms_ease-out_both] motion-reduce:animate-none"
+              )}
               style={animated ? { animationDelay: `${labelDelay}ms`, animationFillMode: "both" } : {}}
             />
           </g>
@@ -514,4 +480,4 @@ export function AudienceHubAnimation({
   );
 }
 
-export default AudienceHubAnimation;
+export default AudienceHubAnimation;
