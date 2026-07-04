@@ -1,15 +1,40 @@
 "use client";
 
-import { motion } from "motion/react";
+import { motion, useMotionValue, useMotionTemplate } from "motion/react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { BrowseComponentsButton } from "../ui/browse-button";
 import { BrowseBlocksButton } from "../ui/browse-blocks";
 import Features from "./feature-block";
+import { useState } from "react";
 
 export default function HeroSection() {
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const [opacity, setOpacity] = useState(0);
+
+  function handleMouseMove({ currentTarget, clientX, clientY }: React.MouseEvent) {
+    const { left, top } = currentTarget.getBoundingClientRect();
+    mouseX.set(clientX - left);
+    mouseY.set(clientY - top);
+  }
+
+  const background = useMotionTemplate`radial-gradient(300px circle at ${mouseX}px ${mouseY}px, var(--cursor-glow-color), transparent 80%)`;
+
   return (
-    <div className="mx-auto w-full max-w-5xl min-h-screen flex flex-col items-center justify-center gap-8 px-4 sm:px-6 py-16 text-center">
+    <div 
+      onMouseMove={handleMouseMove}
+      onMouseEnter={() => setOpacity(1)}
+      onMouseLeave={() => setOpacity(0)}
+      className="relative w-full overflow-hidden flex flex-col items-center justify-center group/hero [--cursor-glow-color:rgba(14,165,233,0.15)] dark:[--cursor-glow-color:rgba(56,189,248,0.28)]"
+    >
+      {/* Faint Sky Blue cursor glow overlay */}
+      <motion.div
+        className="pointer-events-none absolute inset-0 z-0 transition-opacity duration-500"
+        style={{ background, opacity }}
+      />
+
+      <div className="relative z-10 mx-auto w-full max-w-5xl min-h-screen flex flex-col items-center justify-center gap-8 px-4 sm:px-6 py-16 text-center">
       {/* Announcement badge */}
       <motion.div
         initial={{ opacity: 0, y: -8 }}
@@ -235,6 +260,7 @@ export default function HeroSection() {
       >
         <Features />
       </motion.div>
+    </div>
     </div>
   );
 }
