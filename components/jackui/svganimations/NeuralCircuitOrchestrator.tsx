@@ -1,11 +1,22 @@
 "use client";
 
-import React, { useId, useState } from "react";
+import React, { useId, useState, useMemo, memo } from "react";
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 
+/**
+ * @interface NeuralCircuitOrchestratorProps
+ * Defines configuration options for the NeuralCircuitOrchestrator component.
+ */
+export interface NeuralCircuitOrchestratorProps {
+  /**
+   * Custom Tailwind classes to apply to the root container.
+   */
+  className?: string;
+}
+
 // ─── Custom Premium SVG Icons (AI Orchestrator Theme) ────────────────────────
-const CognitiveIcon = () => (
+const CognitiveIcon = memo(() => (
   <svg viewBox="0 0 24 24" className="w-8 h-8 text-violet-400 drop-shadow-[0_0_8px_rgba(167,139,250,0.4)]" fill="none" stroke="currentColor" strokeWidth="1.5">
     <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15A2.5 2.5 0 0 1 9.5 22M14.5 2a2.5 2.5 0 0 0-2.5 2.5v15a2.5 2.5 0 0 0 2.5 2.5" />
     <path d="M12 9h5a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-5M12 5h7a2 2 0 0 1 2 2v1a2 2 0 0 1-2 2h-7" />
@@ -13,9 +24,10 @@ const CognitiveIcon = () => (
     <circle cx="12" cy="4.5" r="1.5" className="fill-violet-400 animate-pulse" />
     <circle cx="12" cy="19.5" r="1.5" className="fill-violet-400 animate-pulse" />
   </svg>
-);
+));
+CognitiveIcon.displayName = "CognitiveIcon";
 
-const MemoryIcon = () => (
+const MemoryIcon = memo(() => (
   <svg viewBox="0 0 24 24" className="w-8 h-8 text-emerald-400 drop-shadow-[0_0_8px_rgba(52,211,153,0.4)]" fill="none" stroke="currentColor" strokeWidth="1.5">
     <ellipse cx="12" cy="5" rx="9" ry="3" />
     <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
@@ -23,82 +35,67 @@ const MemoryIcon = () => (
     <line x1="12" y1="8" x2="12" y2="22" strokeDasharray="3 3" />
     <circle cx="12" cy="12" r="2" className="fill-emerald-400" />
   </svg>
-);
+));
+MemoryIcon.displayName = "MemoryIcon";
 
-const ToolsIcon = () => (
+const ToolsIcon = memo(() => (
   <svg viewBox="0 0 24 24" className="w-8 h-8 text-rose-400 drop-shadow-[0_0_8px_rgba(244,63,94,0.4)]" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
     <rect x="4" y="4" width="16" height="16" rx="2" />
     <path d="M9 22V12h6v10M12 2v2M2 12h2M20 12h2" />
     <circle cx="12" cy="8" r="1" className="fill-rose-400 animate-ping" />
   </svg>
-);
+));
+ToolsIcon.displayName = "ToolsIcon";
 
 // ─── Twinkling Star Flare Decoration ─────────────────────────────────────────
-const StarFlare = ({ className, style }: { className?: string; style?: React.CSSProperties }) => (
-  <g className={className} style={style}>
+const StarFlare = memo(({ className, style, delay = 0 }: { className?: string; style?: React.CSSProperties; delay?: number }) => (
+  <motion.g 
+    className={className} 
+    style={{ ...style, transformOrigin: "center" }}
+    initial={{ scale: 0.3, rotate: 0, opacity: 0.3 }}
+    animate={{
+      scale: [0.3, 1.1, 0.3],
+      rotate: [0, 90, 180],
+      opacity: [0.3, 1, 0.3]
+    }}
+    transition={{
+      duration: 5,
+      repeat: Infinity,
+      ease: "easeInOut",
+      delay
+    }}
+  >
     <path
       d="M -5 0 Q 0 0 0 -5 Q 0 0 5 0 Q 0 0 0 5 Q 0 0 -5 0 Z"
       fill="#ffffff"
       style={{ filter: "drop-shadow(0 0 4px #ffffff)" }}
     />
-  </g>
-);
+  </motion.g>
+));
+StarFlare.displayName = "StarFlare";
 
-export function NeuralCircuitOrchestrator({ className }: { className?: string }) {
-  const uid = useId().replace(/:/g, "");
-  const s = (cls: string) => `${cls}-${uid}`;
+/**
+ * NeuralCircuitOrchestrator
+ *
+ * Displays the premium animated Neural Circuit Grid aggregating gateway sources.
+ * Optimized with pure Tailwind classes and Framer Motion vector keyframes.
+ *
+ * @author Jack UI
+ * @version 1.2.0
+ * @see {@link NeuralCircuitOrchestratorProps} for details on customisation.
+ */
+export function NeuralCircuitOrchestrator({ className }: NeuralCircuitOrchestratorProps) {
+  const rawId = useId();
+  const uid = useMemo(() => rawId.replace(/:/g, ""), [rawId]);
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
 
   return (
     <div
       className={cn(
-        "relative w-full max-w-[1200px] mx-auto overflow-hidden transition-colors font-sans p-6 rounded-[14px] bg-white dark:bg-black border border-zinc-200 dark:border-zinc-800 shadow-xs",
-        s("container"),
+        "relative w-full max-w-[1200px] mx-auto overflow-hidden transition-colors duration-300 font-sans p-6 rounded-[14px] bg-white dark:bg-black border border-zinc-200 dark:border-zinc-800 shadow-xs text-[13px] font-normal leading-[17.875px]",
         className
       )}
     >
-      <style>{`
-        .${s("container")} {
-          /* Style Foundations & Tokens */
-          font-family: ui-sans-serif, system-ui, -apple-system, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-          font-size: 13px;
-          font-weight: 400;
-          line-height: 17.875px;
-
-          /* Dynamic Active Colors */
-          --line-active-violet: #a78bfa;
-          --line-active-emerald: #34d399;
-          --line-active-rose: #fb7185;
-        }
-
-        /* Premium line draw-on and fade animation matching the user specification */
-        @keyframes ${s("line-draw")} {
-          0%   { stroke-dashoffset: var(--path-len); opacity: 1; }
-          40%  { stroke-dashoffset: 0;               opacity: 1; }
-          82%  { stroke-dashoffset: 0;               opacity: 1; }
-          90%  { stroke-dashoffset: 0;               opacity: 0; }
-          91%  { stroke-dashoffset: var(--path-len); opacity: 0; }
-          100% { stroke-dashoffset: var(--path-len); opacity: 1; }
-        }
-
-        /* Sparkly Star Flare Rotation and Scaling */
-        @keyframes ${s("sparkle")} {
-          0%, 100% {
-            transform: scale(0.3) rotate(0deg);
-            opacity: 0.3;
-          }
-          50% {
-            transform: scale(1.1) rotate(90deg);
-            opacity: 1;
-          }
-        }
-
-        .${s("twinkle-star")} {
-          transform-origin: center;
-          animation: ${s("sparkle")} 5s ease-in-out infinite;
-        }
-      `}</style>
-
       {/* Circuit Board SVG Canvas */}
       <div className="relative w-full h-[220px] pointer-events-none z-0">
         <svg
@@ -132,7 +129,7 @@ export function NeuralCircuitOrchestrator({ className }: { className?: string })
           </defs>
 
           {/* Unique Creative Background Lines Network */}
-          <g stroke="currentColor" className="text-zinc-200 dark:text-zinc-600" strokeWidth="1" fill="none" opacity="0.6">
+          <g stroke="currentColor" className="text-zinc-200 dark:text-zinc-800" strokeWidth="1" fill="none" opacity="0.6">
             <path d="M 400 35 L 400 15 M 430 45 L 450 15 H 510 V 35" />
             <path d="M 370 45 L 350 15 H 290 V 35" />
             <path d="M 250 15 H 180 V 65 H 100" />
@@ -153,7 +150,7 @@ export function NeuralCircuitOrchestrator({ className }: { className?: string })
             {/* Cognitive Engine (Violet) */}
             <path
               d="M 350 110 H 133 V 220"
-              stroke="var(--line-active-violet)"
+              className="stroke-violet-400"
               style={{
                 filter: `url(#glow-violet-${uid})`,
                 opacity: hoveredCard === "cognitive" ? 0.9 : 0.4,
@@ -164,7 +161,7 @@ export function NeuralCircuitOrchestrator({ className }: { className?: string })
             {/* Vector Memory (Emerald) */}
             <path
               d="M 400 135 V 220"
-              stroke="var(--line-active-emerald)"
+              className="stroke-emerald-400"
               style={{
                 filter: `url(#glow-emerald-${uid})`,
                 opacity: hoveredCard === "memory" ? 0.9 : 0.4,
@@ -175,7 +172,7 @@ export function NeuralCircuitOrchestrator({ className }: { className?: string })
             {/* Autonomous Tools (Rose) */}
             <path
               d="M 450 110 H 667 V 220"
-              stroke="var(--line-active-rose)"
+              className="stroke-rose-400"
               style={{
                 filter: `url(#glow-rose-${uid})`,
                 opacity: hoveredCard === "tools" ? 0.9 : 0.4,
@@ -187,51 +184,66 @@ export function NeuralCircuitOrchestrator({ className }: { className?: string })
           {/* Flashy Premium Pulse/Laser Beams travelling on paths */}
           <g fill="none" strokeWidth="3" strokeLinecap="round">
             {/* Cognitive Laser (Violet) */}
-            <path
+            <motion.path
               d="M 350 110 H 133 V 220"
-              stroke="var(--line-active-violet)"
+              className="stroke-violet-400"
               style={{
-                filter: "drop-shadow(0 0 5px var(--line-active-violet)) drop-shadow(0 0 1px rgba(255, 255, 255, 0.8))",
-                strokeDasharray: 327,
-                strokeDashoffset: 327,
-                animation: `${s("line-draw")} 3s ease-in-out infinite`,
-                animationDelay: "0ms",
-                "--path-len": 327,
-                opacity: hoveredCard === "cognitive" ? 1 : 0.85,
-                transition: "opacity 0.4s ease",
-              } as React.CSSProperties}
+                filter: "drop-shadow(0 0 5px #a78bfa) drop-shadow(0 0 1px rgba(255, 255, 255, 0.8))",
+              }}
+              initial={{ pathLength: 1, pathOffset: 1, opacity: 1 }}
+              animate={{
+                pathOffset: [1, 0, 0, 0, 1],
+                opacity: hoveredCard === "cognitive" ? [1, 1, 1, 0, 1] : [0.85, 0.85, 0.85, 0, 0.85]
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "easeInOut",
+                times: [0, 0.4, 0.82, 0.9, 1],
+                delay: 0
+              }}
             />
 
             {/* Vector Memory Laser (Emerald) */}
-            <path
+            <motion.path
               d="M 400 135 V 220"
-              stroke="var(--line-active-emerald)"
+              className="stroke-emerald-400"
               style={{
-                filter: "drop-shadow(0 0 5px var(--line-active-emerald)) drop-shadow(0 0 1px rgba(255, 255, 255, 0.8))",
-                strokeDasharray: 85,
-                strokeDashoffset: 85,
-                animation: `${s("line-draw")} 3s ease-in-out infinite`,
-                animationDelay: "300ms",
-                "--path-len": 85,
-                opacity: hoveredCard === "memory" ? 1 : 0.85,
-                transition: "opacity 0.4s ease",
-              } as React.CSSProperties}
+                filter: "drop-shadow(0 0 5px #34d399) drop-shadow(0 0 1px rgba(255, 255, 255, 0.8))",
+              }}
+              initial={{ pathLength: 1, pathOffset: 1, opacity: 1 }}
+              animate={{
+                pathOffset: [1, 0, 0, 0, 1],
+                opacity: hoveredCard === "memory" ? [1, 1, 1, 0, 1] : [0.85, 0.85, 0.85, 0, 0.85]
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "easeInOut",
+                times: [0, 0.4, 0.82, 0.9, 1],
+                delay: 0.3
+              }}
             />
 
             {/* Autonomous Tools Laser (Rose) */}
-            <path
+            <motion.path
               d="M 450 110 H 667 V 220"
-              stroke="var(--line-active-rose)"
+              className="stroke-rose-400"
               style={{
-                filter: "drop-shadow(0 0 5px var(--line-active-rose)) drop-shadow(0 0 1px rgba(255, 255, 255, 0.8))",
-                strokeDasharray: 327,
-                strokeDashoffset: 327,
-                animation: `${s("line-draw")} 3s ease-in-out infinite`,
-                animationDelay: "600ms",
-                "--path-len": 327,
-                opacity: hoveredCard === "tools" ? 1 : 0.85,
-                transition: "opacity 0.4s ease",
-              } as React.CSSProperties}
+                filter: "drop-shadow(0 0 5px #fb7185) drop-shadow(0 0 1px rgba(255, 255, 255, 0.8))",
+              }}
+              initial={{ pathLength: 1, pathOffset: 1, opacity: 1 }}
+              animate={{
+                pathOffset: [1, 0, 0, 0, 1],
+                opacity: hoveredCard === "tools" ? [1, 1, 1, 0, 1] : [0.85, 0.85, 0.85, 0, 0.85]
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "easeInOut",
+                times: [0, 0.4, 0.82, 0.9, 1],
+                delay: 0.6
+              }}
             />
           </g>
 
@@ -244,9 +256,9 @@ export function NeuralCircuitOrchestrator({ className }: { className?: string })
           </g>
 
           {/* Flashy Sparkle Star Flares positioned at key junction nodes */}
-          <StarFlare className={s("twinkle-star")} style={{ transform: "translate(210px, 110px)" }} />
-          <StarFlare className={s("twinkle-star")} style={{ transform: "translate(590px, 110px)", animationDelay: "1s" }} />
-          <StarFlare className={s("twinkle-star")} style={{ transform: "translate(490px, 30px)", animationDelay: "0.5s" }} />
+          <StarFlare className="origin-center" style={{ transform: "translate(210px, 110px)" }} delay={0} />
+          <StarFlare className="origin-center" style={{ transform: "translate(590px, 110px)" }} delay={1} />
+          <StarFlare className="origin-center" style={{ transform: "translate(490px, 30px)" }} delay={0.5} />
         </svg>
 
         {/* Central Core CPU ("AGENT GATEWAY") - Clean Button style with no pins */}
