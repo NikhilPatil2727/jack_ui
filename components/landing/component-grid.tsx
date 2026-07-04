@@ -2,6 +2,8 @@
 
 import React, { useState } from "react";
 import dynamic from "next/dynamic";
+import { LazyViewport } from "@/components/ui/lazy-viewport";
+import { motion } from "motion/react";
 
 const InboxDeck = dynamic(() => import("@/components/jackui/cards/InboxDeck"), {
   ssr: false,
@@ -66,9 +68,11 @@ export default function ComponentGrid() {
       category: "Cards (card.mdx)",
       preview: (
         <div className="relative w-full h-[180px] flex items-center justify-center overflow-hidden bg-zinc-50 dark:bg-zinc-950 rounded-xl select-none">
-          <div className="absolute scale-[0.38] origin-center translate-y-10">
-            <InboxDeck className="min-h-0 h-[220px] p-0 justify-center" />
-          </div>
+          <LazyViewport placeholder={<div className="w-full h-full bg-zinc-100/50 dark:bg-zinc-800/20 animate-pulse rounded-xl" />}>
+            <div className="absolute scale-[0.38] origin-center translate-y-10">
+              <InboxDeck className="min-h-0 h-[220px] p-0 justify-center" />
+            </div>
+          </LazyViewport>
         </div>
       ),
     },
@@ -78,23 +82,25 @@ export default function ComponentGrid() {
       category: "Cards (card.mdx)",
       preview: (
         <div className="relative w-full h-[180px] flex items-center justify-center overflow-hidden bg-zinc-50 dark:bg-zinc-950 rounded-xl select-none">
-          <div className="absolute scale-[0.5] origin-center -translate-y-4">
-            <EnvelopeCard
-              className="p-0 flex-nowrap"
-              items={[
-                {
-                  id: "1",
-                  label: "Cabin · Cozy Woods",
-                  title: "The A-Frame Retreat",
-                  description: "Deep forest escape · Wood fireplace",
-                  price: "From $180 / night",
-                  imageUrl: "/nature_cabin_1.png",
-                  imageAlt: "Cozy A-frame cabin in autumn woods",
-                  theme: "crimson",
-                },
-              ]}
-            />
-          </div>
+          <LazyViewport placeholder={<div className="w-full h-full bg-zinc-100/50 dark:bg-zinc-800/20 animate-pulse rounded-xl" />}>
+            <div className="absolute scale-[0.5] origin-center -translate-y-4">
+              <EnvelopeCard
+                className="p-0 flex-nowrap"
+                items={[
+                  {
+                    id: "1",
+                    label: "Cabin · Cozy Woods",
+                    title: "The A-Frame Retreat",
+                    description: "Deep forest escape · Wood fireplace",
+                    price: "From $180 / night",
+                    imageUrl: "/nature_cabin_1.png",
+                    imageAlt: "Cozy A-frame cabin in autumn woods",
+                    theme: "crimson",
+                  },
+                ]}
+              />
+            </div>
+          </LazyViewport>
         </div>
       ),
     },
@@ -104,9 +110,11 @@ export default function ComponentGrid() {
       category: "SVG Animations (svg-animations.mdx)",
       preview: (
         <div className="relative w-full h-[180px] flex items-center justify-center overflow-hidden bg-zinc-50 dark:bg-zinc-950 rounded-xl">
-          <div className="absolute scale-[0.55] origin-center">
-            <AudienceHubAnimation animated={true} />
-          </div>
+          <LazyViewport placeholder={<div className="w-full h-full bg-zinc-100/50 dark:bg-zinc-800/20 animate-pulse rounded-xl" />}>
+            <div className="absolute scale-[0.55] origin-center">
+              <AudienceHubAnimation animated={true} />
+            </div>
+          </LazyViewport>
         </div>
       ),
     },
@@ -116,9 +124,11 @@ export default function ComponentGrid() {
       category: "SVG Animations (svg-animations.mdx)",
       preview: (
         <div className="relative w-full h-[180px] flex items-center justify-center overflow-hidden bg-zinc-50 dark:bg-zinc-950 rounded-xl select-none pointer-events-none">
-          <div className="absolute w-[800px] scale-[0.22] origin-center">
-            <NeuralCircuitOrchestrator />
-          </div>
+          <LazyViewport placeholder={<div className="w-full h-full bg-zinc-100/50 dark:bg-zinc-800/20 animate-pulse rounded-xl" />}>
+            <div className="absolute w-[800px] scale-[0.22] origin-center">
+              <NeuralCircuitOrchestrator />
+            </div>
+          </LazyViewport>
         </div>
       ),
     },
@@ -128,8 +138,10 @@ export default function ComponentGrid() {
       category: "Buttons (button.mdx)",
       preview: (
         <div className="relative w-full h-[180px] flex flex-col items-center justify-center gap-3 bg-zinc-50 dark:bg-zinc-950 rounded-xl px-6">
-          <InkFillBtn />
-          <span className="text-[10px] text-zinc-400 dark:text-zinc-500">Hover to see ink fill effect</span>
+          <LazyViewport placeholder={<div className="h-10 w-28 bg-zinc-200/50 dark:bg-zinc-800/30 animate-pulse rounded-md" />}>
+            <InkFillBtn />
+            <span className="text-[10px] text-zinc-400 dark:text-zinc-500 mt-3">Hover to see ink fill effect</span>
+          </LazyViewport>
         </div>
       ),
     },
@@ -139,8 +151,10 @@ export default function ComponentGrid() {
       category: "Buttons (button.mdx)",
       preview: (
         <div className="relative w-full h-[180px] flex flex-col items-center justify-center gap-3 bg-zinc-50 dark:bg-zinc-950 rounded-xl px-6">
-          <Btn02 />
-          <span className="text-[10px] text-zinc-400 dark:text-zinc-500">Smooth hover transitions & ambient shadow</span>
+          <LazyViewport placeholder={<div className="h-10 w-28 bg-zinc-200/50 dark:bg-zinc-800/30 animate-pulse rounded-md" />}>
+            <Btn02 />
+            <span className="text-[10px] text-zinc-400 dark:text-zinc-500 mt-3">Smooth hover transitions & ambient shadow</span>
+          </LazyViewport>
         </div>
       ),
     },
@@ -150,8 +164,10 @@ export default function ComponentGrid() {
       category: "Buttons (button.mdx)",
       preview: (
         <div className="relative w-full h-[180px] flex flex-col items-center justify-center gap-3 bg-zinc-50 dark:bg-zinc-950 rounded-xl px-6">
-          <Btn03 />
-          <span className="text-[10px] text-zinc-400 dark:text-zinc-500">Magnetic pull & canvas click particles</span>
+          <LazyViewport placeholder={<div className="h-10 w-28 bg-zinc-200/50 dark:bg-zinc-800/30 animate-pulse rounded-md" />}>
+            <Btn03 />
+            <span className="text-[10px] text-zinc-400 dark:text-zinc-500 mt-3">Magnetic pull & canvas click particles</span>
+          </LazyViewport>
         </div>
       ),
     },
@@ -161,8 +177,10 @@ export default function ComponentGrid() {
       category: "Buttons (button.mdx)",
       preview: (
         <div className="relative w-full h-[180px] flex flex-col items-center justify-center gap-3 bg-zinc-50 dark:bg-zinc-950 rounded-xl px-6">
-          <Btn04 />
-          <span className="text-[10px] text-zinc-400 dark:text-zinc-500">Premium backdrop-blur buttons</span>
+          <LazyViewport placeholder={<div className="h-10 w-28 bg-zinc-200/50 dark:bg-zinc-800/30 animate-pulse rounded-md" />}>
+            <Btn04 />
+            <span className="text-[10px] text-zinc-400 dark:text-zinc-500 mt-3">Premium backdrop-blur buttons</span>
+          </LazyViewport>
         </div>
       ),
     },
@@ -172,8 +190,10 @@ export default function ComponentGrid() {
       category: "Buttons (button.mdx)",
       preview: (
         <div className="relative w-full h-[180px] flex flex-col items-center justify-center gap-3 bg-zinc-50 dark:bg-zinc-950 rounded-xl px-6">
-          <Btn07 />
-          <span className="text-[10px] text-zinc-400 dark:text-zinc-500">Click to trigger star particles</span>
+          <LazyViewport placeholder={<div className="h-10 w-28 bg-zinc-200/50 dark:bg-zinc-800/30 animate-pulse rounded-md" />}>
+            <Btn07 />
+            <span className="text-[10px] text-zinc-400 dark:text-zinc-500 mt-3">Click to trigger star particles</span>
+          </LazyViewport>
         </div>
       ),
     },
@@ -188,14 +208,41 @@ export default function ComponentGrid() {
     >
       {/* Header Container */}
       <div className="max-w-6xl mx-auto text-left mb-12">
-        <span className="text-pink-500 dark:text-pink-400 font-semibold text-lg tracking-wide uppercase block mb-2">
-          Premium Components
+        <span className="text-rose-600 dark:text-rose-400 font-bold text-sm tracking-widest uppercase block mb-3 font-outfit">
+          Gallery
         </span>
-        <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 mb-3">
-          Interactive by design.
+        <h2 className="text-4xl md:text-6xl font-black tracking-tight text-zinc-900 dark:text-zinc-50 mb-4 font-outfit leading-tight flex flex-wrap items-center gap-x-2">
+          Interactive{" "}
+          <motion.span
+            whileHover="hover"
+            initial="initial"
+            className="font-lavishly-yours text-rose-600 dark:text-rose-400 font-normal lowercase tracking-wide text-5xl md:text-7xl lg:text-8xl block sm:inline-block rotate-[-2deg] origin-left relative cursor-pointer select-none px-2 align-middle translate-y-[2px]"
+          >
+            elements
+            <svg
+              className="absolute left-1 bottom-[-8px] w-[95%] h-2.5 text-rose-600/70 dark:text-rose-400/80 pointer-events-none"
+              viewBox="0 0 100 10"
+              preserveAspectRatio="none"
+            >
+              <motion.path
+                d="M 5 3 C 35 6, 65 6, 95 3"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                variants={{
+                  initial: { pathLength: 0 },
+                  hover: {
+                    pathLength: 1,
+                    transition: { type: "spring", stiffness: 140, damping: 12 }
+                  }
+                }}
+              />
+            </svg>
+          </motion.span>
         </h2>
-        <p className="text-lg text-zinc-600 dark:text-zinc-400 max-w-2xl mb-6">
-          Elevate your interface with fluid transitions, tactile feedback, and highly-polished micro-interactions.
+        <p className="text-lg md:text-xl text-zinc-600 dark:text-zinc-400 max-w-3xl mb-6 font-outfit font-light leading-relaxed">
+          A preview of the layout blocks, including card overlays, simple spring gestures, and clean SVG animations.
         </p>
       </div>
 

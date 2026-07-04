@@ -27,7 +27,7 @@ export default function Home() {
         }}
       >
         <HeroSection />
-        
+
         {/* Divider Line */}
         <div className="w-full border-b border-zinc-200 dark:border-zinc-800" />
 
