@@ -29,12 +29,12 @@ export const component: Registry = [
         ],
     },
     {
-        name: "btn-02",
+        name: "smoke-flare-button",
         type: "registry:component",
         dependencies: ["motion"],
         files: [
             {
-                path: "components/jackui/buttons/btn-02.tsx",
+                path: "components/jackui/buttons/smoke-flare-button.tsx",
                 type: "registry:component",
             },
         ],
