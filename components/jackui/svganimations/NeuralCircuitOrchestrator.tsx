@@ -44,7 +44,7 @@ const StarFlare = ({ className, style }: { className?: string; style?: React.CSS
   </g>
 );
 
-export function CircuitConnections({ className }: { className?: string }) {
+export function NeuralCircuitOrchestrator({ className }: { className?: string }) {
   const uid = useId().replace(/:/g, "");
   const s = (cls: string) => `${cls}-${uid}`;
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
@@ -368,4 +368,4 @@ export function CircuitConnections({ className }: { className?: string }) {
   );
 }
 
-export default CircuitConnections;
+export default NeuralCircuitOrchestrator;
