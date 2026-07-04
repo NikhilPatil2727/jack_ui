@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import dynamic from "next/dynamic";
 import { LazyViewport } from "@/components/ui/lazy-viewport";
+import { motion } from "motion/react";
 
 const InboxDeck = dynamic(() => import("@/components/jackui/cards/InboxDeck"), {
   ssr: false,
@@ -207,14 +208,41 @@ export default function ComponentGrid() {
     >
       {/* Header Container */}
       <div className="max-w-6xl mx-auto text-left mb-12">
-        <span className="text-pink-500 dark:text-pink-400 font-semibold text-lg tracking-wide uppercase block mb-2">
-          Premium Components
+        <span className="text-rose-600 dark:text-rose-400 font-bold text-sm tracking-widest uppercase block mb-3 font-outfit">
+          Gallery
         </span>
-        <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 mb-3">
-          Interactive by design.
+        <h2 className="text-4xl md:text-6xl font-black tracking-tight text-zinc-900 dark:text-zinc-50 mb-4 font-outfit leading-tight">
+          Interactive{" "}
+          <motion.span
+            whileHover="hover"
+            initial="initial"
+            className="font-lavishly-yours text-rose-600 dark:text-rose-400 font-normal lowercase tracking-wide text-5xl md:text-7xl block sm:inline-block rotate-[-2deg] origin-left relative cursor-pointer select-none px-2"
+          >
+            elements
+            <svg
+              className="absolute left-1 bottom-[-8px] w-[95%] h-2.5 text-rose-600/70 dark:text-rose-400/80 pointer-events-none"
+              viewBox="0 0 100 10"
+              preserveAspectRatio="none"
+            >
+              <motion.path
+                d="M 5 3 C 35 6, 65 6, 95 3"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                variants={{
+                  initial: { pathLength: 0 },
+                  hover: {
+                    pathLength: 1,
+                    transition: { type: "spring", stiffness: 140, damping: 12 }
+                  }
+                }}
+              />
+            </svg>
+          </motion.span>
         </h2>
-        <p className="text-lg text-zinc-600 dark:text-zinc-400 max-w-2xl mb-6">
-          Elevate your interface with fluid transitions, tactile feedback, and highly-polished micro-interactions.
+        <p className="text-lg md:text-xl text-zinc-600 dark:text-zinc-400 max-w-3xl mb-6 font-outfit font-light leading-relaxed">
+          A preview of the layout blocks, including card overlays, simple spring gestures, and clean SVG animations.
         </p>
       </div>
 

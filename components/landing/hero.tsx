@@ -16,14 +16,26 @@ export default function HeroSection() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
       >
-        <Link
-          href="/changelog"
-          className="group inline-flex items-center gap-2 rounded-full border border-zinc-200/50 dark:border-zinc-700/50 px-3.5 py-1 text-sm text-zinc-500 dark:text-zinc-400 hover:border-zinc-300 dark:hover:border-zinc-600 hover:text-zinc-700 dark:hover:text-zinc-300 transition-all duration-300"
+        <motion.div
+          animate={{ y: [0, -3, 0] }}
+          transition={{
+            repeat: Infinity,
+            duration: 4,
+            ease: "easeInOut"
+          }}
         >
-          <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-          <span>Changelog — v1.0.0</span>
-          <ArrowRight className="h-3 w-3 transition-transform duration-300 group-hover:translate-x-0.5" />
-        </Link>
+          <Link
+            href="/changelog"
+            className="group inline-flex items-center gap-2 rounded-full border border-zinc-200/50 dark:border-zinc-700/50 px-3.5 py-1 text-sm text-zinc-500 dark:text-zinc-400 hover:border-zinc-300 dark:hover:border-zinc-600 hover:text-zinc-700 dark:hover:text-zinc-300 transition-all duration-300 shadow-sm"
+          >
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)]"></span>
+            </span>
+            <span>Changelog — v1.0.0</span>
+            <ArrowRight className="h-3 w-3 transition-transform duration-300 group-hover:translate-x-0.5" />
+          </Link>
+        </motion.div>
       </motion.div>
 
       {/* Heading */}
@@ -80,6 +92,8 @@ export default function HeroSection() {
           </motion.span>
 
           <motion.span
+            whileHover="hover"
+            initial="initial"
             variants={{
               hidden: { opacity: 0, y: 20, filter: "blur(8px)" },
               visible: {
@@ -89,13 +103,29 @@ export default function HeroSection() {
                 transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
               },
             }}
-            whileHover={{
-              opacity: 0.8,
-              transition: { duration: 0.2, ease: "easeOut" },
-            }}
-            className="text-zinc-400 dark:text-zinc-600 font-normal inline-block"
+            className="text-rose-600 dark:text-rose-400 font-lavishly-yours lowercase tracking-wide text-5xl sm:text-6xl lg:text-7xl inline-block rotate-[-2deg] origin-center px-2 relative cursor-pointer select-none"
           >
             &nbsp;by design,
+            <svg
+              className="absolute left-2 bottom-[-8px] w-[95%] h-2.5 text-rose-600/70 dark:text-rose-400/80 pointer-events-none"
+              viewBox="0 0 100 10"
+              preserveAspectRatio="none"
+            >
+              <motion.path
+                d="M 5 3 C 35 6, 65 6, 95 3"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                variants={{
+                  initial: { pathLength: 0 },
+                  hover: {
+                    pathLength: 1,
+                    transition: { type: "spring", stiffness: 140, damping: 12 }
+                  }
+                }}
+              />
+            </svg>
           </motion.span>
           <br />
 
@@ -130,6 +160,8 @@ export default function HeroSection() {
           </motion.span>
 
           <motion.span
+            whileHover="hover"
+            initial="initial"
             variants={{
               hidden: { opacity: 0, y: 20, filter: "blur(8px)" },
               visible: {
@@ -139,13 +171,29 @@ export default function HeroSection() {
                 transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
               },
             }}
-            whileHover={{
-              opacity: 0.8,
-              transition: { duration: 0.2, ease: "easeOut" },
-            }}
-            className="text-zinc-400 dark:text-zinc-600 font-normal inline-block"
+            className="text-rose-600 dark:text-rose-400 font-lavishly-yours lowercase tracking-wide text-5xl sm:text-6xl lg:text-7xl inline-block rotate-[-2deg] origin-center px-2 relative cursor-pointer select-none"
           >
             &nbsp;by default.
+            <svg
+              className="absolute left-2 bottom-[-8px] w-[95%] h-2.5 text-rose-600/70 dark:text-rose-400/80 pointer-events-none"
+              viewBox="0 0 100 10"
+              preserveAspectRatio="none"
+            >
+              <motion.path
+                d="M 5 3 C 35 6, 65 6, 95 3"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                variants={{
+                  initial: { pathLength: 0 },
+                  hover: {
+                    pathLength: 1,
+                    transition: { type: "spring", stiffness: 140, damping: 12 }
+                  }
+                }}
+              />
+            </svg>
           </motion.span>
         </motion.h1>
 

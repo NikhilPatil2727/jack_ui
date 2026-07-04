@@ -1,6 +1,5 @@
 import { cn } from "@/lib/utils";
 import PreviewContent from "./preview-content";
-import { LazyViewport } from "@/components/ui/lazy-viewport";
 
 interface PreviewProps {
   children: React.ReactNode;
@@ -57,9 +56,7 @@ export function Preview({
               isBlock ? "md:p-0" : "",
             )}
           >
-            <LazyViewport placeholder={<div className="h-10 w-28 bg-zinc-200/50 dark:bg-zinc-800/30 animate-pulse rounded-md" />}>
-              {children}
-            </LazyViewport>
+            {children}
           </div>
         )}
         {comment.length > 0 && (
