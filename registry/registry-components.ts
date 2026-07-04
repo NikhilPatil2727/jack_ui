@@ -40,12 +40,12 @@ export const component: Registry = [
         ],
     },
     {
-        name: "btn-03",
+        name: "spark-button",
         type: "registry:component",
         dependencies: ["motion"],
         files: [
             {
-                path: "components/jackui/buttons/btn-03.tsx",
+                path: "components/jackui/buttons/spark-button.tsx",
                 type: "registry:component",
             },
         ],

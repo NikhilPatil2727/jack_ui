@@ -25,7 +25,7 @@ const SmokeFlareButton = dynamic(() => import("@/components/jackui/buttons/smoke
   loading: () => <div className="h-10 w-28 bg-zinc-200/50 dark:bg-zinc-800/30 animate-pulse rounded-md" />
 });
 
-const Btn03 = dynamic(() => import("@/components/jackui/buttons/btn-03"), {
+const SparkButton = dynamic(() => import("@/components/jackui/buttons/spark-button"), {
   ssr: false,
   loading: () => <div className="h-10 w-28 bg-zinc-200/50 dark:bg-zinc-800/30 animate-pulse rounded-md" />
 });
@@ -160,12 +160,12 @@ export default function ComponentGrid() {
     },
     {
       id: "btn-ghost",
-      name: "Button - Ghost (Btn03)",
+      name: "Button - Spark (SparkButton)",
       category: "Buttons (button.mdx)",
       preview: (
         <div className="relative w-full h-[180px] flex flex-col items-center justify-center gap-3 bg-zinc-50 dark:bg-zinc-950 rounded-xl px-6">
           <LazyViewport placeholder={<div className="h-10 w-28 bg-zinc-200/50 dark:bg-zinc-800/30 animate-pulse rounded-md" />}>
-            <Btn03 />
+            <SparkButton />
             <span className="text-[10px] text-zinc-400 dark:text-zinc-500 mt-3">Magnetic pull & canvas click particles</span>
           </LazyViewport>
         </div>
