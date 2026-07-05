@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowUpRight, Copy, CheckCheck, Terminal } from "lucide-react";
 import { copyComponent } from "@/lib/action";
 import { cn } from "@/lib/utils";
-import Btn07 from "@/components/jackui/buttons/btn-07";
+import StarBurstButton from "@/components/jackui/buttons/star-burst-button";
 import { OpenInV0Button } from "../open-in-v0-button";
 import { AnimatePresence, motion } from "motion/react";
 
@@ -236,7 +236,7 @@ export default function PreviewContent({
                             prePath={prePath}
                             className="rounded-[5px]"
                         />
-                        <Btn07
+                        <StarBurstButton
                             onClick={handleTerminalClick}
                             className="!rounded-[5px] !h-7 !px-3 !text-xs"
                         >
@@ -246,10 +246,10 @@ export default function PreviewContent({
                                 <Terminal className="h-3.5 w-3.5" />
                             )}
                             <span className="truncate">{pm} shadcn add {getFileName()}</span>
-                        </Btn07>
+                        </StarBurstButton>
 
                         {!isBlock && (
-                            <Btn07
+                            <StarBurstButton
                                 onClick={handleCopyClick}
                                 disabled={isPending}
                                 className="!rounded-[5px] !h-7 !px-3 !text-xs !bg-black dark:!bg-white !text-white dark:!text-black hover:!bg-black/90 dark:hover:!bg-white/90"
@@ -260,7 +260,7 @@ export default function PreviewContent({
                                     <Copy className="h-3.5 w-3.5" />
                                 )}
                                 <span>Copy</span>
-                            </Btn07>
+                            </StarBurstButton>
                         )}
                     </div>
                 </div>

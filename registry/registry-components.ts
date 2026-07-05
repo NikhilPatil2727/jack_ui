@@ -51,13 +51,13 @@ export const component: Registry = [
         ],
     },
     {
-        name: "btn-04",
+        name: "3d-tilt-shimmer-button",
         type: "registry:component",
         dependencies: ["motion"],
         registryDependencies: ["button"],
         files: [
             {
-                path: "components/jackui/buttons/btn-04.tsx",
+                path: "components/jackui/buttons/3d-tilt-shimmer-button.tsx",
                 type: "registry:component",
             },
         ],
@@ -85,11 +85,12 @@ export const component: Registry = [
         ],
     },
     {
-        name: "btn-07",
+        name: "star-burst-button",
         type: "registry:component",
+        dependencies: ["motion"],
         files: [
             {
-                path: "components/jackui/buttons/btn-07.tsx",
+                path: "components/jackui/buttons/star-burst-button.tsx",
                 type: "registry:component",
             },
         ],
