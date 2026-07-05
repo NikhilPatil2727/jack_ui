@@ -30,12 +30,12 @@ const SparkButton = dynamic(() => import("@/components/jackui/buttons/spark-butt
   loading: () => <div className="h-10 w-28 bg-zinc-200/50 dark:bg-zinc-800/30 animate-pulse rounded-md" />
 });
 
-const Btn04 = dynamic(() => import("@/components/jackui/buttons/btn-04"), {
+const ThreeDTiltShimmerButton = dynamic(() => import("@/components/jackui/buttons/3d-tilt-shimmer-button"), {
   ssr: false,
   loading: () => <div className="h-10 w-28 bg-zinc-200/50 dark:bg-zinc-800/30 animate-pulse rounded-md" />
 });
 
-const Btn07 = dynamic(() => import("@/components/jackui/buttons/btn-07"), {
+const StarBurstButton = dynamic(() => import("@/components/jackui/buttons/star-burst-button"), {
   ssr: false,
   loading: () => <div className="h-10 w-28 bg-zinc-200/50 dark:bg-zinc-800/30 animate-pulse rounded-md" />
 });
@@ -65,7 +65,7 @@ export default function ComponentGrid() {
     {
       id: "inbox-deck",
       name: "Inbox Deck Card Stack",
-      category: "Cards (card.mdx)",
+      category: "Cards",
       preview: (
         <div className="relative w-full h-[180px] flex items-center justify-center overflow-hidden bg-zinc-50 dark:bg-zinc-950 rounded-xl select-none">
           <LazyViewport placeholder={<div className="w-full h-full bg-zinc-100/50 dark:bg-zinc-800/20 animate-pulse rounded-xl" />}>
@@ -79,7 +79,7 @@ export default function ComponentGrid() {
     {
       id: "envelope-card",
       name: "Envelope Card",
-      category: "Cards (card.mdx)",
+      category: "Cards",
       preview: (
         <div className="relative w-full h-[180px] flex items-center justify-center overflow-hidden bg-zinc-50 dark:bg-zinc-950 rounded-xl select-none">
           <LazyViewport placeholder={<div className="w-full h-full bg-zinc-100/50 dark:bg-zinc-800/20 animate-pulse rounded-xl" />}>
@@ -107,7 +107,7 @@ export default function ComponentGrid() {
     {
       id: "audience-hub",
       name: "Audience Hub Animation",
-      category: "SVG Animations (svg-animations.mdx)",
+      category: "SVG Animations",
       preview: (
         <div className="relative w-full h-[180px] flex items-center justify-center overflow-hidden bg-zinc-50 dark:bg-zinc-950 rounded-xl">
           <LazyViewport placeholder={<div className="w-full h-full bg-zinc-100/50 dark:bg-zinc-800/20 animate-pulse rounded-xl" />}>
@@ -121,7 +121,7 @@ export default function ComponentGrid() {
     {
       id: "neural-circuit",
       name: "Neural Circuit Orchestrator",
-      category: "SVG Animations (svg-animations.mdx)",
+      category: "SVG Animations",
       preview: (
         <div className="relative w-full h-[180px] flex items-center justify-center overflow-hidden bg-zinc-50 dark:bg-zinc-950 rounded-xl select-none pointer-events-none">
           <LazyViewport placeholder={<div className="w-full h-full bg-zinc-100/50 dark:bg-zinc-800/20 animate-pulse rounded-xl" />}>
@@ -135,7 +135,7 @@ export default function ComponentGrid() {
     {
       id: "btn-ink",
       name: "Button - Ink Fill (InkFillBtn)",
-      category: "Buttons (button.mdx)",
+      category: "Buttons",
       preview: (
         <div className="relative w-full h-[180px] flex flex-col items-center justify-center gap-3 bg-zinc-50 dark:bg-zinc-950 rounded-xl px-6">
           <LazyViewport placeholder={<div className="h-10 w-28 bg-zinc-200/50 dark:bg-zinc-800/30 animate-pulse rounded-md" />}>
@@ -148,7 +148,7 @@ export default function ComponentGrid() {
     {
       id: "btn-shadow",
       name: "Button - Smoke Flare (SmokeFlareButton)",
-      category: "Buttons (button.mdx)",
+      category: "Buttons",
       preview: (
         <div className="relative w-full h-[180px] flex flex-col items-center justify-center gap-3 bg-zinc-50 dark:bg-zinc-950 rounded-xl px-6">
           <LazyViewport placeholder={<div className="h-10 w-28 bg-zinc-200/50 dark:bg-zinc-800/30 animate-pulse rounded-md" />}>
@@ -161,7 +161,7 @@ export default function ComponentGrid() {
     {
       id: "btn-ghost",
       name: "Button - Spark (SparkButton)",
-      category: "Buttons (button.mdx)",
+      category: "Buttons",
       preview: (
         <div className="relative w-full h-[180px] flex flex-col items-center justify-center gap-3 bg-zinc-50 dark:bg-zinc-950 rounded-xl px-6">
           <LazyViewport placeholder={<div className="h-10 w-28 bg-zinc-200/50 dark:bg-zinc-800/30 animate-pulse rounded-md" />}>
@@ -173,25 +173,25 @@ export default function ComponentGrid() {
     },
     {
       id: "btn-glass",
-      name: "Button - Glassmorphism (Btn04)",
-      category: "Buttons (button.mdx)",
+      name: "Button - 3D Tilt Shimmer (ThreeDTiltShimmerButton)",
+      category: "Buttons",
       preview: (
         <div className="relative w-full h-[180px] flex flex-col items-center justify-center gap-3 bg-zinc-50 dark:bg-zinc-950 rounded-xl px-6">
           <LazyViewport placeholder={<div className="h-10 w-28 bg-zinc-200/50 dark:bg-zinc-800/30 animate-pulse rounded-md" />}>
-            <Btn04 />
-            <span className="text-[10px] text-zinc-400 dark:text-zinc-500 mt-3">Premium backdrop-blur buttons</span>
+            <ThreeDTiltShimmerButton />
+            <span className="text-[10px] text-zinc-400 dark:text-zinc-500 mt-3">Premium 3D-tilting & shimmering buttons</span>
           </LazyViewport>
         </div>
       ),
     },
     {
       id: "btn-star",
-      name: "Button - Star Burst Particle (Btn07)",
-      category: "Buttons (button.mdx)",
+      name: "Button - Star Burst Particle (StarBurstButton)",
+      category: "Buttons",
       preview: (
         <div className="relative w-full h-[180px] flex flex-col items-center justify-center gap-3 bg-zinc-50 dark:bg-zinc-950 rounded-xl px-6">
           <LazyViewport placeholder={<div className="h-10 w-28 bg-zinc-200/50 dark:bg-zinc-800/30 animate-pulse rounded-md" />}>
-            <Btn07 />
+            <StarBurstButton />
             <span className="text-[10px] text-zinc-400 dark:text-zinc-500 mt-3">Click to trigger star particles</span>
           </LazyViewport>
         </div>
