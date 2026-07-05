@@ -203,7 +203,10 @@ export default function ComponentGrid() {
     <section 
       className="w-full py-16 px-4 md:px-8 bg-background relative overflow-hidden"
       style={{
-        backgroundImage: `repeating-linear-gradient(-45deg, var(--stripe-color) 0px, var(--stripe-color) 1px, transparent 1px, transparent 6px)`
+        backgroundImage: `
+          radial-gradient(circle at center, transparent 40%, var(--background) 100%),
+          repeating-linear-gradient(-45deg, var(--stripe-color) 0px, var(--stripe-color) 1px, transparent 1px, transparent 3px)
+        `
       }}
     >
       {/* Header Container */}
@@ -231,9 +234,10 @@ export default function ComponentGrid() {
                 strokeWidth="2.5"
                 strokeLinecap="round"
                 variants={{
-                  initial: { pathLength: 0 },
+                  initial: { pathLength: 0, opacity: 0 },
                   hover: {
                     pathLength: 1,
+                    opacity: 1,
                     transition: { type: "spring", stiffness: 140, damping: 12 }
                   }
                 }}
