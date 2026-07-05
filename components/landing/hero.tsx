@@ -143,9 +143,10 @@ export default function HeroSection() {
                   strokeWidth="2.5"
                   strokeLinecap="round"
                   variants={{
-                    initial: { pathLength: 0 },
+                    initial: { pathLength: 0, opacity: 0 },
                     hover: {
                       pathLength: 1,
+                      opacity: 1,
                       transition: { type: "spring", stiffness: 140, damping: 12 }
                     }
                   }}
@@ -211,9 +212,10 @@ export default function HeroSection() {
                   strokeWidth="2.5"
                   strokeLinecap="round"
                   variants={{
-                    initial: { pathLength: 0 },
+                    initial: { pathLength: 0, opacity: 0 },
                     hover: {
                       pathLength: 1,
+                      opacity: 1,
                       transition: { type: "spring", stiffness: 140, damping: 12 }
                     }
                   }}
