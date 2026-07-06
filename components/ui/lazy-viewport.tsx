@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState } from "react";
 
 interface LazyViewportProps {
-  children: React.ReactNode;
+  children: React.ReactNode | (() => React.ReactNode);
   placeholder?: React.ReactNode;
   threshold?: number;
   rootMargin?: string;
@@ -47,7 +47,11 @@ export function LazyViewport({
 
   return (
     <div ref={containerRef} className="w-full h-full min-h-[inherit] flex flex-col justify-center items-center">
-      {isInView ? children : placeholder}
+      {isInView
+        ? typeof children === "function"
+          ? (children as () => React.ReactNode)()
+          : children
+        : placeholder}
     </div>
   );
 }
