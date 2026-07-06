@@ -30,8 +30,8 @@ export function Header() {
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 w-full backdrop-blur-[16px]",
-        "bg-white/97 dark:bg-[#0a0a0a]/97"
+        "sticky top-0 z-50 w-full backdrop-blur-[16px] border-b border-black/[0.05] dark:border-white/[0.05]",
+        "bg-white/30 dark:bg-[#0a0a0a]/30"
       )}
     >
       {/* ── Top bar ── */}
