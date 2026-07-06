@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { cn } from "@/lib/utils";
 import { Copy, Check, RotateCcw, Play, Pause, Terminal as TerminalIcon } from "lucide-react";
+import { motion, AnimatePresence } from "motion/react";
 
 interface LogLine {
   text: string;
@@ -206,29 +207,32 @@ export default function PremiumTerminal() {
 
             {/* Interactive Utility Actions */}
             <div className="flex items-center justify-end gap-1.5">
-              <button
+              <motion.button
+                whileTap={{ scale: 0.92 }}
                 onClick={() => setIsPlaying(!isPlaying)}
                 title={isPlaying ? "Pause execution" : "Resume execution"}
-                className="p-1.5 rounded-md text-zinc-400 hover:text-zinc-200 hover:bg-white/[0.06] transition-colors focus:outline-none"
+                className="p-1.5 rounded-md text-zinc-400 hover:text-zinc-200 hover:bg-white/[0.06] transition-colors focus:outline-none cursor-pointer"
               >
                 {isPlaying ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5" />}
-              </button>
+              </motion.button>
               
-              <button
+              <motion.button
+                whileTap={{ scale: 0.92 }}
                 onClick={handleRestart}
                 title="Restart sequence"
-                className="p-1.5 rounded-md text-zinc-400 hover:text-zinc-200 hover:bg-white/[0.06] transition-colors focus:outline-none"
+                className="p-1.5 rounded-md text-zinc-400 hover:text-zinc-200 hover:bg-white/[0.06] transition-colors focus:outline-none cursor-pointer"
               >
                 <RotateCcw className="w-3.5 h-3.5" />
-              </button>
+              </motion.button>
 
-              <button
+              <motion.button
+                whileTap={{ scale: 0.92 }}
                 onClick={handleCopy}
                 title="Copy command"
-                className="p-1.5 rounded-md text-zinc-400 hover:text-zinc-200 hover:bg-white/[0.06] transition-colors focus:outline-none"
+                className="p-1.5 rounded-md text-zinc-400 hover:text-zinc-200 hover:bg-white/[0.06] transition-colors focus:outline-none cursor-pointer"
               >
                 {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-              </button>
+              </motion.button>
             </div>
           </div>
 
@@ -259,10 +263,13 @@ export default function PremiumTerminal() {
                   const isWarn = log.type === "warn";
 
                   return (
-                    <div
+                    <motion.div
                       key={idx}
+                      initial={{ opacity: 0, y: 4 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ type: "spring", stiffness: 220, damping: 20 }}
                       className={cn(
-                        "flex items-start justify-between text-[12.5px] transition-all duration-300 animate-in fade-in slide-in-from-left-2",
+                        "flex items-start justify-between text-[12.5px]",
                         isSuccess && "text-emerald-400/90",
                         isInfo && "text-cyan-400/90",
                         isWarn && "text-amber-400/90",
@@ -274,11 +281,11 @@ export default function PremiumTerminal() {
                         <span className="tracking-wide font-normal">{log.text}</span>
                       </div>
                       {log.timestamp && (
-                        <span className="text-[10px] text-zinc-600 select-none font-mono mt-0.5 ml-4">
+                        <span className="text-[10px] text-zinc-600 select-none font-mono mt-0.5 ml-4 tabular-nums">
                           [{log.timestamp}]
                         </span>
                       )}
-                    </div>
+                    </motion.div>
                   );
                 })}
               </div>
