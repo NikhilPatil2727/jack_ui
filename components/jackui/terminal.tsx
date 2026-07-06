@@ -194,10 +194,16 @@ export default function PremiumTerminal() {
             
             {/* macOS Window Controls */}
             <div className="flex items-center gap-2">
-              <div className="group flex items-center gap-1.5">
-                <span className="w-3 h-3 rounded-full bg-[#FF5F56] border border-[#E0443E]/50 inline-block" />
-                <span className="w-3 h-3 rounded-full bg-[#FFBD2E] border border-[#DEA123]/50 inline-block" />
-                <span className="w-3 h-3 rounded-full bg-[#27C93F] border border-[#1AAB29]/50 inline-block" />
+              <div className="group flex items-center gap-1.5 cursor-pointer">
+                <span className="w-3 h-3 rounded-full bg-[#FF5F56] border border-[#E0443E]/50 flex items-center justify-center">
+                  <svg viewBox="0 0 12 12" className="w-1.5 h-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-150 stroke-[#4c0000] stroke-[2.5]" fill="none"><path d="M2.5 2.5l7 7M9.5 2.5l-7 7"/></svg>
+                </span>
+                <span className="w-3 h-3 rounded-full bg-[#FFBD2E] border border-[#DEA123]/50 flex items-center justify-center">
+                  <svg viewBox="0 0 12 12" className="w-1.5 h-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-150 stroke-[#5c3e00] stroke-[2.5]" fill="none"><path d="M2 6h8"/></svg>
+                </span>
+                <span className="w-3 h-3 rounded-full bg-[#27C93F] border border-[#1AAB29]/50 flex items-center justify-center">
+                  <svg viewBox="0 0 12 12" className="w-1.5 h-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-150 stroke-[#004d00] stroke-[2.5]" fill="none"><path d="M6 2v8M2 6h8"/></svg>
+                </span>
               </div>
               <div className="hidden sm:flex items-center gap-1.5 ml-3 pl-3 border-l border-white/10 text-[11px] font-mono text-zinc-400">
                 <TerminalIcon className="w-3.5 h-3.5 text-zinc-400" />
