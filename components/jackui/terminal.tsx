@@ -138,7 +138,7 @@ export default function PremiumTerminal() {
   return (
     <div className="w-full max-w-2xl mx-auto p-4 md:p-8 select-none perspective-[1200px]">
       
-      {/* Ambient Outer Backdrop Glow (expands on hover) */}
+      {/* Ambient Outer Backdrop Glow (expands on hover, only active in dark mode) */}
       <div
         className={cn(
           "relative transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]",
@@ -147,35 +147,37 @@ export default function PremiumTerminal() {
       >
         <div
           className={cn(
-            "absolute -inset-1 rounded-3xl opacity-20 blur-2xl transition-all duration-500 pointer-events-none",
-            "bg-gradient-to-r from-violet-600/30 via-indigo-500/30 to-cyan-400/30",
-            isHovered ? "opacity-40 scale-105" : "opacity-20 scale-100"
+            "absolute -inset-1 rounded-3xl blur-2xl transition-all duration-500 pointer-events-none",
+            "bg-gradient-to-r from-violet-600/25 via-fuchsia-500/20 to-cyan-400/25",
+            isHovered 
+              ? "dark:opacity-35 opacity-0 scale-105" 
+              : "dark:opacity-15 opacity-0 scale-100"
           )}
         />
 
-        {/* Main Terminal Shell */}
+        {/* Main Terminal Shell (forced dark mode style internally) */}
         <div
           ref={containerRef}
           onMouseMove={handleMouseMove}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
           className={cn(
-            "relative w-full rounded-2xl overflow-hidden backdrop-blur-xl",
-            "bg-[#0A0B0E]/90 border border-white/[0.08]",
-            "shadow-[0_30px_70px_rgba(0,0,0,0.8),0_0_0_1px_rgba(255,255,255,0.05)_inset]",
+            "relative w-full rounded-2xl overflow-hidden backdrop-blur-2xl dark",
+            "bg-[#020202] border border-white/[0.06]",
+            "shadow-[0_20px_50px_rgba(0,0,0,0.3)] dark:shadow-[0_30px_70px_rgba(0,0,0,0.95)]",
             "transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]",
-            "hover:-translate-y-1 hover:border-white/[0.14]",
-            "hover:shadow-[0_40px_80px_-15px_rgba(0,0,0,0.9),0_0_25px_rgba(139,92,246,0.1)]"
+            "hover:-translate-y-1 hover:border-white/[0.12]",
+            "hover:shadow-[0_30px_60px_rgba(0,0,0,0.4)] dark:hover:shadow-[0_45px_85px_-10px_rgba(0,0,0,0.98),0_0_30px_rgba(139,92,246,0.12)]"
           )}
         >
           {/* Subtle Top-Edge Inner Lighting Highlight */}
-          <div className="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none z-30" />
+          <div className="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-white/15 to-transparent pointer-events-none z-30" />
 
           {/* Micro-CRT Scanline Texture */}
           <div 
-            className="absolute inset-0 pointer-events-none z-20 opacity-[0.015]"
+            className="absolute inset-0 pointer-events-none z-20 opacity-[0.012]"
             style={{
-              backgroundImage: `linear-gradient(to bottom, rgba(255,255,255,0) 50%, rgba(0,0,0,0.4) 50%)`,
+              backgroundImage: `linear-gradient(to bottom, rgba(255,255,255,0) 50%, rgba(0,0,0,0.5) 50%)`,
               backgroundSize: "100% 4px"
             }}
           />
@@ -185,12 +187,12 @@ export default function PremiumTerminal() {
             className="absolute inset-0 transition-opacity duration-300 pointer-events-none z-0"
             style={{
               opacity: isHovered ? 1 : 0,
-              background: `radial-gradient(400px circle at ${mousePos.x}px ${mousePos.y}px, rgba(139, 92, 246, 0.07), rgba(59, 130, 246, 0.03) 40%, transparent 80%)`
+              background: `radial-gradient(350px circle at ${mousePos.x}px ${mousePos.y}px, rgba(139, 92, 246, 0.12), rgba(59, 130, 246, 0.05) 50%, transparent 80%)`
             }}
           />
 
           {/* Header / Title Bar */}
-          <div className="relative flex items-center justify-between px-5 py-4 bg-black/40 border-b border-white/[0.06] z-10">
+          <div className="relative flex items-center justify-between px-5 py-4 bg-[#08080A]/85 border-b border-white/[0.04] z-10">
             
             {/* macOS Window Controls */}
             <div className="flex items-center gap-2">
