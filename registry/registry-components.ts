@@ -232,4 +232,26 @@ export const component: Registry = [
             },
         ],
     },
+    {
+        name: "terminal",
+        type: "registry:component",
+        dependencies: ["motion", "lucide-react"],
+        files: [
+            {
+                path: "components/jackui/terminal.tsx",
+                type: "registry:component",
+            },
+        ],
+    },
+    {
+        name: "ai-agent-terminal",
+        type: "registry:component",
+        dependencies: ["motion", "lucide-react"],
+        files: [
+            {
+                path: "components/jackui/ai-agent-terminal.tsx",
+                type: "registry:component",
+            },
+        ],
+    },
 ];
