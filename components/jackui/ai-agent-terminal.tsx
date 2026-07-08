@@ -74,7 +74,7 @@ export default function AiAgentTerminal() {
   }, [isPlaying]);
 
   return (
-    <div className="w-full max-w-2xl mx-auto p-4 md:p-8 select-none perspective-[1200px]">
+    <div className="w-full max-w-3xl mx-auto p-4 md:p-8 select-none perspective-[1200px]">
       
       {/* Ambient Outer Glow (expands on hover) */}
       <div
@@ -190,27 +190,26 @@ export default function AiAgentTerminal() {
           </div>
 
           {/* Console Area */}
-          <div className="relative p-6 font-mono text-[13px] leading-relaxed z-10 min-h-[300px] flex flex-col justify-between text-zinc-100">
+          <div className="relative p-6 font-mono text-[13px] leading-relaxed z-10 min-h-[220px] flex flex-col justify-between text-zinc-100">
             <div>
-              
-              {/* Retro Dashed Welcome Box matching requested structure but in Violet/Cyan with White dashed borders */}
-              <div className="relative border border-dashed border-white/20 rounded-lg p-5 bg-[#040406]/65 select-none">
+              {/* Retro Dotted Welcome Box in Violet/Cyan with more visible White dotted borders */}
+              <div className="relative border-2 border-dotted border-white/40 rounded-lg py-3 px-5 bg-[#040406]/65 select-none">
                 
                 {/* Overlay Title on Top Border */}
-                <div className="absolute -top-3 left-6 px-2 bg-[#020202] text-violet-400 text-[11px] font-semibold tracking-wider">
+                <div className="absolute -top-3.5 left-6 px-2 bg-[#020202] text-violet-400 text-[11px] font-semibold tracking-wider">
                   Claude Code v2.0.0
                 </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-5">
+ 
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
                   {/* Left Column: Mascot, Welcome, Info (6 of 12 cols) */}
-                  <div className="md:col-span-6 flex flex-col items-center justify-center text-center gap-3 border-r-0 md:border-r border-dashed border-white/10 md:pr-5">
+                  <div className="md:col-span-6 flex flex-col items-center justify-center text-center gap-2 border-r-0 md:border-r border-dotted border-white/25 md:pr-5">
                     <div className="text-[12px] text-zinc-100 font-medium tracking-wide">
                       Welcome back Meaghan!
                     </div>
-
+ 
                     {/* Pixel Art Robot Mascot matching original agent design */}
-                    <div className="flex justify-center items-center p-2 h-16 w-16 rounded-lg bg-violet-950/20 border border-violet-500/20 shadow-[0_0_15px_rgba(139,92,246,0.1)]">
-                      <svg viewBox="0 0 16 16" className="w-12 h-12 text-violet-400 fill-current">
+                    <div className="flex justify-center items-center p-1.5 h-12 w-12 rounded-lg bg-violet-950/20 border border-violet-500/20 shadow-[0_0_15px_rgba(139,92,246,0.1)]">
+                      <svg viewBox="0 0 16 16" className="w-9 h-9 text-violet-400 fill-current">
                         {/* Antenna */}
                         <rect x="7" y="0" width="2" height="2" />
                         <rect x="6" y="2" width="4" height="1" />
