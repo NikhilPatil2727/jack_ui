@@ -6,17 +6,31 @@ import { ArrowRight } from "lucide-react";
 import { BrowseComponentsButton } from "../ui/browse-button";
 import { BrowseBlocksButton } from "../ui/browse-blocks";
 import Features from "./feature-block";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 export default function HeroSection() {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   const [opacity, setOpacity] = useState(0);
+  const rectRef = useRef<DOMRect | null>(null);
 
-  function handleMouseMove({ currentTarget, clientX, clientY }: React.MouseEvent) {
-    const { left, top } = currentTarget.getBoundingClientRect();
-    mouseX.set(clientX - left);
-    mouseY.set(clientY - top);
+  function handleMouseEnter(e: React.MouseEvent<HTMLDivElement>) {
+    rectRef.current = e.currentTarget.getBoundingClientRect();
+    setOpacity(1);
+  }
+
+  function handleMouseMove(e: React.MouseEvent<HTMLDivElement>) {
+    if (!rectRef.current) {
+      rectRef.current = e.currentTarget.getBoundingClientRect();
+    }
+    const { left, top } = rectRef.current;
+    mouseX.set(e.clientX - left);
+    mouseY.set(e.clientY - top);
+  }
+
+  function handleMouseLeave() {
+    rectRef.current = null;
+    setOpacity(0);
   }
 
   const background = useMotionTemplate`radial-gradient(300px circle at ${mouseX}px ${mouseY}px, var(--cursor-glow-color), transparent 80%)`;
@@ -24,8 +38,8 @@ export default function HeroSection() {
   return (
     <div 
       onMouseMove={handleMouseMove}
-      onMouseEnter={() => setOpacity(1)}
-      onMouseLeave={() => setOpacity(0)}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
       className="relative w-full overflow-hidden flex flex-col items-center justify-center group/hero [--cursor-glow-color:rgba(14,165,233,0.15)] dark:[--cursor-glow-color:rgba(56,189,248,0.28)]"
     >
       {/* Faint Sky Blue cursor glow overlay */}
