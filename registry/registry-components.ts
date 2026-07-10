@@ -254,4 +254,15 @@ export const component: Registry = [
             },
         ],
     },
+    {
+        name: "terminal-mockup",
+        type: "registry:component",
+        dependencies: ["motion", "lucide-react"],
+        files: [
+            {
+                path: "components/jackui/terminal-mockup.tsx",
+                type: "registry:component",
+            },
+        ],
+    },
 ];

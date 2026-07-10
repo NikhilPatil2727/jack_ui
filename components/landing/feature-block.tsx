@@ -56,10 +56,11 @@ export default function Features() {
                     <motion.span
                         animate={{
                             scale: hoveredItem === "TailwindCSS" ? 1.1 : 1,
-                            fontWeight:
-                                hoveredItem === "TailwindCSS" ? 500 : 400,
                         }}
-                        className="text-xs text-center mt-1 whitespace-nowrap text-black dark:text-white"
+                        className={cn(
+                            "text-xs text-center mt-1 whitespace-nowrap text-black dark:text-white transition-all duration-200",
+                            hoveredItem === "TailwindCSS" ? "font-medium" : "font-normal"
+                        )}
                     >
                         TailwindCSS
                     </motion.span>
@@ -84,9 +85,11 @@ export default function Features() {
                     <motion.span
                         animate={{
                             scale: hoveredItem === "Motion" ? 1.1 : 1,
-                            fontWeight: hoveredItem === "Motion" ? 500 : 400,
                         }}
-                        className="text-xs text-center mt-1 whitespace-nowrap text-black dark:text-white"
+                        className={cn(
+                            "text-xs text-center mt-1 whitespace-nowrap text-black dark:text-white transition-all duration-200",
+                            hoveredItem === "Motion" ? "font-medium" : "font-normal"
+                        )}
                     >
                         Motion
                     </motion.span>
@@ -114,9 +117,11 @@ export default function Features() {
                     <motion.span
                         animate={{
                             scale: hoveredItem === "Shadcn UI" ? 1.1 : 1,
-                            fontWeight: hoveredItem === "Shadcn UI" ? 500 : 400,
                         }}
-                        className="text-xs text-center mt-1 whitespace-nowrap"
+                        className={cn(
+                            "text-xs text-center mt-1 whitespace-nowrap text-black dark:text-white transition-all duration-200",
+                            hoveredItem === "Shadcn UI" ? "font-medium" : "font-normal"
+                        )}
                     >
                         shadcn/ui
                     </motion.span>
@@ -141,9 +146,11 @@ export default function Features() {
                     <motion.span
                         animate={{
                             scale: hoveredItem === "Next.js" ? 1.1 : 1,
-                            fontWeight: hoveredItem === "Next.js" ? 500 : 400,
                         }}
-                        className="text-xs text-center mt-1 whitespace-nowrap"
+                        className={cn(
+                            "text-xs text-center mt-1 whitespace-nowrap text-black dark:text-white transition-all duration-200",
+                            hoveredItem === "Next.js" ? "font-medium" : "font-normal"
+                        )}
                     >
                         Next.js
                     </motion.span>
@@ -167,9 +174,11 @@ export default function Features() {
                     <motion.span
                         animate={{
                             scale: hoveredItem === "React" ? 1.1 : 1,
-                            fontWeight: hoveredItem === "React" ? 500 : 400,
                         }}
-                        className="text-xs text-center mt-1 whitespace-nowrap"
+                        className={cn(
+                            "text-xs text-center mt-1 whitespace-nowrap text-black dark:text-white transition-all duration-200",
+                            hoveredItem === "React" ? "font-medium" : "font-normal"
+                        )}
                     >
                         React
                     </motion.span>

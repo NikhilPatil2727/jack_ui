@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { LazyViewport } from "@/components/ui/lazy-viewport";
 import { motion } from "motion/react";
@@ -225,8 +225,316 @@ const componentsList: ComponentItem[] = [
 ];
 
 export default function ComponentGrid() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const mouseRef = useRef({ x: 0, y: 0, active: false });
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setMounted(true);
+  }, []);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    mouseRef.current.x = e.clientX - rect.left;
+    mouseRef.current.y = e.clientY - rect.top;
+    mouseRef.current.active = true;
+  };
+
+  const handleMouseEnter = () => {
+    mouseRef.current.active = true;
+  };
+
+  const handleMouseLeave = () => {
+    mouseRef.current.active = false;
+  };
+
+  useEffect(() => {
+    if (!mounted) return;
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    let animationFrameId: number;
+    let width = (canvas.width = canvas.offsetWidth);
+    let height = (canvas.height = canvas.offsetHeight);
+
+    const handleResize = () => {
+      if (!canvas) return;
+      width = canvas.width = canvas.offsetWidth;
+      height = canvas.height = canvas.offsetHeight;
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    // Grid mesh settings (fewer cols/rows for component grid height)
+    const cols = 28;
+    const rows = 20;
+    const nodes: Array<{
+      x: number;
+      y: number;
+      origX: number;
+      origY: number;
+      vx: number;
+      vy: number;
+    }> = [];
+
+    const colSpacing = width / (cols - 1);
+    const rowSpacing = height / (rows - 1);
+
+    for (let r = 0; r < rows; r++) {
+      for (let c = 0; c < cols; c++) {
+        const x = c * colSpacing;
+        const y = r * rowSpacing;
+        nodes.push({
+          x,
+          y,
+          origX: x,
+          origY: y,
+          vx: 0,
+          vy: 0,
+        });
+      }
+    }
+
+    // Floating particles (Cyan and Rose theme)
+    const particles: Array<{
+      x: number;
+      y: number;
+      size: number;
+      speedX: number;
+      speedY: number;
+      opacity: number;
+      colorType: "cyan" | "rose";
+    }> = [];
+
+    for (let i = 0; i < 30; i++) {
+      particles.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        size: Math.random() * 1.5 + 0.5,
+        speedX: (Math.random() - 0.5) * 0.3,
+        speedY: (Math.random() - 0.5) * 0.3 - 0.1,
+        opacity: Math.random() * 0.4 + 0.1,
+        colorType: Math.random() > 0.5 ? "cyan" : "rose",
+      });
+    }
+
+    let time = 0;
+
+    const draw = () => {
+      ctx.clearRect(0, 0, width, height);
+      time += 0.003;
+
+      const isDark = document.documentElement.classList.contains("dark");
+      const mouse = mouseRef.current;
+
+      // Update mesh node positions
+      nodes.forEach((node) => {
+        const waveX = Math.sin(time + node.origY * 0.004) * 6;
+        const waveY = Math.cos(time + node.origX * 0.004) * 6;
+
+        let targetX = node.origX + waveX;
+        let targetY = node.origY + waveY;
+
+        if (mouse.active) {
+          const dx = node.origX - mouse.x;
+          const dy = node.origY - mouse.y;
+          const dist = Math.hypot(dx, dy);
+          if (dist < 260) {
+            const force = (260 - dist) / 260;
+            targetX -= (dx / dist) * force * 24;
+            targetY -= (dy / dist) * force * 24;
+          }
+        }
+
+        node.vx += (targetX - node.x) * 0.08;
+        node.vy += (targetY - node.y) * 0.08;
+        node.vx *= 0.8;
+        node.vy *= 0.8;
+        node.x += node.vx;
+        node.y += node.vy;
+      });
+
+      // Pass 1: Glowing shadow path (wider, very faint orange)
+      ctx.lineWidth = 1.8;
+      ctx.strokeStyle = isDark 
+        ? "rgba(251, 146, 60, 0.025)" 
+        : "rgba(249, 115, 22, 0.02)";
+
+      // Draw horizontal glow
+      for (let r = 0; r < rows; r++) {
+        ctx.beginPath();
+        for (let c = 0; c < cols; c++) {
+          const idx = r * cols + c;
+          const node = nodes[idx];
+          if (node) {
+            if (c === 0) ctx.moveTo(node.x, node.y);
+            else ctx.lineTo(node.x, node.y);
+          }
+        }
+        ctx.stroke();
+      }
+
+      // Draw vertical glow
+      for (let c = 0; c < cols; c++) {
+        ctx.beginPath();
+        for (let r = 0; r < rows; r++) {
+          const idx = r * cols + c;
+          const node = nodes[idx];
+          if (node) {
+            if (r === 0) ctx.moveTo(node.x, node.y);
+            else ctx.lineTo(node.x, node.y);
+          }
+        }
+        ctx.stroke();
+      }
+
+      // Pass 2: Core line path (thinner, more defined orange)
+      ctx.lineWidth = 0.6;
+      
+      // Horizontal cores
+      for (let r = 0; r < rows; r++) {
+        ctx.beginPath();
+        for (let c = 0; c < cols; c++) {
+          const idx = r * cols + c;
+          const node = nodes[idx];
+          if (node) {
+            if (c === 0) ctx.moveTo(node.x, node.y);
+            else ctx.lineTo(node.x, node.y);
+          }
+        }
+        ctx.strokeStyle = isDark 
+          ? "rgba(251, 146, 60, 0.12)" 
+          : "rgba(249, 115, 22, 0.09)";
+        ctx.stroke();
+      }
+
+      // Vertical cores
+      for (let c = 0; c < cols; c++) {
+        ctx.beginPath();
+        for (let r = 0; r < rows; r++) {
+          const idx = r * cols + c;
+          const node = nodes[idx];
+          if (node) {
+            if (r === 0) ctx.moveTo(node.x, node.y);
+            else ctx.lineTo(node.x, node.y);
+          }
+        }
+        ctx.strokeStyle = isDark 
+          ? "rgba(251, 146, 60, 0.10)" 
+          : "rgba(249, 115, 22, 0.08)";
+        ctx.stroke();
+      }
+
+      // Draw Spotlight Aura tracking mouse
+      if (mouse.active) {
+        // Cyan Spotlight (underlying)
+        const cyanGrad = ctx.createRadialGradient(
+          mouse.x,
+          mouse.y,
+          0,
+          mouse.x,
+          mouse.y,
+          300
+        );
+        cyanGrad.addColorStop(0, isDark ? "rgba(56, 189, 248, 0.06)" : "rgba(14, 165, 233, 0.03)");
+        cyanGrad.addColorStop(0.6, isDark ? "rgba(56, 189, 248, 0.015)" : "rgba(14, 165, 233, 0.005)");
+        cyanGrad.addColorStop(1, "transparent");
+
+        ctx.fillStyle = cyanGrad;
+        ctx.beginPath();
+        ctx.arc(mouse.x, mouse.y, 300, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Flashy faint Orange highlight tracking mouse
+        const orangeGrad = ctx.createRadialGradient(
+          mouse.x,
+          mouse.y,
+          0,
+          mouse.x,
+          mouse.y,
+          200
+        );
+        orangeGrad.addColorStop(0, isDark ? "rgba(251, 146, 60, 0.08)" : "rgba(249, 115, 22, 0.05)");
+        orangeGrad.addColorStop(0.5, isDark ? "rgba(251, 146, 60, 0.02)" : "rgba(249, 115, 22, 0.01)");
+        orangeGrad.addColorStop(1, "transparent");
+
+        ctx.fillStyle = orangeGrad;
+        ctx.beginPath();
+        ctx.arc(mouse.x, mouse.y, 200, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Rose Highlight Center
+        const roseGrad = ctx.createRadialGradient(
+          mouse.x,
+          mouse.y,
+          0,
+          mouse.x,
+          mouse.y,
+          100
+        );
+        roseGrad.addColorStop(0, isDark ? "rgba(251, 113, 133, 0.04)" : "rgba(225, 29, 72, 0.02)");
+        roseGrad.addColorStop(1, "transparent");
+
+        ctx.fillStyle = roseGrad;
+        ctx.beginPath();
+        ctx.arc(mouse.x, mouse.y, 100, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      // Draw Floating Particles
+      particles.forEach((p) => {
+        p.x += p.speedX;
+        p.y += p.speedY;
+
+        if (p.x < 0) p.x = width;
+        if (p.x > width) p.x = 0;
+        if (p.y < 0) p.y = height;
+        if (p.y > height) p.y = 0;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+
+        let color = "";
+        if (p.colorType === "cyan") {
+          color = isDark ? `rgba(56, 189, 248, ${p.opacity})` : `rgba(14, 165, 233, ${p.opacity})`;
+        } else {
+          color = isDark ? `rgba(251, 113, 133, ${p.opacity})` : `rgba(225, 29, 72, ${p.opacity})`;
+        }
+        
+        ctx.fillStyle = color;
+
+        if (p.size > 1.1) {
+          ctx.shadowBlur = 4;
+          ctx.shadowColor = p.colorType === "cyan" ? "rgba(56, 189, 248, 0.5)" : "rgba(244, 63, 94, 0.5)";
+        }
+
+        ctx.fill();
+        ctx.shadowBlur = 0;
+      });
+
+      animationFrameId = requestAnimationFrame(draw);
+    };
+
+    draw();
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, [mounted]);
+
   return (
     <section 
+      ref={containerRef}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
       className="w-full py-16 px-4 md:px-8 bg-background relative overflow-hidden"
       style={{
         backgroundImage: `
@@ -235,8 +543,13 @@ export default function ComponentGrid() {
         `
       }}
     >
+      {/* Interactive Glowing Canvas Background */}
+      <canvas
+        ref={canvasRef}
+        className="pointer-events-none absolute inset-0 z-0 w-full h-full"
+      />
       {/* Header Container */}
-      <div className="max-w-6xl mx-auto text-left mb-12">
+      <div className="max-w-6xl mx-auto text-left mb-12 relative z-10">
         <span className="text-rose-600 dark:text-rose-400 font-bold text-sm tracking-widest uppercase block mb-3 font-outfit">
           Gallery
         </span>
@@ -277,7 +590,7 @@ export default function ComponentGrid() {
       </div>
 
       {/* Components Grid */}
-      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative z-10">
         {componentsList.map((item) => (
           <div
             key={item.id}
