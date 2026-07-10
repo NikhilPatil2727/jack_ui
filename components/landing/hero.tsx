@@ -12,24 +12,18 @@ export default function HeroSection() {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   const [opacity, setOpacity] = useState(0);
-  const rectRef = useRef<DOMRect | null>(null);
 
   function handleMouseEnter(e: React.MouseEvent<HTMLDivElement>) {
-    rectRef.current = e.currentTarget.getBoundingClientRect();
     setOpacity(1);
   }
 
   function handleMouseMove(e: React.MouseEvent<HTMLDivElement>) {
-    if (!rectRef.current) {
-      rectRef.current = e.currentTarget.getBoundingClientRect();
-    }
-    const { left, top } = rectRef.current;
-    mouseX.set(e.clientX - left);
-    mouseY.set(e.clientY - top);
+    const rect = e.currentTarget.getBoundingClientRect();
+    mouseX.set(e.clientX - rect.left);
+    mouseY.set(e.clientY - rect.top);
   }
 
   function handleMouseLeave() {
-    rectRef.current = null;
     setOpacity(0);
   }
 
@@ -40,7 +34,7 @@ export default function HeroSection() {
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className="relative w-full overflow-hidden flex flex-col items-center justify-center group/hero [--cursor-glow-color:rgba(14,165,233,0.15)] dark:[--cursor-glow-color:rgba(56,189,248,0.28)]"
+      className="relative w-full overflow-hidden flex flex-col items-center justify-center group/hero"
     >
       {/* Faint Sky Blue cursor glow overlay */}
       <motion.div
