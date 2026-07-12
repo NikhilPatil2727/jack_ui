@@ -7,6 +7,7 @@ export interface NavItem {
     isComingSoon?: boolean;
     isNew?: boolean;
     isLab?: boolean;
+    children?: NavItem[];
 }
 
 export interface NavSection {
