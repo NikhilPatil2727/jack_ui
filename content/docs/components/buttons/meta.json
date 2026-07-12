@@ -1,6 +1,6 @@
 {
   "title": "Buttons",
-  "icon": "MousePointerClick",
+  "icon": "RectangleHorizontal",
   "defaultOpen": false,
   "pages": [
     "ink-fill-button",
