@@ -1,0 +1,12 @@
+{
+  "title": "Buttons",
+  "icon": "RectangleHorizontal",
+  "defaultOpen": false,
+  "pages": [
+    "ink-fill-button",
+    "smoke-flare-button",
+    "spark-button",
+    "3d-tilt-shimmer-button",
+    "star-burst-button"
+  ]
+}
