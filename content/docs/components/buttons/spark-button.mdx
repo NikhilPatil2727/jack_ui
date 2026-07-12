@@ -1,11 +1,86 @@
 ---
 title: Spark Button
-description: A premium button featuring brushed metal grain, glowing heat effects, a laser scanline sweep, and real-time canvas sparks particle burst.
+description: A premium black button with an animated violet gradient border ring, magnetic cursor pull, heat shimmer, laser scanline sweep, and a real-time canvas spark particle burst on click.
 icon: Zap
 ---
 
 import SparkButton from "@/components/jackui/buttons/spark-button";
 
 <Preview link="button/spark-button">
-    <SparkButton />
+  <SparkButton label="Get Started" />
 </Preview>
+
+---
+
+### Installation
+
+<Tabs items={["npx", "pnpm", "bun"]}>
+
+```bash tab="npx"
+npx shadcn@latest add https://jack-ui-ten.vercel.app/r/spark-button.json
+```
+
+```bash tab="pnpm"
+pnpm dlx shadcn@latest add https://jack-ui-ten.vercel.app/r/spark-button.json
+```
+
+```bash tab="bun"
+bunx shadcn@latest add https://jack-ui-ten.vercel.app/r/spark-button.json
+```
+
+</Tabs>
+
+The CLI will automatically install the `motion` dependency and copy the component file into your project at:
+
+```
+components/jackui/spark-button.tsx
+```
+
+---
+
+### Usage
+
+```tsx
+"use client";
+
+import React from "react";
+import { SparkButton } from "@/components/jackui/spark-button";
+
+export function SparkButtonDemo() {
+  const handleClick = () => {
+    console.log("SparkButton clicked");
+  };
+
+  return (
+    <div className="flex h-[40rem] w-full items-center justify-center">
+      <SparkButton
+        label="Get Started"
+        onClick={handleClick}
+      />
+    </div>
+  );
+}
+```
+
+---
+
+### Props
+
+| Prop | Type | Description |
+|------|------|-------------|
+| `label` | `string` | **Optional.** The text rendered inside the button. Briefly switches to `"Activated"` on click during the spark animation. Default: `"Get Started"`. |
+| `className` | `string` | **Optional.** Extra Tailwind classes merged onto the inner `<motion.button>` via `cn()`. Use this to override width, height, or border-radius. |
+| `onClick` | `React.MouseEventHandler<HTMLButtonElement>` | **Optional.** Standard click handler. Called after the spark burst fires. |
+| `disabled` | `boolean` | **Optional.** Disables all hover, magnetic, and click interactions. Renders the button at 40% opacity with `cursor-not-allowed`. |
+| `type` | `"button" \| "submit" \| "reset"` | **Optional.** HTML button `type` attribute. Default: `"button"`. |
+| `...props` | `Omit<HTMLMotionProps<"button">, "ref">` | **Optional.** Any other valid `motion.button` or native `<button>` prop (`aria-*`, `data-*`, `form`, `name`, etc.) is spread directly onto the button element. |
+
+---
+
+### Notes
+
+- **Dependency**: requires `motion` (`npm install motion`). The CLI installs it automatically.
+- **Canvas sparks** use `mix-blend-screen` so they glow correctly over the dark background.
+- **Magnetic pull** uses `useSpring`-smoothed `useMotionValue` applied to the wrapper `div` — it does not affect layout.
+- **Accessibility**: all decorative layers are `aria-hidden="true"`. The `aria-label` switches to `"Action triggered"` during the fired state so screen readers announce the interaction.
+- **`"use client"`** directive is included — this component requires a browser context for canvas, `requestAnimationFrame`, and all motion hooks.
