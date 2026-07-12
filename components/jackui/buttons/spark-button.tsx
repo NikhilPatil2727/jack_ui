@@ -29,26 +29,25 @@ interface Particle {
   color: string;
 }
 
-// Refined gold-platinum spark palette
+// Violet–purple spark palette
 const SPARK_COLORS = [
-  "#f5e6c8",
-  "#e8d5a0",
-  "#d4bb78",
-  "#c8a84b",
-  "#ffffff",
-  "#f0e4c4",
+  "#c084fc", // violet-400
+  "#a855f7", // purple-500
+  "#7c3aed", // violet-600
+  "#e879f9", // fuchsia-400
+  "#f0abfc", // fuchsia-300
+  "#ffffff", // white flash
+  "#d8b4fe", // violet-300
 ];
 
 /**
  * SparkButton
  *
- * A premium enterprise-grade button with brushed metal grain, glowing
- * gradient border ring, heat shimmer, laser scanline sweep, and
- * real-time canvas spark particle burst on click.
+ * Premium black button with animated violet gradient border ring,
+ * purple heat shimmer, violet scanline sweep, and canvas spark burst.
  *
  * @author Jack UI
- * @version 2.0.0
- * @see {@link SparkButtonProps} for customisation details.
+ * @version 3.0.0
  */
 export function SparkButton({
   className,
@@ -72,12 +71,12 @@ export function SparkButton({
   const springMagX = useSpring(magnetX, { stiffness: 200, damping: 22 });
   const springMagY = useSpring(magnetY, { stiffness: 200, damping: 22 });
 
-  // Heat shimmer tracks horizontal mouse position
+  // Heat shimmer tracks horizontal mouse
   const mouseXRaw = useMotionValue(0.5);
   const springHeat = useSpring(mouseXRaw, { stiffness: 130, damping: 26 });
-  const heatOpacity = useTransform(springHeat, [0, 0.5, 1], [0.3, 0.75, 0.3]);
+  const heatOpacity = useTransform(springHeat, [0, 0.5, 1], [0.25, 0.7, 0.25]);
 
-  // Scanline Y position
+  // Scanline Y
   const scanY = useMotionValue(-20);
 
   const handleMouseMove = useCallback(
@@ -107,7 +106,7 @@ export function SparkButton({
     mouseXRaw.set(0.5);
   }, [magnetX, magnetY, mouseXRaw]);
 
-  // Spark burst on click
+  // Violet spark burst
   const spawnParticles = useCallback(
     (e: React.MouseEvent<HTMLButtonElement>) => {
       if (!buttonRef.current || !canvasRef.current) return;
@@ -115,16 +114,16 @@ export function SparkButton({
       const originX = e.clientX - rect.left;
       const originY = e.clientY - rect.top;
 
-      particlesRef.current = Array.from({ length: 28 }, (_, i) => {
-        const angle = (i / 28) * Math.PI * 2 + Math.random() * 0.35;
-        const speed = 2.0 + Math.random() * 3.5;
+      particlesRef.current = Array.from({ length: 32 }, (_, i) => {
+        const angle = (i / 32) * Math.PI * 2 + Math.random() * 0.3;
+        const speed = 2.2 + Math.random() * 3.8;
         return {
           id: Date.now() + i,
           x: originX,
           y: originY,
           vx: Math.cos(angle) * speed,
-          vy: Math.sin(angle) * speed - 1.5,
-          size: 1.2 + Math.random() * 2.8,
+          vy: Math.sin(angle) * speed - 1.8,
+          size: 1.4 + Math.random() * 3.0,
           color: SPARK_COLORS[Math.floor(Math.random() * SPARK_COLORS.length)],
         };
       });
@@ -132,7 +131,7 @@ export function SparkButton({
     []
   );
 
-  // Canvas particle loop
+  // Canvas loop
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -158,11 +157,11 @@ export function SparkButton({
         const p = particles[i];
         p.x += p.vx;
         p.y += p.vy;
-        p.vy += 0.12;
-        p.vx *= 0.975;
-        p.size *= 0.92;
+        p.vy += 0.11;
+        p.vx *= 0.972;
+        p.size *= 0.91;
 
-        if (p.size <= 0.25) {
+        if (p.size <= 0.22) {
           particles.splice(i, 1);
           continue;
         }
@@ -170,8 +169,8 @@ export function SparkButton({
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
         ctx.fillStyle = p.color;
-        ctx.shadowColor = "#f0d080";
-        ctx.shadowBlur = 6;
+        ctx.shadowColor = "#a855f7";
+        ctx.shadowBlur = 8;
         ctx.fill();
       }
 
@@ -179,7 +178,6 @@ export function SparkButton({
     };
 
     rafRef.current = requestAnimationFrame(loop);
-
     return () => {
       cancelAnimationFrame(rafRef.current);
       window.removeEventListener("resize", syncSize);
@@ -202,34 +200,55 @@ export function SparkButton({
       style={{ x: springMagX, y: springMagY }}
       className="inline-flex relative"
     >
-      {/* ── Gradient border ring (outer glow layer) ── */}
+      {/* ── Animated violet gradient border ring ── */}
       <motion.div
-        className="absolute -inset-[1.5px] rounded-[12px] pointer-events-none"
+        className="absolute -inset-[1px] rounded-[13px] pointer-events-none"
         style={{
           background:
-            "linear-gradient(135deg, rgba(200,168,75,0.0) 0%, rgba(200,168,75,0.55) 40%, rgba(255,230,120,0.8) 50%, rgba(200,168,75,0.55) 60%, rgba(200,168,75,0.0) 100%)",
-          backgroundSize: "200% 200%",
+            "linear-gradient(135deg, #7c3aed, #a855f7, #e879f9, #c084fc, #7c3aed)",
+          backgroundSize: "300% 300%",
         }}
         animate={{
-          backgroundPosition: hovered ? ["0% 0%", "100% 100%"] : "0% 0%",
-          opacity: hovered ? 1 : 0.35,
+          backgroundPosition: hovered
+            ? ["0% 0%", "100% 100%", "0% 0%"]
+            : "50% 50%",
+          opacity: hovered ? 1 : 0.3,
         }}
         transition={{
-          backgroundPosition: { duration: 2.5, repeat: Infinity, ease: "linear" },
-          opacity: { duration: 0.3 },
+          backgroundPosition: {
+            duration: 3,
+            repeat: Infinity,
+            ease: "linear",
+          },
+          opacity: { duration: 0.35 },
         }}
         aria-hidden="true"
       />
 
-      {/* ── Outer depth shadow ── */}
+      {/* ── Outer violet glow bloom ── */}
       <motion.div
-        className="absolute -inset-x-0.5 bottom-0 h-4 rounded-full blur-xl pointer-events-none"
+        className="absolute -inset-3 rounded-[16px] pointer-events-none blur-xl"
         style={{
           background:
-            "radial-gradient(ellipse at 50% 100%, rgba(200,168,75,0.4) 0%, transparent 70%)",
+            "radial-gradient(ellipse at 50% 50%, rgba(168,85,247,0.35) 0%, transparent 70%)",
         }}
         animate={{
-          opacity: pressed ? 0.2 : hovered ? 0.8 : 0.3,
+          opacity: pressed ? 0.6 : hovered ? 1 : 0,
+          scale: hovered ? 1 : 0.85,
+        }}
+        transition={{ duration: 0.3 }}
+        aria-hidden="true"
+      />
+
+      {/* ── Drop shadow bloom ── */}
+      <motion.div
+        className="absolute -inset-x-0.5 bottom-0 h-5 rounded-full blur-xl pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse at 50% 100%, rgba(168,85,247,0.5) 0%, transparent 70%)",
+        }}
+        animate={{
+          opacity: pressed ? 0.3 : hovered ? 0.9 : 0.2,
           scaleY: pressed ? 0.4 : 1,
         }}
         transition={{ duration: 0.15 }}
@@ -239,7 +258,7 @@ export function SparkButton({
       {/* ── Spark canvas ── */}
       <canvas
         ref={canvasRef}
-        className="absolute inset-0 pointer-events-none z-50 rounded-[10px] w-full h-full mix-blend-screen"
+        className="absolute inset-0 pointer-events-none z-50 rounded-[11px] w-full h-full mix-blend-screen"
         aria-hidden="true"
       />
 
@@ -255,43 +274,41 @@ export function SparkButton({
         disabled={disabled}
         type={type}
         animate={{
-          scale: pressed ? 0.965 : 1,
+          scale: pressed ? 0.963 : 1,
           y: pressed ? 1.5 : 0,
         }}
         transition={{ type: "spring", stiffness: 420, damping: 28 }}
         className={cn(
-          // Base shape
-          "relative group isolate w-[200px] h-[52px] rounded-[10px] select-none overflow-hidden outline-none cursor-pointer",
+          // Shape
+          "relative group isolate w-[200px] h-[52px] rounded-[11px] select-none overflow-hidden outline-none cursor-pointer",
           // Disabled
           "disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none",
-          // Focus ring
-          "focus-visible:ring-2 focus-visible:ring-[#c8a84b]/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#080706]",
-          // Background — deep forge steel
-          "bg-[linear-gradient(160deg,#1e1b16_0%,#131109_40%,#0a0906_55%,#131109_70%,#1e1b16_100%)]",
-          // Border — thin warm gold line
-          "border border-[#c8a84b]/30",
+          // Focus
+          "focus-visible:ring-2 focus-visible:ring-violet-500/70 focus-visible:ring-offset-2 focus-visible:ring-offset-black",
+          // Background — pure deep black
+          "bg-[#050505]",
           // Shadow
           pressed
-            ? "shadow-[inset_0_4px_10px_rgba(0,0,0,0.9),0_1px_0_rgba(255,255,255,0.03)]"
-            : "shadow-[inset_0_1px_0_rgba(255,255,255,0.06),inset_0_-1px_0_rgba(0,0,0,0.6),0_8px_28px_rgba(0,0,0,0.7),0_2px_6px_rgba(0,0,0,0.5)]",
+            ? "shadow-[inset_0_4px_12px_rgba(0,0,0,1),inset_0_1px_0_rgba(255,255,255,0.02)]"
+            : "shadow-[inset_0_1px_0_rgba(255,255,255,0.05),inset_0_-1px_0_rgba(0,0,0,0.8),0_10px_32px_rgba(0,0,0,0.8),0_2px_8px_rgba(0,0,0,0.6)]",
           className
         )}
         aria-label={fired ? "Action triggered" : label}
         {...props}
       >
-        {/* ── Fine brushed metal grain ── */}
+        {/* ── Fine noise grain ── */}
         <span
-          className="absolute inset-0 pointer-events-none opacity-[0.028] bg-[repeating-linear-gradient(90deg,transparent,transparent_1px,rgba(255,255,255,1)_1px,rgba(255,255,255,1)_2px)] bg-[size:2.5px_100%]"
+          className="absolute inset-0 pointer-events-none opacity-[0.022] bg-[repeating-linear-gradient(90deg,transparent,transparent_1px,rgba(255,255,255,1)_1px,rgba(255,255,255,1)_2px)] bg-[size:2px_100%]"
           aria-hidden="true"
         />
 
-        {/* ── Radial vignette top ── */}
+        {/* ── Top soft highlight ── */}
         <span
-          className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_90%_60%_at_50%_0%,rgba(255,245,210,0.07)_0%,transparent_65%)]"
+          className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgba(192,132,252,0.08)_0%,transparent_60%)]"
           aria-hidden="true"
         />
 
-        {/* ── Heat shimmer on hover ── */}
+        {/* ── Violet heat shimmer ── */}
         <motion.span
           className="absolute inset-0 pointer-events-none"
           style={{ opacity: heatOpacity }}
@@ -299,75 +316,80 @@ export function SparkButton({
           transition={{ duration: 0.4 }}
           aria-hidden="true"
         >
-          <span className="absolute inset-0 bg-[radial-gradient(ellipse_55%_45%_at_50%_105%,rgba(200,130,20,0.22)_0%,transparent_65%)]" />
+          <span className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_110%,rgba(139,92,246,0.3)_0%,transparent_65%)]" />
         </motion.span>
 
-        {/* ── Scanline sweep ── */}
+        {/* ── Violet scanline sweep ── */}
         <motion.span
           className="absolute left-0 right-0 h-[1px] pointer-events-none"
           style={{
             top: scanY,
             background:
-              "linear-gradient(90deg, transparent 0%, rgba(240,210,120,0.5) 15%, rgba(255,240,160,1) 50%, rgba(240,210,120,0.5) 85%, transparent 100%)",
+              "linear-gradient(90deg, transparent 0%, rgba(192,132,252,0.4) 15%, rgba(232,121,249,1) 50%, rgba(192,132,252,0.4) 85%, transparent 100%)",
           }}
           animate={{ opacity: hovered ? 1 : 0 }}
           aria-hidden="true"
         />
 
-        {/* ── Top specular edge ── */}
-        <span
-          className="absolute left-0 right-0 top-0 h-[1px] pointer-events-none bg-[linear-gradient(90deg,transparent_8%,rgba(255,245,200,0.18)_25%,rgba(255,245,200,0.42)_50%,rgba(255,245,200,0.18)_75%,transparent_92%)]"
-          aria-hidden="true"
-        />
-
-        {/* ── Bottom edge depth ── */}
-        <span
-          className="absolute left-0 right-0 bottom-0 h-[1px] pointer-events-none bg-black/70"
-          aria-hidden="true"
-        />
-
-        {/* ── Hover copper wash ── */}
+        {/* ── Violet inner glow on hover ── */}
         <motion.span
-          className="absolute inset-0 pointer-events-none bg-[linear-gradient(150deg,rgba(180,120,20,0.10)_0%,rgba(120,80,10,0.06)_50%,rgba(180,120,20,0.12)_100%)]"
-          animate={{ opacity: hovered ? 1 : 0 }}
-          transition={{ duration: 0.3 }}
+          className="absolute inset-0 pointer-events-none"
+          animate={{
+            background: hovered
+              ? "radial-gradient(ellipse 80% 60% at 50% 50%, rgba(139,92,246,0.12) 0%, transparent 70%)"
+              : "none",
+            opacity: hovered ? 1 : 0,
+          }}
+          transition={{ duration: 0.35 }}
           aria-hidden="true"
         />
 
-        {/* ── Click flash ── */}
+        {/* ── Click violet flash ── */}
         <motion.span
-          className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_75%_55%_at_50%_50%,rgba(255,245,190,0.85)_0%,transparent_65%)]"
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(ellipse 80% 60% at 50% 50%, rgba(192,132,252,0.75) 0%, transparent 65%)",
+          }}
           initial={{ opacity: 0 }}
-          animate={{ opacity: fired ? [0, 0.5, 0] : 0 }}
-          transition={{ duration: 0.45, times: [0, 0.12, 1] }}
+          animate={{ opacity: fired ? [0, 0.6, 0] : 0 }}
+          transition={{ duration: 0.4, times: [0, 0.1, 1] }}
           aria-hidden="true"
         />
 
         {/* ── Label ── */}
-        <span className="relative z-10 flex items-center justify-center gap-2.5">
+        <span className="relative z-10 flex items-center justify-center gap-3">
 
-          {/* Left spark indicator */}
+          {/* Left violet spark bars */}
           <motion.span
-            className="flex items-end gap-[2.5px]"
-            animate={{ opacity: hovered ? 1 : 0.28 }}
+            className="flex items-end gap-[2px]"
+            animate={{ opacity: hovered ? 1 : 0.2 }}
             transition={{ duration: 0.25 }}
             aria-hidden="true"
           >
-            {[4, 7, 5].map((h, i) => (
+            {[4, 8, 5].map((h, i) => (
               <motion.span
                 key={i}
-                className="block w-[1.5px] rounded-full bg-[#c8a84b]"
-                style={{ height: h }}
+                className="block w-[1.5px] rounded-full"
+                style={{
+                  height: h,
+                  background: hovered
+                    ? "linear-gradient(to top, #7c3aed, #e879f9)"
+                    : "#6d28d9",
+                }}
                 animate={
                   hovered
-                    ? { scaleY: [1, 1.4, 0.8, 1.2, 1], opacity: [0.6, 1, 0.7, 1, 0.8] }
-                    : { scaleY: 1, opacity: 0.6 }
+                    ? {
+                        scaleY: [1, 1.5, 0.7, 1.3, 1],
+                        opacity: [0.5, 1, 0.6, 1, 0.7],
+                      }
+                    : { scaleY: 1, opacity: 0.5 }
                 }
                 transition={{
-                  duration: 0.9,
+                  duration: 1.0,
                   delay: i * 0.1,
                   repeat: hovered ? Infinity : 0,
-                  repeatDelay: 0.8,
+                  repeatDelay: 0.6,
                 }}
               />
             ))}
@@ -375,45 +397,55 @@ export function SparkButton({
 
           {/* Text */}
           <motion.span
-            style={{ fontFamily: "var(--font-mono, ui-monospace, monospace)" }}
-            className="text-[12.5px] font-[600] tracking-[0.18em] uppercase"
+            style={{
+              fontFamily: "var(--font-mono, ui-monospace, monospace)",
+            }}
+            className="text-[12.5px] font-[600] tracking-[0.2em] uppercase"
             animate={{
               color: fired
-                ? "#fffbf0"
+                ? "#f5f3ff"
                 : hovered
-                ? "#f0dea0"
-                : "#a89060",
+                ? "#ddd6fe"
+                : "#6d28d9",
               textShadow: hovered
-                ? "0 0 14px rgba(200,168,75,0.45), 0 1px 0 rgba(0,0,0,0.95)"
-                : "0 1px 0 rgba(0,0,0,0.9)",
+                ? "0 0 16px rgba(167,139,250,0.7), 0 0 32px rgba(139,92,246,0.35)"
+                : "none",
             }}
-            transition={{ duration: 0.22 }}
+            transition={{ duration: 0.2 }}
           >
             {fired ? "Activated" : label}
           </motion.span>
 
-          {/* Right spark indicator (mirrored) */}
+          {/* Right violet spark bars (mirrored) */}
           <motion.span
-            className="flex items-end gap-[2.5px] scale-x-[-1]"
-            animate={{ opacity: hovered ? 1 : 0.28 }}
+            className="flex items-end gap-[2px] scale-x-[-1]"
+            animate={{ opacity: hovered ? 1 : 0.2 }}
             transition={{ duration: 0.25 }}
             aria-hidden="true"
           >
-            {[4, 7, 5].map((h, i) => (
+            {[4, 8, 5].map((h, i) => (
               <motion.span
                 key={i}
-                className="block w-[1.5px] rounded-full bg-[#c8a84b]"
-                style={{ height: h }}
+                className="block w-[1.5px] rounded-full"
+                style={{
+                  height: h,
+                  background: hovered
+                    ? "linear-gradient(to top, #7c3aed, #e879f9)"
+                    : "#6d28d9",
+                }}
                 animate={
                   hovered
-                    ? { scaleY: [1, 1.4, 0.8, 1.2, 1], opacity: [0.6, 1, 0.7, 1, 0.8] }
-                    : { scaleY: 1, opacity: 0.6 }
+                    ? {
+                        scaleY: [1, 1.5, 0.7, 1.3, 1],
+                        opacity: [0.5, 1, 0.6, 1, 0.7],
+                      }
+                    : { scaleY: 1, opacity: 0.5 }
                 }
                 transition={{
-                  duration: 0.9,
-                  delay: i * 0.1 + 0.12,
+                  duration: 1.0,
+                  delay: i * 0.1 + 0.15,
                   repeat: hovered ? Infinity : 0,
-                  repeatDelay: 0.8,
+                  repeatDelay: 0.6,
                 }}
               />
             ))}
