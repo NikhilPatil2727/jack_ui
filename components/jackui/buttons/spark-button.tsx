@@ -48,6 +48,7 @@ const SPARK_COLORS = [
  *
  * @author Jack UI
  * @version 3.0.0
+ * written by @Nikhil_PATIL (Jack UI)
  */
 export function SparkButton({
   className,
