@@ -1,11 +1,88 @@
 ---
 title: Smoke Flare Button
-description: A premium button with cosmic smoke patterns, ambient glow flares, and ripple pulse effects on click.
+description: A premium, landing-page ready button with cosmic smoke patterns, ambient glow flares, magnetic pull, mouse-tracking active border reflection, and click ripple effects.
 icon: Flame
 ---
 
 import SmokeFlareButton from "@/components/jackui/buttons/smoke-flare-button";
 
 <Preview link="button/smoke-flare-button">
-    <SmokeFlareButton />
+  <SmokeFlareButton label="Get Started" />
 </Preview>
+
+---
+
+### Installation
+
+<Tabs items={["npx", "pnpm", "bun"]}>
+
+```bash tab="npx"
+npx shadcn@latest add https://jack-ui-ten.vercel.app/r/smoke-flare-button.json
+```
+
+```bash tab="pnpm"
+pnpm dlx shadcn@latest add https://jack-ui-ten.vercel.app/r/smoke-flare-button.json
+```
+
+```bash tab="bun"
+bunx shadcn@latest add https://jack-ui-ten.vercel.app/r/smoke-flare-button.json
+```
+
+</Tabs>
+
+The CLI will automatically install the `motion` dependency and copy the component file into your project at:
+
+```
+components/jackui/smoke-flare-button.tsx
+```
+
+---
+
+### Usage
+
+```tsx
+"use client";
+
+import React from "react";
+import { SmokeFlareButton } from "@/components/jackui/smoke-flare-button";
+
+export function SmokeFlareButtonDemo() {
+  const handleClick = () => {
+    console.log("Button clicked!");
+  };
+
+  return (
+    <div className="flex h-[40rem] w-full items-center justify-center">
+      <SmokeFlareButton
+        label="Explore Premium"
+        size="md"
+        onClick={handleClick}
+      />
+    </div>
+  );
+}
+```
+
+---
+
+### Props
+
+| Prop | Type | Description |
+|------|------|-------------|
+| `label` | `string` | **Optional.** Main text label on the button. Default: `"Get Started"`. |
+| `size` | `"sm" \| "md" \| "lg"` | **Optional.** Sizing variant of the button. Maps to predefined widths, heights, and font-sizes. Default: `"md"`. |
+| `disabled` | `boolean` | **Optional.** Disables all interactions. Renders the button at 40% opacity with `cursor-not-allowed`. Default: `false`. |
+| `loading` | `boolean` | **Optional.** Loading state. Shows a clean spinner instead of the text label. Default: `false`. |
+| `className` | `string` | **Optional.** Extra Tailwind classes merged onto the button. |
+| `style` | `React.CSSProperties` | **Optional.** Inline style overrides. |
+| `...rest` | `Omit<HTMLMotionProps<"button">, "children">` | **Optional.** Any additional motion or HTML button properties spread directly onto the button. |
+
+---
+
+### Notes
+
+- **Dependency**: Requires `motion` (`npm install motion`).
+- **Premium Upgrades**: Features a gentle magnetic pull on hover, and a mouse-tracking active border reflection that mimics a real metallic bezel reflecting light.
+- **Ambient Glow**: Surrounded by multi-layered radial glow mists (smoke) and animated floating flares.
+- **Ripples**: Click interactions generate expanding, fading ripples relative to the pointer coordinates.
+- **Accessibility**: Support for screen readers with proper layout and focus rings. Includes standard HTML disabled attributes.
