@@ -45,9 +45,9 @@ const sizes: Record<SmokeFlareButtonSize, { w: number; h: number; fs: number }> 
 };
 
 const ambientOffsets: Record<SmokeFlareButtonSize, string> = {
-  sm: "-inset-[12px]",
-  md: "-inset-[18px]",
-  lg: "-inset-[24px]",
+  sm: "-inset-[16px]",
+  md: "-inset-[24px]",
+  lg: "-inset-[32px]",
 };
 
 // ─── Flares ───────────────────────────────────────────────────────────────────
@@ -71,6 +71,7 @@ const FLARES = [
  * @author Jack UI
  * @version 2.0.0
  * @see {@link SmokeFlareButtonProps} for details on customisation.
+ *Designe by @Nikhil_PATIL (Jack UI)
  */
 export function SmokeFlareButton({
   label = "Get Started",
@@ -108,9 +109,14 @@ export function SmokeFlareButton({
       const relX = (e.clientX - rect.left) / rect.width;
       const relY = (e.clientY - rect.top) / rect.height;
 
-      // Gentle magnetic pull
-      magnetX.set((relX - 0.5) * 8);
-      magnetY.set((relY - 0.5) * 6);
+      // Check if dark mode is active
+      const isDark = document.documentElement.classList.contains("dark");
+
+      // X pull is always active
+      magnetX.set((relX - 0.5) * 14);
+
+      // Y pull is only active in dark mode (disabled in light mode for horizontal-only movement)
+      magnetY.set(isDark ? (relY - 0.5) * 10 : 0);
 
       // Mouse reflection position
       mouseX.set(e.clientX - rect.left);
@@ -152,18 +158,49 @@ export function SmokeFlareButton({
     [springMouseX, springMouseY],
     ([x, y]) => {
       return hovered
-        ? `radial-gradient(120px circle at ${x}px ${y}px, rgba(255, 255, 255, 0.75) 0%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.05) 100%)`
-        : `radial-gradient(120px circle at ${w / 2}px ${h}px, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.05) 100%)`;
+        ? `radial-gradient(160px circle at ${x}px ${y}px, rgba(var(--sf-border-flare), var(--sf-border-flare-opacity)) 0%, rgba(var(--sf-border-flare), 0.2) 50%, rgba(var(--sf-border-flare), 0.02) 100%)`
+        : `linear-gradient(to bottom, rgba(var(--sf-border-base-color), var(--sf-border-base-opacity)), rgba(var(--sf-border-flare), 0.05))`;
     }
   );
+
+  // Parallax glow coordinates (moves slightly with magnetic pull)
+  const glowX = useTransform(springMagX, (x) => x * 1.4);
+  const glowY = useTransform(springMagY, (y) => y * 1.4);
 
   return (
     <motion.div
       style={{ x: springMagX, y: springMagY }}
       className="relative inline-flex items-center justify-center group"
     >
-      {/* Dynamic Keyframes */}
+      {/* Dynamic Keyframes & CSS variables */}
       <style>{`
+        :root {
+          /* Light Mode: Black button on white/light page background */
+          --sf-border-flare: 255, 255, 255; /* White flashy spotlight sweep */
+          --sf-border-flare-opacity: 0.95; /* Super flashy! */
+          --sf-border-base-color: 0, 0, 0; /* Visible dark outline on white page */
+          --sf-border-base-opacity: 0.15;
+          --sf-glow-color: 99, 102, 241; /* Indigo ambient glow */
+          --sf-glow-opacity: 0.15; /* Higher opacity to pop on light backgrounds */
+          --sf-shadow-color: 0, 0, 0; /* Deep black drop shadow */
+          --sf-shadow-opacity: 0.26;
+          --sf-flare-bg: rgba(255, 255, 255, 0.95);
+          --sf-flare-glow: rgba(255, 255, 255, 0.7);
+        }
+        .dark {
+          /* Dark Mode: Black button on dark page background */
+          --sf-border-flare: 255, 255, 255; /* White flashy spotlight sweep */
+          --sf-border-flare-opacity: 0.75;
+          --sf-border-base-color: 255, 255, 255; /* Soft white border outline */
+          --sf-border-base-opacity: 0.35;
+          --sf-glow-color: 255, 255, 255; /* White ambient glow */
+          --sf-glow-opacity: 0.08;
+          --sf-shadow-color: 255, 255, 255; /* Soft white shadow bloom */
+          --sf-shadow-opacity: 0.18;
+          --sf-flare-bg: rgba(255, 255, 255, 0.9);
+          --sf-flare-glow: rgba(255, 255, 255, 0.6);
+        }
+
         @keyframes jack-smokeflare-smoke-rot {
           from { transform: rotate(0deg) scale(1); }
           to   { transform: rotate(360deg) scale(1.05); }
@@ -175,41 +212,60 @@ export function SmokeFlareButton({
         }
         @keyframes jack-smokeflare-text-pulse {
           0%, 100% {
-            text-shadow: 0 0 10px rgba(255,255,255,0.7), 0 0 20px rgba(255,255,255,0.4);
+            text-shadow: 0 0 10px rgba(255,255,255,0.6), 0 0 20px rgba(255,255,255,0.2);
           }
           50% {
-            text-shadow: 0 0 14px rgba(255,255,255,0.95), 0 0 28px rgba(255,255,255,0.6);
+            text-shadow: 0 0 14px rgba(255,255,255,0.85), 0 0 28px rgba(255,255,255,0.4);
           }
         }
         @keyframes jack-smokeflare-ripple {
-          0%   { transform: translate(-50%,-50%) scale(0); opacity: 0.5; }
+          0%   { transform: translate(-50%,-50%) scale(0); opacity: 0.4; }
           100% { transform: translate(-50%,-50%) scale(4.5); opacity: 0; }
         }
       `}</style>
 
-      {/* Ambient outer glow bloom */}
-      <div
+      {/* Light Mode: Stable Horizontal Colorful Glow (Wider offsets for visibility) */}
+      <motion.div
+        className="absolute rounded-full pointer-events-none transition-all duration-500 opacity-0 group-hover:opacity-55 blur-[28px] dark:hidden"
+        style={{
+          background: "linear-gradient(90deg, #c084fc, #6366f1, #2dd4bf, #ec4899)",
+          left: "-28px",
+          right: "-28px",
+          top: "-14px",
+          bottom: "-14px",
+          x: glowX,
+        }}
+        animate={{
+          scaleX: hovered ? 1.25 : 0.95,
+          scaleY: hovered ? 1.05 : 0.95,
+        }}
+        transition={{ duration: 0.35, ease: "easeOut" }}
+      />
+
+      {/* Dark Mode: Original White Ambient Bloom (Undamaged original styling) */}
+      <motion.div
+        style={{ x: glowX, y: glowY }}
         className={cn(
-          "absolute rounded-full pointer-events-none transition-all duration-500 opacity-60 group-hover:opacity-100 group-hover:scale-105",
+          "absolute rounded-full pointer-events-none transition-all duration-500 opacity-0 group-hover:opacity-100 group-hover:scale-105 hidden dark:block",
           ambientOffsets[size],
           "bg-[radial-gradient(ellipse_at_50%_50%,rgba(255,255,255,0.08)_0%,transparent_70%)] blur-[24px]"
         )}
       />
 
-      {/* Ethereal Drop shadow below pill */}
+      {/* Ethereal Drop shadow below pill (increased gap, blur, and scale) */}
       <div
-        className="absolute -bottom-4 left-1/2 -translate-x-1/2 h-[12px] pointer-events-none rounded-full transition-all duration-500 opacity-40 group-hover:opacity-80 bg-[radial-gradient(ellipse_at_50%_50%,rgba(255,255,255,0.18)_0%,transparent_70%)] blur-[8px]"
+        className="absolute -bottom-6 left-1/2 -translate-x-1/2 h-[16px] pointer-events-none rounded-full transition-all duration-500 opacity-40 group-hover:opacity-85 bg-[radial-gradient(ellipse_at_50%_50%,rgba(var(--sf-shadow-color),var(--sf-shadow-opacity))_0%,transparent_70%)] blur-[10px]"
         style={{
-          width: w * 0.8,
+          width: w * 0.85,
         }}
       />
 
-      {/* ─── Premium Border Glow / Shimmer Wrapper ─── */}
+      {/* ─── Premium Border Glow / Shimmer Wrapper (thicker border ring) ─── */}
       <motion.div
-        className="absolute -inset-[1.5px] rounded-full pointer-events-none transition-opacity duration-300"
+        className="absolute -inset-[2px] rounded-full pointer-events-none transition-opacity duration-300"
         style={{
           background: borderGradient,
-          opacity: hovered ? 1 : 0.45,
+          opacity: hovered ? 1 : 0.8,
         }}
       />
 
@@ -228,13 +284,13 @@ export function SmokeFlareButton({
         disabled={disabled || loading}
         onClick={handleClick}
         animate={{
-          scale: pressed ? 0.96 : hovered ? 1.025 : 1,
+          scale: pressed ? 0.96 : hovered ? 1.05 : 1,
         }}
         transition={{ type: "spring", stiffness: 400, damping: 25 }}
         style={{ width: w, height: h, ...style }}
         {...rest}
       >
-        {/* Dark body */}
+        {/* Always Dark body */}
         <div className="absolute inset-0 rounded-full bg-gradient-to-b from-zinc-950 to-black" />
 
         {/* Inner border / bezel reflection */}
@@ -243,11 +299,21 @@ export function SmokeFlareButton({
         {/* Smoke layer A */}
         <div
           className="absolute inset-[-10%] rounded-full pointer-events-none bg-[radial-gradient(ellipse_65%_40%_at_25%_55%,rgba(255,255,255,0.08)_0%,transparent_55%),radial-gradient(ellipse_45%_65%_at_72%_38%,rgba(255,255,255,0.08)_0%,transparent_55%)] animate-[jack-smokeflare-smoke-rot_12s_linear_infinite]"
+          style={{
+            animationDuration: hovered ? "6s" : "12s",
+            opacity: hovered ? 1 : 0.75,
+            transition: "opacity 0.3s ease, animation-duration 0.5s ease",
+          }}
         />
 
         {/* Smoke layer B */}
         <div
           className="absolute inset-[-10%] rounded-full pointer-events-none bg-[radial-gradient(ellipse_55%_50%_at_60%_65%,rgba(255,255,255,0.06)_0%,transparent_50%),radial-gradient(ellipse_40%_55%_at_35%_30%,rgba(255,255,255,0.06)_0%,transparent_50%)] animate-[jack-smokeflare-smoke-rot_16s_linear_infinite_reverse]"
+          style={{
+            animationDuration: hovered ? "8s" : "16s",
+            opacity: hovered ? 1 : 0.75,
+            transition: "opacity 0.3s ease, animation-duration 0.5s ease",
+          }}
         />
 
         {/* Bottom glow */}
@@ -259,18 +325,31 @@ export function SmokeFlareButton({
         {/* Sheen */}
         <div className="absolute top-0 left-0 right-0 h-[46%] rounded-t-full rounded-b-[60%] pointer-events-none transition-opacity duration-300 bg-gradient-to-b from-white/10 to-white/[0.02]" />
 
+        {/* Premium metallic shine sweep on hover */}
+        <motion.div
+          className="absolute inset-0 pointer-events-none bg-gradient-to-r from-transparent via-white/15 to-transparent"
+          style={{
+            width: "200%",
+            left: "-100%",
+            skewX: -25,
+          }}
+          animate={hovered ? { left: "120%" } : { left: "-100%" }}
+          transition={{ duration: 0.85, ease: "easeInOut" }}
+        />
+
         {/* Floating flares */}
         {FLARES.map((f, i) => (
           <span
             key={i}
-            className="absolute rounded-full bg-white/90 pointer-events-none blur-[0.5px] animate-[jack-smokeflare-flare_4s_ease-in-out_infinite]"
+            className="absolute rounded-full pointer-events-none blur-[0.5px] animate-[jack-smokeflare-flare_4s_ease-in-out_infinite]"
             style={{
               top: f.top,
               left: f.left,
               width: f.w,
               height: f.h,
               animationDelay: f.delay,
-              boxShadow: "0 0 3px rgba(255,255,255,0.6)",
+              backgroundColor: "var(--sf-flare-bg)",
+              boxShadow: "0 0 3px var(--sf-flare-glow)",
             }}
           />
         ))}
