@@ -5,7 +5,10 @@ import { motion, useReducedMotion, useMotionValue, useSpring, useTransform } fro
 import { cn } from "@/lib/utils";
 
 export interface ThreeDTiltShimmerButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  extends Omit<
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
+    "onDrag" | "onDragStart" | "onDragEnd" | "onDragOver" | "onAnimationStart"
+  > {
   /**
    * Maximum X axis rotation on hover (in degrees).
    * @default -12
