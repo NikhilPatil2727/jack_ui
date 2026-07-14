@@ -47,11 +47,11 @@ export function Header() {
             )}
           >
             <Image
-              src="/logo.png"
+              src="/JackUi.png"
               alt="Jack UI logo"
-              width={30}
-              height={30}
-              className="h-[30px] w-[30px] rounded-[8px]"
+              width={44}
+              height={44}
+              className="h-[44px] w-[44px] rounded-[8px]"
             />
             <span
               className={cn(
