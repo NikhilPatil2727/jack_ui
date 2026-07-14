@@ -1,11 +1,88 @@
 ---
 title: 3D Tilt Shimmer Button
-description: A premium button combining a 3D tilt effect on hover, a rotating background glow, shimmer sweep, and rainbow border.
+description: A premium glassmorphic button with real-time 3D cursor tilt, rotating rainbow border, soft ambient glow, and sweep sheen.
 icon: Layers
 ---
 
 import ThreeDTiltShimmerButton from "@/components/jackui/buttons/3d-tilt-shimmer-button";
 
 <Preview link="button/3d-tilt-shimmer-button">
-    <ThreeDTiltShimmerButton />
+  <ThreeDTiltShimmerButton>Explore Galaxy</ThreeDTiltShimmerButton>
 </Preview>
+
+---
+
+### Installation
+
+<Tabs items={["npx", "pnpm", "bun"]}>
+
+```bash tab="npx"
+npx shadcn@latest add https://jack-ui-ten.vercel.app/r/3d-tilt-shimmer-button.json
+```
+
+```bash tab="pnpm"
+pnpm dlx shadcn@latest add https://jack-ui-ten.vercel.app/r/3d-tilt-shimmer-button.json
+```
+
+```bash tab="bun"
+bunx shadcn@latest add https://jack-ui-ten.vercel.app/r/3d-tilt-shimmer-button.json
+```
+
+</Tabs>
+
+The CLI will automatically install the required dependencies (such as `motion`) and copy the component file into your project at:
+
+```
+components/jackui/buttons/3d-tilt-shimmer-button.tsx
+```
+
+---
+
+### Usage
+
+```tsx
+"use client";
+
+import React from "react";
+import { ThreeDTiltShimmerButton } from "@/components/jackui/buttons/3d-tilt-shimmer-button";
+
+export function ThreeDTiltShimmerButtonDemo() {
+  return (
+    <div className="flex h-40 w-full items-center justify-center bg-slate-950">
+      <ThreeDTiltShimmerButton 
+        size="md" 
+        onClick={() => console.log("Button clicked!")}
+      >
+        Explore Galaxy
+      </ThreeDTiltShimmerButton>
+    </div>
+  );
+}
+```
+
+---
+
+### Props
+
+| Prop | Type | Description |
+|------|------|-------------|
+| `children` | `React.ReactNode` | **Optional.** The content to render inside the button (e.g. text label and/or icon). Default: `"Hover me"`. |
+| `size` | `"sm" \| "md" \| "lg"` | **Optional.** Sizing variant adjusting padding, font size, and border radius. Default: `"md"`. |
+| `tiltMaxX` | `number` | **Optional.** Maximum X-axis tilt angle in degrees when cursor hovers over the button. Default: `-12`. |
+| `tiltMaxY` | `number` | **Optional.** Maximum Y-axis tilt angle in degrees when cursor hovers over the button. Default: `12`. |
+| `perspective` | `number` | **Optional.** 3D perspective depth in pixels applied to the tilt effect. Default: `1000`. |
+| `showRainbowBorder` | `boolean` | **Optional.** Whether to render the rotating gradient neon border ring. Default: `true`. |
+| `showGlow` | `boolean` | **Optional.** Whether to show the soft moving ambient shadow glow behind the button. Default: `true`. |
+| `showShimmerSweep` | `boolean` | **Optional.** Whether to show the linear light sheen sweep across the button surface on hover. Default: `true`. |
+| `showPulseDot` | `boolean` | **Optional.** Whether to display the breathing gradient pulse indicator dot next to the label. Default: `true`. |
+| `glowDuration` | `number` | **Optional.** Duration in seconds for a complete rotation of the rainbow glow background. Default: `6`. |
+| `shimmerDuration` | `number` | **Optional.** Duration in seconds for a complete sweep of the light sheen shimmer. Default: `2`. |
+| `...props` | `React.ButtonHTMLAttributes<HTMLButtonElement>` | **Optional.** Any additional standard HTML button element properties (e.g. `onClick`, `disabled`, `type`, `aria-*`) can be passed and are spread onto the button. |
+
+---
+
+### Notes
+
+- **3D Tilt effect** is computed in real-time tracking the mouse pointer coordinates relative to the button container.
+- **System Accessibility**: automatically disables the 3D tilt, sweep sheen, and background glow animations if the user has configured `prefers-reduced-motion` settings in their OS.
+- **Glassmorphic styling** uses Tailwind backdrop filter utilities and dark slate semitransparent layers to blend with any dark interface background.
