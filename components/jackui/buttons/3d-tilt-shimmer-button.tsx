@@ -59,6 +59,11 @@ export interface ThreeDTiltShimmerButtonProps
    * @default "md"
    */
   size?: "sm" | "md" | "lg";
+  /**
+   * The color theme variant for the borders and ambient glow.
+   * @default "indigo"
+   */
+  colorTheme?: "indigo" | "emerald" | "amber" | "rose" | "mono" | "sunset" | "yellow";
 }
 
 /**
@@ -85,6 +90,7 @@ export const ThreeDTiltShimmerButton = React.forwardRef<
       shimmerDuration = 2,
       size = "md",
       disabled = false,
+      colorTheme = "indigo",
       ...props
     },
     ref
@@ -146,16 +152,56 @@ export const ThreeDTiltShimmerButton = React.forwardRef<
       scale.set(1.04);
     };
 
+    const THEMES = {
+      indigo: {
+        glowBg: "linear-gradient(90deg, #a855f7, #6366f1, #06b6d4, #a855f7)",
+        borderGlow: (x: number, y: number) => `radial-gradient(120px circle at ${x}px ${y}px, rgba(168, 85, 247, 0.9) 0%, rgba(99, 102, 241, 0.6) 50%, rgba(6, 182, 212, 0.15) 80%, transparent 100%)`,
+        reducedMotionGradient: "from-violet-500 via-indigo-500 to-cyan-500",
+      },
+      emerald: {
+        glowBg: "linear-gradient(90deg, #10b981, #06b6d4, #3b82f6, #10b981)",
+        borderGlow: (x: number, y: number) => `radial-gradient(120px circle at ${x}px ${y}px, rgba(16, 185, 129, 0.9) 0%, rgba(6, 182, 212, 0.6) 50%, rgba(59, 130, 246, 0.15) 80%, transparent 100%)`,
+        reducedMotionGradient: "from-emerald-500 via-teal-500 to-blue-500",
+      },
+      amber: {
+        glowBg: "linear-gradient(90deg, #f59e0b, #ef4444, #ec4899, #f59e0b)",
+        borderGlow: (x: number, y: number) => `radial-gradient(120px circle at ${x}px ${y}px, rgba(245, 158, 11, 0.9) 0%, rgba(239, 68, 68, 0.6) 50%, rgba(236, 72, 153, 0.15) 80%, transparent 100%)`,
+        reducedMotionGradient: "from-amber-500 via-red-500 to-pink-500",
+      },
+      rose: {
+        glowBg: "linear-gradient(90deg, #ec4899, #8b5cf6, #d946ef, #ec4899)",
+        borderGlow: (x: number, y: number) => `radial-gradient(120px circle at ${x}px ${y}px, rgba(236, 72, 153, 0.9) 0%, rgba(139, 92, 246, 0.6) 50%, rgba(217, 70, 239, 0.15) 80%, transparent 100%)`,
+        reducedMotionGradient: "from-pink-500 via-purple-500 to-fuchsia-500",
+      },
+      mono: {
+        glowBg: "linear-gradient(90deg, #ffffff, #9ca3af, #374151, #ffffff)",
+        borderGlow: (x: number, y: number) => `radial-gradient(120px circle at ${x}px ${y}px, rgba(255, 255, 255, 0.9) 0%, rgba(156, 163, 175, 0.6) 50%, rgba(55, 65, 81, 0.15) 80%, transparent 100%)`,
+        reducedMotionGradient: "from-white via-zinc-400 to-zinc-700",
+      },
+      sunset: {
+        glowBg: "linear-gradient(90deg, #f43f5e, #eab308, #ec4899, #f43f5e)",
+        borderGlow: (x: number, y: number) => `radial-gradient(120px circle at ${x}px ${y}px, rgba(244, 63, 94, 0.9) 0%, rgba(234, 179, 8, 0.6) 50%, rgba(236, 72, 153, 0.15) 80%, transparent 100%)`,
+        reducedMotionGradient: "from-rose-500 via-yellow-500 to-pink-500",
+      },
+      yellow: {
+        glowBg: "linear-gradient(90deg, #fbbf24, #f59e0b, #eab308, #fbbf24)",
+        borderGlow: (x: number, y: number) => `radial-gradient(120px circle at ${x}px ${y}px, rgba(251, 191, 36, 0.9) 0%, rgba(245, 158, 11, 0.6) 50%, rgba(234, 179, 8, 0.15) 80%, transparent 100%)`,
+        reducedMotionGradient: "from-amber-400 via-yellow-500 to-amber-600",
+      }
+    };
+
+    const activeTheme = THEMES[colorTheme] || THEMES.indigo;
+
     // Spotlight gradient background style
     const spotlightBg = useTransform(
       [springMouseX, springMouseY],
       ([x, y]) => `radial-gradient(140px circle at ${x}px ${y}px, rgba(255, 255, 255, 0.15) 0%, transparent 80%)`
     );
 
-    // Interactive spotlight border gradient (sophisticated violet -> indigo -> cyan)
+    // Interactive spotlight border gradient (driven by active theme)
     const borderSpotlightBg = useTransform(
       [springMouseX, springMouseY],
-      ([x, y]) => `radial-gradient(120px circle at ${x}px ${y}px, rgba(168, 85, 247, 0.9) 0%, rgba(99, 102, 241, 0.6) 50%, rgba(6, 182, 212, 0.15) 80%, transparent 100%)`
+      ([x, y]) => activeTheme.borderGlow(Number(x), Number(y))
     );
 
     const sizeClasses = {
@@ -196,7 +242,7 @@ export const ThreeDTiltShimmerButton = React.forwardRef<
           <motion.div
             className="absolute -inset-3 opacity-0 group-hover:opacity-60 blur-2xl pointer-events-none transition-opacity duration-300"
             style={{
-              background: "linear-gradient(90deg, #a855f7, #6366f1, #06b6d4, #a855f7)",
+              background: activeTheme.glowBg,
               backgroundSize: "300% 300%",
               animation: `tilt-shimmer-rainbow ${glowDuration}s linear infinite`,
               borderRadius: "inherit",
@@ -250,7 +296,10 @@ export const ThreeDTiltShimmerButton = React.forwardRef<
               ) : (
                 <span
                   aria-hidden="true"
-                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-r from-violet-500 via-indigo-500 to-cyan-500"
+                  className={cn(
+                    "absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-r",
+                    activeTheme.reducedMotionGradient
+                  )}
                   style={{ borderRadius: "inherit" }}
                 />
               )}
