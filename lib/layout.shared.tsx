@@ -24,7 +24,7 @@ export function baseOptions(): BaseLayoutProps {
       title: (
         <div className="flex min-w-0 items-center gap-2">
           <Image
-            src="/logo.png"
+            src="/JackUi.png"
             alt="Jack UI logo"
             width={60}
             height={60}

@@ -362,8 +362,8 @@ export default function ComponentGrid() {
 
       // Pass 1: Glowing shadow path (wider, very faint orange)
       ctx.lineWidth = 1.8;
-      ctx.strokeStyle = isDark 
-        ? "rgba(251, 146, 60, 0.025)" 
+      ctx.strokeStyle = isDark
+        ? "rgba(251, 146, 60, 0.025)"
         : "rgba(249, 115, 22, 0.02)";
 
       // Draw horizontal glow
@@ -396,7 +396,7 @@ export default function ComponentGrid() {
 
       // Pass 2: Core line path (thinner, more defined orange)
       ctx.lineWidth = 0.6;
-      
+
       // Horizontal cores
       for (let r = 0; r < rows; r++) {
         ctx.beginPath();
@@ -408,8 +408,8 @@ export default function ComponentGrid() {
             else ctx.lineTo(node.x, node.y);
           }
         }
-        ctx.strokeStyle = isDark 
-          ? "rgba(251, 146, 60, 0.12)" 
+        ctx.strokeStyle = isDark
+          ? "rgba(251, 146, 60, 0.12)"
           : "rgba(249, 115, 22, 0.09)";
         ctx.stroke();
       }
@@ -425,8 +425,8 @@ export default function ComponentGrid() {
             else ctx.lineTo(node.x, node.y);
           }
         }
-        ctx.strokeStyle = isDark 
-          ? "rgba(251, 146, 60, 0.10)" 
+        ctx.strokeStyle = isDark
+          ? "rgba(251, 146, 60, 0.10)"
           : "rgba(249, 115, 22, 0.08)";
         ctx.stroke();
       }
@@ -506,7 +506,7 @@ export default function ComponentGrid() {
         } else {
           color = isDark ? `rgba(251, 113, 133, ${p.opacity})` : `rgba(225, 29, 72, ${p.opacity})`;
         }
-        
+
         ctx.fillStyle = color;
 
         if (p.size > 1.1) {
@@ -530,7 +530,7 @@ export default function ComponentGrid() {
   }, [mounted]);
 
   return (
-    <section 
+    <section
       ref={containerRef}
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
