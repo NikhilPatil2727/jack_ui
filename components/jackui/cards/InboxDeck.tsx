@@ -30,7 +30,7 @@ const DEFAULT_CARDS: [EnvelopeCardData, EnvelopeCardData, EnvelopeCardData, Enve
     },
     {
         id: "c-2",
-        imageUrl: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=800&q=80",
+        imageUrl: "https://images.unsplash.com/photo-1475924156734-496f6cac6ec1?auto=format&fit=crop&w=800&q=80",
     },
     {
         id: "c-3",
