@@ -41,7 +41,7 @@ export interface ThreeDTiltShimmerButtonProps
   showShimmerSweep?: boolean;
   /**
    * Whether to show the pulse dot indicator inside the button.
-   * @default true
+   * @default false
    */
   showPulseDot?: boolean;
   /**
@@ -80,7 +80,7 @@ export const ThreeDTiltShimmerButton = React.forwardRef<
       showRainbowBorder = true,
       showGlow = true,
       showShimmerSweep = true,
-      showPulseDot = true,
+      showPulseDot = false,
       glowDuration = 6,
       shimmerDuration = 2,
       size = "md",
@@ -152,6 +152,12 @@ export const ThreeDTiltShimmerButton = React.forwardRef<
       ([x, y]) => `radial-gradient(140px circle at ${x}px ${y}px, rgba(255, 255, 255, 0.15) 0%, transparent 80%)`
     );
 
+    // Interactive spotlight border gradient (sophisticated violet -> indigo -> cyan)
+    const borderSpotlightBg = useTransform(
+      [springMouseX, springMouseY],
+      ([x, y]) => `radial-gradient(120px circle at ${x}px ${y}px, rgba(168, 85, 247, 0.9) 0%, rgba(99, 102, 241, 0.6) 50%, rgba(6, 182, 212, 0.15) 80%, transparent 100%)`
+    );
+
     const sizeClasses = {
       sm: "px-4 py-2.5 text-xs rounded-xl",
       md: "px-6 py-4 text-sm rounded-2xl",
@@ -188,9 +194,9 @@ export const ThreeDTiltShimmerButton = React.forwardRef<
         {/* Ambient background glow blooming outward on hover (tilts with the button for 3D realism) */}
         {showGlow && !shouldReduceMotion && (
           <motion.div
-            className="absolute -inset-3 opacity-0 group-hover:opacity-60 blur-2xl pointer-events-none"
+            className="absolute -inset-3 opacity-0 group-hover:opacity-60 blur-2xl pointer-events-none transition-opacity duration-300"
             style={{
-              background: "linear-gradient(90deg,#ff4d6d,#ffb84d,#7cff6b,#4dd9ff,#b84dff,#ff4d6d)",
+              background: "linear-gradient(90deg, #a855f7, #6366f1, #06b6d4, #a855f7)",
               backgroundSize: "300% 300%",
               animation: `tilt-shimmer-rainbow ${glowDuration}s linear infinite`,
               borderRadius: "inherit",
@@ -222,16 +228,33 @@ export const ThreeDTiltShimmerButton = React.forwardRef<
           }}
           {...props}
         >
-          {/* Animated Rainbow Border */}
+          {/* Elegant Border (Static subtle border by default, interactive premium glow on hover) */}
           {showRainbowBorder && (
-            <span
-              aria-hidden="true"
-              className="absolute inset-0 bg-[linear-gradient(90deg,#ff4d6d,#ffb84d,#7cff6b,#4dd9ff,#b84dff,#ff4d6d)] bg-[length:300%_300%] opacity-90 transition-opacity duration-300 group-hover:opacity-100"
-              style={{
-                animation: `tilt-shimmer-rainbow ${glowDuration}s linear infinite`,
-                borderRadius: "inherit",
-              }}
-            />
+            <>
+              {/* Subtle glass border shown when not hovered */}
+              <span
+                aria-hidden="true"
+                className="absolute inset-0 bg-white/10 dark:bg-white/5 transition-opacity duration-300 group-hover:opacity-0"
+                style={{ borderRadius: "inherit" }}
+              />
+              {/* Premium Interactive Spotlight Border shown on hover */}
+              {!shouldReduceMotion ? (
+                <motion.span
+                  aria-hidden="true"
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  style={{
+                    background: borderSpotlightBg,
+                    borderRadius: "inherit",
+                  }}
+                />
+              ) : (
+                <span
+                  aria-hidden="true"
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-r from-violet-500 via-indigo-500 to-cyan-500"
+                  style={{ borderRadius: "inherit" }}
+                />
+              )}
+            </>
           )}
 
           {/* Premium Glass/Dark Inner Container */}
