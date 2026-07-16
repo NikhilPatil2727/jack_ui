@@ -9,3 +9,59 @@ import InkFillBtn from "@/components/jackui/buttons/InkFillBtn";
 <Preview link="button/InkFillBtn">
     <InkFillBtn />
 </Preview>
+
+---
+
+### Installation
+
+<Tabs items={["npx", "pnpm", "bun"]}>
+
+```bash tab="npx"
+npx shadcn@latest add https://jack-ui-ten.vercel.app/r/InkFillBtn.json
+```
+
+```bash tab="pnpm"
+pnpm dlx shadcn@latest add https://jack-ui-ten.vercel.app/r/InkFillBtn.json
+```
+
+```bash tab="bun"
+bunx shadcn@latest add https://jack-ui-ten.vercel.app/r/InkFillBtn.json
+```
+
+</Tabs>
+
+The CLI will automatically install the required dependencies and copy the component file into your project at:
+
+```
+components/jackui/buttons/InkFillBtn.tsx
+```
+
+---
+
+### Usage
+
+```tsx
+"use client";
+
+import React from "react";
+import InkFillBtn from "@/components/jackui/buttons/InkFillBtn";
+
+export function InkFillBtnDemo() {
+  return (
+    <div className="flex h-40 w-full items-center justify-center">
+      <InkFillBtn />
+    </div>
+  );
+}
+```
+
+---
+
+### Props
+
+| Prop | Type | Description |
+|------|------|-------------|
+| `children` | `React.ReactNode` | **Optional.** The content to render inside the button. Default: `"Initialize App"`. |
+| `variant` | `"dark" \| "light" \| "coral" \| "neon"` | **Optional.** Sizing variant adjusting the color theme. Default: `"dark"`. |
+| `tag` | `string` | **Optional.** A small text tag displayed alongside the children text. |
+| `...props` | `React.ButtonHTMLAttributes<HTMLButtonElement>` | **Optional.** Any additional standard HTML button element properties (e.g. `onClick`, `disabled`, `className`) can be passed and are spread onto the button. |

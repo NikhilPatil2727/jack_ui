@@ -3,11 +3,11 @@
 import React, { useRef, useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 
-type Variant = "dark" | "light" | "coral" | "neon";
+export type InkFillBtnVariant = "dark" | "light" | "coral" | "neon";
 
-interface InkFillBtnProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-    children?: string;
-    variant?: Variant;
+export interface InkFillBtnProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+    children?: React.ReactNode;
+    variant?: InkFillBtnVariant;
     tag?: string;
 }
 
@@ -24,7 +24,7 @@ interface Particle {
 }
 
 const variantConfig: Record<
-    Variant,
+    InkFillBtnVariant,
     {
         border: string;
         baseText: string;
