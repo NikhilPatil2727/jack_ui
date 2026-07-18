@@ -64,9 +64,15 @@ const DEFAULT_COLORS = [
 ];
 
 /**
- * StarBurstButton — colorful star glyphs explode outward from the exact click point
- * relative to the button. Features clean physics-like trajectories, custom configurations,
- * full ref-forwarding, and system level reduced-motion accessibility.
+ * StarBurstButton
+ *
+ * Colorful star glyphs explode outward from the exact click point
+ * relative to the button. Features clean physics-like trajectories, 
+ * custom configurations, and system level reduced-motion accessibility.
+ *
+ * @author Jack UI
+ * @version 3.0.0
+ *Designe by @Nikhil_PATIL (Jack UI)
  */
 export const StarBurstButton = React.forwardRef<
   HTMLButtonElement,
