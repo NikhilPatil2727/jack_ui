@@ -144,10 +144,14 @@ export const StarBurstButton = React.forwardRef<
       <motion.button
         ref={ref}
         className={cn(
-          "group relative inline-flex items-center justify-center gap-2 px-6 py-2.5 h-[42px]",
-          "text-sm font-medium tracking-wide text-white bg-zinc-950 dark:bg-zinc-900 border border-white/10 rounded-xl cursor-pointer outline-none select-none",
-          "hover:bg-zinc-900 dark:hover:bg-zinc-800 transition-colors duration-150",
-          "disabled:opacity-45 disabled:cursor-not-allowed disabled:transform-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/20 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950",
+          "group relative inline-flex items-center justify-center gap-2 px-8 py-3 h-[48px]",
+          "text-sm font-bold tracking-wide text-zinc-50 cursor-pointer outline-none select-none",
+          "bg-gradient-to-b from-zinc-800 to-zinc-950",
+          "border border-zinc-700/60",
+          "shadow-[inset_0_1px_1px_rgba(255,255,255,0.15),_0_4px_14px_rgba(0,0,0,0.4)]",
+          "transition-all duration-300 ease-out",
+          "hover:shadow-[inset_0_1px_1px_rgba(255,255,255,0.25),_0_6px_20px_rgba(0,0,0,0.5)] hover:border-zinc-500/80 hover:from-zinc-700 hover:to-zinc-900",
+          "disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950",
           className
         )}
         disabled={disabled}

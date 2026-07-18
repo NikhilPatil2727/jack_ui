@@ -9,6 +9,7 @@ import { Preview } from "@/components/mdx/preview";
 import { PreviewClient } from "@/components/mdx/preview-client";
 import { cn } from "@/lib/utils";
 import type { ComponentProps, ComponentType } from "react";
+import StarBurstButton from "@/components/jackui/buttons/star-burst-button";
 
 type DocsPageProps = {
   params: Promise<{
@@ -43,7 +44,7 @@ export default async function Page(props: DocsPageProps) {
       <DocsDescription>{page.data.description}</DocsDescription>
       <DocsBody>
         <MDX
-          components={{...defaultMdxComponents, Tab, Tabs, Preview, PreviewClient}}
+          components={{...defaultMdxComponents, Tab, Tabs, Preview, PreviewClient, StarBurstButton}}
         />
       </DocsBody>
     </DocsPage>
