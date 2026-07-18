@@ -7,5 +7,78 @@ icon: Star
 import StarBurstButton from "@/components/jackui/buttons/star-burst-button";
 
 <Preview link="button/star-burst-button">
-    <StarBurstButton />
+  <StarBurstButton />
 </Preview>
+
+---
+
+### Installation
+
+<Tabs items={["npx", "pnpm", "bun"]}>
+
+```bash tab="npx"
+npx shadcn@latest add https://jack-ui-ten.vercel.app/r/star-burst-button.json
+```
+
+```bash tab="pnpm"
+pnpm dlx shadcn@latest add https://jack-ui-ten.vercel.app/r/star-burst-button.json
+```
+
+```bash tab="bun"
+bunx shadcn@latest add https://jack-ui-ten.vercel.app/r/star-burst-button.json
+```
+
+</Tabs>
+
+The CLI will automatically install the `motion` dependency and copy the component file into your project at:
+
+```
+components/jackui/buttons/star-burst-button.tsx
+```
+
+---
+
+### Usage
+
+```tsx
+"use client";
+
+import React from "react";
+import { StarBurstButton } from "@/components/jackui/buttons/star-burst-button";
+
+export function StarBurstButtonDemo() {
+  const handleSuccess = () => {
+    console.log("Star burst settled!");
+  };
+
+  return (
+    <div className="flex h-40 w-full items-center justify-center">
+      <StarBurstButton onSuccess={handleSuccess}>
+        Claim Reward
+      </StarBurstButton>
+    </div>
+  );
+}
+```
+
+---
+
+### Props
+
+| Prop | Type | Description |
+|------|------|-------------|
+| `glyphs` | `string[]` | **Optional.** The list of glyphs to explode. Default: `["★", "✦", "✧", "✩", "✫", "✬"]`. |
+| `colors` | `string[]` | **Optional.** The pool of colors for the star particles. Default: `["#ff0055", "#00ffcc", "#ffcc00", "#ff3300", "#9933ff", "#33ff00"]`. |
+| `particleCount` | `number` | **Optional.** The number of particles generated per click. Default: Random between `6` and `8`. |
+| `minDuration` | `number` | **Optional.** Minimum duration of a particle animation in milliseconds. Default: `580`. |
+| `maxDuration` | `number` | **Optional.** Maximum duration of a particle animation in milliseconds. Default: `720`. |
+| `onSuccess` | `() => void` | **Optional.** Callback triggered after all explosions in a click settle. |
+| `...props` | `Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "onDrag" \| "onDragStart" \| ...>` | **Optional.** Standard HTML button attributes. |
+
+---
+
+### Notes
+
+- **Dependency**: requires `motion` (`npm install motion`). The CLI installs it automatically.
+- **Accessibility**: Particle layers are hidden from screen readers via `aria-hidden="true"`, and the component respects the `useReducedMotion` hook from Motion. If a user prefers reduced motion, the burst animation is skipped and the `onSuccess` callback runs immediately.
+- **`"use client"`** directive is included — this component requires a browser context for DOM layout calculations (to get the exact click coordinates) and all motion hooks.

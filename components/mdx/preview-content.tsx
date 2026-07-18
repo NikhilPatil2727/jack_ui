@@ -252,7 +252,7 @@ export default function PreviewContent({
                             <StarBurstButton
                                 onClick={handleCopyClick}
                                 disabled={isPending}
-                                className="!rounded-[5px] !h-7 !px-3 !text-xs !bg-black dark:!bg-white !text-white dark:!text-black hover:!bg-black/90 dark:hover:!bg-white/90"
+                                className="!rounded-[5px] !h-7 !px-3 !text-xs"
                             >
                                 {isCopied ? (
                                     <CheckCheck className="h-3.5 w-3.5" />
