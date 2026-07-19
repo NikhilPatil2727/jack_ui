@@ -11,17 +11,17 @@ export interface ThreeDTiltShimmerButtonProps
   > {
   /**
    * Maximum X axis rotation on hover (in degrees).
-   * @default -12
+   * @default 8
    */
   tiltMaxX?: number;
   /**
    * Maximum Y axis rotation on hover (in degrees).
-   * @default 12
+   * @default 24
    */
   tiltMaxY?: number;
   /**
    * The perspective depth in pixels for the 3D effect.
-   * @default 1000
+   * @default 800
    */
   perspective?: number;
   /**
@@ -79,9 +79,9 @@ export const ThreeDTiltShimmerButton = React.forwardRef<
     {
       className,
       children,
-      tiltMaxX = -12,
-      tiltMaxY = 12,
-      perspective = 1000,
+      tiltMaxX = 8,
+      tiltMaxY = 24,
+      perspective = 800,
       showRainbowBorder = true,
       showGlow = true,
       showShimmerSweep = true,
@@ -129,8 +129,8 @@ export const ThreeDTiltShimmerButton = React.forwardRef<
     const handleMouseEnter = () => {
       if (disabled) return;
       setHovered(true);
-      scale.set(1.04);
-      // Tilt to the opposite premium 3D angle immediately on hover
+      scale.set(1.06); // Slightly more scale for premium pop
+      // Distinct right-side tilt
       rotateX.set(tiltMaxX);
       rotateY.set(tiltMaxY);
     };
@@ -154,9 +154,9 @@ export const ThreeDTiltShimmerButton = React.forwardRef<
 
     const THEMES = {
       indigo: {
-        glowBg: "linear-gradient(90deg, #a855f7, #6366f1, #06b6d4, #a855f7)",
-        borderGlow: (x: number, y: number) => `radial-gradient(120px circle at ${x}px ${y}px, rgba(168, 85, 247, 0.9) 0%, rgba(99, 102, 241, 0.6) 50%, rgba(6, 182, 212, 0.15) 80%, transparent 100%)`,
-        reducedMotionGradient: "from-violet-500 via-indigo-500 to-cyan-500",
+        glowBg: "var(--glow-bg, linear-gradient(90deg, #a855f7, #6366f1, #06b6d4, #a855f7))",
+        borderGlow: (x: number, y: number) => `radial-gradient(120px circle at ${x}px ${y}px, var(--border-1, rgba(168, 85, 247, 0.9)) 0%, var(--border-2, rgba(99, 102, 241, 0.6)) 50%, var(--border-3, rgba(6, 182, 212, 0.15)) 80%, transparent 100%)`,
+        reducedMotionGradient: "dark:from-amber-400 dark:via-orange-500 dark:to-rose-500 from-violet-500 via-indigo-500 to-cyan-500",
       },
       emerald: {
         glowBg: "linear-gradient(90deg, #10b981, #06b6d4, #3b82f6, #10b981)",
@@ -205,15 +205,18 @@ export const ThreeDTiltShimmerButton = React.forwardRef<
     );
 
     const sizeClasses = {
-      sm: "px-4 py-2.5 text-xs rounded-xl",
-      md: "px-6 py-4 text-sm rounded-2xl",
-      lg: "px-8 py-5.5 text-base rounded-3xl",
+      sm: "px-4 py-2.5 text-xs rounded-md",
+      md: "px-6 py-4 text-sm rounded-lg",
+      lg: "px-8 py-5.5 text-base rounded-xl",
     };
 
     return (
       <div
         ref={containerRef}
-        className="relative inline-block group select-none"
+        className={cn(
+          "relative inline-block group select-none",
+          `ThreeDTiltShimmerButton-theme-${colorTheme}`
+        )}
         style={{
           perspective: shouldReduceMotion ? undefined : `${perspective}px`,
           transformStyle: "preserve-3d",
@@ -224,7 +227,7 @@ export const ThreeDTiltShimmerButton = React.forwardRef<
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
       >
-        {/* Dynamic Keyframe Animations */}
+        {/* Dynamic Keyframe Animations & Theme Colors */}
         <style>{`
           @keyframes tilt-shimmer-rainbow {
             0% { background-position: 0% 50%; }
@@ -234,6 +237,16 @@ export const ThreeDTiltShimmerButton = React.forwardRef<
           @keyframes tilt-shimmer-sweep {
             0% { left: -120%; }
             100% { left: 220%; }
+          }
+          
+          /* Dark mode override for the default 'indigo' theme */
+          :is(.dark .ThreeDTiltShimmerButton-theme-indigo),
+          :is([data-theme="dark"] .ThreeDTiltShimmerButton-theme-indigo) {
+            /* Premium Liquid Gold / Amber (Avoids stereotypical AI violet/blue) */
+            --glow-bg: linear-gradient(90deg, #fbbf24, #f59e0b, #ea580c, #fbbf24);
+            --border-1: rgba(251, 191, 36, 0.9);
+            --border-2: rgba(245, 158, 11, 0.6);
+            --border-3: rgba(234, 88, 12, 0.15);
           }
         `}</style>
 
@@ -346,12 +359,12 @@ export const ThreeDTiltShimmerButton = React.forwardRef<
             />
           )}
 
-          {/* Inner Content Layer (with physical 3D lift/depth effect) */}
           <span
             className="relative z-10 flex items-center justify-center gap-2 transition-transform duration-300"
             style={{
-              transform: hovered && !shouldReduceMotion ? "translateZ(30px)" : "translateZ(0px)",
+              transform: hovered && !shouldReduceMotion ? "translateZ(45px)" : "translateZ(0px)",
               transformStyle: "preserve-3d",
+              textShadow: hovered ? "0px 10px 20px rgba(0,0,0,0.5)" : "none",
             }}
           >
             {showPulseDot && (
