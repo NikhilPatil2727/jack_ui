@@ -119,7 +119,7 @@ export default function HeroSection() {
                   "blur(0px) drop-shadow(0px 12px 24px rgba(244, 63, 94, 0.45))",
                 transition: { type: "spring", stiffness: 220, damping: 14 },
               }}
-              className="bg-clip-text text-transparent bg-gradient-to-r from-zinc-800 via-zinc-500 to-zinc-800 dark:from-zinc-100 dark:via-zinc-300 dark:to-zinc-100 inline-block origin-center cursor-pointer select-none"
+              className="font-serif italic font-bold tracking-normal pr-1 bg-clip-text text-transparent bg-gradient-to-r from-zinc-800 via-zinc-500 to-zinc-800 dark:from-zinc-100 dark:via-zinc-300 dark:to-zinc-100 inline-block origin-center cursor-pointer select-none"
             >
               Interactive
             </motion.span>
@@ -188,7 +188,7 @@ export default function HeroSection() {
                   "blur(0px) drop-shadow(0px 12px 24px rgba(244, 63, 94, 0.45))",
                 transition: { type: "spring", stiffness: 220, damping: 14 },
               }}
-              className="bg-clip-text text-transparent bg-gradient-to-r from-zinc-800 via-zinc-500 to-zinc-800 dark:from-zinc-100 dark:via-zinc-300 dark:to-zinc-100 inline-block origin-center cursor-pointer select-none"
+              className="font-serif italic font-bold tracking-normal pr-1 bg-clip-text text-transparent bg-gradient-to-r from-zinc-800 via-zinc-500 to-zinc-800 dark:from-zinc-100 dark:via-zinc-300 dark:to-zinc-100 inline-block origin-center cursor-pointer select-none"
             >
               premium
             </motion.span>
