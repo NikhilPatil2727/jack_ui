@@ -78,22 +78,7 @@ export function Header() {
         {/* RIGHT */}
         <div className="flex items-center gap-2">
 
-          {/* Live chip — desktop only */}
-          <div
-            className={cn(
-              "hidden sm:flex items-center gap-2 rounded-full border px-3 py-1.5 text-[11.5px]",
-              "border-black/[0.07] bg-black/[0.02] text-black/35 dark:border-white/[0.07] dark:bg-white/[0.02] dark:text-white/35"
-            )}
-          >
-            <PulseDot />
-            Updated weekly
-          </div>
 
-          {/* Divider — desktop only */}
-          <div
-            className={cn("hidden sm:block h-5 w-px mx-0.5", "bg-black/[0.07] dark:bg-white/[0.07]")}
-            aria-hidden
-          />
 
           {/* Theme toggle */}
           <button
