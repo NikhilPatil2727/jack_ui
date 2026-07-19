@@ -28,7 +28,9 @@ export function baseOptions(): BaseLayoutProps {
             alt="Jack UI logo"
             width={60}
             height={60}
-            className="size-10 rounded-md"
+            className="size-10 rounded-md object-cover"
+            priority
+            unoptimized
           />
           <span className="truncate text-lg font-bold tracking-tight text-black dark:text-white">
             JackUI

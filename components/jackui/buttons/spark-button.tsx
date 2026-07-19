@@ -97,7 +97,7 @@ export function SparkButton({
     if (disabled) return;
     setHovered(true);
     scanY.set(-20);
-    animate(scanY, 72, { duration: 0.5, ease: [0.22, 1, 0.36, 1] });
+    animate(scanY, 58, { duration: 0.5, ease: [0.22, 1, 0.36, 1] });
   }, [scanY, disabled]);
 
   const handleMouseLeave = useCallback(() => {
@@ -203,7 +203,7 @@ export function SparkButton({
     >
       {/* ── Animated violet gradient border ring ── */}
       <motion.div
-        className="absolute -inset-[1px] rounded-[13px] pointer-events-none"
+        className="absolute -inset-[1px] rounded-[10px] pointer-events-none"
         style={{
           background:
             "linear-gradient(135deg, #7c3aed, #a855f7, #e879f9, #c084fc, #7c3aed)",
@@ -228,7 +228,7 @@ export function SparkButton({
 
       {/* ── Outer violet glow bloom ── */}
       <motion.div
-        className="absolute -inset-3 rounded-[16px] pointer-events-none blur-xl"
+        className="absolute -inset-3 rounded-[21px] pointer-events-none blur-xl"
         style={{
           background:
             "radial-gradient(ellipse at 50% 50%, rgba(168,85,247,0.35) 0%, transparent 70%)",
@@ -259,7 +259,7 @@ export function SparkButton({
       {/* ── Spark canvas ── */}
       <canvas
         ref={canvasRef}
-        className="absolute inset-0 pointer-events-none z-50 rounded-[11px] w-full h-full mix-blend-screen"
+        className="absolute inset-0 pointer-events-none z-50 rounded-[9px] w-full h-full mix-blend-screen"
         aria-hidden="true"
       />
 
@@ -281,7 +281,7 @@ export function SparkButton({
         transition={{ type: "spring", stiffness: 420, damping: 28 }}
         className={cn(
           // Shape
-          "relative group isolate w-[200px] h-[52px] rounded-[11px] select-none overflow-hidden outline-none cursor-pointer",
+          "relative group isolate w-fit px-3 h-[38px] rounded-[9px] select-none overflow-hidden outline-none cursor-pointer",
           // Disabled
           "disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none",
           // Focus
@@ -359,7 +359,7 @@ export function SparkButton({
         />
 
         {/* ── Label ── */}
-        <span className="relative z-10 flex items-center justify-center gap-3">
+        <span className="relative z-10 flex items-center justify-center gap-1.5">
 
           {/* Left violet spark bars */}
           <motion.span
@@ -401,7 +401,7 @@ export function SparkButton({
             style={{
               fontFamily: "var(--font-mono, ui-monospace, monospace)",
             }}
-            className="text-[12.5px] font-[600] tracking-[0.2em] uppercase"
+            className="text-[11.5px] font-[600] tracking-[0.1em] uppercase"
             animate={{
               color: fired
                 ? "#f5f3ff"
