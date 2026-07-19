@@ -14,7 +14,7 @@ export function BrowseBlocksButton() {
     return (
         <Link
             id="browse-blocks-button"
-            href="https://kokonutui.pro/templates"
+            href="/docs"
             className="group flex items-center"
         >
             <motion.div

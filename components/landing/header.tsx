@@ -51,7 +51,9 @@ export function Header() {
               alt="Jack UI logo"
               width={44}
               height={44}
-              className="h-[44px] w-[44px] rounded-[8px]"
+              className="h-[44px] w-[44px] rounded-[8px] object-cover"
+              priority
+              unoptimized
             />
             <span
               className={cn(
