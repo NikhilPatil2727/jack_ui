@@ -265,4 +265,15 @@ export const component: Registry = [
             },
         ],
     },
+    {
+        name: "dock",
+        type: "registry:component",
+        dependencies: ["motion", "lucide-react"],
+        files: [
+            {
+                path: "components/jackui/dock/animated-dock-demo.tsx",
+                type: "registry:component",
+            },
+        ],
+    },
 ];

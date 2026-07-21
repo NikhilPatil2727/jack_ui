@@ -21,8 +21,10 @@ import {
   useTransform,
   AnimatePresence,
   useReducedMotion,
-  Transition
+  Transition,
+  HTMLMotionProps
 } from "motion/react";
+import Link from "next/link";
 import { cn } from "@/lib/utils";
 import {
   Home,
@@ -42,7 +44,7 @@ type DockContextValue = {
 
 const DockContext = createContext<DockContextValue | null>(null);
 
-export interface DockProps {
+export interface DockProps extends HTMLMotionProps<any> {
   children: React.ReactNode;
   className?: string;
   distance?: number;
@@ -55,6 +57,7 @@ export function Dock({
   children,
   className,
   distance = 150,
+  ...rest
 }: DockProps) {
   const mouseX = useMotionValue(Infinity);
   const pillLayoutId = useId();
@@ -69,6 +72,7 @@ export function Dock({
           "relative mx-auto flex h-auto w-max items-end gap-3 rounded-2xl border border-black/[0.05] dark:border-white/[0.05] bg-gradient-to-b from-white/80 to-neutral-50/90 dark:from-neutral-950/80 dark:to-black/90 px-6 py-4 shadow-[0_30px_60px_-20px_rgba(0,0,0,0.1),inset_0_1px_1px_rgba(255,255,255,0.4)] dark:shadow-[0_30px_60px_-20px_rgba(0,0,0,1),inset_0_1px_1px_rgba(255,255,255,0.05)] backdrop-blur-3xl",
           className
         )}
+        {...rest}
       >
         {children}
       </motion.div>
@@ -76,7 +80,7 @@ export function Dock({
   );
 }
 
-export interface DockItemProps {
+export interface DockItemProps extends HTMLMotionProps<any> {
   children: React.ReactNode;
   className?: string;
   onClick?: () => void;
@@ -161,7 +165,7 @@ export function DockItem({
             animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
             exit={{ opacity: 0, y: 10, scale: 0.8, filter: "blur(4px)" }}
             transition={{ type: "spring", mass: 0.1, stiffness: 250, damping: 20 }}
-            className="absolute -top-14 z-50 whitespace-nowrap rounded-md border border-black/[0.1] dark:border-white/[0.1] bg-white/90 dark:bg-white/[0.05] px-2.5 py-1 text-xs font-medium text-neutral-800 dark:text-neutral-100 shadow-[0_8px_16px_rgba(0,0,0,0.1)] dark:shadow-[0_8px_16px_rgba(0,0,0,0.6)] backdrop-blur-xl pointer-events-none"
+            className="absolute -top-20 z-50 whitespace-nowrap rounded-md border border-black/[0.1] dark:border-white/[0.1] bg-white/90 dark:bg-white/[0.05] px-2.5 py-1 text-xs font-medium text-neutral-800 dark:text-neutral-100 shadow-[0_8px_16px_rgba(0,0,0,0.1)] dark:shadow-[0_8px_16px_rgba(0,0,0,0.6)] backdrop-blur-xl pointer-events-none"
           >
             {label}
           </motion.div>
@@ -214,9 +218,13 @@ export function DockItem({
   );
 }
 
-export function DockSeparator({ className }: { className?: string }) {
+export interface DockSeparatorProps extends React.HTMLAttributes<HTMLDivElement> {
+  className?: string;
+}
+
+export function DockSeparator({ className, ...rest }: DockSeparatorProps) {
   return (
-    <div className="relative flex flex-col items-center group h-11 justify-end pb-2">
+    <div className="relative flex flex-col items-center group h-11 justify-end pb-2" {...rest}>
       <span
         aria-hidden
         className={cn("mx-2 h-6 w-[1px] bg-black/[0.1] dark:bg-white/[0.06] rounded-full", className)}
@@ -231,30 +239,44 @@ export default function AnimatedDockDemo() {
   return (
     <div className="flex h-[400px] w-full items-center justify-center">
       <Dock>
-        <DockItem label="Home" active={active === "home"} onClick={() => setActive("home")}>
-          <Home className="h-5 w-5" />
-        </DockItem>
-        <DockItem label="Messages" active={active === "messages"} onClick={() => setActive("messages")}>
-          <Mail className="h-5 w-5" />
-        </DockItem>
-        <DockItem label="Calendar" active={active === "calendar"} onClick={() => setActive("calendar")}>
-          <Calendar className="h-5 w-5" />
-        </DockItem>
-        <DockItem label="Music" active={active === "music"} onClick={() => setActive("music")}>
-          <Music className="h-5 w-5" />
-        </DockItem>
-        <DockItem label="AI Magic" active={active === "magic"} onClick={() => setActive("magic")}>
-          <Sparkles className="h-5 w-5" />
-        </DockItem>
+        <Link href="#">
+          <DockItem label="Home" active={active === "home"} onClick={() => setActive("home")}>
+            <Home className="h-5 w-5" />
+          </DockItem>
+        </Link>
+        <Link href="#">
+          <DockItem label="Messages" active={active === "messages"} onClick={() => setActive("messages")}>
+            <Mail className="h-5 w-5" />
+          </DockItem>
+        </Link>
+        <Link href="#">
+          <DockItem label="Calendar" active={active === "calendar"} onClick={() => setActive("calendar")}>
+            <Calendar className="h-5 w-5" />
+          </DockItem>
+        </Link>
+        <Link href="#">
+          <DockItem label="Music" active={active === "music"} onClick={() => setActive("music")}>
+            <Music className="h-5 w-5" />
+          </DockItem>
+        </Link>
+        <Link href="#">
+          <DockItem label="AI Magic" active={active === "magic"} onClick={() => setActive("magic")}>
+            <Sparkles className="h-5 w-5" />
+          </DockItem>
+        </Link>
 
         <DockSeparator />
 
-        <DockItem label="Settings" active={active === "settings"} onClick={() => setActive("settings")}>
-          <Settings className="h-5 w-5" />
-        </DockItem>
-        <DockItem label="Profile" active={active === "profile"} onClick={() => setActive("profile")}>
-          <User className="h-5 w-5" />
-        </DockItem>
+        <Link href="#">
+          <DockItem label="Settings" active={active === "settings"} onClick={() => setActive("settings")}>
+            <Settings className="h-5 w-5" />
+          </DockItem>
+        </Link>
+        <Link href="#">
+          <DockItem label="Profile" active={active === "profile"} onClick={() => setActive("profile")}>
+            <User className="h-5 w-5" />
+          </DockItem>
+        </Link>
       </Dock>
     </div>
   );

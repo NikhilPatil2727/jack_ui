@@ -26,6 +26,7 @@ This component is a fundamental departure from the traditional flat macOS clone.
 import React, { useState } from "react";
 import { Dock, DockItem, DockSeparator } from "@/components/jackui/dock/animated-dock-demo";
 import { Home, Mail, Settings } from "lucide-react";
+import Link from "next/link";
 
 export default function DockDemo() {
   const [active, setActive] = useState("home");
@@ -33,30 +34,36 @@ export default function DockDemo() {
   return (
     <div className="flex h-[400px] w-full items-center justify-center">
       <Dock>
-        <DockItem
-          label="Home"
-          active={active === "home"}
-          onClick={() => setActive("home")}
-        >
-          <Home className="h-5 w-5" />
-        </DockItem>
-        <DockItem
-          label="Messages"
-          active={active === "messages"}
-          onClick={() => setActive("messages")}
-        >
-          <Mail className="h-5 w-5" />
-        </DockItem>
+        <Link href="#">
+          <DockItem
+            label="Home"
+            active={active === "home"}
+            onClick={() => setActive("home")}
+          >
+            <Home className="h-5 w-5" />
+          </DockItem>
+        </Link>
+        <Link href="#">
+          <DockItem
+            label="Messages"
+            active={active === "messages"}
+            onClick={() => setActive("messages")}
+          >
+            <Mail className="h-5 w-5" />
+          </DockItem>
+        </Link>
         
         <DockSeparator />
         
-        <DockItem
-          label="Settings"
-          active={active === "settings"}
-          onClick={() => setActive("settings")}
-        >
-          <Settings className="h-5 w-5" />
-        </DockItem>
+        <Link href="#">
+          <DockItem
+            label="Settings"
+            active={active === "settings"}
+            onClick={() => setActive("settings")}
+          >
+            <Settings className="h-5 w-5" />
+          </DockItem>
+        </Link>
       </Dock>
     </div>
   );
