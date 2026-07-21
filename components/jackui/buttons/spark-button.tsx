@@ -41,14 +41,20 @@ const SPARK_COLORS = [
 ];
 
 /**
- * SparkButton
- *
- * Premium black button with animated violet gradient border ring,
- * purple heat shimmer, violet scanline sweep, and canvas spark burst.
- *
- * @author Jack UI
- * @version 3.0.0
- *Designe by @Nikhil_PATIL (Jack UI)
+ * @component
+ * @name Spark Button
+ * @author Jack UI (@Nikhil_PATIL)
+ * @description A premium, highly interactive black button with an animated violet gradient border ring, purple heat shimmer, violet scanline sweep, and a dynamic canvas spark burst on click.
+ * 
+ * Use Cases:
+ * - Hero Sections: Perfect for the primary Call-To-Action (CTA) in a dark-themed hero section where you want to instantly grab the user's attention.
+ * - Feature Sections: Great for "Unlock Pro" or "Get Started" buttons within feature comparison grids.
+ * - High-Intent Actions: Use it for the final "Submit" or "Checkout" button to provide a satisfying, tactile reward (the spark burst) upon completion.
+ * 
+ * Features:
+ * - Fully GPU-accelerated Framer Motion animations.
+ * - Custom HTML5 Canvas particle system for the spark burst.
+ * - Magnetic pull effect on hover for enhanced interactivity.
  */
 export function SparkButton({
   className,

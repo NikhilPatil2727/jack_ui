@@ -1,0 +1,108 @@
+---
+title: Spatial 3D Dock
+description: An ultra-premium, market-first 3D Spatial Dock featuring cover-flow physics, domino-flip interactions, and GPU-accelerated transforms.
+icon: Layers
+---
+
+## Preview
+
+import AnimatedDockDemo from "@/components/jackui/dock/animated-dock-demo";
+
+<Preview link="components/dock" height="450px">
+    <AnimatedDockDemo />
+</Preview>
+
+### Use Cases (For MCP & AI Integration)
+
+This component is a fundamental departure from the traditional flat macOS clone. It utilizes 3D hardware acceleration (`preserve-3d`) to create a physical, tactile interaction that elevates any interface. Here is exactly when you should use this component:
+
+- **Floating Navigation:** Perfect for bottom-anchored navigation bars when you want to deliver a serious "wow" factor with an understated, spatial design.
+- **Web App Toolbars:** Use it in complex web applications (like photo editors, canvas tools, or AI generation dashboards) to house primary actions in a highly engaging format.
+- **Premium Hero Sections:** Great for showcasing social links or quick contact actions in a visually stunning way that encourages user interaction.
+
+---
+
+```tsx
+import React, { useState } from "react";
+import { Dock, DockItem, DockSeparator } from "@/components/jackui/dock/animated-dock-demo";
+import { Home, Mail, Settings } from "lucide-react";
+import Link from "next/link";
+
+export default function DockDemo() {
+  const [active, setActive] = useState("home");
+
+  return (
+    <div className="flex h-[400px] w-full items-center justify-center">
+      <Dock>
+        <Link href="#">
+          <DockItem
+            label="Home"
+            active={active === "home"}
+            onClick={() => setActive("home")}
+          >
+            <Home className="h-5 w-5" />
+          </DockItem>
+        </Link>
+        <Link href="#">
+          <DockItem
+            label="Messages"
+            active={active === "messages"}
+            onClick={() => setActive("messages")}
+          >
+            <Mail className="h-5 w-5" />
+          </DockItem>
+        </Link>
+        
+        <DockSeparator />
+        
+        <Link href="#">
+          <DockItem
+            label="Settings"
+            active={active === "settings"}
+            onClick={() => setActive("settings")}
+          >
+            <Settings className="h-5 w-5" />
+          </DockItem>
+        </Link>
+      </Dock>
+    </div>
+  );
+}
+```
+
+## Installation
+
+Ensure you have the required dependencies installed:
+
+```bash
+npm install motion lucide-react clsx tailwind-merge
+```
+
+Copy the component code into your project at `@/components/jackui/dock/animated-dock-demo.tsx`.
+
+## Props
+
+### Dock
+
+| Prop | Type | Description |
+| :--- | :--- | :--- |
+| `children` | `React.ReactNode` | Required. The dock items and separators. |
+| `className` | `string` | Optional. Additional CSS classes for the dock container. |
+| `distance` | `number` | Optional. The interaction radius (in pixels) for the 3D spatial effect. Defaults to `150`. |
+
+### DockItem
+
+| Prop | Type | Description |
+| :--- | :--- | :--- |
+| `children` | `React.ReactNode` | Required. The content or icon of the dock item. |
+| `className` | `string` | Optional. Additional CSS classes for the dock item. |
+| `onClick` | `() => void` | Optional. Callback function when the item is clicked. |
+| `active` | `boolean` | Optional. Whether the item is currently active (shows an indicator pill/dot). |
+| `label` | `string` | Optional. Tooltip label to show on hover above the item. |
+| `...rest` | `{[key: string]: any}` | Optional. Any other standard HTML attributes are spread to the underlying component. |
+
+### DockSeparator
+
+| Prop | Type | Description |
+| :--- | :--- | :--- |
+| `className` | `string` | Optional. Additional CSS classes for the separator line. |
