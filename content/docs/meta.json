@@ -31,7 +31,7 @@
     "blocks/auth-basic",
    
     "---Components---",
-
+    "components/dock",
     "components/buttons",
     "components/card",
     "components/svg-animations",
