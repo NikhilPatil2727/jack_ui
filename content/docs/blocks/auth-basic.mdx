@@ -1,6 +1,6 @@
 ---
-title: Sign in
-description: Basic Sign in Card
+title: Auth Basic
+description: A modern, responsive authentication card block featuring custom branding, optional social login providers, ambient dot matrix pattern, and dark mode support.
 icon: LogIn
 full: true
 ---
@@ -10,3 +10,55 @@ import AuthBasic from "@/components/jackui/blocks/auth-basic/auth-basic";
 <Preview link="blocks/auth-basic/auth-basic" isBlock>
     <AuthBasic />
 </Preview>
+
+---
+
+### Usage
+
+```tsx
+import AuthBasic from "@/components/jackui/blocks/auth-basic/auth-basic";
+
+export default function AuthPage() {
+  return (
+    <AuthBasic
+      brandName="Jack UI"
+      showSocialLogin={true}
+    />
+  );
+}
+```
+
+---
+
+### Installation
+
+<Tabs items={["npx", "pnpm", "bun"]}>
+
+```bash tab="npx"
+npx shadcn@latest add https://jack-ui-ten.vercel.app/r/auth-basic.json
+```
+
+```bash tab="pnpm"
+pnpm dlx shadcn@latest add https://jack-ui-ten.vercel.app/r/auth-basic.json
+```
+
+```bash tab="bun"
+bunx shadcn@latest add https://jack-ui-ten.vercel.app/r/auth-basic.json
+```
+
+</Tabs>
+
+---
+
+### Props
+
+| Prop | Type | Description |
+|---|---|---|
+| `brandName` | `string` | **Optional.** The brand title displayed in the header badge. Default: `"Jack UI"`. |
+| `logo` | `React.ReactNode` | **Optional.** Custom logo React element. If omitted, renders a default clean shield badge. |
+| `dotColorLight` | `string` | **Optional.** Border and grid dot matrix color for light mode. Default: `"rgba(0, 0, 0, 0.22)"`. |
+| `dotColorDark` | `string` | **Optional.** Border and grid dot matrix color for dark mode. Default: `"rgba(255, 255, 255, 0.35)"`. |
+| `showSocialLogin` | `boolean` | **Optional.** Toggles display of social auth provider buttons (Google, GitHub). Default: `true`. |
+| `className` | `string` | **Optional.** Additional Tailwind CSS classes (e.g. background override, full width/height). |
+| `style` | `React.CSSProperties` | **Optional.** Inline CSS styles (custom background gradients, full viewport sizing). |
+| `...props` | `React.ComponentPropsWithoutRef<"div">` | **Optional.** Any extra HTML `div` attributes spread onto the outer container. |

@@ -31,7 +31,7 @@ export default function AuthBasic({
 
     return (
         <div 
-            className={`relative flex min-h-[680px] w-full items-center justify-center p-6 md:p-16 bg-[#f8f9fc] dark:bg-[#09090b] overflow-hidden rounded-[2.5rem] select-none font-mono ${instanceClass} ${className || ""}`}
+            className={`relative flex min-h-[680px] h-full w-full items-center justify-center p-6 md:p-16 bg-[#f8f9fc] dark:bg-[#09090b] overflow-hidden rounded-[2.5rem] select-none font-mono ${instanceClass} ${className || ""}`}
             style={style}
             {...props}
         >
@@ -70,14 +70,12 @@ export default function AuthBasic({
                 
                 {/* Header: Brand Identity */}
                 <div className="flex items-center gap-3.5 mb-8">
-                    {/* Custom geometric logo badge */}
+                    {/* Custom logo or sleek default shield brand badge */}
                     {logo ?? (
                         <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-neutral-900 dark:bg-neutral-100 text-white dark:text-neutral-950 shadow-md">
-                            <svg className="h-5.5 w-5.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                                {/* Sleek interlocking J and U symbol */}
-                                <path d="M7 3h10v4H7z" />
-                                <path d="M12 7v10a3 3 0 0 1-3 3" />
-                                <path d="M17 7v7a3 3 0 0 1-3 3h-2" />
+                            <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                                <rect x="9" y="11" width="6" height="4" rx="1" />
                             </svg>
                         </div>
                     )}
@@ -85,8 +83,8 @@ export default function AuthBasic({
                         <h2 className="text-base font-bold tracking-tight text-neutral-900 dark:text-white">
                             {brandName}
                         </h2>
-                        <span className="text-[8px] text-neutral-400 dark:text-neutral-500 uppercase tracking-widest font-mono">
-                            Component v2.1
+                        <span className="text-[10px] text-neutral-400 dark:text-neutral-500 font-mono">
+                            Secure Login
                         </span>
                     </div>
                 </div>
