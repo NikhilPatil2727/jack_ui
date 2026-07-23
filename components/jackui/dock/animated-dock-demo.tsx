@@ -165,7 +165,7 @@ export function DockItem({
             animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
             exit={{ opacity: 0, y: 5, scale: 0.8, filter: "blur(4px)" }}
             transition={{ type: "spring", mass: 0.1, stiffness: 250, damping: 20 }}
-            className="absolute -top-16 z-50 whitespace-nowrap rounded-md border border-black/[0.1] dark:border-white/[0.1] bg-white/90 dark:bg-white/[0.05] px-2 py-0.5 text-[11px] font-medium text-neutral-800 dark:text-neutral-100 shadow-[0_8px_16px_rgba(0,0,0,0.1)] dark:shadow-[0_8px_16px_rgba(0,0,0,0.6)] backdrop-blur-xl pointer-events-none"
+            className="absolute -top-18 z-50 whitespace-nowrap rounded-md border border-black/[0.1] dark:border-white/[0.1] bg-white/90 dark:bg-white/[0.05] px-2 py-0.5 text-[11px] font-medium text-neutral-800 dark:text-neutral-100 shadow-[0_8px_16px_rgba(0,0,0,0.1)] dark:shadow-[0_8px_16px_rgba(0,0,0,0.6)] backdrop-blur-xl pointer-events-none"
           >
             {label}
           </motion.div>
