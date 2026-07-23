@@ -50,6 +50,16 @@ const NeuralCircuitOrchestrator = dynamic(() => import("@/components/jackui/svga
   loading: () => <div className="w-full h-full bg-zinc-100/50 dark:bg-zinc-800/20 animate-pulse rounded-xl" />
 });
 
+const AnimatedDockDemo = dynamic(() => import("@/components/jackui/dock/animated-dock-demo"), {
+  ssr: false,
+  loading: () => <div className="w-full h-full bg-zinc-100/50 dark:bg-zinc-800/20 animate-pulse rounded-xl" />
+});
+
+const PremiumTerminal = dynamic(() => import("@/components/jackui/terminal"), {
+  ssr: false,
+  loading: () => <div className="w-full h-full bg-zinc-100/50 dark:bg-zinc-800/20 animate-pulse rounded-xl" />
+});
+
 interface ComponentItem {
   id: string;
   name: string;
@@ -217,6 +227,38 @@ const componentsList: ComponentItem[] = [
               <StarBurstButton />
               <span className="text-[10px] text-zinc-400 dark:text-zinc-500 mt-3">Click to trigger star particles</span>
             </>
+          )}
+        </LazyViewport>
+      </div>
+    ),
+  },
+  {
+    id: "spatial-3d-dock",
+    name: "Spatial 3D Dock",
+    category: "Components",
+    preview: () => (
+      <div className="relative w-full h-[180px] flex items-center justify-center overflow-hidden bg-zinc-50 dark:bg-zinc-950 rounded-xl select-none">
+        <LazyViewport placeholder={<div className="w-full h-full bg-zinc-100/50 dark:bg-zinc-800/20 animate-pulse rounded-xl" />}>
+          {() => (
+            <div className="absolute scale-[0.6] origin-center translate-y-12">
+              <AnimatedDockDemo />
+            </div>
+          )}
+        </LazyViewport>
+      </div>
+    ),
+  },
+  {
+    id: "interactive-terminal",
+    name: "Interactive Terminal",
+    category: "Components",
+    preview: () => (
+      <div className="relative w-full h-[180px] flex items-center justify-center overflow-hidden bg-zinc-50 dark:bg-zinc-950 rounded-xl select-none pointer-events-none">
+        <LazyViewport placeholder={<div className="w-full h-full bg-zinc-100/50 dark:bg-zinc-800/20 animate-pulse rounded-xl" />}>
+          {() => (
+            <div className="absolute w-[600px] scale-[0.38] origin-center translate-y-2">
+              <PremiumTerminal />
+            </div>
           )}
         </LazyViewport>
       </div>

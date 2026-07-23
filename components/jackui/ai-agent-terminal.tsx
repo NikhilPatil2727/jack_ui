@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect, useRef, useCallback, forwardRef, useMemo } from "react";
 import { cn } from "@/lib/utils";
-import { Copy, Check, RotateCcw, Play, Pause } from "lucide-react";
 import { motion } from "motion/react";
 
 export interface ActivityItem {
@@ -55,8 +54,7 @@ const AiAgentTerminal = forwardRef<HTMLDivElement, AiAgentTerminalProps>(
     const [mounted, setMounted] = useState(false);
     const [typedInput, setTypedInput] = useState("");
     const [isTyping, setIsTyping] = useState(true);
-    const [isPlaying, setIsPlaying] = useState(autoPlay);
-    const [copied, setCopied] = useState(false);
+    const [isPlaying] = useState(autoPlay);
 
     // Mouse tracking for dynamic glassmorphic lighting
     const containerRef = useRef<HTMLDivElement>(null);
@@ -75,19 +73,6 @@ const AiAgentTerminal = forwardRef<HTMLDivElement, AiAgentTerminalProps>(
         x: e.clientX - rect.left,
         y: e.clientY - rect.top
       });
-    }, []);
-
-    const handleCopy = useCallback(async () => {
-      await navigator.clipboard.writeText(commandToType);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    }, [commandToType]);
-
-    const handleRestart = useCallback(() => {
-      setIsPlaying(false);
-      setTypedInput("");
-      setIsTyping(true);
-      setTimeout(() => setIsPlaying(true), 100);
     }, []);
 
     // Main typewriter loop animation
@@ -300,36 +285,6 @@ const AiAgentTerminal = forwardRef<HTMLDivElement, AiAgentTerminalProps>(
               {/* Header Title Bar */}
               <div className="relative flex items-center justify-between px-5 py-4 bg-[#08080A]/85 border-b border-white/[0.04] z-10">
                 {headerControls}
-
-                {/* Utility Actions */}
-                <div className="flex items-center justify-end gap-1.5">
-                  <motion.button
-                    whileTap={{ scale: 0.92 }}
-                    onClick={() => setIsPlaying(!isPlaying)}
-                    aria-label={isPlaying ? "Pause execution" : "Resume execution"}
-                    className="p-1.5 rounded-md text-[#8a8a7a] hover:text-zinc-200 hover:bg-white/[0.06] transition-colors focus:outline-none focus:ring-1 focus:ring-violet-500/50 cursor-pointer"
-                  >
-                    {isPlaying ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5" />}
-                  </motion.button>
-                  
-                  <motion.button
-                    whileTap={{ scale: 0.92 }}
-                    onClick={handleRestart}
-                    aria-label="Restart sequence"
-                    className="p-1.5 rounded-md text-[#8a8a7a] hover:text-zinc-200 hover:bg-white/[0.06] transition-colors focus:outline-none focus:ring-1 focus:ring-violet-500/50 cursor-pointer"
-                  >
-                    <RotateCcw className="w-3.5 h-3.5" />
-                  </motion.button>
-
-                  <motion.button
-                    whileTap={{ scale: 0.92 }}
-                    onClick={handleCopy}
-                    aria-label="Copy command"
-                    className="p-1.5 rounded-md text-[#8a8a7a] hover:text-zinc-200 hover:bg-white/[0.06] transition-colors focus:outline-none focus:ring-1 focus:ring-violet-500/50 cursor-pointer"
-                  >
-                    {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-                  </motion.button>
-                </div>
               </div>
 
               {/* Console Area */}
