@@ -31,7 +31,6 @@ import {
   Mail,
   Calendar,
   Music,
-  Sparkles,
   Settings,
   User
 } from "lucide-react";
@@ -257,11 +256,6 @@ export default function AnimatedDockDemo() {
         <Link href="#">
           <DockItem label="Music" active={active === "music"} onClick={() => setActive("music")}>
             <Music className="h-4.5 w-4.5" />
-          </DockItem>
-        </Link>
-        <Link href="#">
-          <DockItem label="AI Magic" active={active === "magic"} onClick={() => setActive("magic")}>
-            <Sparkles className="h-4.5 w-4.5" />
           </DockItem>
         </Link>
 
