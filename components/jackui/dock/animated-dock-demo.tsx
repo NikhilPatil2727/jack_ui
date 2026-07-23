@@ -69,7 +69,7 @@ export function Dock({
         onMouseLeave={() => mouseX.set(Infinity)}
         style={{ perspective: 1200 }}
         className={cn(
-          "relative mx-auto flex h-auto w-max items-end gap-3 rounded-2xl border border-black/[0.05] dark:border-white/[0.05] bg-gradient-to-b from-white/80 to-neutral-50/90 dark:from-neutral-950/80 dark:to-black/90 px-6 py-4 shadow-[0_30px_60px_-20px_rgba(0,0,0,0.1),inset_0_1px_1px_rgba(255,255,255,0.4)] dark:shadow-[0_30px_60px_-20px_rgba(0,0,0,1),inset_0_1px_1px_rgba(255,255,255,0.05)] backdrop-blur-3xl",
+          "relative mx-auto flex h-auto w-max items-end gap-2.5 rounded-xl border border-neutral-200/80 dark:border-white/[0.08] bg-gradient-to-b from-white/80 to-neutral-50/90 dark:from-neutral-950/80 dark:to-neutral-900/90 px-4 py-2.5 shadow-[0_24px_48px_-12px_rgba(0,0,0,0.08),0_4px_12px_-4px_rgba(0,0,0,0.04),inset_0_1px_1px_rgba(255,255,255,0.5)] dark:shadow-[0_30px_60px_-20px_rgba(0,0,0,0.8),0_0_40px_rgba(255,255,255,0.03),inset_0_1px_1.5px_rgba(255,255,255,0.15)] ring-1 ring-white/50 dark:ring-transparent backdrop-blur-3xl",
           className
         )}
         {...rest}
@@ -161,11 +161,11 @@ export function DockItem({
       <AnimatePresence>
         {hovered && label && (
           <motion.div
-            initial={{ opacity: 0, y: 15, scale: 0.8, filter: "blur(8px)" }}
+            initial={{ opacity: 0, y: 10, scale: 0.8, filter: "blur(8px)" }}
             animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
-            exit={{ opacity: 0, y: 10, scale: 0.8, filter: "blur(4px)" }}
+            exit={{ opacity: 0, y: 5, scale: 0.8, filter: "blur(4px)" }}
             transition={{ type: "spring", mass: 0.1, stiffness: 250, damping: 20 }}
-            className="absolute -top-20 z-50 whitespace-nowrap rounded-md border border-black/[0.1] dark:border-white/[0.1] bg-white/90 dark:bg-white/[0.05] px-2.5 py-1 text-xs font-medium text-neutral-800 dark:text-neutral-100 shadow-[0_8px_16px_rgba(0,0,0,0.1)] dark:shadow-[0_8px_16px_rgba(0,0,0,0.6)] backdrop-blur-xl pointer-events-none"
+            className="absolute -top-16 z-50 whitespace-nowrap rounded-md border border-black/[0.1] dark:border-white/[0.1] bg-white/90 dark:bg-white/[0.05] px-2 py-0.5 text-[11px] font-medium text-neutral-800 dark:text-neutral-100 shadow-[0_8px_16px_rgba(0,0,0,0.1)] dark:shadow-[0_8px_16px_rgba(0,0,0,0.6)] backdrop-blur-xl pointer-events-none"
           >
             {label}
           </motion.div>
@@ -188,9 +188,9 @@ export function DockItem({
         }}
         whileTap={{ scale: 0.85, z: 20 }}
         className={cn(
-          "relative flex shrink-0 items-center justify-center rounded-xl border border-black/[0.1] dark:border-white/[0.15] bg-white/50 dark:bg-neutral-900/50 shadow-xl transition-colors duration-300 backdrop-blur-md",
-          "h-11 w-11",
-          hovered && "border-black/[0.2] dark:border-white/[0.3] bg-white/80 dark:bg-neutral-800/80 shadow-[0_10px_20px_rgba(0,0,0,0.1)] dark:shadow-[0_10px_20px_rgba(0,0,0,0.6)]",
+          "relative flex shrink-0 items-center justify-center rounded-lg border border-neutral-200/75 dark:border-white/[0.15] bg-white/50 dark:bg-neutral-900/50 shadow-sm transition-colors duration-300 backdrop-blur-md",
+          "h-9 w-9",
+          hovered && "border-neutral-300/90 dark:border-white/[0.3] bg-white/80 dark:bg-neutral-800/80 shadow-[0_8px_16px_rgba(0,0,0,0.08)] dark:shadow-[0_10px_20px_rgba(0,0,0,0.5),0_0_15px_rgba(255,255,255,0.05)]",
           active && "border-cyan-500/50 bg-white/80 dark:bg-neutral-800/80 text-cyan-600 dark:text-cyan-300",
           !active && "text-neutral-600 dark:text-neutral-400",
           onClick && "cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-neutral-500",
@@ -210,7 +210,7 @@ export function DockItem({
         <motion.div
           layoutId={`${pillLayoutId}-platform`}
           transition={reduce ? { duration: 0 } : { type: "spring", stiffness: 300, damping: 25 }}
-          className="absolute -bottom-2.5 h-1.5 w-8 rounded-[100%] bg-cyan-500/30 dark:bg-cyan-400/40 shadow-[0_0_15px_4px_rgba(34,211,238,0.2)] dark:shadow-[0_0_15px_4px_rgba(34,211,238,0.3)] blur-[2px] pointer-events-none"
+          className="absolute -bottom-2 h-1 w-6 rounded-[100%] bg-cyan-500/30 dark:bg-cyan-400/40 shadow-[0_0_12px_3px_rgba(34,211,238,0.2)] dark:shadow-[0_0_12px_3px_rgba(34,211,238,0.3)] blur-[1.5px] pointer-events-none"
           style={{ rotateX: 60 }}
         />
       )}
@@ -224,10 +224,10 @@ export interface DockSeparatorProps extends React.HTMLAttributes<HTMLDivElement>
 
 export function DockSeparator({ className, ...rest }: DockSeparatorProps) {
   return (
-    <div className="relative flex flex-col items-center group h-11 justify-end pb-2" {...rest}>
+    <div className="relative flex flex-col items-center group h-9 justify-end pb-1.5" {...rest}>
       <span
         aria-hidden
-        className={cn("mx-2 h-6 w-[1px] bg-black/[0.1] dark:bg-white/[0.06] rounded-full", className)}
+        className={cn("mx-1.5 h-5 w-[1px] bg-black/[0.1] dark:bg-white/[0.06] rounded-full", className)}
       />
     </div>
   );
@@ -241,27 +241,27 @@ export default function AnimatedDockDemo() {
       <Dock>
         <Link href="#">
           <DockItem label="Home" active={active === "home"} onClick={() => setActive("home")}>
-            <Home className="h-5 w-5" />
+            <Home className="h-4.5 w-4.5" />
           </DockItem>
         </Link>
         <Link href="#">
           <DockItem label="Messages" active={active === "messages"} onClick={() => setActive("messages")}>
-            <Mail className="h-5 w-5" />
+            <Mail className="h-4.5 w-4.5" />
           </DockItem>
         </Link>
         <Link href="#">
           <DockItem label="Calendar" active={active === "calendar"} onClick={() => setActive("calendar")}>
-            <Calendar className="h-5 w-5" />
+            <Calendar className="h-4.5 w-4.5" />
           </DockItem>
         </Link>
         <Link href="#">
           <DockItem label="Music" active={active === "music"} onClick={() => setActive("music")}>
-            <Music className="h-5 w-5" />
+            <Music className="h-4.5 w-4.5" />
           </DockItem>
         </Link>
         <Link href="#">
           <DockItem label="AI Magic" active={active === "magic"} onClick={() => setActive("magic")}>
-            <Sparkles className="h-5 w-5" />
+            <Sparkles className="h-4.5 w-4.5" />
           </DockItem>
         </Link>
 
@@ -269,12 +269,12 @@ export default function AnimatedDockDemo() {
 
         <Link href="#">
           <DockItem label="Settings" active={active === "settings"} onClick={() => setActive("settings")}>
-            <Settings className="h-5 w-5" />
+            <Settings className="h-4.5 w-4.5" />
           </DockItem>
         </Link>
         <Link href="#">
           <DockItem label="Profile" active={active === "profile"} onClick={() => setActive("profile")}>
-            <User className="h-5 w-5" />
+            <User className="h-4.5 w-4.5" />
           </DockItem>
         </Link>
       </Dock>
