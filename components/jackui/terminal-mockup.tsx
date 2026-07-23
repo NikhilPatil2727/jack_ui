@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect, useRef, useCallback, forwardRef } from "react";
 import { cn } from "@/lib/utils";
-import { Copy, Check, RotateCcw, Play, Pause } from "lucide-react";
 import { motion } from "motion/react";
 
 export interface TerminalMockupProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -15,8 +14,7 @@ const TerminalMockup = forwardRef<HTMLDivElement, TerminalMockupProps>(
     const [mounted, setMounted] = useState(false);
     const [typedCommand, setTypedCommand] = useState("");
     const [showOutput, setShowOutput] = useState(false);
-    const [isPlaying, setIsPlaying] = useState(autoPlay);
-    const [copied, setCopied] = useState(false);
+    const [isPlaying] = useState(autoPlay);
 
     // Mouse tracking for dynamic lighting
     const containerRef = useRef<HTMLDivElement>(null);
@@ -39,19 +37,6 @@ const TerminalMockup = forwardRef<HTMLDivElement, TerminalMockupProps>(
 
     // Full syntax highlighted parts for the typewriter effect
     const commandText = `jackui-agent deploy --task "optimize interactive particles" --model "opus-3.7"`;
-
-    const handleCopy = useCallback(async () => {
-      await navigator.clipboard.writeText(commandText);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    }, [commandText]);
-
-    const handleRestart = useCallback(() => {
-      setIsPlaying(false);
-      setTypedCommand("");
-      setShowOutput(false);
-      setTimeout(() => setIsPlaying(true), 100);
-    }, []);
 
     // Typing Sequence Engine
     useEffect(() => {
@@ -233,28 +218,6 @@ const TerminalMockup = forwardRef<HTMLDivElement, TerminalMockupProps>(
                   <span className="w-3 h-3 rounded-full bg-[#FF5F56] border border-[#E0443E]/50" />
                   <span className="w-3 h-3 rounded-full bg-[#FFBD2E] border border-[#DEA123]/50" />
                   <span className="w-3 h-3 rounded-full bg-[#27C93F] border border-[#1AAB29]/50" />
-                </div>
-
-                {/* Simulated Utility Actions */}
-                <div className="flex items-center gap-1.5">
-                  <button
-                    onClick={() => setIsPlaying(!isPlaying)}
-                    className="p-1 rounded text-zinc-500 hover:text-zinc-300 hover:bg-white/5 transition-colors cursor-pointer"
-                  >
-                    {isPlaying ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5" />}
-                  </button>
-                  <button
-                    onClick={handleRestart}
-                    className="p-1 rounded text-zinc-500 hover:text-zinc-300 hover:bg-white/5 transition-colors cursor-pointer"
-                  >
-                    <RotateCcw className="w-3.5 h-3.5" />
-                  </button>
-                  <button
-                    onClick={handleCopy}
-                    className="p-1 rounded text-zinc-500 hover:text-zinc-300 hover:bg-white/5 transition-colors cursor-pointer"
-                  >
-                    {copied ? <Check className="w-3.5 h-3.5 text-blue-500" /> : <Copy className="w-3.5 h-3.5" />}
-                  </button>
                 </div>
               </div>
 
