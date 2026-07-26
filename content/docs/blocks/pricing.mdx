@@ -1,0 +1,52 @@
+---
+title: Pricing
+description: A modern, 3-tier pricing block featuring a monthly/annual toggle and an animated, continuous rainbow glowing border for the popular tier.
+icon: CreditCard
+full: true
+---
+
+import Pricing from "@/components/jackui/blocks/pricing/pricing";
+
+<Preview link="blocks/pricing/pricing" isBlock>
+    <Pricing />
+</Preview>
+
+---
+
+### Usage
+
+```tsx
+import Pricing from "@/components/jackui/blocks/pricing/pricing";
+
+export default function PricingPage() {
+  return (
+    <Pricing />
+  );
+}
+```
+
+---
+
+### Installation
+
+<Tabs items={["npx", "pnpm", "bun"]}>
+
+```bash tab="npx"
+npx shadcn@latest add https://jack-ui-ten.vercel.app/r/pricing.json
+```
+
+```bash tab="pnpm"
+pnpm dlx shadcn@latest add https://jack-ui-ten.vercel.app/r/pricing.json
+```
+
+```bash tab="bun"
+bunx shadcn@latest add https://jack-ui-ten.vercel.app/r/pricing.json
+```
+
+</Tabs>
+
+---
+
+### Customization
+
+You can easily customize the `tiers` data array inside `pricing.tsx` to fit your needs. The `Pricing` component uses `PricingHeader` and `PricingCard` sub-components internally.

@@ -29,6 +29,7 @@
     
    
     "blocks/auth-basic",
+    "blocks/pricing",
    
     "---Components---",
     "components/dock",
