@@ -72,7 +72,15 @@ export function Pricing() {
   const [isAnnual, setIsAnnual] = useState(true);
 
   return (
-    <section className="w-full py-24 bg-white dark:bg-zinc-950 font-sans">
+    <section className="relative w-full py-24 bg-white dark:bg-zinc-950 font-sans overflow-hidden">
+      {/* Background Decorative Elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-[20%] left-1/2 -translate-x-1/2 w-[150%] max-w-[1200px] h-[600px] bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-400/20 via-indigo-500/10 to-transparent dark:from-indigo-600/20 dark:via-purple-600/10 blur-3xl rounded-[100%] opacity-60 mix-blend-multiply dark:mix-blend-screen"></div>
+        <div className="absolute top-[30%] -left-[10%] w-[400px] h-[400px] bg-rose-400/15 dark:bg-rose-500/15 rounded-full blur-[100px] mix-blend-multiply dark:mix-blend-screen animate-pulse duration-10000"></div>
+        <div className="absolute bottom-[-10%] -right-[5%] w-[500px] h-[500px] bg-cyan-400/15 dark:bg-cyan-500/15 rounded-full blur-[120px] mix-blend-multiply dark:mix-blend-screen"></div>
+        <div className="absolute inset-0 bg-[url('https://res.cloudinary.com/dzl9yxixg/image/upload/v1714417038/noise_oq7ym1.png')] opacity-[0.03] mix-blend-overlay"></div>
+      </div>
+
       <div className="relative z-10 container mx-auto px-4 md:px-6 max-w-7xl">
         <PricingHeader
           title={"Simple pricing for\nevery stage of growth."}
