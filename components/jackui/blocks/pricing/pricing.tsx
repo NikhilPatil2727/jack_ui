@@ -19,7 +19,7 @@ export interface PricingTier {
   isPopular?: boolean;
 }
 
-const tiers: PricingTier[] = [
+const defaultTiers: PricingTier[] = [
   {
     name: "Launch",
     description: "For solo founders testing the waters and finding signal.",
@@ -68,7 +68,20 @@ const tiers: PricingTier[] = [
   },
 ];
 
-export function Pricing() {
+export interface PricingProps {
+  /** Title of the pricing section. */
+  title?: string;
+  /** Subtitle of the pricing section. */
+  subtitle?: string;
+  /** Array of pricing tiers to display. */
+  tiers?: PricingTier[];
+}
+
+export function Pricing({
+  title = "Simple pricing for\nevery stage of growth.",
+  subtitle = "Choose the plan that fits your team's current needs and scale effortlessly as you grow.",
+  tiers = defaultTiers,
+}: PricingProps) {
   const [isAnnual, setIsAnnual] = useState(true);
 
   return (
@@ -83,8 +96,8 @@ export function Pricing() {
 
       <div className="relative z-10 container mx-auto px-4 md:px-6 max-w-7xl">
         <PricingHeader
-          title={"Simple pricing for\nevery stage of growth."}
-          subtitle="Choose the plan that fits your team's current needs and scale effortlessly as you grow."
+          title={title}
+          subtitle={subtitle}
           isAnnual={isAnnual}
           setIsAnnual={setIsAnnual}
         />
