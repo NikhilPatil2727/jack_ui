@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef, useState } from "react";
-import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
+import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from "motion/react";
 import { Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { PricingTier } from "./pricing";
@@ -128,11 +128,24 @@ export function PricingCard({ tier, isAnnual }: PricingCardProps) {
           </p>
         </div>
 
-        <div className="mb-2">
-          <span className="text-lg text-zinc-500 dark:text-zinc-400 font-medium align-top">$</span>
-          <span className="text-5xl font-medium tracking-tight text-zinc-900 dark:text-zinc-50">
-            {price}
-          </span>
+        <div className="mb-2 flex items-start">
+          <span className="text-lg text-zinc-500 dark:text-zinc-400 font-medium align-top mt-1 mr-1">$</span>
+          <div className="flex-1 overflow-hidden relative h-[60px]">
+            <AnimatePresence mode="popLayout">
+              <motion.span
+                key={price}
+                initial={{ y: isAnnual ? -30 : 30, opacity: 0, filter: "blur(4px)" }}
+                animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
+                exit={{ y: isAnnual ? 30 : -30, opacity: 0, filter: "blur(4px)" }}
+                transition={{ type: "spring", bounce: 0, duration: 0.5 }}
+                className="text-5xl font-medium tracking-tight text-zinc-900 dark:text-zinc-50 absolute left-0"
+              >
+                {price}
+              </motion.span>
+            </AnimatePresence>
+          </div>
+        </div>
+        <div className="h-[20px] mb-8">
           {typeof price === "number" && (
             <span className="text-zinc-500 dark:text-zinc-400 text-sm"> / month</span>
           )}

@@ -102,7 +102,12 @@ export function PricingHeader({ title, subtitle, isAnnual, setIsAnnual }: Pricin
             isAnnual ? "text-zinc-900 dark:text-zinc-900" : "text-zinc-500 dark:text-zinc-400"
           )}>
             Pay Annually
-            <span className="inline-flex items-center px-1.5 py-0.5 rounded-sm bg-emerald-100 dark:bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 text-[10px] font-bold uppercase tracking-widest border border-emerald-200 dark:border-emerald-500/30">
+            <span className={cn(
+              "inline-flex items-center px-1.5 py-0.5 rounded-sm text-[10px] font-bold uppercase tracking-widest border",
+              isAnnual 
+                ? "bg-emerald-100 text-emerald-700 border-emerald-200 dark:bg-emerald-100 dark:text-emerald-700 dark:border-emerald-200" 
+                : "bg-emerald-100 text-emerald-700 border-emerald-200 dark:bg-emerald-500/20 dark:text-emerald-300 dark:border-emerald-500/30"
+            )}>
               Save 20%
             </span>
           </span>
