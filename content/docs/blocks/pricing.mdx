@@ -7,27 +7,47 @@ full: true
 
 import Pricing from "@/components/jackui/blocks/pricing/pricing";
 
+
+
+## Preview & Code
+
 <Preview link="blocks/pricing/pricing" isBlock>
-    <Pricing />
+    <Pricing 
+      title="Simple pricing for\nevery stage of growth." 
+      subtitle="Choose the plan that fits your team's current needs and scale effortlessly as you grow." 
+    />
 </Preview>
 
----
-
-### Usage
-
 ```tsx
-import Pricing from "@/components/jackui/blocks/pricing/pricing";
+import { Pricing } from "@/components/jackui/blocks/pricing/pricing";
 
 export default function PricingPage() {
   return (
-    <Pricing />
+    <Pricing 
+      title="Simple pricing for\nevery stage of growth."
+      subtitle="Choose the plan that fits your team's current needs and scale effortlessly as you grow."
+      tiers={[
+        {
+          name: "Pro",
+          description: "Everything you need to get started.",
+          priceMonthly: 29,
+          priceAnnually: 24,
+          billedAnnuallyText: "Billed $288 yearly",
+          features: [
+            { name: "Up to 5 users" },
+            { name: "Basic analytics" },
+            { name: "24/7 support" }
+          ],
+          ctaText: "Get Started",
+          isPopular: true
+        }
+      ]}
+    />
   );
 }
 ```
 
----
-
-### Installation
+## Installation
 
 <Tabs items={["npx", "pnpm", "bun"]}>
 
@@ -45,8 +65,24 @@ bunx shadcn@latest add https://jack-ui-ten.vercel.app/r/pricing.json
 
 </Tabs>
 
----
+## Props
 
-### Customization
+| Prop | Type | Description |
+| :--- | :--- | :--- |
+| `title` | `string` | Optional. The main heading for the pricing section. Default: `"Simple pricing for\nevery stage of growth."` |
+| `subtitle` | `string` | Optional. The descriptive text under the main heading. Default: `"Choose the plan that fits your team's current needs and scale effortlessly as you grow."` |
+| `tiers` | `PricingTier[]` | Optional. An array of pricing tier objects to display. Defaults to a standard 3-tier setup. |
+| `...rest` | `any` | The component does not spread extra props to the wrapper element currently. |
 
-You can easily customize the `tiers` data array inside `pricing.tsx` to fit your needs. The `Pricing` component uses `PricingHeader` and `PricingCard` sub-components internally.
+### PricingTier
+
+| Prop | Type | Description |
+| :--- | :--- | :--- |
+| `name` | `string` | Required. The name of the tier (e.g. "Pro"). |
+| `description` | `string` | Required. A short description for the tier. |
+| `priceMonthly` | `string \| number` | Required. The price per month. |
+| `priceAnnually` | `string \| number` | Required. The equivalent monthly price when billed annually. |
+| `billedAnnuallyText` | `string` | Optional. Text to display below the annual price (e.g. "Billed $120 yearly"). |
+| `features` | `PricingFeature[]` | Required. An array of feature objects `{ name: string }`. |
+| `ctaText` | `string` | Required. The text for the call-to-action button. |
+| `isPopular` | `boolean` | Optional. Whether this tier should be highlighted as popular. |
