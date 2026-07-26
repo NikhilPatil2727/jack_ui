@@ -155,4 +155,24 @@ export const block: Registry = [
     //         },
     //     ],
     // },
+    {
+        name: "pricing",
+        type: "registry:block",
+        dependencies: ["lucide-react", "motion"],
+        registryDependencies: [],
+        files: [
+            {
+                path: "components/jackui/blocks/pricing/pricing.tsx",
+                type: "registry:component",
+            },
+            {
+                path: "components/jackui/blocks/pricing/pricing-card.tsx",
+                type: "registry:component",
+            },
+            {
+                path: "components/jackui/blocks/pricing/pricing-header.tsx",
+                type: "registry:component",
+            },
+        ],
+    },
 ];
