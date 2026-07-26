@@ -56,19 +56,19 @@ export function PricingCard({ tier, isAnnual }: PricingCardProps) {
       {isPopular && (
         <div className="absolute -inset-1 rounded-sm opacity-10 dark:opacity-20 blur-2xl pointer-events-none transition-all duration-700 ease-out group-hover:opacity-30 group-hover:blur-3xl"
              style={{
-               background: "linear-gradient(135deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3)"
+               background: "linear-gradient(135deg, #f87171, #fbbf24, #a3e635, #38bdf8, #818cf8, #c084fc, #f472b6)"
              }}
         />
       )}
 
       {/* Refined Animated Gradient Border for Popular Tier */}
       {isPopular && (
-        <div className="absolute -inset-[1px] z-0 overflow-hidden pointer-events-none rounded-none opacity-60 dark:opacity-80 transition-opacity duration-500 group-hover:opacity-100">
+        <div className="absolute -inset-[1px] -z-10 overflow-hidden pointer-events-none rounded-none opacity-60 dark:opacity-80 transition-opacity duration-500 group-hover:opacity-100">
           {/* Base gradient - Vibrant but masked by opacity */}
           <motion.div
-            className="absolute inset-[-100%] z-0"
+            className="absolute inset-[-100%] -z-10"
             style={{
-              background: "conic-gradient(from 0deg at 50% 50%, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3, #ff0000)",
+              background: "conic-gradient(from 0deg at 50% 50%, #f87171, #fbbf24, #a3e635, #38bdf8, #818cf8, #c084fc, #f472b6, #f87171)",
             }}
             animate={{
               rotate: 360,
@@ -79,8 +79,6 @@ export function PricingCard({ tier, isAnnual }: PricingCardProps) {
               ease: "linear",
             }}
           />
-          {/* Inner cutout for the gradient border */}
-          <div className="absolute inset-[1px] bg-white dark:bg-zinc-950 z-10" />
         </div>
       )}
 
