@@ -45,7 +45,7 @@ export function PricingCard({ tier, isAnnual }: PricingCardProps) {
     <div
       ref={cardRef}
       className={cn(
-        "relative flex flex-col h-full group transition-transform duration-500 ease-out hover:-translate-y-1",
+        "relative flex flex-col h-full group transition-transform duration-500 ease-out hover:-translate-y-1 cursor-pointer",
       )}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}

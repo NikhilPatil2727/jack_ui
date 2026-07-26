@@ -73,10 +73,10 @@ export function Pricing() {
 
   return (
     <section className="w-full py-24 bg-white dark:bg-zinc-950 font-sans">
-      <div className="container mx-auto px-4 md:px-6 max-w-7xl">
+      <div className="relative z-10 container mx-auto px-4 md:px-6 max-w-7xl">
         <PricingHeader
-          title={"One plan for every\nstage of the work."}
-          subtitle="Start lean, then add capacity when the signal is clear."
+          title={"Simple pricing for\nevery stage of growth."}
+          subtitle="Choose the plan that fits your team's current needs and scale effortlessly as you grow."
           isAnnual={isAnnual}
           setIsAnnual={setIsAnnual}
         />

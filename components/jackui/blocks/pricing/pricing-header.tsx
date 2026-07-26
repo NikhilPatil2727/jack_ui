@@ -2,6 +2,7 @@
 
 import React from "react";
 import { cn } from "@/lib/utils";
+import { motion } from "motion/react";
 
 interface PricingHeaderProps {
   title: string;
@@ -12,42 +13,103 @@ interface PricingHeaderProps {
 
 export function PricingHeader({ title, subtitle, isAnnual, setIsAnnual }: PricingHeaderProps) {
   return (
-    <div className="flex flex-col items-center justify-center space-y-4 text-center max-w-3xl mx-auto mb-16">
-      <div className="inline-flex items-center rounded-sm border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 px-3 py-1 text-xs tracking-widest text-zinc-900 dark:text-zinc-100 uppercase">
-        <span className="w-1.5 h-1.5 rounded-sm bg-black dark:bg-white mr-2" />
-        Pricing Plans
-      </div>
-      <h2 className="text-4xl md:text-6xl font-medium tracking-tight text-zinc-900 dark:text-zinc-50 mb-4 whitespace-pre-line">
+    <div className="flex flex-col items-center justify-center space-y-6 text-center max-w-4xl mx-auto mb-20 mt-8">
+      
+      <h2 className="text-4xl md:text-5xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 whitespace-pre-line leading-tight">
         {title}
       </h2>
-      <p className="text-zinc-500 dark:text-zinc-400 text-lg">
+      
+      <p className="text-zinc-500 dark:text-zinc-400 text-lg md:text-xl max-w-2xl font-normal leading-relaxed mt-4">
         {subtitle}
       </p>
 
-      {/* Toggle */}
-      <div className="mt-8 flex items-center p-1 bg-zinc-100 dark:bg-zinc-900 rounded-sm">
-        <button
-          onClick={() => setIsAnnual(true)}
-          className={cn(
-            "px-6 py-2.5 text-sm font-medium transition-all rounded-sm",
-            isAnnual
-              ? "bg-black text-white dark:bg-white dark:text-black shadow-sm"
-              : "text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100"
-          )}
-        >
-          Bill annually <span className="opacity-70 ml-1">-20%</span>
-        </button>
-        <button
+      {/* Unique 3D Perspective Toggle */}
+      <div 
+        className="mt-10 flex items-center gap-2 p-2 relative z-20"
+        style={{ perspective: "1000px" }}
+      >
+        {/* Monthly Button */}
+        <motion.button
           onClick={() => setIsAnnual(false)}
           className={cn(
-            "px-6 py-2.5 text-sm font-medium transition-all rounded-sm",
-            !isAnnual
-              ? "bg-black text-white dark:bg-white dark:text-black shadow-sm"
-              : "text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100"
+            "relative px-8 py-3.5 text-sm font-medium rounded-sm z-10 cursor-pointer overflow-hidden border",
+            !isAnnual ? "border-zinc-200 dark:border-zinc-800" : "border-transparent"
           )}
+          animate={{
+            rotateY: isAnnual ? 15 : 0,
+            rotateX: isAnnual ? 5 : 0,
+            scale: isAnnual ? 0.9 : 1,
+            z: isAnnual ? -20 : 0,
+            opacity: isAnnual ? 0.6 : 1,
+            backgroundColor: !isAnnual ? "var(--bg-active)" : "transparent",
+          }}
+          transition={{ type: "spring", stiffness: 300, damping: 25 }}
+          style={{
+            transformStyle: "preserve-3d",
+            transformOrigin: "right center",
+            "--bg-active": "rgba(255, 255, 255, 1)",
+          } as React.CSSProperties}
         >
-          Bill monthly
-        </button>
+          {/* Active indicator inner shadow/glow */}
+          {!isAnnual && (
+            <motion.div 
+              layoutId="glow-line"
+              className="absolute bottom-0 left-0 right-0 h-0.5 bg-zinc-900 dark:bg-white"
+            />
+          )}
+          <span className={cn(
+            "relative z-10 transition-colors duration-300",
+            !isAnnual ? "text-zinc-900 dark:text-zinc-900" : "text-zinc-500 dark:text-zinc-400"
+          )}>
+            Pay Monthly
+          </span>
+          {!isAnnual && (
+             <div className="absolute inset-0 bg-white dark:bg-zinc-100 -z-10 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.1)]" />
+          )}
+        </motion.button>
+
+        {/* Separator / Hinge */}
+        <div className="w-px h-6 bg-zinc-200 dark:bg-zinc-800 rounded-full mx-1 opacity-50" />
+
+        {/* Annually Button */}
+        <motion.button
+          onClick={() => setIsAnnual(true)}
+          className={cn(
+            "relative px-8 py-3.5 text-sm font-medium rounded-sm z-10 cursor-pointer overflow-hidden border",
+            isAnnual ? "border-zinc-200 dark:border-zinc-800" : "border-transparent"
+          )}
+          animate={{
+            rotateY: !isAnnual ? -15 : 0,
+            rotateX: !isAnnual ? 5 : 0,
+            scale: !isAnnual ? 0.9 : 1,
+            z: !isAnnual ? -20 : 0,
+            opacity: !isAnnual ? 0.6 : 1,
+          }}
+          transition={{ type: "spring", stiffness: 300, damping: 25 }}
+          style={{
+            transformStyle: "preserve-3d",
+            transformOrigin: "left center",
+          }}
+        >
+          {isAnnual && (
+            <motion.div 
+              layoutId="glow-line"
+              className="absolute bottom-0 left-0 right-0 h-0.5 bg-zinc-900 dark:bg-white z-20"
+            />
+          )}
+          <span className={cn(
+            "relative z-10 flex items-center gap-2 transition-colors duration-300",
+            isAnnual ? "text-zinc-900 dark:text-zinc-900" : "text-zinc-500 dark:text-zinc-400"
+          )}>
+            Pay Annually
+            <span className="inline-flex items-center px-1.5 py-0.5 rounded-sm bg-emerald-100 dark:bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 text-[10px] font-bold uppercase tracking-widest border border-emerald-200 dark:border-emerald-500/30">
+              Save 20%
+            </span>
+          </span>
+          {isAnnual && (
+             <div className="absolute inset-0 bg-white dark:bg-zinc-100 -z-10 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.1)]" />
+          )}
+        </motion.button>
       </div>
     </div>
   );
