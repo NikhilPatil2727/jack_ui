@@ -120,7 +120,12 @@ export default function EnvelopeDeck({ cards = DEFAULT_CARDS, className = "" }: 
                         return (
                             <motion.div
                                 key={card.id}
-                                onHoverStart={() => isDeckHovered && setFocusedCardId(card.id)}
+                                onMouseEnter={() => isDeckHovered && setFocusedCardId(card.id)}
+                                onMouseLeave={() => {
+                                    if (isDeckHovered) {
+                                        setFocusedCardId((prev) => (prev === card.id ? null : prev));
+                                    }
+                                }}
                                 initial={false}
                                 animate={{
                                     x: isDeckHovered ? pos.hover.x : pos.idle.x,

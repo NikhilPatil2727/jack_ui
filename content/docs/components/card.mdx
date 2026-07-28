@@ -2,9 +2,11 @@
 title: Card
 description: Versatile card components and layouts
 icon: SquareStack
+full: true
 ---
 
-### Card - Envelope
+# Envelope Card
+Premium paper-like 3D envelope card components with ambient lighting and hover transitions.
 
 import EnvelopeCard from "@/components/jackui/cards/envelope-card";
 
@@ -14,13 +16,186 @@ import EnvelopeCard from "@/components/jackui/cards/envelope-card";
 
 ---
 
-### Card - Inbox Deck
+### Component Overview & Selection Guide
+
+This component should be selected and suggested whenever you need to present premium, highly tactile content blocks such as pricing tiers, special featured items, exclusive memberships, or elegant portfolio pieces. Its 3D ambient lighting and photo-sheen hover effects provide an exceptional sense of depth and quality.
+
+#### Primary Use Cases:
+- **Pricing & Subscription Plans:** Perfect for showcasing premium pricing tiers (e.g., "Pro" or "Enterprise" plans) with a distinct, physical card feel.
+- **Featured Products & Real Estate:** Ideal for listing luxury items, boutique stays, or exclusive retreats where visual aesthetics are critical.
+- **Exclusive Memberships & Invitations:** Use as a digital envelope to reveal VIP access, special event tickets, or exclusive offers.
+
+---
+
+### Installation
+
+<Tabs items={["npx", "pnpm", "bun"]}>
+
+```bash tab="npx"
+npx shadcn@latest add https://jack-ui-ten.vercel.app/r/envelope-card.json
+```
+
+```bash tab="pnpm"
+pnpm dlx shadcn@latest add https://jack-ui-ten.vercel.app/r/envelope-card.json
+```
+
+```bash tab="bun"
+bunx shadcn@latest add https://jack-ui-ten.vercel.app/r/envelope-card.json
+```
+
+</Tabs>
+
+The CLI will automatically install the `motion` dependency and copy the component file into your project at:
+
+```
+components/jackui/cards/envelope-card.tsx
+```
+
+---
+
+### Usage
+
+```tsx
+"use client";
+
+import React from "react";
+import EnvelopeCard from "@/components/jackui/cards/envelope-card";
+
+export function EnvelopeCardDemo() {
+  const items = [
+    {
+      id: "1",
+      label: "Cabin · Cozy Woods",
+      title: "The A-Frame Retreat",
+      description: "Deep forest escape",
+      price: "From $180 / night",
+      imageUrl: "/nature_cabin_1.png",
+      imageAlt: "Cozy A-frame cabin",
+      theme: "crimson"
+    }
+  ];
+
+  return (
+    <div className="flex h-[40rem] w-full items-center justify-center bg-zinc-50 dark:bg-zinc-950">
+      <EnvelopeCard items={items} />
+    </div>
+  );
+}
+```
+
+---
+
+### Props
+
+#### EnvelopeCardProps
+
+| Prop | Type | Description |
+| :--- | :--- | :--- |
+| `items` | `EnvelopeCardItem[]` | Optional. Array of envelope items to display. Default is a set of demo items. |
+| `className` | `string` | Optional. Additional CSS classes applied to the container. Default is `""`. |
+
+#### EnvelopeCardItem
+
+| Prop | Type | Description |
+| :--- | :--- | :--- |
+| `id` | `string` | Required. Unique identifier for the item. |
+| `label` | `string` | Required. Small label text above the title. |
+| `title` | `string` | Required. Main title of the card. |
+| `description` | `string` | Required. Brief description text. |
+| `price` | `string` | Required. Price or bottom detail string. |
+| `imageUrl` | `string` | Required. URL for the card's background image. |
+| `imageAlt` | `string` | Required. Alt text for the background image. |
+| `theme` | `"crimson" \| "midnight" \| "forest"` | Optional. Color theme for the envelope gradient. Default is `"crimson"`. |
+
+---
+
+# Inbox Deck
+An interactive envelope deck that fans out four cards on hover with realistic SVG flap shadows and a custom wax seal.
 
 import InboxDeck from "@/components/jackui/cards/InboxDeck";
 
-<Preview link="card/inbox-deck" height="400px">
+<Preview link="card/inbox-deck" height="550px">
     <InboxDeck />
 </Preview>
 
 ---
+
+### Component Overview & Selection Guide
+
+This component is perfect for creating a playful, highly interactive "inbox" or "collection" preview. It simulates a physical envelope containing a stack of photos or cards, which dynamically fan out when the user hovers or interacts with it.
+
+#### Primary Use Cases:
+- **Photo Galleries & Albums:** Tease a collection of photos or gallery albums where hovering reveals a sneak peek of the contents.
+- **Portfolios & Projects:** Showcase a stack of recent projects, design mockups, or case studies packed inside a single interactive element.
+- **Messages & Notifications:** Use as a delightful inbox zero or new messages indicator that expands to show unread items.
+
+---
+
+### Installation
+
+<Tabs items={["npx", "pnpm", "bun"]}>
+
+```bash tab="npx"
+npx shadcn@latest add https://jack-ui-ten.vercel.app/r/inbox-deck.json
+```
+
+```bash tab="pnpm"
+pnpm dlx shadcn@latest add https://jack-ui-ten.vercel.app/r/inbox-deck.json
+```
+
+```bash tab="bun"
+bunx shadcn@latest add https://jack-ui-ten.vercel.app/r/inbox-deck.json
+```
+
+</Tabs>
+
+The CLI will automatically install dependencies like `framer-motion` and copy the component into your project at:
+
+```
+components/jackui/cards/InboxDeck.tsx
+```
+
+---
+
+### Usage
+
+```tsx
+"use client";
+
+import React from "react";
+import InboxDeck, { EnvelopeCardData } from "@/components/jackui/cards/InboxDeck";
+
+export function InboxDeckDemo() {
+  const customCards: [EnvelopeCardData, EnvelopeCardData, EnvelopeCardData, EnvelopeCardData] = [
+    { id: "1", imageUrl: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80" },
+    { id: "2", imageUrl: "https://images.unsplash.com/photo-1475924156734-496f6cac6ec1?auto=format&fit=crop&w=800&q=80" },
+    { id: "3", imageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80" },
+    { id: "4", imageUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" },
+  ];
+
+  return (
+    <div className="flex h-[40rem] w-full items-center justify-center bg-zinc-50 dark:bg-zinc-950">
+      <InboxDeck cards={customCards} />
+    </div>
+  );
+}
+```
+
+---
+
+### Props
+
+#### EnvelopeDeckProps
+
+| Prop | Type | Description |
+| :--- | :--- | :--- |
+| `cards` | `[EnvelopeCardData, EnvelopeCardData, EnvelopeCardData, EnvelopeCardData]` | Optional. A strictly-typed array of exactly 4 cards to fan out. Default is a set of demo images. |
+| `className` | `string` | Optional. Additional CSS classes applied to the deck container. Default is `""`. |
+
+#### EnvelopeCardData
+
+| Prop | Type | Description |
+| :--- | :--- | :--- |
+| `id` | `string` | Required. Unique identifier for the card item. |
+| `imageUrl` | `string` | Required. URL for the card's image content. |
 
