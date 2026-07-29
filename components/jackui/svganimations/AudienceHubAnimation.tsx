@@ -400,8 +400,8 @@ export function AudienceHubAnimation({
       )}
       style={{
         aspectRatio: "600 / 420",
-        ["--hub-anim-duration" as any]: `${animationDuration}ms`,
-      }}
+        "--hub-anim-duration": `${animationDuration}ms`,
+      } as React.CSSProperties}
       role="region"
       aria-label="Audience Hub diagram showing connection of audience sources to the central hub"
     >
