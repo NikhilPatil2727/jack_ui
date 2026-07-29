@@ -13,6 +13,62 @@ import AudienceHubAnimation from "@/components/jackui/svganimations/AudienceHubA
     <AudienceHubAnimation />
 </Preview>
 
+#### Overview & Selection Guide
+This component is used to visualize marketing workflows, audience source aggregation, or system integrations. It renders a dynamic HTML5 `<canvas>` watercolor wash background with fine grain and organic paper pulp textures.
+
+#### Installation
+
+<Tabs items={["npx", "pnpm", "bun"]}>
+
+```bash tab="npx"
+npx shadcn@latest add https://jack-ui-ten.vercel.app/r/audience-hub-animation.json
+```
+
+```bash tab="pnpm"
+pnpm dlx shadcn@latest add https://jack-ui-ten.vercel.app/r/audience-hub-animation.json
+```
+
+```bash tab="bun"
+bunx shadcn@latest add https://jack-ui-ten.vercel.app/r/audience-hub-animation.json
+```
+
+</Tabs>
+
+#### Usage
+
+```tsx
+import AudienceHubAnimation from "@/components/jackui/svganimations/AudienceHubAnimation";
+
+export default function Demo() {
+  return (
+    <AudienceHubAnimation
+      animated={true}
+      labels={[
+        "LinkedIn Followers",
+        "Post Engagers",
+        "Company Page Visitors",
+        "Post Commenters"
+      ]}
+    />
+  );
+}
+```
+
+#### Props
+
+| Prop | Type | Description |
+| :--- | :--- | :--- |
+| `labels` | `string[]` | Optional. Array of labels shown on the outer nodes. Default: `["LinkedIn Followers", "Post Engagers", "Company Page Visitors", "Post Commenters"]` |
+| `animated` | `boolean` | Optional. Whether drawing animations should play. Default: `true` |
+| `className` | `string` | Optional. Tailwind CSS classes to apply to wrapper. Default: `""` |
+| `logoTextTop` | `string` | Optional. Central hub logo top text. *Deprecated: replaced by isometric 3D component stack.* Default: `"CORE"` |
+| `logoTextBottom` | `string` | Optional. Central hub logo bottom text. *Deprecated: replaced by isometric 3D component stack.* Default: `"UI"` |
+| `backgroundImageUrl` | `string` | Optional. Custom background image URL. *Deprecated: replaced by dynamic canvas wash background.* |
+| `animationDuration` | `number` | Optional. Duration of animation loop in milliseconds. Default: `3000` |
+| `onNodeClick` | `(id: string, label: string) => void` | Optional. Click callback handler for outer node buttons. |
+
+---
+
 ### Neural Circuit Orchestrator
 
 import NeuralCircuitOrchestrator from "@/components/jackui/svganimations/NeuralCircuitOrchestrator";

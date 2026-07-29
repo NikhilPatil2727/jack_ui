@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useId } from "react";
+import React, { useId, useRef, useEffect } from "react";
 import { cn } from "@/lib/utils";
 
 /**
@@ -24,7 +24,7 @@ export interface AudienceHubAnimationProps {
   className?: string;
   /**
    * Central hub logo top text.
-   * @default "JACK"
+   * @default "CORE"
    */
   logoTextTop?: string;
   /**
@@ -207,7 +207,7 @@ export function AudienceHubAnimation({
   labels = DEFAULT_LABELS,
   animated = true,
   className = "",
-  logoTextTop = "JACK",
+  logoTextTop = "CORE",
   logoTextBottom = "UI",
   backgroundImageUrl = DEFAULT_BG_IMAGE,
   animationDuration = 3000,
@@ -220,24 +220,197 @@ export function AudienceHubAnimation({
   const label3 = labels[3] || DEFAULT_LABELS[3];
   const activeLabels = [label0, label1, label2, label3];
 
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const paint = () => {
+      const ctx = canvas.getContext("2d");
+      if (!ctx) return;
+
+      const width = 800;
+      const height = 560;
+      canvas.width = width;
+      canvas.height = height;
+
+      const isDark = document.documentElement.classList.contains("dark");
+
+      // 1. Base watercolor paper color
+      ctx.fillStyle = isDark ? "#09090b" : "#faf8f5";
+      ctx.fillRect(0, 0, width, height);
+
+      const random = (min: number, max: number) => Math.random() * (max - min) + min;
+
+      // Enable a soft blur filter to blend colors beautifully, mimicking the organic watercolor wash of the second image
+      ctx.save();
+      ctx.filter = "blur(60px)";
+
+      // Paint colors (rose, indigo/blue, cyan, and a touch of gold/yellow for rich rainbow accents)
+      const roseColor = isDark ? "rgba(244, 63, 94, 0.42)" : "rgba(251, 113, 133, 0.65)"; 
+      const indigoColor = isDark ? "rgba(99, 102, 241, 0.42)" : "rgba(129, 140, 248, 0.65)";
+      const cyanColor = isDark ? "rgba(6, 182, 212, 0.42)" : "rgba(34, 211, 238, 0.65)";
+      const goldColor = isDark ? "rgba(234, 179, 8, 0.32)" : "rgba(253, 224, 71, 0.6)"; // Warm yellow/gold accent
+
+      const drawWash = (x: number, y: number, r: number, color: string) => {
+        ctx.beginPath();
+        const grad = ctx.createRadialGradient(x, y, 0, x, y, r);
+        grad.addColorStop(0, color);
+        grad.addColorStop(1, "rgba(255, 255, 255, 0)");
+        ctx.fillStyle = grad;
+        ctx.arc(x, y, r, 0, Math.PI * 2);
+        ctx.fill();
+      };
+
+      // Draw large, overlapping paint wash blobs to create the pricing style soft gradient mesh
+      // Bottom-Left (Cyan)
+      drawWash(random(150, 300), random(350, 480), random(260, 380), cyanColor);
+      drawWash(random(250, 450), random(300, 450), random(220, 320), cyanColor);
+
+      // Top-Left (Rose/Pink)
+      drawWash(random(100, 250), random(80, 180), random(250, 350), roseColor);
+      drawWash(random(50, 180), random(50, 150), random(200, 300), roseColor);
+
+      // Center & Right (Indigo/Blue)
+      drawWash(random(350, 500), random(150, 280), random(250, 380), indigoColor);
+      drawWash(random(400, 600), random(200, 350), random(200, 320), indigoColor);
+
+      // Bottom-Right (Gold/Yellow accent matching the gold splashes in the second image)
+      drawWash(random(550, 700), random(350, 480), random(200, 300), goldColor);
+      drawWash(random(600, 750), random(100, 250), random(180, 260), goldColor);
+
+      ctx.restore();
+
+      // 2. High-detailing noise grain (creates the canvas texture grain)
+      const imgData = ctx.getImageData(0, 0, width, height);
+      const data = imgData.data;
+      const noiseIntensity = isDark ? 4 : 7;
+      for (let i = 0; i < data.length; i += 4) {
+        const noiseVal = (Math.random() - 0.5) * noiseIntensity;
+        data[i] = Math.min(255, Math.max(0, data[i] + noiseVal));     // R
+        data[i + 1] = Math.min(255, Math.max(0, data[i + 1] + noiseVal)); // G
+        data[i + 2] = Math.min(255, Math.max(0, data[i + 2] + noiseVal)); // B
+      }
+      ctx.putImageData(imgData, 0, 0);
+
+      // 3. Draw tiny organic paper pulp fibers (light and dark) for cold-press paper detailing
+      ctx.save();
+      // Dark fibers
+      ctx.globalCompositeOperation = "multiply";
+      ctx.globalAlpha = isDark ? 0.015 : 0.01;
+      ctx.strokeStyle = isDark ? "#ffffff" : "#000000";
+      ctx.lineWidth = 0.4;
+      for (let i = 0; i < 3500; i++) {
+        ctx.beginPath();
+        const fx = Math.random() * width;
+        const fy = Math.random() * height;
+        ctx.moveTo(fx, fy);
+        ctx.quadraticCurveTo(
+          fx + random(-4, 4),
+          fy + random(-4, 4),
+          fx + random(-8, 8),
+          fy + random(-8, 8)
+        );
+        ctx.stroke();
+      }
+
+      // Light fibers (adds highlights/pits texture)
+      ctx.globalCompositeOperation = "screen";
+      ctx.globalAlpha = isDark ? 0.025 : 0.018;
+      ctx.strokeStyle = isDark ? "#ffffff" : "#ffffff";
+      ctx.lineWidth = 0.4;
+      for (let i = 0; i < 2500; i++) {
+        ctx.beginPath();
+        const fx = Math.random() * width;
+        const fy = Math.random() * height;
+        ctx.moveTo(fx, fy);
+        ctx.quadraticCurveTo(
+          fx + random(-4, 4),
+          fy + random(-4, 4),
+          fx + random(-8, 8),
+          fy + random(-8, 8)
+        );
+        ctx.stroke();
+      }
+      ctx.restore();
+
+      // 4. Draw horizontal organic wavy paper ridges (grooves) to mimic the close-up texture
+      ctx.save();
+      // Shadow ridges (dark grooves)
+      ctx.globalCompositeOperation = "multiply";
+      ctx.globalAlpha = isDark ? 0.02 : 0.015;
+      ctx.strokeStyle = isDark ? "#ffffff" : "#000000";
+      ctx.lineWidth = 0.6;
+      for (let y = 0; y < height; y += 4) {
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        for (let x = 0; x < width; x += 20) {
+          const wave = Math.sin(x * 0.03 + y * 0.5) * 1.0 + (Math.random() - 0.5) * 0.5;
+          ctx.lineTo(x, y + wave);
+        }
+        ctx.stroke();
+      }
+
+      // Highlight ridges (light grooves) offset by 1px to create a 3D embossed look
+      ctx.globalCompositeOperation = "screen";
+      ctx.globalAlpha = isDark ? 0.03 : 0.022;
+      ctx.strokeStyle = "#ffffff";
+      ctx.lineWidth = 0.6;
+      for (let y = 0; y < height; y += 4) {
+        ctx.beginPath();
+        ctx.moveTo(0, y - 1);
+        for (let x = 0; x < width; x += 20) {
+          const wave = Math.sin(x * 0.03 + y * 0.5) * 1.0 + (Math.random() - 0.5) * 0.5;
+          ctx.lineTo(x, y - 1 + wave);
+        }
+        ctx.stroke();
+      }
+      ctx.restore();
+    };
+
+    paint();
+
+    // Re-draw when class (e.g. dark mode) changes
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.attributeName === "class") {
+          paint();
+        }
+      });
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
   return (
     <div
       className={cn(
         "relative w-full max-w-[600px] mx-auto overflow-hidden",
-        "flex items-center justify-center font-sans rounded-xl border border-slate-200/20 dark:border-slate-800/20",
-        "bg-cover bg-center shadow-[inset_0_0_80px_rgba(0,0,0,0.15)] dark:shadow-[inset_0_0_80px_rgba(0,0,0,0.45)]",
+        "flex items-center justify-center font-sans border border-slate-200/50 dark:border-slate-800/50",
+        "bg-slate-50 dark:bg-zinc-950 shadow-[inset_0_0_40px_rgba(0,0,0,0.02)] dark:shadow-[inset_0_0_40px_rgba(0,0,0,0.2)]",
         className
       )}
       style={{
         aspectRatio: "600 / 420",
-        backgroundImage: `linear-gradient(to bottom, var(--hub-overlay-from), var(--hub-overlay-to)), url('${backgroundImageUrl}')`,
-        ["--hub-overlay-from" as any]: "rgba(0, 0, 0, 0.12)",
-        ["--hub-overlay-to" as any]: "rgba(0, 0, 0, 0.25)",
-        ["--hub-anim-duration" as any]: `${animationDuration}ms`,
-      }}
+        "--hub-anim-duration": `${animationDuration}ms`,
+      } as React.CSSProperties}
       role="region"
       aria-label="Audience Hub diagram showing connection of audience sources to the central hub"
     >
+      {/* Dynamic Canvas Paint & Texture Background */}
+      <canvas
+        ref={canvasRef}
+        className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+      />
+
       {/* ── Scoped static keyframes ─────────────────────────────────────────── */}
       <style>{`
         @keyframes jackui-hub-in {
@@ -303,10 +476,30 @@ export function AudienceHubAnimation({
       {/* ── SVG canvas ──────────────────────────────────────────────────────── */}
       <svg
         viewBox="0 0 600 420"
-        className="w-full h-full pointer-events-none"
+        className="w-full h-full pointer-events-none z-10"
         preserveAspectRatio="xMidYMid meet"
         aria-hidden="true"
       >
+        <defs>
+          <filter id="blueish-smoke" x="0" y="0" width="100%" height="100%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="3" result="noise">
+              <animate attributeName="baseFrequency" values="0.010;0.016;0.010" dur="40s" repeatCount="indefinite"/>
+            </feTurbulence>
+            <feColorMatrix type="matrix" values="
+              0 0 0 0 0.2
+              0 0 0 0 0.5
+              0 0 0 0 0.95
+              1 0 0 0 0
+            " result="coloredNoise"/>
+            <feComponentTransfer>
+              <feFuncA type="linear" slope="0.035"/>
+            </feComponentTransfer>
+          </filter>
+        </defs>
+
+        {/* Very faint blueish smoke overlay */}
+        <rect width="600" height="420" filter="url(#blueish-smoke)" className="pointer-events-none" />
+
         {/* Connector line paths */}
         {NODE_DEFS.map(({ id, path, pathLength, lineDelay }) => (
           <g key={`conn-${id}`}>
@@ -315,9 +508,9 @@ export function AudienceHubAnimation({
               d={path}
               fill="none"
               stroke="currentColor"
-              strokeWidth="1.5"
+              strokeWidth="1.2"
               className={cn(
-                "text-white/45 dark:text-white/25",
+                "text-slate-400 dark:text-zinc-700",
                 animated && "animate-[jackui-breathe_var(--hub-anim-duration)_ease-in-out_infinite] motion-reduce:animate-none"
               )}
               style={animated ? { animationDelay: `${lineDelay}ms` } : undefined}
@@ -329,9 +522,9 @@ export function AudienceHubAnimation({
                 d={path}
                 fill="none"
                 stroke="currentColor"
-                strokeWidth="1.5"
+                strokeWidth="1.2"
                 strokeLinecap="round"
-                className="text-white dark:text-white/85 animate-[jackui-line-draw_var(--hub-anim-duration)_ease-in-out_infinite] motion-reduce:animate-none filter-[drop-shadow(0_0_2px_rgba(255,255,255,0.9))]"
+                className="text-white/70 dark:text-white/60 animate-[jackui-line-draw_var(--hub-anim-duration)_ease-in-out_infinite] motion-reduce:animate-none filter-[drop-shadow(0_0_2px_rgba(255,255,255,0.7))_drop-shadow(0_0_4px_rgba(255,255,255,0.4))]"
                 style={{
                   "--path-len": pathLength,
                   strokeDasharray: pathLength,
@@ -359,9 +552,9 @@ export function AudienceHubAnimation({
                   type="button"
                   onClick={() => onNodeClick?.(id, currentLabel)}
                   className={cn(
-                    "w-full h-full flex items-center gap-2.5 px-3.5 border-[1.5px] backdrop-blur-md transition-all duration-300 font-sans font-medium uppercase tracking-widest text-[10px] select-none cursor-pointer active:scale-95 outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-white",
-                    "bg-white/90 border-white/95 text-slate-900 hover:bg-white focus:bg-white",
-                    "dark:bg-white/90 dark:border-white/95 dark:text-slate-900 dark:hover:bg-white"
+                    "w-full h-full flex items-center gap-2.5 px-3.5 border rounded-[3px] backdrop-blur-md transition-all duration-300 font-sans font-medium uppercase tracking-widest text-[10px] select-none cursor-pointer active:scale-95 outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-indigo-500",
+                    "bg-gradient-to-r from-white/45 via-white/20 to-white/10 border-black text-slate-800 hover:from-white/60 hover:via-white/35 hover:to-white/20 hover:border-black focus:from-white/50 focus:to-white/25",
+                    "dark:bg-gradient-to-r dark:from-zinc-900/45 dark:via-zinc-900/20 dark:to-zinc-900/10 dark:border-black dark:text-zinc-200 dark:hover:from-zinc-900/60 dark:hover:via-zinc-900/35 dark:hover:to-zinc-900/20 dark:hover:border-black"
                   )}
                   aria-label={`Interact with ${currentLabel}`}
                 >
@@ -395,8 +588,8 @@ export function AudienceHubAnimation({
               ry={14}
               fill="none"
               stroke="currentColor"
-              strokeWidth="1.5"
-              className="text-white dark:text-white/85 origin-[300px_210px] animate-[jackui-hub-ripple-pulse_var(--hub-anim-duration)_cubic-bezier(0.16,1,0.3,1)_infinite] motion-reduce:animate-none filter-[drop-shadow(0_0_4px_#fff)] dark:filter-[drop-shadow(0_0_4px_rgba(255,255,255,0.85))]"
+              strokeWidth="1.2"
+              className="text-white/40 dark:text-white/30 origin-[300px_210px] animate-[jackui-hub-ripple-pulse_var(--hub-anim-duration)_cubic-bezier(0.16,1,0.3,1)_infinite] motion-reduce:animate-none filter-[drop-shadow(0_0_3px_rgba(255,255,255,0.4))]"
             />
           )}
           <rect
@@ -409,54 +602,42 @@ export function AudienceHubAnimation({
             fill="currentColor"
             stroke="currentColor"
             strokeWidth="1.5"
-            className="text-white dark:text-zinc-950 stroke-white/95 dark:stroke-white/12"
+            className="text-white dark:text-zinc-900 stroke-slate-200 dark:stroke-zinc-800"
           />
-          <foreignObject x={268} y={178} width={64} height={64}>
-            <div className="w-full h-full flex flex-col items-center justify-center select-none font-sans text-slate-900 dark:text-white">
-              <span
-                className={cn(
-                  animated && "animate-[jackui-text-reveal_600ms_cubic-bezier(0.16,1,0.3,1)_350ms_both,jackui-pulse-text_2.5s_ease-in-out_infinite_950ms] motion-reduce:animate-none"
-                )}
-                style={{
-                  fontFamily: "var(--font-sans, system-ui, sans-serif)",
-                  fontSize: "11px",
-                  fontWeight: 700,
-                  letterSpacing: "0.05em",
-                  textTransform: "uppercase",
-                  lineHeight: 1.1,
-                }}
-              >
-                {logoTextTop}
-              </span>
-              <div
-                className={cn(
-                  animated && "animate-[jackui-text-reveal_600ms_cubic-bezier(0.16,1,0.3,1)_350ms_both,jackui-expand-line_2.5s_ease-in-out_infinite_950ms] motion-reduce:animate-none"
-                )}
-                style={{
-                  height: "1px",
-                  backgroundColor: "currentColor",
-                  opacity: 0.15,
-                  margin: "3px 0",
-                }}
-              />
-              <span
-                className={cn(
-                  animated && "animate-[jackui-text-reveal_600ms_cubic-bezier(0.16,1,0.3,1)_350ms_both,jackui-pulse-text_2.5s_ease-in-out_infinite_950ms] motion-reduce:animate-none"
-                )}
-                style={{
-                  fontFamily: "var(--font-sans, system-ui, sans-serif)",
-                  fontSize: "8px",
-                  fontWeight: 500,
-                  letterSpacing: "0.2em",
-                  textTransform: "uppercase",
-                  lineHeight: 1.1,
-                  paddingLeft: "0.2em",
-                }}
-              >
-                {logoTextBottom}
-              </span>
-            </div>
-          </foreignObject>
+          {/* 3D Isometric Component Stack (representing modular component blocks) */}
+          <g className="text-slate-800 dark:text-white pointer-events-none">
+            {/* Top Card */}
+            <path
+              d="M 284, 198 L 300, 190 L 316, 198 L 300, 206 Z"
+              fill="currentColor"
+              opacity="0.3"
+              className={animated ? "animate-[jackui-breathe_2s_ease-in-out_infinite_500ms]" : ""}
+            />
+            {/* Middle Card */}
+            <path
+              d="M 284, 210 L 300, 202 L 316, 210 L 300, 218 Z"
+              fill="currentColor"
+              opacity="0.6"
+              className={animated ? "animate-[jackui-breathe_2s_ease-in-out_infinite_250ms]" : ""}
+            />
+            {/* Bottom Card */}
+            <path
+              d="M 284, 222 L 300, 214 L 316, 222 L 300, 230 Z"
+              fill="currentColor"
+              className={animated ? "animate-[jackui-breathe_2s_ease-in-out_infinite]" : ""}
+            />
+            {/* Vertical connector core axis */}
+            <line
+              x1={300}
+              y1={194}
+              x2={300}
+              y2={226}
+              stroke="currentColor"
+              strokeWidth="1.2"
+              opacity="0.45"
+              strokeDasharray="2,2"
+            />
+          </g>
         </g>
 
         {/* Junction dots */}
@@ -468,7 +649,7 @@ export function AudienceHubAnimation({
               r={3}
               fill="currentColor"
               className={cn(
-                "text-slate-900 dark:text-white",
+                "text-slate-400 dark:text-zinc-600",
                 animated && "animate-[jackui-card-in_380ms_ease-out_both] motion-reduce:animate-none"
               )}
               style={animated ? { animationDelay: `${labelDelay}ms`, animationFillMode: "both" } : {}}
