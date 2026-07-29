@@ -24,7 +24,7 @@ export interface AudienceHubAnimationProps {
   className?: string;
   /**
    * Central hub logo top text.
-   * @default "JACK"
+   * @default "CORE"
    */
   logoTextTop?: string;
   /**
@@ -207,7 +207,7 @@ export function AudienceHubAnimation({
   labels = DEFAULT_LABELS,
   animated = true,
   className = "",
-  logoTextTop = "JACK",
+  logoTextTop = "CORE",
   logoTextBottom = "UI",
   backgroundImageUrl = DEFAULT_BG_IMAGE,
   animationDuration = 3000,
@@ -285,7 +285,7 @@ export function AudienceHubAnimation({
       // 2. High-detailing noise grain (creates the canvas texture grain)
       const imgData = ctx.getImageData(0, 0, width, height);
       const data = imgData.data;
-      const noiseIntensity = isDark ? 8 : 13;
+      const noiseIntensity = isDark ? 4 : 7;
       for (let i = 0; i < data.length; i += 4) {
         const noiseVal = (Math.random() - 0.5) * noiseIntensity;
         data[i] = Math.min(255, Math.max(0, data[i] + noiseVal));     // R
@@ -298,7 +298,7 @@ export function AudienceHubAnimation({
       ctx.save();
       // Dark fibers
       ctx.globalCompositeOperation = "multiply";
-      ctx.globalAlpha = isDark ? 0.05 : 0.035;
+      ctx.globalAlpha = isDark ? 0.015 : 0.01;
       ctx.strokeStyle = isDark ? "#ffffff" : "#000000";
       ctx.lineWidth = 0.4;
       for (let i = 0; i < 3500; i++) {
@@ -317,7 +317,7 @@ export function AudienceHubAnimation({
 
       // Light fibers (adds highlights/pits texture)
       ctx.globalCompositeOperation = "screen";
-      ctx.globalAlpha = isDark ? 0.08 : 0.065;
+      ctx.globalAlpha = isDark ? 0.025 : 0.018;
       ctx.strokeStyle = isDark ? "#ffffff" : "#ffffff";
       ctx.lineWidth = 0.4;
       for (let i = 0; i < 2500; i++) {
@@ -331,6 +331,7 @@ export function AudienceHubAnimation({
           fx + random(-8, 8),
           fy + random(-8, 8)
         );
+        ctx.stroke();
       }
       ctx.restore();
 
@@ -338,7 +339,7 @@ export function AudienceHubAnimation({
       ctx.save();
       // Shadow ridges (dark grooves)
       ctx.globalCompositeOperation = "multiply";
-      ctx.globalAlpha = isDark ? 0.07 : 0.05;
+      ctx.globalAlpha = isDark ? 0.02 : 0.015;
       ctx.strokeStyle = isDark ? "#ffffff" : "#000000";
       ctx.lineWidth = 0.6;
       for (let y = 0; y < height; y += 4) {
@@ -353,7 +354,7 @@ export function AudienceHubAnimation({
 
       // Highlight ridges (light grooves) offset by 1px to create a 3D embossed look
       ctx.globalCompositeOperation = "screen";
-      ctx.globalAlpha = isDark ? 0.1 : 0.07;
+      ctx.globalAlpha = isDark ? 0.03 : 0.022;
       ctx.strokeStyle = "#ffffff";
       ctx.lineWidth = 0.6;
       for (let y = 0; y < height; y += 4) {
@@ -479,6 +480,26 @@ export function AudienceHubAnimation({
         preserveAspectRatio="xMidYMid meet"
         aria-hidden="true"
       >
+        <defs>
+          <filter id="blueish-smoke" x="0" y="0" width="100%" height="100%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="3" result="noise">
+              <animate attributeName="baseFrequency" values="0.010;0.016;0.010" dur="40s" repeatCount="indefinite"/>
+            </feTurbulence>
+            <feColorMatrix type="matrix" values="
+              0 0 0 0 0.2
+              0 0 0 0 0.5
+              0 0 0 0 0.95
+              1 0 0 0 0
+            " result="coloredNoise"/>
+            <feComponentTransfer>
+              <feFuncA type="linear" slope="0.035"/>
+            </feComponentTransfer>
+          </filter>
+        </defs>
+
+        {/* Very faint blueish smoke overlay */}
+        <rect width="600" height="420" filter="url(#blueish-smoke)" className="pointer-events-none" />
+
         {/* Connector line paths */}
         {NODE_DEFS.map(({ id, path, pathLength, lineDelay }) => (
           <g key={`conn-${id}`}>
@@ -487,9 +508,9 @@ export function AudienceHubAnimation({
               d={path}
               fill="none"
               stroke="currentColor"
-              strokeWidth="1.5"
+              strokeWidth="1.2"
               className={cn(
-                "text-slate-300 dark:text-zinc-800",
+                "text-slate-400 dark:text-zinc-700",
                 animated && "animate-[jackui-breathe_var(--hub-anim-duration)_ease-in-out_infinite] motion-reduce:animate-none"
               )}
               style={animated ? { animationDelay: `${lineDelay}ms` } : undefined}
@@ -501,9 +522,9 @@ export function AudienceHubAnimation({
                 d={path}
                 fill="none"
                 stroke="currentColor"
-                strokeWidth="1.5"
+                strokeWidth="1.2"
                 strokeLinecap="round"
-                className="text-indigo-500 dark:text-indigo-400 animate-[jackui-line-draw_var(--hub-anim-duration)_ease-in-out_infinite] motion-reduce:animate-none filter-[drop-shadow(0_0_2px_rgba(99,102,241,0.5))]"
+                className="text-white/70 dark:text-white/60 animate-[jackui-line-draw_var(--hub-anim-duration)_ease-in-out_infinite] motion-reduce:animate-none filter-[drop-shadow(0_0_2px_rgba(255,255,255,0.7))_drop-shadow(0_0_4px_rgba(255,255,255,0.4))]"
                 style={{
                   "--path-len": pathLength,
                   strokeDasharray: pathLength,
@@ -531,9 +552,9 @@ export function AudienceHubAnimation({
                   type="button"
                   onClick={() => onNodeClick?.(id, currentLabel)}
                   className={cn(
-                    "w-full h-full flex items-center gap-2.5 px-3.5 border-[1.5px] backdrop-blur-md transition-all duration-300 font-sans font-medium uppercase tracking-widest text-[10px] select-none cursor-pointer active:scale-95 outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-indigo-500",
-                    "bg-white/80 border-slate-200/80 text-slate-800 hover:bg-white hover:border-slate-300/90 focus:bg-white",
-                    "dark:bg-zinc-900/80 dark:border-zinc-800/80 dark:text-zinc-200 dark:hover:bg-zinc-900 dark:hover:border-zinc-700"
+                    "w-full h-full flex items-center gap-2.5 px-3.5 border rounded-[3px] backdrop-blur-md transition-all duration-300 font-sans font-medium uppercase tracking-widest text-[10px] select-none cursor-pointer active:scale-95 outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-indigo-500",
+                    "bg-gradient-to-r from-white/45 via-white/20 to-white/10 border-black text-slate-800 hover:from-white/60 hover:via-white/35 hover:to-white/20 hover:border-black focus:from-white/50 focus:to-white/25",
+                    "dark:bg-gradient-to-r dark:from-zinc-900/45 dark:via-zinc-900/20 dark:to-zinc-900/10 dark:border-black dark:text-zinc-200 dark:hover:from-zinc-900/60 dark:hover:via-zinc-900/35 dark:hover:to-zinc-900/20 dark:hover:border-black"
                   )}
                   aria-label={`Interact with ${currentLabel}`}
                 >
@@ -567,8 +588,8 @@ export function AudienceHubAnimation({
               ry={14}
               fill="none"
               stroke="currentColor"
-              strokeWidth="1.5"
-              className="text-indigo-500/50 dark:text-indigo-400/50 origin-[300px_210px] animate-[jackui-hub-ripple-pulse_var(--hub-anim-duration)_cubic-bezier(0.16,1,0.3,1)_infinite] motion-reduce:animate-none filter-[drop-shadow(0_0_4px_rgba(99,102,241,0.3))]"
+              strokeWidth="1.2"
+              className="text-white/40 dark:text-white/30 origin-[300px_210px] animate-[jackui-hub-ripple-pulse_var(--hub-anim-duration)_cubic-bezier(0.16,1,0.3,1)_infinite] motion-reduce:animate-none filter-[drop-shadow(0_0_3px_rgba(255,255,255,0.4))]"
             />
           )}
           <rect
@@ -583,52 +604,40 @@ export function AudienceHubAnimation({
             strokeWidth="1.5"
             className="text-white dark:text-zinc-900 stroke-slate-200 dark:stroke-zinc-800"
           />
-          <foreignObject x={268} y={178} width={64} height={64}>
-            <div className="w-full h-full flex flex-col items-center justify-center select-none font-sans text-slate-900 dark:text-white">
-              <span
-                className={cn(
-                  animated && "animate-[jackui-text-reveal_600ms_cubic-bezier(0.16,1,0.3,1)_350ms_both,jackui-pulse-text_2.5s_ease-in-out_infinite_950ms] motion-reduce:animate-none"
-                )}
-                style={{
-                  fontFamily: "var(--font-sans, system-ui, sans-serif)",
-                  fontSize: "11px",
-                  fontWeight: 700,
-                  letterSpacing: "0.05em",
-                  textTransform: "uppercase",
-                  lineHeight: 1.1,
-                }}
-              >
-                {logoTextTop}
-              </span>
-              <div
-                className={cn(
-                  animated && "animate-[jackui-text-reveal_600ms_cubic-bezier(0.16,1,0.3,1)_350ms_both,jackui-expand-line_2.5s_ease-in-out_infinite_950ms] motion-reduce:animate-none"
-                )}
-                style={{
-                  height: "1px",
-                  backgroundColor: "currentColor",
-                  opacity: 0.15,
-                  margin: "3px 0",
-                }}
-              />
-              <span
-                className={cn(
-                  animated && "animate-[jackui-text-reveal_600ms_cubic-bezier(0.16,1,0.3,1)_350ms_both,jackui-pulse-text_2.5s_ease-in-out_infinite_950ms] motion-reduce:animate-none"
-                )}
-                style={{
-                  fontFamily: "var(--font-sans, system-ui, sans-serif)",
-                  fontSize: "8px",
-                  fontWeight: 500,
-                  letterSpacing: "0.2em",
-                  textTransform: "uppercase",
-                  lineHeight: 1.1,
-                  paddingLeft: "0.2em",
-                }}
-              >
-                {logoTextBottom}
-              </span>
-            </div>
-          </foreignObject>
+          {/* 3D Isometric Component Stack (representing modular component blocks) */}
+          <g className="text-slate-800 dark:text-white pointer-events-none">
+            {/* Top Card */}
+            <path
+              d="M 284, 198 L 300, 190 L 316, 198 L 300, 206 Z"
+              fill="currentColor"
+              opacity="0.3"
+              className={animated ? "animate-[jackui-breathe_2s_ease-in-out_infinite_500ms]" : ""}
+            />
+            {/* Middle Card */}
+            <path
+              d="M 284, 210 L 300, 202 L 316, 210 L 300, 218 Z"
+              fill="currentColor"
+              opacity="0.6"
+              className={animated ? "animate-[jackui-breathe_2s_ease-in-out_infinite_250ms]" : ""}
+            />
+            {/* Bottom Card */}
+            <path
+              d="M 284, 222 L 300, 214 L 316, 222 L 300, 230 Z"
+              fill="currentColor"
+              className={animated ? "animate-[jackui-breathe_2s_ease-in-out_infinite]" : ""}
+            />
+            {/* Vertical connector core axis */}
+            <line
+              x1={300}
+              y1={194}
+              x2={300}
+              y2={226}
+              stroke="currentColor"
+              strokeWidth="1.2"
+              opacity="0.45"
+              strokeDasharray="2,2"
+            />
+          </g>
         </g>
 
         {/* Junction dots */}
