@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useId, useRef, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 import { cn } from "@/lib/utils";
 
 /**
@@ -22,21 +22,6 @@ export interface AudienceHubAnimationProps {
    * Custom Tailwind classes to apply to the root container.
    */
   className?: string;
-  /**
-   * Central hub logo top text.
-   * @default "CORE"
-   */
-  logoTextTop?: string;
-  /**
-   * Central hub logo bottom text.
-   * @default "UI"
-   */
-  logoTextBottom?: string;
-  /**
-   * Custom background image URL.
-   * @default "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80"
-   */
-  backgroundImageUrl?: string;
   /**
    * Animation cycle duration in milliseconds.
    * @default 3000
@@ -194,9 +179,6 @@ const DEFAULT_LABELS = [
   "Post Commenters",
 ];
 
-const DEFAULT_BG_IMAGE =
-  "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80";
-
 /**
  * AudienceHubAnimation
  *
@@ -207,9 +189,6 @@ export function AudienceHubAnimation({
   labels = DEFAULT_LABELS,
   animated = true,
   className = "",
-  logoTextTop = "CORE",
-  logoTextBottom = "UI",
-  backgroundImageUrl = DEFAULT_BG_IMAGE,
   animationDuration = 3000,
   onNodeClick,
 }: AudienceHubAnimationProps) {
@@ -397,21 +376,6 @@ export function AudienceHubAnimation({
         @keyframes jackui-breathe {
           0%, 100% { opacity: 0.4; }
           50%       { opacity: 0.85; }
-        }
-
-        @keyframes jackui-pulse-text {
-          0%, 100% { opacity: 0.75; }
-          50%       { opacity: 1.00; }
-        }
-
-        @keyframes jackui-expand-line {
-          0%, 100% { width: 14px; }
-          50%       { width: 24px; }
-        }
-
-        @keyframes jackui-text-reveal {
-          from { opacity: 0; transform: translateY(3px); filter: blur(1px); }
-          to   { opacity: 1; transform: translateY(0); filter: blur(0); }
         }
 
         @keyframes jackui-hub-ripple-pulse {
