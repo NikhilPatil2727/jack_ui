@@ -235,7 +235,7 @@ export function AudienceHubAnimation({
       canvas.width = width;
       canvas.height = height;
 
-      const isDark = typeof document !== "undefined" && document.documentElement.classList.contains("dark");
+      const isDark = false; // Force canvas to always use light mode styling
 
       // 1. Base watercolor paper color
       ctx.fillStyle = isDark ? "#09090b" : "#faf8f5";
@@ -371,23 +371,7 @@ export function AudienceHubAnimation({
 
     paint();
 
-    // Re-draw when class (e.g. dark mode) changes
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.attributeName === "class") {
-          paint();
-        }
-      });
-    });
-
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["class"],
-    });
-
-    return () => {
-      observer.disconnect();
-    };
+    return () => { };
   }, []);
 
   return (
