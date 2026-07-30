@@ -235,52 +235,13 @@ export function AudienceHubAnimation({
       canvas.width = width;
       canvas.height = height;
 
-      const isDark = false; // Force canvas to always use light mode styling
+      const isDark = typeof document !== "undefined" && document.documentElement.classList.contains("dark");
 
       // 1. Base watercolor paper color
       ctx.fillStyle = isDark ? "#09090b" : "#faf8f5";
       ctx.fillRect(0, 0, width, height);
 
       const random = (min: number, max: number) => Math.random() * (max - min) + min;
-
-      // Enable a soft blur filter to blend colors beautifully, mimicking the organic watercolor wash of the second image
-      ctx.save();
-      ctx.filter = "blur(60px)";
-
-      // Paint colors (rose, indigo/blue, cyan, and a touch of gold/yellow for rich rainbow accents)
-      const roseColor = isDark ? "rgba(251, 113, 133, 0.65)" : "rgba(251, 113, 133, 0.65)";
-      const indigoColor = isDark ? "rgba(129, 140, 248, 0.65)" : "rgba(129, 140, 248, 0.65)";
-      const cyanColor = isDark ? "rgba(34, 211, 238, 0.65)" : "rgba(34, 211, 238, 0.65)";
-      const goldColor = isDark ? "rgba(253, 224, 71, 0.6)" : "rgba(253, 224, 71, 0.6)"; // Warm yellow/gold accent
-
-      const drawWash = (x: number, y: number, r: number, color: string) => {
-        ctx.beginPath();
-        const grad = ctx.createRadialGradient(x, y, 0, x, y, r);
-        grad.addColorStop(0, color);
-        grad.addColorStop(1, "rgba(255, 255, 255, 0)");
-        ctx.fillStyle = grad;
-        ctx.arc(x, y, r, 0, Math.PI * 2);
-        ctx.fill();
-      };
-
-      // Draw large, overlapping paint wash blobs to create the pricing style soft gradient mesh
-      // Bottom-Left (Cyan)
-      drawWash(random(150, 300), random(350, 480), random(260, 380), cyanColor);
-      drawWash(random(250, 450), random(300, 450), random(220, 320), cyanColor);
-
-      // Top-Left (Rose/Pink)
-      drawWash(random(100, 250), random(80, 180), random(250, 350), roseColor);
-      drawWash(random(50, 180), random(50, 150), random(200, 300), roseColor);
-
-      // Center & Right (Indigo/Blue)
-      drawWash(random(350, 500), random(150, 280), random(250, 380), indigoColor);
-      drawWash(random(400, 600), random(200, 350), random(200, 320), indigoColor);
-
-      // Bottom-Right (Gold/Yellow accent matching the gold splashes in the second image)
-      drawWash(random(550, 700), random(350, 480), random(200, 300), goldColor);
-      drawWash(random(600, 750), random(100, 250), random(180, 260), goldColor);
-
-      ctx.restore();
 
       // 2. High-detailing noise grain (creates the canvas texture grain)
       const imgData = ctx.getImageData(0, 0, width, height);
@@ -371,7 +332,23 @@ export function AudienceHubAnimation({
 
     paint();
 
-    return () => { };
+    // Re-draw when class (e.g. dark mode) changes
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.attributeName === "class") {
+          paint();
+        }
+      });
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+
+    return () => {
+      observer.disconnect();
+    };
   }, []);
 
   return (
