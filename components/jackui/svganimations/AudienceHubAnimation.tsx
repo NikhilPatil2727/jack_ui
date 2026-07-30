@@ -235,7 +235,7 @@ export function AudienceHubAnimation({
       canvas.width = width;
       canvas.height = height;
 
-      const isDark = document.documentElement.classList.contains("dark");
+      const isDark = typeof document !== "undefined" && document.documentElement.classList.contains("dark");
 
       // 1. Base watercolor paper color
       ctx.fillStyle = isDark ? "#09090b" : "#faf8f5";
@@ -248,10 +248,10 @@ export function AudienceHubAnimation({
       ctx.filter = "blur(60px)";
 
       // Paint colors (rose, indigo/blue, cyan, and a touch of gold/yellow for rich rainbow accents)
-      const roseColor = isDark ? "rgba(244, 63, 94, 0.42)" : "rgba(251, 113, 133, 0.65)"; 
-      const indigoColor = isDark ? "rgba(99, 102, 241, 0.42)" : "rgba(129, 140, 248, 0.65)";
-      const cyanColor = isDark ? "rgba(6, 182, 212, 0.42)" : "rgba(34, 211, 238, 0.65)";
-      const goldColor = isDark ? "rgba(234, 179, 8, 0.32)" : "rgba(253, 224, 71, 0.6)"; // Warm yellow/gold accent
+      const roseColor = isDark ? "rgba(251, 113, 133, 0.65)" : "rgba(251, 113, 133, 0.65)";
+      const indigoColor = isDark ? "rgba(129, 140, 248, 0.65)" : "rgba(129, 140, 248, 0.65)";
+      const cyanColor = isDark ? "rgba(34, 211, 238, 0.65)" : "rgba(34, 211, 238, 0.65)";
+      const goldColor = isDark ? "rgba(253, 224, 71, 0.6)" : "rgba(253, 224, 71, 0.6)"; // Warm yellow/gold accent
 
       const drawWash = (x: number, y: number, r: number, color: string) => {
         ctx.beginPath();
@@ -394,8 +394,8 @@ export function AudienceHubAnimation({
     <div
       className={cn(
         "relative w-full max-w-[600px] mx-auto overflow-hidden",
-        "flex items-center justify-center font-sans border border-slate-200/50 dark:border-slate-800/50",
-        "bg-slate-50 dark:bg-zinc-950 shadow-[inset_0_0_40px_rgba(0,0,0,0.02)] dark:shadow-[inset_0_0_40px_rgba(0,0,0,0.2)]",
+        "flex items-center justify-center font-sans border border-slate-200/50 dark:border-zinc-800/80",
+        "bg-slate-50 dark:bg-zinc-950 shadow-[inset_0_0_40px_rgba(0,0,0,0.02)] dark:shadow-[inset_0_0_40px_rgba(255,255,255,0.01)]",
         className
       )}
       style={{
@@ -471,6 +471,13 @@ export function AudienceHubAnimation({
             opacity: 0;
           }
         }
+
+        .jackui-glow-path {
+          filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.7)) drop-shadow(0 0 4px rgba(255, 255, 255, 0.4));
+        }
+        .dark .jackui-glow-path {
+          filter: drop-shadow(0 0 2px rgba(129, 140, 248, 0.9)) drop-shadow(0 0 4px rgba(99, 102, 241, 0.6));
+        }
       `}</style>
 
       {/* ── SVG canvas ──────────────────────────────────────────────────────── */}
@@ -483,16 +490,16 @@ export function AudienceHubAnimation({
         <defs>
           <filter id="blueish-smoke" x="0" y="0" width="100%" height="100%">
             <feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="3" result="noise">
-              <animate attributeName="baseFrequency" values="0.010;0.016;0.010" dur="40s" repeatCount="indefinite"/>
+              <animate attributeName="baseFrequency" values="0.010;0.016;0.010" dur="40s" repeatCount="indefinite" />
             </feTurbulence>
             <feColorMatrix type="matrix" values="
               0 0 0 0 0.2
               0 0 0 0 0.5
               0 0 0 0 0.95
               1 0 0 0 0
-            " result="coloredNoise"/>
+            " result="coloredNoise" />
             <feComponentTransfer>
-              <feFuncA type="linear" slope="0.035"/>
+              <feFuncA type="linear" slope="0.035" />
             </feComponentTransfer>
           </filter>
         </defs>
@@ -510,7 +517,7 @@ export function AudienceHubAnimation({
               stroke="currentColor"
               strokeWidth="1.2"
               className={cn(
-                "text-slate-400 dark:text-zinc-700",
+                "text-slate-400 dark:text-zinc-800",
                 animated && "animate-[jackui-breathe_var(--hub-anim-duration)_ease-in-out_infinite] motion-reduce:animate-none"
               )}
               style={animated ? { animationDelay: `${lineDelay}ms` } : undefined}
@@ -524,7 +531,7 @@ export function AudienceHubAnimation({
                 stroke="currentColor"
                 strokeWidth="1.2"
                 strokeLinecap="round"
-                className="text-white/70 dark:text-white/60 animate-[jackui-line-draw_var(--hub-anim-duration)_ease-in-out_infinite] motion-reduce:animate-none filter-[drop-shadow(0_0_2px_rgba(255,255,255,0.7))_drop-shadow(0_0_4px_rgba(255,255,255,0.4))]"
+                className="text-white/70 dark:text-indigo-400/80 animate-[jackui-line-draw_var(--hub-anim-duration)_ease-in-out_infinite] motion-reduce:animate-none jackui-glow-path"
                 style={{
                   "--path-len": pathLength,
                   strokeDasharray: pathLength,
@@ -554,7 +561,7 @@ export function AudienceHubAnimation({
                   className={cn(
                     "w-full h-full flex items-center gap-2.5 px-3.5 border rounded-[3px] backdrop-blur-md transition-all duration-300 font-sans font-medium uppercase tracking-widest text-[10px] select-none cursor-pointer active:scale-95 outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-indigo-500",
                     "bg-gradient-to-r from-white/45 via-white/20 to-white/10 border-black text-slate-800 hover:from-white/60 hover:via-white/35 hover:to-white/20 hover:border-black focus:from-white/50 focus:to-white/25",
-                    "dark:bg-gradient-to-r dark:from-zinc-900/45 dark:via-zinc-900/20 dark:to-zinc-900/10 dark:border-black dark:text-zinc-200 dark:hover:from-zinc-900/60 dark:hover:via-zinc-900/35 dark:hover:to-zinc-900/20 dark:hover:border-black"
+                    "dark:bg-[#0c0c0e] dark:border-white/80 dark:text-white dark:hover:bg-[#161619] dark:hover:border-white"
                   )}
                   aria-label={`Interact with ${currentLabel}`}
                 >
@@ -599,10 +606,8 @@ export function AudienceHubAnimation({
             height={64}
             rx={14}
             ry={14}
-            fill="currentColor"
-            stroke="currentColor"
+            className="fill-white dark:fill-[#0c0c0e] stroke-slate-200 dark:stroke-white/80"
             strokeWidth="1.5"
-            className="text-white dark:text-zinc-900 stroke-slate-200 dark:stroke-zinc-800"
           />
           {/* 3D Isometric Component Stack (representing modular component blocks) */}
           <g className="text-slate-800 dark:text-white pointer-events-none">
@@ -649,7 +654,7 @@ export function AudienceHubAnimation({
               r={3}
               fill="currentColor"
               className={cn(
-                "text-slate-400 dark:text-zinc-600",
+                "text-slate-400 dark:text-zinc-400",
                 animated && "animate-[jackui-card-in_380ms_ease-out_both] motion-reduce:animate-none"
               )}
               style={animated ? { animationDelay: `${labelDelay}ms`, animationFillMode: "both" } : {}}
@@ -661,4 +666,4 @@ export function AudienceHubAnimation({
   );
 }
 
-export default AudienceHubAnimation;
+export default AudienceHubAnimation;
