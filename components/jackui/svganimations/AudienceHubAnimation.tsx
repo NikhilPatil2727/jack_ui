@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useId, useRef, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 import { cn } from "@/lib/utils";
 
 /**
@@ -22,21 +22,6 @@ export interface AudienceHubAnimationProps {
    * Custom Tailwind classes to apply to the root container.
    */
   className?: string;
-  /**
-   * Central hub logo top text.
-   * @default "CORE"
-   */
-  logoTextTop?: string;
-  /**
-   * Central hub logo bottom text.
-   * @default "UI"
-   */
-  logoTextBottom?: string;
-  /**
-   * Custom background image URL.
-   * @default "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80"
-   */
-  backgroundImageUrl?: string;
   /**
    * Animation cycle duration in milliseconds.
    * @default 3000
@@ -194,9 +179,6 @@ const DEFAULT_LABELS = [
   "Post Commenters",
 ];
 
-const DEFAULT_BG_IMAGE =
-  "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80";
-
 /**
  * AudienceHubAnimation
  *
@@ -207,9 +189,6 @@ export function AudienceHubAnimation({
   labels = DEFAULT_LABELS,
   animated = true,
   className = "",
-  logoTextTop = "CORE",
-  logoTextBottom = "UI",
-  backgroundImageUrl = DEFAULT_BG_IMAGE,
   animationDuration = 3000,
   onNodeClick,
 }: AudienceHubAnimationProps) {
@@ -235,52 +214,13 @@ export function AudienceHubAnimation({
       canvas.width = width;
       canvas.height = height;
 
-      const isDark = document.documentElement.classList.contains("dark");
+      const isDark = typeof document !== "undefined" && document.documentElement.classList.contains("dark");
 
       // 1. Base watercolor paper color
       ctx.fillStyle = isDark ? "#09090b" : "#faf8f5";
       ctx.fillRect(0, 0, width, height);
 
       const random = (min: number, max: number) => Math.random() * (max - min) + min;
-
-      // Enable a soft blur filter to blend colors beautifully, mimicking the organic watercolor wash of the second image
-      ctx.save();
-      ctx.filter = "blur(60px)";
-
-      // Paint colors (rose, indigo/blue, cyan, and a touch of gold/yellow for rich rainbow accents)
-      const roseColor = isDark ? "rgba(244, 63, 94, 0.42)" : "rgba(251, 113, 133, 0.65)"; 
-      const indigoColor = isDark ? "rgba(99, 102, 241, 0.42)" : "rgba(129, 140, 248, 0.65)";
-      const cyanColor = isDark ? "rgba(6, 182, 212, 0.42)" : "rgba(34, 211, 238, 0.65)";
-      const goldColor = isDark ? "rgba(234, 179, 8, 0.32)" : "rgba(253, 224, 71, 0.6)"; // Warm yellow/gold accent
-
-      const drawWash = (x: number, y: number, r: number, color: string) => {
-        ctx.beginPath();
-        const grad = ctx.createRadialGradient(x, y, 0, x, y, r);
-        grad.addColorStop(0, color);
-        grad.addColorStop(1, "rgba(255, 255, 255, 0)");
-        ctx.fillStyle = grad;
-        ctx.arc(x, y, r, 0, Math.PI * 2);
-        ctx.fill();
-      };
-
-      // Draw large, overlapping paint wash blobs to create the pricing style soft gradient mesh
-      // Bottom-Left (Cyan)
-      drawWash(random(150, 300), random(350, 480), random(260, 380), cyanColor);
-      drawWash(random(250, 450), random(300, 450), random(220, 320), cyanColor);
-
-      // Top-Left (Rose/Pink)
-      drawWash(random(100, 250), random(80, 180), random(250, 350), roseColor);
-      drawWash(random(50, 180), random(50, 150), random(200, 300), roseColor);
-
-      // Center & Right (Indigo/Blue)
-      drawWash(random(350, 500), random(150, 280), random(250, 380), indigoColor);
-      drawWash(random(400, 600), random(200, 350), random(200, 320), indigoColor);
-
-      // Bottom-Right (Gold/Yellow accent matching the gold splashes in the second image)
-      drawWash(random(550, 700), random(350, 480), random(200, 300), goldColor);
-      drawWash(random(600, 750), random(100, 250), random(180, 260), goldColor);
-
-      ctx.restore();
 
       // 2. High-detailing noise grain (creates the canvas texture grain)
       const imgData = ctx.getImageData(0, 0, width, height);
@@ -394,8 +334,8 @@ export function AudienceHubAnimation({
     <div
       className={cn(
         "relative w-full max-w-[600px] mx-auto overflow-hidden",
-        "flex items-center justify-center font-sans border border-slate-200/50 dark:border-slate-800/50",
-        "bg-slate-50 dark:bg-zinc-950 shadow-[inset_0_0_40px_rgba(0,0,0,0.02)] dark:shadow-[inset_0_0_40px_rgba(0,0,0,0.2)]",
+        "flex items-center justify-center font-sans border border-slate-200/50 dark:border-zinc-800/80",
+        "bg-slate-50 dark:bg-zinc-950 shadow-[inset_0_0_40px_rgba(0,0,0,0.02)] dark:shadow-[inset_0_0_40px_rgba(255,255,255,0.01)]",
         className
       )}
       style={{
@@ -438,21 +378,6 @@ export function AudienceHubAnimation({
           50%       { opacity: 0.85; }
         }
 
-        @keyframes jackui-pulse-text {
-          0%, 100% { opacity: 0.75; }
-          50%       { opacity: 1.00; }
-        }
-
-        @keyframes jackui-expand-line {
-          0%, 100% { width: 14px; }
-          50%       { width: 24px; }
-        }
-
-        @keyframes jackui-text-reveal {
-          from { opacity: 0; transform: translateY(3px); filter: blur(1px); }
-          to   { opacity: 1; transform: translateY(0); filter: blur(0); }
-        }
-
         @keyframes jackui-hub-ripple-pulse {
           0%, 35% {
             transform: scale(1);
@@ -471,6 +396,15 @@ export function AudienceHubAnimation({
             opacity: 0;
           }
         }
+
+        .jackui-viral-path {
+          stroke: url(#viral-gradient-light);
+          filter: drop-shadow(0 0 4px rgba(244, 63, 94, 0.5)) drop-shadow(0 0 8px rgba(245, 158, 11, 0.4));
+        }
+        .dark .jackui-viral-path {
+          stroke: url(#viral-gradient-dark);
+          filter: drop-shadow(0 0 4px rgba(6, 182, 212, 0.7)) drop-shadow(0 0 8px rgba(168, 85, 247, 0.5));
+        }
       `}</style>
 
       {/* ── SVG canvas ──────────────────────────────────────────────────────── */}
@@ -481,18 +415,30 @@ export function AudienceHubAnimation({
         aria-hidden="true"
       >
         <defs>
+          <linearGradient id="viral-gradient-light" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#f59e0b" />
+            <stop offset="50%" stopColor="#f43f5e" />
+            <stop offset="100%" stopColor="#d946ef" />
+          </linearGradient>
+
+          <linearGradient id="viral-gradient-dark" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#06b6d4" />
+            <stop offset="50%" stopColor="#a855f7" />
+            <stop offset="100%" stopColor="#ec4899" />
+          </linearGradient>
+
           <filter id="blueish-smoke" x="0" y="0" width="100%" height="100%">
             <feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="3" result="noise">
-              <animate attributeName="baseFrequency" values="0.010;0.016;0.010" dur="40s" repeatCount="indefinite"/>
+              <animate attributeName="baseFrequency" values="0.010;0.016;0.010" dur="40s" repeatCount="indefinite" />
             </feTurbulence>
             <feColorMatrix type="matrix" values="
               0 0 0 0 0.2
               0 0 0 0 0.5
               0 0 0 0 0.95
               1 0 0 0 0
-            " result="coloredNoise"/>
+            " result="coloredNoise" />
             <feComponentTransfer>
-              <feFuncA type="linear" slope="0.035"/>
+              <feFuncA type="linear" slope="0.035" />
             </feComponentTransfer>
           </filter>
         </defs>
@@ -510,7 +456,7 @@ export function AudienceHubAnimation({
               stroke="currentColor"
               strokeWidth="1.2"
               className={cn(
-                "text-slate-400 dark:text-zinc-700",
+                "text-slate-400 dark:text-zinc-800",
                 animated && "animate-[jackui-breathe_var(--hub-anim-duration)_ease-in-out_infinite] motion-reduce:animate-none"
               )}
               style={animated ? { animationDelay: `${lineDelay}ms` } : undefined}
@@ -524,7 +470,7 @@ export function AudienceHubAnimation({
                 stroke="currentColor"
                 strokeWidth="1.2"
                 strokeLinecap="round"
-                className="text-white/70 dark:text-white/60 animate-[jackui-line-draw_var(--hub-anim-duration)_ease-in-out_infinite] motion-reduce:animate-none filter-[drop-shadow(0_0_2px_rgba(255,255,255,0.7))_drop-shadow(0_0_4px_rgba(255,255,255,0.4))]"
+                className="animate-[jackui-line-draw_var(--hub-anim-duration)_ease-in-out_infinite] motion-reduce:animate-none jackui-viral-path"
                 style={{
                   "--path-len": pathLength,
                   strokeDasharray: pathLength,
@@ -554,7 +500,7 @@ export function AudienceHubAnimation({
                   className={cn(
                     "w-full h-full flex items-center gap-2.5 px-3.5 border rounded-[3px] backdrop-blur-md transition-all duration-300 font-sans font-medium uppercase tracking-widest text-[10px] select-none cursor-pointer active:scale-95 outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-indigo-500",
                     "bg-gradient-to-r from-white/45 via-white/20 to-white/10 border-black text-slate-800 hover:from-white/60 hover:via-white/35 hover:to-white/20 hover:border-black focus:from-white/50 focus:to-white/25",
-                    "dark:bg-gradient-to-r dark:from-zinc-900/45 dark:via-zinc-900/20 dark:to-zinc-900/10 dark:border-black dark:text-zinc-200 dark:hover:from-zinc-900/60 dark:hover:via-zinc-900/35 dark:hover:to-zinc-900/20 dark:hover:border-black"
+                    "dark:bg-[#0c0c0e] dark:border-white/80 dark:text-white dark:hover:bg-[#161619] dark:hover:border-white"
                   )}
                   aria-label={`Interact with ${currentLabel}`}
                 >
@@ -589,7 +535,7 @@ export function AudienceHubAnimation({
               fill="none"
               stroke="currentColor"
               strokeWidth="1.2"
-              className="text-white/40 dark:text-white/30 origin-[300px_210px] animate-[jackui-hub-ripple-pulse_var(--hub-anim-duration)_cubic-bezier(0.16,1,0.3,1)_infinite] motion-reduce:animate-none filter-[drop-shadow(0_0_3px_rgba(255,255,255,0.4))]"
+              className="origin-[300px_210px] animate-[jackui-hub-ripple-pulse_var(--hub-anim-duration)_cubic-bezier(0.16,1,0.3,1)_infinite] motion-reduce:animate-none jackui-viral-path opacity-70"
             />
           )}
           <rect
@@ -599,10 +545,8 @@ export function AudienceHubAnimation({
             height={64}
             rx={14}
             ry={14}
-            fill="currentColor"
-            stroke="currentColor"
+            className="fill-white dark:fill-[#0c0c0e] stroke-slate-200 dark:stroke-white/80"
             strokeWidth="1.5"
-            className="text-white dark:text-zinc-900 stroke-slate-200 dark:stroke-zinc-800"
           />
           {/* 3D Isometric Component Stack (representing modular component blocks) */}
           <g className="text-slate-800 dark:text-white pointer-events-none">
@@ -649,7 +593,7 @@ export function AudienceHubAnimation({
               r={3}
               fill="currentColor"
               className={cn(
-                "text-slate-400 dark:text-zinc-600",
+                "text-slate-400 dark:text-zinc-400",
                 animated && "animate-[jackui-card-in_380ms_ease-out_both] motion-reduce:animate-none"
               )}
               style={animated ? { animationDelay: `${labelDelay}ms`, animationFillMode: "both" } : {}}
@@ -661,4 +605,4 @@ export function AudienceHubAnimation({
   );
 }
 
-export default AudienceHubAnimation;
+export default AudienceHubAnimation;
