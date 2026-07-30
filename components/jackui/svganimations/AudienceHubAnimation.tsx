@@ -456,11 +456,13 @@ export function AudienceHubAnimation({
           }
         }
 
-        .jackui-glow-path {
-          filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.7)) drop-shadow(0 0 4px rgba(255, 255, 255, 0.4));
+        .jackui-viral-path {
+          stroke: url(#viral-gradient-light);
+          filter: drop-shadow(0 0 4px rgba(244, 63, 94, 0.5)) drop-shadow(0 0 8px rgba(245, 158, 11, 0.4));
         }
-        .dark .jackui-glow-path {
-          filter: drop-shadow(0 0 2px rgba(129, 140, 248, 0.9)) drop-shadow(0 0 4px rgba(99, 102, 241, 0.6));
+        .dark .jackui-viral-path {
+          stroke: url(#viral-gradient-dark);
+          filter: drop-shadow(0 0 4px rgba(6, 182, 212, 0.7)) drop-shadow(0 0 8px rgba(168, 85, 247, 0.5));
         }
       `}</style>
 
@@ -472,6 +474,18 @@ export function AudienceHubAnimation({
         aria-hidden="true"
       >
         <defs>
+          <linearGradient id="viral-gradient-light" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#f59e0b" />
+            <stop offset="50%" stopColor="#f43f5e" />
+            <stop offset="100%" stopColor="#d946ef" />
+          </linearGradient>
+
+          <linearGradient id="viral-gradient-dark" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#06b6d4" />
+            <stop offset="50%" stopColor="#a855f7" />
+            <stop offset="100%" stopColor="#ec4899" />
+          </linearGradient>
+
           <filter id="blueish-smoke" x="0" y="0" width="100%" height="100%">
             <feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="3" result="noise">
               <animate attributeName="baseFrequency" values="0.010;0.016;0.010" dur="40s" repeatCount="indefinite" />
@@ -515,7 +529,7 @@ export function AudienceHubAnimation({
                 stroke="currentColor"
                 strokeWidth="1.2"
                 strokeLinecap="round"
-                className="text-white/70 dark:text-indigo-400/80 animate-[jackui-line-draw_var(--hub-anim-duration)_ease-in-out_infinite] motion-reduce:animate-none jackui-glow-path"
+                className="animate-[jackui-line-draw_var(--hub-anim-duration)_ease-in-out_infinite] motion-reduce:animate-none jackui-viral-path"
                 style={{
                   "--path-len": pathLength,
                   strokeDasharray: pathLength,
@@ -580,7 +594,7 @@ export function AudienceHubAnimation({
               fill="none"
               stroke="currentColor"
               strokeWidth="1.2"
-              className="text-white/40 dark:text-white/30 origin-[300px_210px] animate-[jackui-hub-ripple-pulse_var(--hub-anim-duration)_cubic-bezier(0.16,1,0.3,1)_infinite] motion-reduce:animate-none filter-[drop-shadow(0_0_3px_rgba(255,255,255,0.4))]"
+              className="origin-[300px_210px] animate-[jackui-hub-ripple-pulse_var(--hub-anim-duration)_cubic-bezier(0.16,1,0.3,1)_infinite] motion-reduce:animate-none jackui-viral-path opacity-70"
             />
           )}
           <rect
