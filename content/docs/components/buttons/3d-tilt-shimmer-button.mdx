@@ -68,13 +68,14 @@ export function ThreeDTiltShimmerButtonDemo() {
 |------|------|-------------|
 | `children` | `React.ReactNode` | **Optional.** The content to render inside the button (e.g. text label and/or icon). Default: `"Hover me"`. |
 | `size` | `"sm" \| "md" \| "lg"` | **Optional.** Sizing variant adjusting padding, font size, and border radius. Default: `"md"`. |
-| `tiltMaxX` | `number` | **Optional.** Maximum X-axis tilt angle in degrees when cursor hovers over the button. Default: `-12`. |
-| `tiltMaxY` | `number` | **Optional.** Maximum Y-axis tilt angle in degrees when cursor hovers over the button. Default: `12`. |
-| `perspective` | `number` | **Optional.** 3D perspective depth in pixels applied to the tilt effect. Default: `1000`. |
+| `colorTheme` | `"indigo" \| "emerald" \| "amber" \| "rose" \| "mono" \| "sunset" \| "yellow" \| "rainbow"` | **Optional.** The color theme variant for the borders and ambient glow. Default: `"rainbow"`. |
+| `tiltMaxX` | `number` | **Optional.** Maximum X-axis tilt angle in degrees when cursor hovers over the button. Default: `8`. |
+| `tiltMaxY` | `number` | **Optional.** Maximum Y-axis tilt angle in degrees when cursor hovers over the button. Default: `24`. |
+| `perspective` | `number` | **Optional.** 3D perspective depth in pixels applied to the tilt effect. Default: `800`. |
 | `showRainbowBorder` | `boolean` | **Optional.** Whether to render the rotating gradient neon border ring. Default: `true`. |
 | `showGlow` | `boolean` | **Optional.** Whether to show the soft moving ambient shadow glow behind the button. Default: `true`. |
 | `showShimmerSweep` | `boolean` | **Optional.** Whether to show the linear light sheen sweep across the button surface on hover. Default: `true`. |
-| `showPulseDot` | `boolean` | **Optional.** Whether to display the breathing gradient pulse indicator dot next to the label. Default: `true`. |
+| `showPulseDot` | `boolean` | **Optional.** Whether to display the breathing gradient pulse indicator dot next to the label. Default: `false`. |
 | `glowDuration` | `number` | **Optional.** Duration in seconds for a complete rotation of the rainbow glow background. Default: `6`. |
 | `shimmerDuration` | `number` | **Optional.** Duration in seconds for a complete sweep of the light sheen shimmer. Default: `2`. |
 | `...props` | `React.ButtonHTMLAttributes<HTMLButtonElement>` | **Optional.** Any additional standard HTML button element properties (e.g. `onClick`, `disabled`, `type`, `aria-*`) can be passed and are spread onto the button. |
@@ -85,4 +86,4 @@ export function ThreeDTiltShimmerButtonDemo() {
 
 - **3D Tilt effect** is computed in real-time tracking the mouse pointer coordinates relative to the button container.
 - **System Accessibility**: automatically disables the 3D tilt, sweep sheen, and background glow animations if the user has configured `prefers-reduced-motion` settings in their OS.
-- **Glassmorphic styling** uses Tailwind backdrop filter utilities and dark slate semitransparent layers to blend with any dark interface background.
+- **Adaptive Premium Styling**: In light mode, the button features a crisp white frosted-glass background with a subtle dark border and colorful hover spotlight. In dark mode, it adopts a sleek deep gradient (matching premium Auth forms) with a sharp white border and an aurora nebula tracking glow.
