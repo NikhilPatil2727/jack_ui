@@ -61,7 +61,7 @@ export interface ThreeDTiltShimmerButtonProps
   size?: "sm" | "md" | "lg";
   /**
    * The color theme variant for the borders and ambient glow.
-   * @default "indigo"
+   * @default "rainbow"
    */
   colorTheme?: "indigo" | "emerald" | "amber" | "rose" | "mono" | "sunset" | "yellow" | "rainbow";
 }
@@ -90,7 +90,7 @@ export const ThreeDTiltShimmerButton = React.forwardRef<
       shimmerDuration = 2,
       size = "md",
       disabled = false,
-      colorTheme = "indigo",
+      colorTheme = "rainbow",
       ...props
     },
     ref
@@ -189,9 +189,9 @@ export const ThreeDTiltShimmerButton = React.forwardRef<
         reducedMotionGradient: "from-amber-400 via-yellow-500 to-amber-600",
       },
       rainbow: {
-        glowBg: "var(--glow-bg, linear-gradient(135deg, #f87171, #fbbf24, #a3e635, #38bdf8, #818cf8, #c084fc, #f472b6))",
-        borderGlow: (x: number, y: number) => `radial-gradient(120px circle at ${x}px ${y}px, var(--border-1, rgba(248,113,113,0.9)) 0%, var(--border-2, rgba(251,191,36,0.6)) 50%, var(--border-3, rgba(163,230,53,0.15)) 80%, transparent 100%)`,
-        reducedMotionGradient: "dark:from-rose-400 dark:via-yellow-500 dark:to-cyan-500 from-rose-500 via-amber-500 to-emerald-500",
+        glowBg: "var(--glow-bg, linear-gradient(135deg, #f472b6, #a855f7, #3b82f6, #06b6d4, #10b981))",
+        borderGlow: (x: number, y: number) => `radial-gradient(120px circle at ${x}px ${y}px, var(--border-1, rgba(244,114,182,0.9)) 0%, var(--border-2, rgba(168,85,247,0.6)) 50%, var(--border-3, rgba(6,182,212,0.15)) 80%, transparent 100%)`,
+        reducedMotionGradient: "dark:from-pink-500 dark:via-purple-500 dark:to-cyan-500 from-pink-500 via-blue-500 to-emerald-500",
       }
     };
 
@@ -220,15 +220,9 @@ export const ThreeDTiltShimmerButton = React.forwardRef<
         ref={containerRef}
         className={cn(
           "relative inline-block group select-none",
-          // Soft rainbow spotlight for light mode, white for dark mode
+          // Soft rainbow spotlight for light mode, premium aurora/nebula spotlight for dark mode
           "[--spotlight-1:rgba(255,0,0,0.1)] [--spotlight-2:rgba(255,165,0,0.08)] [--spotlight-3:rgba(255,255,0,0.06)] [--spotlight-4:rgba(0,255,0,0.04)] [--spotlight-5:rgba(0,0,255,0.02)] [--spotlight-6:transparent]",
-          "dark:[--spotlight-1:rgba(255,255,255,0.15)] dark:[--spotlight-2:transparent] dark:[--spotlight-3:transparent] dark:[--spotlight-4:transparent] dark:[--spotlight-5:transparent] dark:[--spotlight-6:transparent]",
-          colorTheme === "indigo" && [
-            "dark:[--glow-bg:linear-gradient(90deg,#fbbf24,#f59e0b,#ea580c,#fbbf24)]",
-            "dark:[--border-1:rgba(251,191,36,0.9)]",
-            "dark:[--border-2:rgba(245,158,11,0.6)]",
-            "dark:[--border-3:rgba(234,88,12,0.15)]"
-          ]
+          "dark:[--spotlight-1:rgba(244,114,182,0.15)] dark:[--spotlight-2:rgba(168,85,247,0.12)] dark:[--spotlight-3:rgba(59,130,246,0.09)] dark:[--spotlight-4:rgba(6,182,212,0.06)] dark:[--spotlight-5:rgba(16,185,129,0.03)] dark:[--spotlight-6:transparent]"
         )}
         style={{
           perspective: shouldReduceMotion ? undefined : `${perspective}px`,
@@ -305,7 +299,7 @@ export const ThreeDTiltShimmerButton = React.forwardRef<
               {/* Subtle glass border shown when not hovered */}
               <span
                 aria-hidden="true"
-                className="absolute inset-0 bg-slate-900/10 dark:bg-white/5 transition-opacity duration-300 group-hover:opacity-0"
+                className="absolute inset-0 bg-slate-900/30 dark:bg-white/50 transition-opacity duration-300 group-hover:opacity-0"
                 style={{ borderRadius: "inherit" }}
               />
               {/* Premium Interactive Spotlight Border shown on hover */}
@@ -334,7 +328,7 @@ export const ThreeDTiltShimmerButton = React.forwardRef<
           {/* Premium Glass/Dark Inner Container */}
           <span
             aria-hidden="true"
-            className="absolute inset-[1px] bg-white/90 dark:bg-slate-950/90 backdrop-blur-xl transition-colors duration-300 group-hover:bg-white/80 dark:group-hover:bg-slate-950/80"
+            className="absolute inset-[1px] bg-white/90 dark:bg-[linear-gradient(180deg,#2a2a2e_0%,#121214_100%)] backdrop-blur-xl transition-colors duration-300 group-hover:bg-white/80 dark:group-hover:bg-[#1a1a1d]"
             style={{
               borderRadius: "inherit",
               transformStyle: "preserve-3d",
@@ -364,7 +358,7 @@ export const ThreeDTiltShimmerButton = React.forwardRef<
           {showShimmerSweep && !shouldReduceMotion && (
             <motion.span
               aria-hidden="true"
-              className="absolute inset-y-0 w-[60%] -skew-x-12 bg-gradient-to-r from-transparent via-slate-900/[0.05] dark:via-white/[0.12] to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              className="absolute inset-y-0 w-[60%] -skew-x-12 bg-gradient-to-r from-transparent via-white/[0.12] to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"
               initial={{ left: "-120%" }}
               animate={{ left: ["-120%", "220%"] }}
               transition={{ duration: shimmerDuration, ease: "easeInOut", repeat: Infinity }}
