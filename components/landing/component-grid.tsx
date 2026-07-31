@@ -40,25 +40,14 @@ const StarBurstButton = dynamic(() => import("@/components/jackui/buttons/star-b
   loading: () => <div className="h-10 w-28 bg-zinc-200/50 dark:bg-zinc-800/30 animate-pulse rounded-md" />
 });
 
-const AudienceHubAnimation = dynamic(() => import("@/components/jackui/svganimations/AudienceHubAnimation"), {
-  ssr: false,
-  loading: () => <div className="w-full h-full bg-zinc-100/50 dark:bg-zinc-800/20 animate-pulse rounded-xl" />
-});
 
-const NeuralCircuitOrchestrator = dynamic(() => import("@/components/jackui/svganimations/NeuralCircuitOrchestrator"), {
-  ssr: false,
-  loading: () => <div className="w-full h-full bg-zinc-100/50 dark:bg-zinc-800/20 animate-pulse rounded-xl" />
-});
 
 const AnimatedDockDemo = dynamic(() => import("@/components/jackui/dock/animated-dock-demo"), {
   ssr: false,
   loading: () => <div className="w-full h-full bg-zinc-100/50 dark:bg-zinc-800/20 animate-pulse rounded-xl" />
 });
 
-const PremiumTerminal = dynamic(() => import("@/components/jackui/terminal"), {
-  ssr: false,
-  loading: () => <div className="w-full h-full bg-zinc-100/50 dark:bg-zinc-800/20 animate-pulse rounded-xl" />
-});
+
 
 interface ComponentItem {
   id: string;
@@ -115,38 +104,7 @@ const componentsList: ComponentItem[] = [
       </div>
     ),
   },
-  {
-    id: "audience-hub",
-    name: "Audience Hub Animation",
-    category: "SVG Animations",
-    preview: () => (
-      <div className="relative w-full h-[180px] flex items-center justify-center overflow-hidden bg-zinc-50 dark:bg-zinc-950 rounded-xl">
-        <LazyViewport placeholder={<div className="w-full h-full bg-zinc-100/50 dark:bg-zinc-800/20 animate-pulse rounded-xl" />}>
-          {() => (
-            <div className="absolute scale-[0.55] origin-center">
-              <AudienceHubAnimation animated={true} />
-            </div>
-          )}
-        </LazyViewport>
-      </div>
-    ),
-  },
-  {
-    id: "neural-circuit",
-    name: "Neural Circuit Orchestrator",
-    category: "SVG Animations",
-    preview: () => (
-      <div className="relative w-full h-[180px] flex items-center justify-center overflow-hidden bg-zinc-50 dark:bg-zinc-950 rounded-xl select-none pointer-events-none">
-        <LazyViewport placeholder={<div className="w-full h-full bg-zinc-100/50 dark:bg-zinc-800/20 animate-pulse rounded-xl" />}>
-          {() => (
-            <div className="absolute w-[800px] scale-[0.22] origin-center">
-              <NeuralCircuitOrchestrator />
-            </div>
-          )}
-        </LazyViewport>
-      </div>
-    ),
-  },
+
   {
     id: "btn-ink",
     name: "Button - Ink Fill (InkFillBtn)",
@@ -240,7 +198,7 @@ const componentsList: ComponentItem[] = [
       <div className="relative w-full h-[180px] flex items-center justify-center overflow-hidden bg-zinc-50 dark:bg-zinc-950 rounded-xl select-none">
         <LazyViewport placeholder={<div className="w-full h-full bg-zinc-100/50 dark:bg-zinc-800/20 animate-pulse rounded-xl" />}>
           {() => (
-            <div className="absolute scale-[0.6] origin-center translate-y-12">
+            <div className="absolute scale-[0.6] origin-center mb-13 translate-y-12">
               <AnimatedDockDemo />
             </div>
           )}
@@ -248,22 +206,7 @@ const componentsList: ComponentItem[] = [
       </div>
     ),
   },
-  {
-    id: "interactive-terminal",
-    name: "Interactive Terminal",
-    category: "Components",
-    preview: () => (
-      <div className="relative w-full h-[180px] flex items-center justify-center overflow-hidden bg-zinc-50 dark:bg-zinc-950 rounded-xl select-none pointer-events-none">
-        <LazyViewport placeholder={<div className="w-full h-full bg-zinc-100/50 dark:bg-zinc-800/20 animate-pulse rounded-xl" />}>
-          {() => (
-            <div className="absolute w-[600px] scale-[0.38] origin-center translate-y-2">
-              <PremiumTerminal />
-            </div>
-          )}
-        </LazyViewport>
-      </div>
-    ),
-  },
+
 ];
 
 export default function ComponentGrid() {
@@ -636,7 +579,7 @@ export default function ComponentGrid() {
         {componentsList.map((item) => (
           <div
             key={item.id}
-            className="group relative rounded-2xl bg-card p-1 transition-all duration-200 dark:bg-muted/70 dark:group-hover:brightness-110 shadow-[0px_0px_0px_1px_rgba(0,0,0,0.06),0px_1px_2px_-1px_rgba(0,0,0,0.06),0px_2px_4px_0px_rgba(0,0,0,0.04)] hover:shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08),0px_2px_4px_-1px_rgba(0,0,0,0.1),0px_4px_8px_0px_rgba(0,0,0,0.06)] dark:shadow-[0px_0px_0px_1px_rgba(255,255,255,0.06),0px_1px_2px_-1px_rgba(255,255,255,0.03),0px_2px_4px_0px_rgba(0,0,0,0.2)] dark:hover:shadow-[0px_0px_0px_1px_rgba(255,255,255,0.1),0px_2px_4px_-1px_rgba(255,255,255,0.05),0px_4px_8px_0px_rgba(0,0,0,0.3)]"
+            className="group/card relative rounded-2xl bg-card p-1 transition-all duration-200 dark:bg-muted/70 dark:group-hover/card:brightness-110 shadow-[0px_0px_0px_1px_rgba(0,0,0,0.06),0px_1px_2px_-1px_rgba(0,0,0,0.06),0px_2px_4px_0px_rgba(0,0,0,0.04)] hover:shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08),0px_2px_4px_-1px_rgba(0,0,0,0.1),0px_4px_8px_0px_rgba(0,0,0,0.06)] dark:shadow-[0px_0px_0px_1px_rgba(255,255,255,0.06),0px_1px_2px_-1px_rgba(255,255,255,0.03),0px_2px_4px_0px_rgba(0,0,0,0.2)] dark:hover:shadow-[0px_0px_0px_1px_rgba(255,255,255,0.1),0px_2px_4px_-1px_rgba(255,255,255,0.05),0px_4px_8px_0px_rgba(0,0,0,0.3)]"
           >
             {/* Card Inner Content */}
             <div className="bg-white dark:bg-zinc-900 rounded-xl p-4 flex flex-col justify-between h-full gap-4">
