@@ -238,7 +238,7 @@ export const ThreeDTiltShimmerButton = React.forwardRef<
         {/* Ambient background glow blooming outward on hover (tilts with the button for 3D realism) */}
         {showGlow && !shouldReduceMotion && (
           <motion.div
-            className="absolute -inset-3 opacity-0 group-hover:opacity-60 blur-2xl pointer-events-none transition-opacity duration-300"
+            className="absolute -inset-3 opacity-0 group-hover:opacity-30 dark:group-hover:opacity-60 blur-2xl pointer-events-none transition-opacity duration-300"
             style={{
               background: activeTheme.glowBg,
               backgroundSize: "300% 300%",
@@ -257,7 +257,7 @@ export const ThreeDTiltShimmerButton = React.forwardRef<
         {/* Light Mode Subtle Smoke Detail (smaller, tighter detailing over the large glow) */}
         {!shouldReduceMotion && (
           <motion.div
-            className="absolute -inset-1 opacity-0 group-hover:opacity-100 blur-md pointer-events-none transition-opacity duration-700 dark:hidden"
+            className="absolute -inset-1 opacity-0 group-hover:opacity-40 blur-md pointer-events-none transition-opacity duration-700 dark:hidden"
             style={{
               background: "linear-gradient(120deg, rgba(15,23,42,0.15), rgba(15,23,42,0.03), rgba(15,23,42,0.1))",
               backgroundSize: "200% 200%",
