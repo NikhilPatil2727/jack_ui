@@ -189,9 +189,9 @@ export const ThreeDTiltShimmerButton = React.forwardRef<
         reducedMotionGradient: "from-amber-400 via-yellow-500 to-amber-600",
       },
       rainbow: {
-        glowBg: "var(--glow-bg, linear-gradient(135deg, #f472b6, #a855f7, #3b82f6, #06b6d4, #10b981))",
-        borderGlow: (x: number, y: number) => `radial-gradient(120px circle at ${x}px ${y}px, var(--border-1, rgba(244,114,182,0.9)) 0%, var(--border-2, rgba(168,85,247,0.6)) 50%, var(--border-3, rgba(6,182,212,0.15)) 80%, transparent 100%)`,
-        reducedMotionGradient: "dark:from-pink-500 dark:via-purple-500 dark:to-cyan-500 from-pink-500 via-blue-500 to-emerald-500",
+        glowBg: "var(--glow-bg, linear-gradient(135deg, #ef4444, #f97316, #eab308, #10b981, #a855f7))",
+        borderGlow: (x: number, y: number) => `radial-gradient(120px circle at ${x}px ${y}px, var(--border-1, rgba(239,68,68,0.9)) 0%, var(--border-2, rgba(234,179,8,0.6)) 50%, var(--border-3, rgba(16,185,129,0.15)) 80%, transparent 100%)`,
+        reducedMotionGradient: "dark:from-red-500 dark:via-yellow-500 dark:to-emerald-500 from-red-500 via-yellow-500 to-purple-500",
       }
     };
 
@@ -220,9 +220,9 @@ export const ThreeDTiltShimmerButton = React.forwardRef<
         ref={containerRef}
         className={cn(
           "relative inline-block group select-none",
-          // Soft rainbow spotlight for light mode, premium aurora/nebula spotlight for dark mode
+          // Soft rainbow spotlight for light mode, warm rainbow (no pink/blue) spotlight for dark mode
           "[--spotlight-1:rgba(255,0,0,0.1)] [--spotlight-2:rgba(255,165,0,0.08)] [--spotlight-3:rgba(255,255,0,0.06)] [--spotlight-4:rgba(0,255,0,0.04)] [--spotlight-5:rgba(0,0,255,0.02)] [--spotlight-6:transparent]",
-          "dark:[--spotlight-1:rgba(244,114,182,0.15)] dark:[--spotlight-2:rgba(168,85,247,0.12)] dark:[--spotlight-3:rgba(59,130,246,0.09)] dark:[--spotlight-4:rgba(6,182,212,0.06)] dark:[--spotlight-5:rgba(16,185,129,0.03)] dark:[--spotlight-6:transparent]"
+          "dark:[--spotlight-1:rgba(239,68,68,0.15)] dark:[--spotlight-2:rgba(249,115,22,0.12)] dark:[--spotlight-3:rgba(234,179,8,0.09)] dark:[--spotlight-4:rgba(16,185,129,0.06)] dark:[--spotlight-5:rgba(168,85,247,0.03)] dark:[--spotlight-6:transparent]"
         )}
         style={{
           perspective: shouldReduceMotion ? undefined : `${perspective}px`,
