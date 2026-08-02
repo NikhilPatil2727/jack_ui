@@ -244,9 +244,23 @@ export default function ComponentGrid() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    let animationFrameId: number;
+    let animationFrameId: number = 0;
     let width = (canvas.width = canvas.offsetWidth);
     let height = (canvas.height = canvas.offsetHeight);
+
+    let isVisible = true;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          isVisible = entry.isIntersecting;
+          if (isVisible && !animationFrameId) {
+            draw();
+          }
+        });
+      },
+      { threshold: 0 }
+    );
+    observer.observe(canvas);
 
     const handleResize = () => {
       if (!canvas) return;
@@ -503,14 +517,19 @@ export default function ComponentGrid() {
         ctx.shadowBlur = 0;
       });
 
-      animationFrameId = requestAnimationFrame(draw);
+      if (isVisible) {
+        animationFrameId = requestAnimationFrame(draw);
+      } else {
+        animationFrameId = 0;
+      }
     };
 
     draw();
 
     return () => {
       window.removeEventListener("resize", handleResize);
-      cancelAnimationFrame(animationFrameId);
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
+      observer.disconnect();
     };
   }, [mounted]);
 
@@ -535,19 +554,19 @@ export default function ComponentGrid() {
       />
       {/* Header Container */}
       <div className="max-w-6xl mx-auto text-left mb-12 relative z-10">
-        <span className="text-rose-600 dark:text-rose-400 font-bold text-sm tracking-widest uppercase block mb-3 font-outfit">
-          Gallery
+        <span className="text-rose-600 dark:text-rose-400 font-bold text-sm tracking-widest uppercase block mb-3 font-sans">
+         
         </span>
-        <h2 className="text-4xl md:text-6xl font-black tracking-tight text-zinc-900 dark:text-zinc-50 mb-4 font-outfit leading-tight flex flex-wrap items-center gap-x-2">
+        <h2 className="text-4xl md:text-6xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 mb-4 font-sans leading-tight flex flex-wrap items-center gap-x-2">
           Interactive{" "}
           <motion.span
             whileHover="hover"
             initial="initial"
-            className="font-lavishly-yours text-rose-600 dark:text-rose-400 font-normal lowercase tracking-wide text-5xl md:text-7xl lg:text-8xl block sm:inline-block rotate-[-2deg] origin-left relative cursor-pointer select-none px-2 align-middle translate-y-[2px]"
+            className="font-instrument tracking-tight text-zinc-500 dark:text-zinc-400 block sm:inline-block origin-left relative cursor-pointer select-none px-2 align-middle"
           >
             elements
             <svg
-              className="absolute left-1 bottom-[-8px] w-[95%] h-2.5 text-rose-600/70 dark:text-rose-400/80 pointer-events-none"
+              className="absolute left-1 bottom-0 w-[95%] h-2 text-zinc-300 dark:text-zinc-700 pointer-events-none"
               viewBox="0 0 100 10"
               preserveAspectRatio="none"
             >
@@ -555,7 +574,7 @@ export default function ComponentGrid() {
                 d="M 5 3 C 35 6, 65 6, 95 3"
                 fill="none"
                 stroke="currentColor"
-                strokeWidth="2.5"
+                strokeWidth="1.5"
                 strokeLinecap="round"
                 variants={{
                   initial: { pathLength: 0, opacity: 0 },
@@ -569,7 +588,7 @@ export default function ComponentGrid() {
             </svg>
           </motion.span>
         </h2>
-        <p className="text-lg md:text-xl text-zinc-600 dark:text-zinc-400 max-w-3xl mb-6 font-outfit font-light leading-relaxed">
+        <p className="text-lg md:text-xl text-zinc-600 dark:text-zinc-400 max-w-3xl mb-6 font-sans font-light leading-relaxed">
           A preview of the layout blocks, including card overlays, simple spring gestures, and clean SVG animations.
         </p>
       </div>

@@ -5,20 +5,9 @@ import { motion } from "motion/react";
 import Nextjs from "@/components/icons/nextjs";
 import ReactIcon from "@/components/icons/react";
 import ShadcnIcon from "@/components/icons/shadcn";
-import { useState } from "react";
 import Motion from "../icons/motion";
 
 export default function Features() {
-    const [hoveredItem, setHoveredItem] = useState<string | null>(null);
-
-    const handleMouseEnter = (iconName: string) => {
-        setHoveredItem(iconName);
-    };
-
-    const handleMouseLeave = () => {
-        setHoveredItem(null);
-    };
-
     return (
         <div className="w-full flex justify-center z-10">
             <div className="flex flex-row flex-wrap items-center justify-center gap-6 md:gap-8 py-4">
@@ -32,10 +21,8 @@ export default function Features() {
                         ease: [0.23, 1, 0.32, 1],
                     }}
                     className={cn(
-                        "text-blue-600 dark:text-blue-400 relative flex flex-col items-center gap-2"
+                        "text-blue-600 dark:text-blue-400 relative flex flex-col items-center gap-2 group cursor-pointer"
                     )}
-                    onMouseEnter={() => handleMouseEnter("TailwindCSS")}
-                    onMouseLeave={handleMouseLeave}
                 >
                     <svg
                         viewBox="0 0 54 33"
@@ -53,17 +40,11 @@ export default function Features() {
                             />
                         </g>
                     </svg>
-                    <motion.span
-                        animate={{
-                            scale: hoveredItem === "TailwindCSS" ? 1.1 : 1,
-                        }}
-                        className={cn(
-                            "text-xs text-center mt-1 whitespace-nowrap text-black dark:text-white transition-all duration-200",
-                            hoveredItem === "TailwindCSS" ? "font-medium" : "font-normal"
-                        )}
+                    <span
+                        className="text-xs text-center mt-1 whitespace-nowrap text-black dark:text-white transition-all duration-200 font-normal group-hover:scale-110 group-hover:font-medium origin-top"
                     >
                         TailwindCSS
-                    </motion.span>
+                    </span>
                 </motion.div>
 
                 <motion.div
@@ -76,23 +57,15 @@ export default function Features() {
                         ease: [0.23, 1, 0.32, 1],
                     }}
                     className={cn(
-                        "text-yellow-500 dark:text-[#F5EA1E] relative flex flex-col items-center gap-2"
+                        "text-yellow-500 dark:text-[#F5EA1E] relative flex flex-col items-center gap-2 group cursor-pointer"
                     )}
-                    onMouseEnter={() => handleMouseEnter("Motion")}
-                    onMouseLeave={handleMouseLeave}
                 >
                     <Motion className="w-8 h-8" aria-label="Motion" />
-                    <motion.span
-                        animate={{
-                            scale: hoveredItem === "Motion" ? 1.1 : 1,
-                        }}
-                        className={cn(
-                            "text-xs text-center mt-1 whitespace-nowrap text-black dark:text-white transition-all duration-200",
-                            hoveredItem === "Motion" ? "font-medium" : "font-normal"
-                        )}
+                    <span
+                        className="text-xs text-center mt-1 whitespace-nowrap text-black dark:text-white transition-all duration-200 font-normal group-hover:scale-110 group-hover:font-medium origin-top"
                     >
                         Motion
-                    </motion.span>
+                    </span>
                 </motion.div>
 
                 <motion.div
@@ -105,26 +78,18 @@ export default function Features() {
                         ease: [0.23, 1, 0.32, 1],
                     }}
                     className={cn(
-                        "text-black dark:text-white flex flex-col items-center gap-2 relative"
+                        "text-black dark:text-white flex flex-col items-center gap-2 relative group cursor-pointer"
                     )}
-                    onMouseEnter={() => handleMouseEnter("Shadcn UI")}
-                    onMouseLeave={handleMouseLeave}
                 >
                     <ShadcnIcon
                         className="w-8 h-8 text-black dark:text-white"
                         aria-label="Shadcn/ui"
                     />
-                    <motion.span
-                        animate={{
-                            scale: hoveredItem === "Shadcn UI" ? 1.1 : 1,
-                        }}
-                        className={cn(
-                            "text-xs text-center mt-1 whitespace-nowrap text-black dark:text-white transition-all duration-200",
-                            hoveredItem === "Shadcn UI" ? "font-medium" : "font-normal"
-                        )}
+                    <span
+                        className="text-xs text-center mt-1 whitespace-nowrap text-black dark:text-white transition-all duration-200 font-normal group-hover:scale-110 group-hover:font-medium origin-top"
                     >
                         shadcn/ui
-                    </motion.span>
+                    </span>
                 </motion.div>
 
                 <motion.div
@@ -137,23 +102,15 @@ export default function Features() {
                         ease: [0.23, 1, 0.32, 1],
                     }}
                     className={cn(
-                        "text-black dark:text-white flex flex-col items-center gap-2 relative"
+                        "text-black dark:text-white flex flex-col items-center gap-2 relative group cursor-pointer"
                     )}
-                    onMouseEnter={() => handleMouseEnter("Next.js")}
-                    onMouseLeave={handleMouseLeave}
                 >
                     <Nextjs className="w-8 h-8" aria-label="Next.js" />
-                    <motion.span
-                        animate={{
-                            scale: hoveredItem === "Next.js" ? 1.1 : 1,
-                        }}
-                        className={cn(
-                            "text-xs text-center mt-1 whitespace-nowrap text-black dark:text-white transition-all duration-200",
-                            hoveredItem === "Next.js" ? "font-medium" : "font-normal"
-                        )}
+                    <span
+                        className="text-xs text-center mt-1 whitespace-nowrap text-black dark:text-white transition-all duration-200 font-normal group-hover:scale-110 group-hover:font-medium origin-top"
                     >
                         Next.js
-                    </motion.span>
+                    </span>
                 </motion.div>
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -165,23 +122,15 @@ export default function Features() {
                         ease: [0.23, 1, 0.32, 1],
                     }}
                     className={cn(
-                        "text-black dark:text-white flex flex-col items-center gap-2 relative"
+                        "text-black dark:text-white flex flex-col items-center gap-2 relative group cursor-pointer"
                     )}
-                    onMouseEnter={() => handleMouseEnter("React")}
-                    onMouseLeave={handleMouseLeave}
                 >
                     <ReactIcon className="w-8 h-8" aria-label="React" />
-                    <motion.span
-                        animate={{
-                            scale: hoveredItem === "React" ? 1.1 : 1,
-                        }}
-                        className={cn(
-                            "text-xs text-center mt-1 whitespace-nowrap text-black dark:text-white transition-all duration-200",
-                            hoveredItem === "React" ? "font-medium" : "font-normal"
-                        )}
+                    <span
+                        className="text-xs text-center mt-1 whitespace-nowrap text-black dark:text-white transition-all duration-200 font-normal group-hover:scale-110 group-hover:font-medium origin-top"
                     >
                         React
-                    </motion.span>
+                    </span>
                 </motion.div>
             </div>
         </div>

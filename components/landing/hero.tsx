@@ -119,7 +119,7 @@ export default function HeroSection() {
                   "blur(0px) drop-shadow(0px 12px 24px rgba(244, 63, 94, 0.45))",
                 transition: { type: "spring", stiffness: 220, damping: 14 },
               }}
-              className="font-serif italic font-bold tracking-normal pr-1 bg-clip-text text-transparent bg-gradient-to-r from-zinc-800 via-zinc-500 to-zinc-800 dark:from-zinc-100 dark:via-zinc-300 dark:to-zinc-100 inline-block origin-center cursor-pointer select-none"
+              className="font-instrument italic font-medium tracking-normal pr-1 bg-clip-text text-transparent bg-gradient-to-r from-zinc-800 via-zinc-500 to-zinc-800 dark:from-zinc-100 dark:via-zinc-300 dark:to-zinc-100 inline-block origin-center cursor-pointer select-none"
             >
               Interactive
             </motion.span>
@@ -136,11 +136,11 @@ export default function HeroSection() {
                   transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
                 },
               }}
-              className="text-rose-600 dark:text-rose-400 font-lavishly-yours lowercase tracking-wide text-6xl sm:text-7xl lg:text-8xl inline-block rotate-[-2deg] origin-center px-2 relative cursor-pointer select-none align-middle translate-y-[2px]"
+              className="font-instrument tracking-tight text-zinc-500 dark:text-zinc-400 inline-block origin-center px-2 relative cursor-pointer select-none align-middle"
             >
               by design,
               <svg
-                className="absolute left-2 bottom-[-8px] w-[95%] h-2.5 text-rose-600/70 dark:text-rose-400/80 pointer-events-none"
+                className="absolute left-2 bottom-0 w-[95%] h-2 text-zinc-300 dark:text-zinc-700 pointer-events-none"
                 viewBox="0 0 100 10"
                 preserveAspectRatio="none"
               >
@@ -148,7 +148,7 @@ export default function HeroSection() {
                   d="M 5 3 C 35 6, 65 6, 95 3"
                   fill="none"
                   stroke="currentColor"
-                  strokeWidth="2.5"
+                  strokeWidth="1.5"
                   strokeLinecap="round"
                   variants={{
                     initial: { pathLength: 0, opacity: 0 },
@@ -188,7 +188,7 @@ export default function HeroSection() {
                   "blur(0px) drop-shadow(0px 12px 24px rgba(244, 63, 94, 0.45))",
                 transition: { type: "spring", stiffness: 220, damping: 14 },
               }}
-              className="font-serif italic font-bold tracking-normal pr-1 bg-clip-text text-transparent bg-gradient-to-r from-zinc-800 via-zinc-500 to-zinc-800 dark:from-zinc-100 dark:via-zinc-300 dark:to-zinc-100 inline-block origin-center cursor-pointer select-none"
+              className="font-instrument italic font-medium tracking-normal pr-1 bg-clip-text text-transparent bg-gradient-to-r from-zinc-800 via-zinc-500 to-zinc-800 dark:from-zinc-100 dark:via-zinc-300 dark:to-zinc-100 inline-block origin-center cursor-pointer select-none"
             >
               premium
             </motion.span>
@@ -205,11 +205,11 @@ export default function HeroSection() {
                   transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
                 },
               }}
-              className="text-rose-600 dark:text-rose-400 font-lavishly-yours lowercase tracking-wide text-6xl sm:text-7xl lg:text-8xl inline-block rotate-[-2deg] origin-center px-2 relative cursor-pointer select-none align-middle translate-y-[2px]"
+              className="font-instrument tracking-tight text-zinc-500 dark:text-zinc-400 inline-block origin-center px-2 relative cursor-pointer select-none align-middle"
             >
               by default.
               <svg
-                className="absolute left-2 bottom-[-8px] w-[95%] h-2.5 text-rose-600/70 dark:text-rose-400/80 pointer-events-none"
+                className="absolute left-2 bottom-0 w-[95%] h-2 text-zinc-300 dark:text-zinc-700 pointer-events-none"
                 viewBox="0 0 100 10"
                 preserveAspectRatio="none"
               >
@@ -217,7 +217,7 @@ export default function HeroSection() {
                   d="M 5 3 C 35 6, 65 6, 95 3"
                   fill="none"
                   stroke="currentColor"
-                  strokeWidth="2.5"
+                  strokeWidth="1.5"
                   strokeLinecap="round"
                   variants={{
                     initial: { pathLength: 0, opacity: 0 },
