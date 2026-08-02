@@ -79,9 +79,9 @@ export const ThreeDTiltShimmerButton = React.forwardRef<
     {
       className,
       children,
-      tiltMaxX = 8,
-      tiltMaxY = 24,
-      perspective = 800,
+      tiltMaxX = 5,
+      tiltMaxY = 15,
+      perspective = 1000,
       showRainbowBorder = true,
       showGlow = true,
       showShimmerSweep = true,
@@ -129,7 +129,7 @@ export const ThreeDTiltShimmerButton = React.forwardRef<
     const handleMouseEnter = () => {
       if (disabled) return;
       setHovered(true);
-      scale.set(1.06); // Slightly more scale for premium pop
+      scale.set(1.02); // Subtle scale for premium pop
       // Distinct right-side tilt
       rotateX.set(tiltMaxX);
       rotateY.set(tiltMaxY);
@@ -144,12 +144,12 @@ export const ThreeDTiltShimmerButton = React.forwardRef<
 
     const handleMouseDown = () => {
       if (disabled) return;
-      scale.set(0.96);
+      scale.set(0.98);
     };
 
     const handleMouseUp = () => {
       if (disabled) return;
-      scale.set(1.04);
+      scale.set(1.01);
     };
 
     const THEMES = {
@@ -220,9 +220,9 @@ export const ThreeDTiltShimmerButton = React.forwardRef<
         ref={containerRef}
         className={cn(
           "relative inline-block group select-none",
-          // Soft rainbow spotlight for light mode, warm rainbow (no pink/blue) spotlight for dark mode
-          "[--spotlight-1:rgba(255,0,0,0.1)] [--spotlight-2:rgba(255,165,0,0.08)] [--spotlight-3:rgba(255,255,0,0.06)] [--spotlight-4:rgba(0,255,0,0.04)] [--spotlight-5:rgba(0,0,255,0.02)] [--spotlight-6:transparent]",
-          "dark:[--spotlight-1:rgba(239,68,68,0.15)] dark:[--spotlight-2:rgba(249,115,22,0.12)] dark:[--spotlight-3:rgba(234,179,8,0.09)] dark:[--spotlight-4:rgba(16,185,129,0.06)] dark:[--spotlight-5:rgba(168,85,247,0.03)] dark:[--spotlight-6:transparent]"
+          // Subtle neutral spotlight for light mode, soft white for dark mode
+          "[--spotlight-1:rgba(0,0,0,0.05)] [--spotlight-2:rgba(0,0,0,0.04)] [--spotlight-3:rgba(0,0,0,0.03)] [--spotlight-4:rgba(0,0,0,0.02)] [--spotlight-5:rgba(0,0,0,0.01)] [--spotlight-6:transparent]",
+          "dark:[--spotlight-1:rgba(255,255,255,0.1)] dark:[--spotlight-2:rgba(255,255,255,0.08)] dark:[--spotlight-3:rgba(255,255,255,0.05)] dark:[--spotlight-4:rgba(255,255,255,0.03)] dark:[--spotlight-5:rgba(255,255,255,0.01)] dark:[--spotlight-6:transparent]"
         )}
         style={{
           perspective: shouldReduceMotion ? undefined : `${perspective}px`,
@@ -238,7 +238,7 @@ export const ThreeDTiltShimmerButton = React.forwardRef<
         {/* Ambient background glow blooming outward on hover (tilts with the button for 3D realism) */}
         {showGlow && !shouldReduceMotion && (
           <motion.div
-            className="absolute -inset-3 opacity-0 group-hover:opacity-30 dark:group-hover:opacity-60 blur-2xl pointer-events-none transition-opacity duration-300"
+            className="absolute -inset-2 opacity-0 group-hover:opacity-20 dark:group-hover:opacity-40 blur-xl pointer-events-none transition-opacity duration-300"
             style={{
               background: activeTheme.glowBg,
               backgroundSize: "300% 300%",
@@ -368,9 +368,9 @@ export const ThreeDTiltShimmerButton = React.forwardRef<
           <span
             className="relative z-10 flex items-center justify-center gap-2 transition-transform duration-300"
             style={{
-              transform: hovered && !shouldReduceMotion ? "translateZ(45px)" : "translateZ(0px)",
+              transform: hovered && !shouldReduceMotion ? "translateZ(20px)" : "translateZ(0px)",
               transformStyle: "preserve-3d",
-              textShadow: hovered ? "0px 10px 20px rgba(0,0,0,0.5)" : "none",
+              textShadow: hovered ? "0px 4px 8px rgba(0,0,0,0.15)" : "none",
             }}
           >
             {showPulseDot && (
