@@ -51,7 +51,7 @@ export function BrowseComponentsButton() {
         href="/docs" 
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
-        className="group relative flex h-14 w-full sm:w-[240px] items-center justify-center overflow-hidden rounded-full bg-zinc-950 dark:bg-zinc-900 transition-all hover:scale-[1.03] active:scale-[0.97] shadow-[0_8px_32px_-8px_rgba(0,0,0,0.5)] dark:shadow-[0_8px_32px_-8px_rgba(255,255,255,0.15)] border border-white/10 dark:border-white/5"
+        className="group relative flex h-12 w-full sm:w-[220px] items-center justify-center overflow-hidden rounded-full bg-zinc-950 dark:bg-zinc-900 transition-all hover:scale-[1.02] active:scale-[0.98] shadow-md hover:shadow-xl dark:shadow-none border border-zinc-800 dark:border-white/10"
       >
         {/* Animated spinning gradient background */}
         <div className="absolute inset-[-100%] animate-[spin_4s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,rgba(99,102,241,0)_0%,rgba(99,102,241,0.5)_50%,rgba(99,102,241,0)_100%)] dark:bg-[conic-gradient(from_90deg_at_50%_50%,rgba(255,255,255,0)_0%,rgba(255,255,255,0.4)_50%,rgba(255,255,255,0)_100%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
