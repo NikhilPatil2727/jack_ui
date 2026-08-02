@@ -106,22 +106,7 @@ export function Header() {
             )}
           </button>
 
-          {/* Get Pro — always visible */}
-          <Link
-            href="#"
-            target="_blank"
-            className={cn(
-              "inline-flex h-[34px] cursor-pointer items-center gap-1.5 rounded-[9px] px-3.5",
-              "text-[12.5px] font-[650] tracking-[-0.2px]",
-              "transition-opacity duration-150 hover:opacity-85 active:scale-[0.97]",
-              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
-              "bg-black text-white focus-visible:ring-black/30 focus-visible:ring-offset-white",
-              "dark:bg-white dark:text-[#0a0a0a] dark:focus-visible:ring-white/30 dark:focus-visible:ring-offset-[#0a0a0a]"
-            )}
-          >
-            Get Pro
-            <ArrowUpRight className="h-3 w-3" aria-hidden />
-          </Link>
+
 
           {/* Hamburger — mobile only */}
           <button
@@ -178,21 +163,7 @@ export function Header() {
           {/* Divider */}
           <div className={cn("my-2 h-px", "bg-black/[0.05] dark:bg-white/[0.05]")} aria-hidden />
 
-          {/* Mobile CTA — full width */}
-          <Link
-            href="#"
-            target="_blank"
-            onClick={() => setMenuOpen(false)}
-            className={cn(
-              "flex cursor-pointer items-center justify-center gap-1.5 rounded-[10px] py-2.5",
-              "text-[13.5px] font-[650] tracking-[-0.2px]",
-              "transition-opacity duration-150 hover:opacity-85",
-              "bg-black text-white dark:bg-white dark:text-[#0a0a0a]"
-            )}
-          >
-            Get Pro
-            <ArrowUpRight className="h-3.5 w-3.5" aria-hidden />
-          </Link>
+
         </nav>
       </div>
     </header>

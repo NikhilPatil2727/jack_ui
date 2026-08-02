@@ -564,7 +564,7 @@ export default function ComponentGrid() {
             initial="initial"
             className="font-instrument tracking-tight text-zinc-500 dark:text-zinc-400 block sm:inline-block origin-left relative cursor-pointer select-none px-2 align-middle"
           >
-            elements
+            Components
             <svg
               className="absolute left-1 bottom-0 w-[95%] h-2 text-zinc-300 dark:text-zinc-700 pointer-events-none"
               viewBox="0 0 100 10"
