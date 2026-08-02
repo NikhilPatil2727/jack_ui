@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef, useMemo } from "react";
-import { motion, type HTMLMotionProps } from "motion/react";
+import { motion, useMotionValue, useSpring, useMotionTemplate, type HTMLMotionProps } from "motion/react";
 import { cn } from "@/lib/utils";
 
 export interface SpringAnimatedButtonProps extends Omit<HTMLMotionProps<"button">, "ref"> {
@@ -32,6 +32,21 @@ export function SpringAnimatedButton({
 }: SpringAnimatedButtonProps) {
   const containerRef = useRef<HTMLButtonElement>(null);
   const [size, setSize] = useState({ width: 180, height: 48 });
+  const [isHovered, setIsHovered] = useState(false);
+
+  // Spotlight mouse tracking
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const smoothX = useSpring(mouseX, { stiffness: 200, damping: 25 });
+  const smoothY = useSpring(mouseY, { stiffness: 200, damping: 25 });
+  const spotlightGradient = useMotionTemplate`radial-gradient(120px circle at ${smoothX}px ${smoothY}px, rgba(167, 139, 250, 0.15), transparent 100%)`;
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (!containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    mouseX.set(e.clientX - rect.left);
+    mouseY.set(e.clientY - rect.top);
+  };
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -185,29 +200,48 @@ export function SpringAnimatedButton({
   return (
     <motion.button
       ref={containerRef}
-      whileHover={!disabled ? { scale: 1.03 } : undefined}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      whileHover={!disabled ? { scale: 1.02 } : undefined}
       whileTap={!disabled ? { scale: 0.97 } : undefined}
       disabled={disabled}
       type={type}
       className={cn(
-        "relative isolate group px-10 py-3.5 rounded-2xl bg-[#09090b] text-white font-medium outline-none cursor-pointer select-none overflow-hidden",
-        "focus-visible:ring-2 focus-visible:ring-violet-500/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#09090b]",
-        "shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_8px_24px_rgba(0,0,0,0.6)]",
+        "relative isolate group px-10 py-3.5 rounded-2xl bg-[#030303] font-medium outline-none cursor-pointer select-none overflow-hidden",
+        "focus-visible:ring-2 focus-visible:ring-violet-500/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#030303]",
+        "shadow-[inset_0_1px_1px_rgba(255,255,255,0.08),0_8px_32px_rgba(0,0,0,0.8),0_2px_8px_rgba(0,0,0,0.6)]",
         "disabled:opacity-50 disabled:cursor-not-allowed",
         className
       )}
       {...props}
     >
+      {/* Spotlight Hover Effect */}
+      <motion.div
+        className="absolute -inset-px rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+        style={{ background: spotlightGradient }}
+        aria-hidden="true"
+      />
+
       <svg
         className="absolute inset-0 w-full h-full pointer-events-none rounded-2xl"
         aria-hidden="true"
       >
         <defs>
           <linearGradient id="spring-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#c084fc" />
-            <stop offset="50%" stopColor="#e879f9" />
-            <stop offset="100%" stopColor="#818cf8" />
+            <stop offset="0%" stopColor="#d8b4fe" />
+            <stop offset="50%" stopColor="#a855f7" />
+            <stop offset="100%" stopColor="#6366f1" />
           </linearGradient>
+
+          {/* Premium neon glow filter */}
+          <filter id="neon-glow" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="3" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
         </defs>
 
         {/* Outer rigid border frame */}
@@ -218,7 +252,7 @@ export function SpringAnimatedButton({
           height={Math.max(0, size.height - 2)}
           rx="15"
           fill="none"
-          stroke="rgba(255,255,255,0.12)"
+          stroke="rgba(255,255,255,0.06)"
           strokeWidth="1.5"
         />
 
@@ -241,6 +275,7 @@ export function SpringAnimatedButton({
             strokeWidth="2.5"
             strokeLinecap="round"
             strokeLinejoin="round"
+            filter="url(#neon-glow)"
             strokeDasharray={`${springSegmentLength} ${totalPerimeter - springSegmentLength}`}
             animate={{ strokeDashoffset: [0, -totalPerimeter] }}
             transition={{ duration: speed, repeat: Infinity, ease: "linear" }}
@@ -248,15 +283,17 @@ export function SpringAnimatedButton({
         )}
       </svg>
 
-      {/* Button Label */}
-      <span className="relative z-10 flex items-center justify-center gap-2 font-semibold text-[15px] tracking-wide text-white/95 group-hover:text-white transition-colors">
+      {/* Button Label with Glow Transition */}
+      <motion.span 
+        className="relative z-10 flex items-center justify-center gap-2 font-semibold text-[15px] tracking-[0.02em]"
+        animate={{
+          textShadow: isHovered ? "0 0 16px rgba(167, 139, 250, 0.6)" : "none",
+          color: isHovered ? "#ffffff" : "rgba(255,255,255,0.85)"
+        }}
+        transition={{ duration: 0.3 }}
+      >
         {label}
-      </span>
-
-      {/* Ambient hover glow */}
-      <motion.div
-        className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_center,rgba(192,132,252,0.25)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-      />
+      </motion.span>
     </motion.button>
   );
 }
