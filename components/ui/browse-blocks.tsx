@@ -46,7 +46,7 @@ export function BrowseBlocksButton() {
                 href="/docs"
                 onMouseMove={handleMouseMove}
                 onMouseLeave={handleMouseLeave}
-                className="group relative flex h-14 w-full sm:w-[220px] items-center justify-center overflow-hidden rounded-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-900 dark:text-zinc-100 transition-all hover:bg-zinc-50 dark:hover:bg-zinc-800/80 hover:border-zinc-300 dark:hover:border-zinc-700 hover:scale-[1.03] active:scale-[0.97] shadow-sm hover:shadow-md dark:shadow-none"
+                className="group relative flex h-12 w-full sm:w-[220px] items-center justify-center overflow-hidden rounded-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-900 dark:text-zinc-100 transition-all hover:bg-zinc-50 dark:hover:bg-zinc-800/80 hover:border-zinc-300 dark:hover:border-zinc-700 hover:scale-[1.02] active:scale-[0.98] shadow-sm hover:shadow-md dark:shadow-none"
             >
                 {/* Clean hover gradient shine */}
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-zinc-100 dark:via-zinc-800 to-transparent opacity-0 group-hover:opacity-100 -translate-x-full group-hover:translate-x-full transition-all duration-700 ease-in-out" />

@@ -42,19 +42,23 @@ export function Header() {
           <Link
             href="/"
             className={cn(
-              "flex shrink-0 items-center gap-2.5 pr-5 mr-5 cursor-pointer",
+              "flex shrink-0 items-center gap-2.5 pr-5 mr-5 cursor-pointer group relative",
               "border-r border-black/[0.07] dark:border-white/[0.07]"
             )}
           >
-            <Image
-              src="/JackUi.png"
-              alt="Jack UI logo"
-              width={44}
-              height={44}
-              className="h-[44px] w-[44px] rounded-[8px] object-cover"
-              priority
-              unoptimized
-            />
+            <div className="relative">
+              {/* Subtle green and yellow glow for light mode visibility */}
+              <div className="absolute -inset-1 -z-10 bg-gradient-to-tr from-emerald-500/15 to-yellow-400/15 blur-md rounded-full dark:opacity-0 opacity-100 transition-all duration-500 group-hover:from-emerald-500/25 group-hover:to-yellow-400/25" />
+              <Image
+                src="/JackUi.png"
+                alt="Jack UI logo"
+                width={44}
+                height={44}
+                className="h-[44px] w-[44px] object-cover relative z-10 drop-shadow-[0_0_4px_rgba(52,211,153,0.3)] dark:drop-shadow-none transition-all duration-300 group-hover:drop-shadow-[0_0_8px_rgba(132,204,22,0.4)]"
+                priority
+                unoptimized
+              />
+            </div>
             <span
               className={cn(
                 "text-[15px] font-bold tracking-[-0.4px]",
