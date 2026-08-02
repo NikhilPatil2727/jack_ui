@@ -43,7 +43,7 @@ export function BrowseBlocksButton() {
             <Link
                 ref={ref}
                 id="browse-blocks-button"
-                href="/docs"
+                href="/docs/blocks/pricing"
                 onMouseMove={handleMouseMove}
                 onMouseLeave={handleMouseLeave}
                 className="group relative flex h-12 w-full sm:w-[220px] items-center justify-center overflow-hidden rounded-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-900 dark:text-zinc-100 transition-all hover:bg-zinc-50 dark:hover:bg-zinc-800/80 hover:border-zinc-300 dark:hover:border-zinc-700 hover:scale-[1.02] active:scale-[0.98] shadow-sm hover:shadow-md dark:shadow-none"

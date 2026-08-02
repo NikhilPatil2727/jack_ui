@@ -70,18 +70,11 @@ export default function HeroSection() {
           <div className="flex flex-wrap items-center justify-center gap-x-1 sm:gap-x-2">
             <motion.span
               variants={{
-                hidden: {
-                  opacity: 0,
-                  y: 20,
-                  filter:
-                    "blur(8px) drop-shadow(0px 0px 0px rgba(244, 63, 94, 0))",
-                },
+                hidden: { opacity: 0, scale: 0.94 },
                 visible: {
                   opacity: 1,
-                  y: 0,
-                  filter:
-                    "blur(0px) drop-shadow(0px 0px 0px rgba(244, 63, 94, 0))",
-                  transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
+                  scale: 1,
+                  transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] },
                 },
               }}
               whileHover={{
@@ -89,10 +82,10 @@ export default function HeroSection() {
                 translateZ: 15,
                 scale: 1.03,
                 filter:
-                  "blur(0px) drop-shadow(0px 12px 24px rgba(59, 130, 246, 0.45))",
+                  "drop-shadow(0px 12px 24px rgba(59, 130, 246, 0.45))",
                 transition: { type: "spring", stiffness: 220, damping: 14 },
               }}
-              className="font-instrument italic font-medium tracking-normal pr-1 bg-clip-text text-transparent bg-gradient-to-r from-zinc-800 via-zinc-500 to-zinc-800 dark:from-zinc-100 dark:via-zinc-300 dark:to-zinc-100 hover:from-emerald-500 hover:via-blue-500 hover:to-violet-500 dark:hover:from-emerald-400 dark:hover:via-blue-400 dark:hover:to-violet-400 transition-all duration-300 inline-block origin-center cursor-pointer select-none"
+              className="font-instrument italic font-medium tracking-normal pr-3 -mr-2 bg-clip-text text-transparent bg-gradient-to-r from-zinc-800 via-zinc-500 to-zinc-800 dark:from-zinc-100 dark:via-zinc-300 dark:to-zinc-100 hover:from-emerald-500 hover:via-blue-500 hover:to-violet-500 dark:hover:from-emerald-400 dark:hover:via-blue-400 dark:hover:to-violet-400 transition-all duration-300 inline-block origin-center cursor-pointer select-none"
             >
               Interactive
             </motion.span>
@@ -101,12 +94,11 @@ export default function HeroSection() {
               whileHover="hover"
               initial="initial"
               variants={{
-                hidden: { opacity: 0, y: 20, filter: "blur(8px)" },
+                hidden: { opacity: 0, scale: 0.94 },
                 visible: {
                   opacity: 1,
-                  y: 0,
-                  filter: "blur(0px)",
-                  transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
+                  scale: 1,
+                  transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] },
                 },
               }}
               className="font-instrument tracking-tight text-zinc-500 dark:text-zinc-400 inline-block origin-center px-2 relative cursor-pointer select-none align-middle"
@@ -146,18 +138,11 @@ export default function HeroSection() {
           <div className="flex flex-wrap items-center justify-center gap-x-1 sm:gap-x-2">
             <motion.span
               variants={{
-                hidden: {
-                  opacity: 0,
-                  y: 20,
-                  filter:
-                    "blur(8px) drop-shadow(0px 0px 0px rgba(244, 63, 94, 0))",
-                },
+                hidden: { opacity: 0, scale: 0.94 },
                 visible: {
                   opacity: 1,
-                  y: 0,
-                  filter:
-                    "blur(0px) drop-shadow(0px 0px 0px rgba(244, 63, 94, 0))",
-                  transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
+                  scale: 1,
+                  transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] },
                 },
               }}
               whileHover={{
@@ -165,10 +150,10 @@ export default function HeroSection() {
                 translateZ: 15,
                 scale: 1.03,
                 filter:
-                  "blur(0px) drop-shadow(0px 12px 24px rgba(244, 63, 94, 0.45))",
+                  "drop-shadow(0px 12px 24px rgba(244, 63, 94, 0.45))",
                 transition: { type: "spring", stiffness: 220, damping: 14 },
               }}
-              className="font-instrument italic font-medium tracking-normal pr-1 bg-clip-text text-transparent bg-gradient-to-r from-zinc-800 via-zinc-500 to-zinc-800 dark:from-zinc-100 dark:via-zinc-300 dark:to-zinc-100 hover:from-rose-500 hover:via-yellow-500 hover:to-orange-500 dark:hover:from-rose-400 dark:hover:via-yellow-400 dark:hover:to-orange-400 transition-all duration-300 inline-block origin-center cursor-pointer select-none"
+              className="font-instrument italic font-medium tracking-normal pr-3 -mr-2 bg-clip-text text-transparent bg-gradient-to-r from-zinc-800 via-zinc-500 to-zinc-800 dark:from-zinc-100 dark:via-zinc-300 dark:to-zinc-100 hover:from-rose-500 hover:via-yellow-500 hover:to-orange-500 dark:hover:from-rose-400 dark:hover:via-yellow-400 dark:hover:to-orange-400 transition-all duration-300 inline-block origin-center cursor-pointer select-none"
             >
               premium
             </motion.span>
@@ -177,12 +162,11 @@ export default function HeroSection() {
               whileHover="hover"
               initial="initial"
               variants={{
-                hidden: { opacity: 0, y: 20, filter: "blur(8px)" },
+                hidden: { opacity: 0, scale: 0.94 },
                 visible: {
                   opacity: 1,
-                  y: 0,
-                  filter: "blur(0px)",
-                  transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
+                  scale: 1,
+                  transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] },
                 },
               }}
               className="font-instrument tracking-tight text-zinc-500 dark:text-zinc-400 inline-block origin-center px-2 relative cursor-pointer select-none align-middle"
