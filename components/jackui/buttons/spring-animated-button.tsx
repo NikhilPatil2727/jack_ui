@@ -71,8 +71,8 @@ export function SpringAnimatedButton({
     const height = size.height;
     const pad = 4;
     const cornerRadius = 16; // Perfectly concentric with outer rounded-[20px]
-    const targetWavelength = 18;
-    const amplitude = 2.5;
+    const targetWavelength = 8;
+    const amplitude = 1.2;
 
     const r = Math.min(cornerRadius, (width - pad * 2) / 2, (height - pad * 2) / 2);
     const xMin = pad + r;
@@ -171,7 +171,7 @@ export function SpringAnimatedButton({
       };
     };
 
-    const stepSize = 1.2;
+    const stepSize = 0.5;
     const pointsCount = Math.ceil(perimeter / stepSize);
     let path = "";
 
@@ -239,7 +239,7 @@ export function SpringAnimatedButton({
 
           {/* Premium neon glow filter */}
           <filter id="neon-glow" x="-20%" y="-20%" width="140%" height="140%">
-            <feGaussianBlur stdDeviation="4" result="blur" />
+            <feGaussianBlur stdDeviation="2.5" result="blur" />
             <feMerge>
               <feMergeNode in="blur" />
               <feMergeNode in="SourceGraphic" />
@@ -275,7 +275,7 @@ export function SpringAnimatedButton({
             d={springPath}
             fill="none"
             stroke="url(#spring-grad)"
-            strokeWidth="2.5"
+            strokeWidth="1.5"
             strokeLinecap="round"
             strokeLinejoin="round"
             filter="url(#neon-glow)"
