@@ -174,8 +174,12 @@ export function SpringAnimatedButton({
     const stepSize = 0.5;
     const pointsCount = Math.ceil(perimeter / stepSize);
     let path = "";
+    let truePathLength = 0;
+    let prevPx = 0;
+    let prevPy = 0;
 
-    for (let i = 0; i <= pointsCount; i++) {
+    // Loop twice to allow the dash to seamlessly wrap around the end of the path
+    for (let i = 0; i <= pointsCount * 2; i++) {
       const s = (i / pointsCount) * perimeter;
       const { x, y, nx, ny } = getPointAndNormal(s);
       const waveOffset = Math.sin((2 * Math.PI * s) / waveLen) * amplitude;
@@ -186,15 +190,24 @@ export function SpringAnimatedButton({
         path += `M ${px.toFixed(2)} ${py.toFixed(2)}`;
       } else {
         path += ` L ${px.toFixed(2)} ${py.toFixed(2)}`;
+        
+        // Measure length of a single full loop
+        if (i <= pointsCount) {
+          const dx = px - prevPx;
+          const dy = py - prevPy;
+          truePathLength += Math.sqrt(dx * dx + dy * dy);
+        }
       }
+      prevPx = px;
+      prevPy = py;
     }
 
     path += " Z";
 
-    // Length of the single spring segment (~28% of perimeter to match the diagram)
-    const segLen = Math.min(topLen + arcLen * 0.5, perimeter * 0.28);
+    // Length of the single spring segment (~28% of a single loop)
+    const segLen = truePathLength * 0.28;
 
-    return { springPath: path, totalPerimeter: perimeter, springSegmentLength: segLen };
+    return { springPath: path, totalPerimeter: truePathLength, springSegmentLength: segLen };
   }, [size.width, size.height]);
 
   return (
