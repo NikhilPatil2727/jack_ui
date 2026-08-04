@@ -39,7 +39,7 @@ export function SpringAnimatedButton({
   const mouseY = useMotionValue(0);
   const smoothX = useSpring(mouseX, { stiffness: 200, damping: 25 });
   const smoothY = useSpring(mouseY, { stiffness: 200, damping: 25 });
-  const spotlightGradient = useMotionTemplate`radial-gradient(120px circle at ${smoothX}px ${smoothY}px, rgba(167, 139, 250, 0.15), transparent 100%)`;
+  const spotlightGradient = useMotionTemplate`radial-gradient(120px circle at ${smoothX}px ${smoothY}px, rgba(255, 255, 255, 0.08), transparent 100%)`;
 
   const handleMouseMove = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (!containerRef.current) return;
@@ -69,10 +69,10 @@ export function SpringAnimatedButton({
   const { springPath, totalPerimeter, springSegmentLength } = useMemo(() => {
     const width = size.width;
     const height = size.height;
-    const pad = 8;
-    const cornerRadius = 12;
-    const targetWavelength = 14;
-    const amplitude = 3.5;
+    const pad = 4;
+    const cornerRadius = 16; // Perfectly concentric with outer rounded-[20px]
+    const targetWavelength = 18;
+    const amplitude = 2.5;
 
     const r = Math.min(cornerRadius, (width - pad * 2) / 2, (height - pad * 2) / 2);
     const xMin = pad + r;
@@ -208,35 +208,38 @@ export function SpringAnimatedButton({
       disabled={disabled}
       type={type}
       className={cn(
-        "relative isolate group px-10 py-3.5 rounded-2xl bg-[#030303] font-medium outline-none cursor-pointer select-none overflow-hidden",
-        "focus-visible:ring-2 focus-visible:ring-violet-500/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#030303]",
-        "shadow-[inset_0_1px_1px_rgba(255,255,255,0.08),0_8px_32px_rgba(0,0,0,0.8),0_2px_8px_rgba(0,0,0,0.6)]",
+        "relative isolate group px-8 py-3.5 rounded-[20px] bg-gradient-to-b from-[#18181b] to-[#09090b] outline-none cursor-pointer select-none overflow-hidden",
+        "focus-visible:ring-2 focus-visible:ring-violet-500/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#09090b]",
+        "shadow-[inset_0_1px_1px_rgba(255,255,255,0.1),inset_0_-1px_1px_rgba(0,0,0,0.4),0_8px_32px_rgba(0,0,0,0.4),0_2px_8px_rgba(0,0,0,0.4)]",
         "disabled:opacity-50 disabled:cursor-not-allowed",
         className
       )}
       {...props}
     >
+      {/* Glossy Overlay */}
+      <div className="absolute inset-0 rounded-[20px] bg-gradient-to-b from-white/5 to-transparent pointer-events-none" />
+
       {/* Spotlight Hover Effect */}
       <motion.div
-        className="absolute -inset-px rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+        className="absolute -inset-px rounded-[20px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
         style={{ background: spotlightGradient }}
         aria-hidden="true"
       />
 
       <svg
-        className="absolute inset-0 w-full h-full pointer-events-none rounded-2xl"
+        className="absolute inset-0 w-full h-full pointer-events-none rounded-[20px]"
         aria-hidden="true"
       >
         <defs>
           <linearGradient id="spring-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#d8b4fe" />
-            <stop offset="50%" stopColor="#a855f7" />
-            <stop offset="100%" stopColor="#6366f1" />
+            <stop offset="0%" stopColor="#FCD34D" />
+            <stop offset="50%" stopColor="#F59E0B" />
+            <stop offset="100%" stopColor="#FEF3C7" />
           </linearGradient>
 
           {/* Premium neon glow filter */}
           <filter id="neon-glow" x="-20%" y="-20%" width="140%" height="140%">
-            <feGaussianBlur stdDeviation="3" result="blur" />
+            <feGaussianBlur stdDeviation="4" result="blur" />
             <feMerge>
               <feMergeNode in="blur" />
               <feMergeNode in="SourceGraphic" />
@@ -250,10 +253,10 @@ export function SpringAnimatedButton({
           y="1"
           width={Math.max(0, size.width - 2)}
           height={Math.max(0, size.height - 2)}
-          rx="15"
+          rx="19"
           fill="none"
-          stroke="rgba(255,255,255,0.06)"
-          strokeWidth="1.5"
+          stroke="rgba(255,255,255,0.1)"
+          strokeWidth="1"
         />
 
         {/* Faint background track for the spring path */}
@@ -285,10 +288,10 @@ export function SpringAnimatedButton({
 
       {/* Button Label with Glow Transition */}
       <motion.span 
-        className="relative z-10 flex items-center justify-center gap-2 font-semibold text-[15px] tracking-[0.02em]"
+        className="relative z-10 flex items-center justify-center gap-2 font-medium text-sm tracking-wide"
         animate={{
-          textShadow: isHovered ? "0 0 16px rgba(167, 139, 250, 0.6)" : "none",
-          color: isHovered ? "#ffffff" : "rgba(255,255,255,0.85)"
+          textShadow: isHovered ? "0 0 16px rgba(255, 255, 255, 0.4)" : "none",
+          color: isHovered ? "#ffffff" : "rgba(255,255,255,0.7)"
         }}
         transition={{ duration: 0.3 }}
       >
