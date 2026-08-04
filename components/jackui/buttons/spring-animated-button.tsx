@@ -287,7 +287,7 @@ export function SpringAnimatedButton({
       </svg>
 
       {/* Button Label with Glow Transition */}
-      <motion.span 
+      <motion.span
         className="relative z-10 flex items-center justify-center gap-2 font-medium text-sm tracking-wide"
         animate={{
           textShadow: isHovered ? "0 0 16px rgba(255, 255, 255, 0.4)" : "none",
