@@ -76,6 +76,7 @@ export function SpringAnimatedButtonDemo() {
 | Prop | Type | Description |
 |------|------|-------------|
 | `label` | `string` | **Optional.** The text rendered inside the button. Default: `"Button"`. |
+| `speed` | `number` | **Optional.** Rotation speed in seconds for the spring to complete one full loop. Default: `2.5`. |
 | `className` | `string` | **Optional.** Extra Tailwind classes merged onto the button via `cn()`. |
 | `onClick` | `React.MouseEventHandler<HTMLButtonElement>` | **Optional.** Standard click handler. |
 | `disabled` | `boolean` | **Optional.** Disables interactions. |
@@ -87,4 +88,4 @@ export function SpringAnimatedButtonDemo() {
 ### Notes
 
 - **Dependency**: requires `motion` (`npm install motion`).
-- Uses SVG `feTurbulence` to generate the hand-drawn squiggly line effect, avoiding the need for large path data or external assets.
+- Uses procedural mathematical coordinates (`Math.sin`) to generate a highly detailed and smooth wavy path dynamically, avoiding heavy path assets.
