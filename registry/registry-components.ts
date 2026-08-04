@@ -276,4 +276,16 @@ export const component: Registry = [
             },
         ],
     },
+    {
+        name: "spring-animated-button",
+        type: "registry:component",
+        dependencies: ["motion"],
+        files: [
+            {
+                path: "components/jackui/buttons/spring-animated-button.tsx",
+                type: "registry:component",
+            },
+        ],
+    },
 ];
+
