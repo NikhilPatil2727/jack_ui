@@ -1,0 +1,91 @@
+---
+title: Spring Animated Button
+description: A creative, hand-drawn style button featuring a continuously moving squiggly "spring" border. Perfect for playful, creative, or artistic interfaces.
+icon: Activity
+---
+
+import SpringAnimatedButton from "@/components/jackui/buttons/spring-animated-button";
+
+<Preview link="button/spring-animated-button">
+  <SpringAnimatedButton label="Button" />
+</Preview>
+
+---
+
+### Component Overview & Selection Guide
+
+This component provides a unique, artistic touch with a hand-drawn squiggly line that continuously animates around the button's border like a spring. 
+
+#### Primary Use Cases:
+- **Creative Portfolios:** Adds a playful, sketchy vibe to portfolio links and CTAs.
+- **Design Tools & Apps:** Perfect for applications targeting artists, designers, or creators.
+- **Micro-Interactions:** An engaging hover and continuous movement effect that naturally draws the eye without being overly aggressive.
+
+---
+
+### Installation
+
+<Tabs items={["npx", "pnpm", "bun"]}>
+
+```bash tab="npx"
+npx shadcn@latest add https://jack-ui-ten.vercel.app/r/spring-animated-button.json
+```
+
+```bash tab="pnpm"
+pnpm dlx shadcn@latest add https://jack-ui-ten.vercel.app/r/spring-animated-button.json
+```
+
+```bash tab="bun"
+bunx shadcn@latest add https://jack-ui-ten.vercel.app/r/spring-animated-button.json
+```
+
+</Tabs>
+
+The CLI will automatically install the `motion` dependency and copy the component file into your project at:
+
+```
+components/jackui/spring-animated-button.tsx
+```
+
+---
+
+### Usage
+
+```tsx
+"use client";
+
+import React from "react";
+import { SpringAnimatedButton } from "@/components/jackui/spring-animated-button";
+
+export function SpringAnimatedButtonDemo() {
+  return (
+    <div className="flex h-[40rem] w-full items-center justify-center">
+      <SpringAnimatedButton
+        label="Click Me!"
+        onClick={() => console.log("Clicked")}
+      />
+    </div>
+  );
+}
+```
+
+---
+
+### Props
+
+| Prop | Type | Description |
+|------|------|-------------|
+| `label` | `string` | **Optional.** The text rendered inside the button. Default: `"Button"`. |
+| `speed` | `number` | **Optional.** Rotation speed in seconds for the spring to complete one full loop. Default: `2.5`. |
+| `className` | `string` | **Optional.** Extra Tailwind classes merged onto the button via `cn()`. |
+| `onClick` | `React.MouseEventHandler<HTMLButtonElement>` | **Optional.** Standard click handler. |
+| `disabled` | `boolean` | **Optional.** Disables interactions. |
+| `type` | `"button" \| "submit" \| "reset"` | **Optional.** HTML button `type` attribute. Default: `"button"`. |
+| `...props` | `Omit<HTMLMotionProps<"button">, "ref">` | **Optional.** Any other valid `motion.button` prop. |
+
+---
+
+### Notes
+
+- **Dependency**: requires `motion` (`npm install motion`).
+- Uses procedural mathematical coordinates (`Math.sin`) to generate a highly detailed and smooth wavy path dynamically, avoiding heavy path assets.
