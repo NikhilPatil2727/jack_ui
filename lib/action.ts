@@ -66,6 +66,12 @@ export const getComponent = async (fileName: string | null, folder: string) => {
     if (!foundPath) {
         foundPath = await findFileCaseInsensitive(path.join(baseDir, folder), fileName);
     }
+    
+    // Fallback: If folder is "components" or if it wasn't found in a subfolder, 
+    // try finding it directly in the baseDir (components/jackui)
+    if (!foundPath) {
+        foundPath = await findFileCaseInsensitive(baseDir, fileName);
+    }
 
     if (foundPath) {
         return await readFileCache(foundPath);
