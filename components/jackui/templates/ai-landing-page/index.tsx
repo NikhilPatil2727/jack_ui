@@ -38,6 +38,8 @@ export interface AILandingPageProps {
   faqProps?: FaqProps;
   ctaProps?: CtaProps;
   footerProps?: FooterProps;
+  previewMode?: boolean;
+  defaultExpanded?: boolean;
 }
 
 export default function AILandingPage({
@@ -51,6 +53,8 @@ export default function AILandingPage({
   faqProps,
   ctaProps,
   footerProps,
+  previewMode = false,
+  defaultExpanded = false,
 }: AILandingPageProps) {
   // 1. NEXT.JS WITH next-themes (Default Integration)
   const { theme, setTheme, resolvedTheme } = useTheme() || {};
@@ -79,17 +83,22 @@ export default function AILandingPage({
   */
 
   return (
-    <div className={cn("relative w-full min-h-screen bg-background font-sans text-foreground antialiased selection:bg-indigo-500 selection:text-white transition-colors duration-300", activeTheme)}>
+    <div className={cn("relative w-full bg-background font-sans text-foreground antialiased selection:bg-indigo-500 selection:text-white transition-colors duration-300", activeTheme, previewMode && "max-h-[480px] overflow-hidden")}>
       <Navbar theme={activeTheme} onThemeToggle={handleThemeToggle} {...navbarProps} />
       <Hero {...heroProps} />
-      <LogoCloud {...logoCloudProps} />
-      <Features {...featuresProps} />
-      <HowItWorks {...howItWorksProps} />
-      <Pricing {...pricingProps} />
-      <Testimonials {...testimonialsProps} />
-      <FAQ {...faqProps} />
-      <CTA {...ctaProps} />
-      <Footer {...footerProps} />
+      
+      {!previewMode && (
+        <>
+          <LogoCloud {...logoCloudProps} />
+          <Features {...featuresProps} />
+          <HowItWorks {...howItWorksProps} />
+          <Pricing {...pricingProps} />
+          <Testimonials {...testimonialsProps} />
+          <FAQ {...faqProps} />
+          <CTA {...ctaProps} />
+          <Footer {...footerProps} />
+        </>
+      )}
     </div>
   );
 }
