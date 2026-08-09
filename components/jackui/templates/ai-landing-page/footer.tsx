@@ -1,7 +1,8 @@
 "use client";
 
 import React from "react";
-import { Cpu } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export interface FooterProps {
   logoText?: string;
@@ -9,104 +10,77 @@ export interface FooterProps {
 }
 
 export function Footer({
-  logoText = "Aether AI",
-  copyrightText = "© 2026 Aether AI Inc. All rights reserved.",
+  logoText = "SphereAI",
+  copyrightText = "© 2024 Your Company. All rights reserved.",
 }: FooterProps) {
-  const footerLinks = [
-    {
-      title: "Product",
-      links: [
-        { label: "Features", href: "#features" },
-        { label: "Integrations", href: "#" },
-        { label: "Pricing", href: "#pricing" },
-        { label: "Changelog", href: "#" },
-      ],
-    },
-    {
-      title: "Resources",
-      links: [
-        { label: "Documentation", href: "#" },
-        { label: "API Reference", href: "#" },
-        { label: "Status Page", href: "#" },
-        { label: "Help Center", href: "#" },
-      ],
-    },
-    {
-      title: "Company",
-      links: [
-        { label: "About Us", href: "#" },
-        { label: "Blog", href: "#" },
-        { label: "Careers", href: "#" },
-        { label: "Security", href: "#" },
-      ],
-    },
-  ];
-
   return (
-    <footer className="border-t border-zinc-200/50 bg-white dark:border-zinc-800/50 dark:bg-zinc-950">
-      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
-        <div className="grid grid-cols-2 gap-8 md:grid-cols-5 lg:gap-12">
-          {/* Logo & Intro */}
-          <div className="col-span-2 space-y-6">
-            <a href="#" className="flex items-center gap-2 font-sans font-bold text-xl tracking-tight text-zinc-950 dark:text-zinc-50">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-linear-to-br from-indigo-500 to-purple-600 text-white shadow-sm">
-                <Cpu className="h-5 w-5" />
+    <footer className="w-full bg-transparent px-4 pb-4 sm:px-6 sm:pb-6 lg:px-8 lg:pb-8 pt-12">
+      <div className="mx-auto max-w-7xl relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-[#1E40AF] via-[#11235A] to-[#020617] px-8 py-12 sm:px-12 sm:py-16 md:px-16 md:py-24 shadow-2xl">
+        
+        {/* Abstract Light overlay to mimic the bright diagonal blur */}
+        <div className="absolute -top-1/4 -right-1/4 h-[800px] w-[800px] rounded-full bg-blue-400/20 blur-[120px] pointer-events-none" />
+        <div className="absolute top-1/2 -left-1/4 h-[600px] w-[600px] -translate-y-1/2 rounded-full bg-blue-300/10 blur-[100px] pointer-events-none" />
+
+        <div className="relative z-10 flex flex-col h-full min-h-[500px] justify-between">
+          
+          {/* Top Row: Headline & CTA Button */}
+          <div className="flex flex-col md:flex-row justify-between items-start gap-8 md:gap-12">
+            <h2 className="text-3xl font-light tracking-tight text-white sm:text-4xl md:text-5xl lg:text-[3.5rem] leading-[1.1] max-w-2xl">
+              Ready to innovate with AI?<br />
+              start transforming your ideas<br />
+              into reality with our powerful<br />
+              AI solutions.
+            </h2>
+            <button className="group shrink-0 inline-flex items-center gap-3 rounded-full bg-black/50 border border-white/10 px-6 py-2.5 text-sm font-medium text-white backdrop-blur-md transition-all hover:bg-black/70 hover:scale-105 shadow-xl">
+              <span>Contact Us</span>
+              <div className="flex h-6 w-6 items-center justify-center rounded-full bg-white/10 group-hover:bg-white/20 transition-colors">
+                <ArrowUpRight className="h-3 w-3" />
               </div>
-              <span>{logoText}</span>
-            </a>
-            <p className="text-sm text-zinc-500 max-w-xs dark:text-zinc-400">
-              Deploy autonomous AI agents that run secure background workflows and scale operations without code.
-            </p>
-            <div className="flex gap-4 text-zinc-400">
-              <a href="#" aria-label="Twitter" className="hover:text-zinc-600 dark:hover:text-zinc-300">
-                <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                </svg>
-              </a>
-              <a href="#" aria-label="Github" className="hover:text-zinc-600 dark:hover:text-zinc-300">
-                <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" />
-                </svg>
-              </a>
-              <a href="#" aria-label="LinkedIn" className="hover:text-zinc-600 dark:hover:text-zinc-300">
-                <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path fillRule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" clipRule="evenodd" />
-                </svg>
-              </a>
-            </div>
+            </button>
           </div>
 
-          {/* Links columns */}
-          {footerLinks.map((group) => (
-            <div key={group.title} className="space-y-4">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-zinc-400">
-                {group.title}
-              </h3>
-              <ul className="space-y-2.5">
-                {group.links.map((link) => (
-                  <li key={link.label}>
-                    <a
-                      href={link.href}
-                      className="text-sm text-zinc-500 hover:text-indigo-600 dark:text-zinc-400 dark:hover:text-indigo-400"
-                    >
-                      {link.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
+          {/* Middle Row: Contact Info & Nav Links */}
+          <div className="mt-20 md:mt-32 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-10">
+            <div>
+              <p className="text-[10px] sm:text-xs text-white/50 font-medium mb-1 uppercase tracking-wider">Contact Us</p>
+              <a href="mailto:hourglass@gmail.com" className="text-sm sm:text-base text-white hover:text-blue-200 transition-colors">
+                hourglass@gmail.com
+              </a>
             </div>
-          ))}
-        </div>
-
-        {/* Bottom footer bar */}
-        <div className="mt-12 border-t border-zinc-100 pt-8 flex flex-col md:flex-row md:items-center md:justify-between dark:border-zinc-800">
-          <p className="text-xs text-zinc-400">
-            {copyrightText}
-          </p>
-          <div className="mt-4 flex gap-6 md:mt-0">
-            <a href="#" className="text-xs text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300">Privacy Policy</a>
-            <a href="#" className="text-xs text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300">Terms of Service</a>
+            
+            <nav className="flex flex-wrap gap-6 sm:gap-8 text-sm text-white/80">
+              <a href="#" className="hover:text-white transition-colors">Home</a>
+              <a href="#features" className="hover:text-white transition-colors">Features</a>
+              <a href="#pricing" className="hover:text-white transition-colors">Pricing</a>
+              <a href="#" className="hover:text-white transition-colors">Resources</a>
+            </nav>
           </div>
+
+          {/* Bottom Area: Giant Logo Wordmark */}
+          <div className="mt-16 md:mt-24 mb-16 md:mb-24 flex items-center justify-center md:justify-start gap-4 sm:gap-6 md:gap-8">
+             {/* Custom Concentric Arc SVG Logo */}
+             <svg width="120" height="120" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 sm:h-24 sm:w-24 md:h-32 md:w-32 text-white shrink-0">
+                {/* Outer arcs */}
+                <path d="M50 10 C 27.9 10 10 27.9 10 50 C 10 65.7 19.1 79.3 32.5 86.6" stroke="currentColor" strokeWidth="6" strokeLinecap="round" />
+                <path d="M50 90 C 72.1 90 90 72.1 90 50 C 90 34.3 80.9 20.7 67.5 13.4" stroke="currentColor" strokeWidth="6" strokeLinecap="round" />
+                {/* Inner circle */}
+                <circle cx="50" cy="50" r="22" stroke="currentColor" strokeWidth="6" />
+             </svg>
+             <span className="font-sans font-medium text-5xl sm:text-7xl md:text-[7rem] lg:text-[8rem] tracking-tight text-white leading-none">
+               {logoText}
+             </span>
+          </div>
+
+          {/* Bottom-most Row: Copyright & Legal */}
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-white/50 font-light border-t border-white/10 pt-6 mt-auto">
+            <p>{copyrightText}</p>
+            <div className="flex gap-6">
+              <a href="#" className="hover:text-white transition-colors underline underline-offset-4 decoration-white/30">Privacy Policy</a>
+              <a href="#" className="hover:text-white transition-colors underline underline-offset-4 decoration-white/30">Terms of Service</a>
+              <a href="#" className="hover:text-white transition-colors underline underline-offset-4 decoration-white/30">Cookie Settings</a>
+            </div>
+          </div>
+          
         </div>
       </div>
     </footer>

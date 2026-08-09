@@ -3,9 +3,8 @@
 import React, { useState, useEffect } from "react";
 import { Navbar, type NavbarProps } from "./navbar";
 import { Hero, type HeroProps } from "./hero";
-import { LogoCloud, type LogoCloudProps } from "./logo-cloud";
 import { Features, type FeaturesProps } from "./features";
-import { HowItWorks, type HowItWorksProps } from "./how-it-works";
+import { Showcase, type ShowcaseProps } from "./showcase"; // force ts refresh
 import { Pricing, type PricingProps } from "./pricing";
 import { Testimonials, type TestimonialsProps } from "./testimonials";
 import { FAQ, type FaqProps } from "./faq";
@@ -17,9 +16,8 @@ import { cn } from "@/lib/utils";
 export {
   Navbar,
   Hero,
-  LogoCloud,
   Features,
-  HowItWorks,
+  Showcase,
   Pricing,
   Testimonials,
   FAQ,
@@ -30,9 +28,8 @@ export {
 export interface AILandingPageProps {
   navbarProps?: NavbarProps;
   heroProps?: HeroProps;
-  logoCloudProps?: LogoCloudProps;
   featuresProps?: FeaturesProps;
-  howItWorksProps?: HowItWorksProps;
+  showcaseProps?: ShowcaseProps;
   pricingProps?: PricingProps;
   testimonialsProps?: TestimonialsProps;
   faqProps?: FaqProps;
@@ -45,9 +42,8 @@ export interface AILandingPageProps {
 export default function AILandingPage({
   navbarProps,
   heroProps,
-  logoCloudProps,
   featuresProps,
-  howItWorksProps,
+  showcaseProps,
   pricingProps,
   testimonialsProps,
   faqProps,
@@ -64,7 +60,7 @@ export default function AILandingPage({
     setMounted(true);
   }, []);
 
-  const activeTheme = (mounted ? (resolvedTheme || theme) : "dark") as "light" | "dark";
+  const activeTheme = (mounted ? (resolvedTheme || theme) : "light") as "light" | "dark";
 
   const handleThemeToggle = () => {
     if (setTheme) {
@@ -72,33 +68,24 @@ export default function AILandingPage({
     }
   };
 
-  // 2. VITE / PLAIN REACT IMPLEMENTATION (NO next-themes package)
-  // If you are using Vite + React, remove the Next.js/next-themes code above and use this:
-  /*
-  const [localTheme, setLocalTheme] = useState<"light" | "dark">("dark");
-  const activeTheme = localTheme;
-  const handleThemeToggle = () => {
-    setLocalTheme((prev) => (prev === "dark" ? "light" : "dark"));
-  };
-  */
-
   return (
-    <div className={cn("relative w-full bg-background font-sans text-foreground antialiased selection:bg-indigo-500 selection:text-white transition-colors duration-300", activeTheme, previewMode && "max-h-[480px] overflow-hidden")}>
-      <Navbar theme={activeTheme} onThemeToggle={handleThemeToggle} {...navbarProps} />
-      <Hero {...heroProps} />
-      
-      {!previewMode && (
-        <>
-          <LogoCloud {...logoCloudProps} />
-          <Features {...featuresProps} />
-          <HowItWorks {...howItWorksProps} />
-          <Pricing {...pricingProps} />
-          <Testimonials {...testimonialsProps} />
-          <FAQ {...faqProps} />
-          <CTA {...ctaProps} />
-          <Footer {...footerProps} />
-        </>
-      )}
+    <div className={cn("relative min-h-screen w-full bg-white p-2 sm:p-4 md:p-6 lg:p-8 dark:bg-zinc-950 font-sans text-zinc-900 antialiased selection:bg-blue-500 selection:text-white", previewMode && "max-h-[480px] overflow-hidden p-2")}>
+      <div className="relative mx-auto flex w-full max-w-[100rem] flex-col overflow-hidden rounded-[2rem] sm:rounded-[2.5rem] bg-[#F5F8FC] shadow-2xl ring-1 ring-zinc-200/50 dark:bg-[#0D1117] dark:ring-zinc-800/50 transition-colors duration-300">
+        <Hero {...heroProps} />
+        
+        {!previewMode && (
+          <>
+            <Features {...featuresProps} />
+            <Showcase {...showcaseProps} />
+            <Pricing {...pricingProps} />
+            <Testimonials {...testimonialsProps} />
+            {/* FAQ kept for flexibility, though not explicitly in the brief */}
+            <FAQ {...faqProps} />
+            <CTA {...ctaProps} />
+            <Footer {...footerProps} />
+          </>
+        )}
+      </div>
     </div>
   );
 }
