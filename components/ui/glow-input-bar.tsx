@@ -1,121 +1,70 @@
 "use client";
 
-import React, { useRef, useState } from "react";
-import { LayoutTemplate, Blocks, ImageIcon, Mic, ArrowUp } from "lucide-react";
+import React from "react";
+import { LayoutTemplate, Blocks, Image as ImageIcon, Mic, ArrowUp } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { LmButton } from "./lm-button";
 
-export interface GlowInputBarProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {}
-
-export function GlowInputBar({ className, ...props }: GlowInputBarProps) {
-  const [value, setValue] = useState("");
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
-
-  const handleInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setValue(e.target.value);
-    if (textareaRef.current) {
-      textareaRef.current.style.height = "auto";
-      textareaRef.current.style.height = `${Math.min(textareaRef.current.scrollHeight, 200)}px`;
-    }
-    if (props.onChange) {
-      props.onChange(e);
-    }
-  };
-
+export function GlowInputBar({ className }: { className?: string }) {
   return (
-    <div className={cn("relative w-full max-w-3xl mx-auto group", className)}>
-      {/* 
-        Animated Glowing Border
-        This sits behind the main container and bleeds out at the bottom.
-      */}
-      <div 
-        className="absolute -inset-[2px] rounded-[18px] opacity-40 group-hover:opacity-70 transition-opacity duration-500 blur-xl pointer-events-none"
-        style={{
-          background: "linear-gradient(90deg, #3b82f6, #a855f7, #ec4899, #14b8a6, #3b82f6)",
-          backgroundSize: "200% 100%",
-          animation: "moveGradient 8s linear infinite",
-          maskImage: "linear-gradient(to bottom, transparent 60%, black 100%)",
-          WebkitMaskImage: "linear-gradient(to bottom, transparent 60%, black 100%)",
-        }}
-      />
-      
-      {/* Component Specific Styles */}
+    <div className={cn("relative w-full max-w-3xl mx-auto", className)}>
       <style>{`
-        @keyframes moveGradient {
-          0% { background-position: 0% 50%; }
-          100% { background-position: 200% 50%; }
+        @keyframes shimmer-glow {
+          0% { transform: translateX(-100%); }
+          100% { transform: translateX(100%); }
         }
-        /* Custom scrollbar for textarea */
-        .glow-input-scrollbar::-webkit-scrollbar {
-          width: 6px;
-        }
-        .glow-input-scrollbar::-webkit-scrollbar-track {
-          background: transparent;
-        }
-        .glow-input-scrollbar::-webkit-scrollbar-thumb {
-          background: #3f3f46;
-          border-radius: 10px;
+        .shimmer-glow-effect {
+          animation: shimmer-glow 8s ease-in-out infinite alternate;
         }
       `}</style>
 
+      {/* Animated Glowing Border Background */}
+      <div className="absolute inset-x-0 -bottom-1 h-2 z-0 pointer-events-none overflow-hidden rounded-b-2xl">
+        <div className="absolute inset-0 shimmer-glow-effect w-[200%] h-full bg-gradient-to-r from-transparent via-blue-500 via-purple-500 via-pink-500 via-teal-500 to-transparent blur-2xl opacity-60" />
+      </div>
+
       {/* Main Container */}
-      <div className="relative flex flex-col w-full bg-neutral-900 border border-white/10 rounded-2xl overflow-hidden shadow-2xl backdrop-blur-sm">
+      <div className="relative z-10 w-full bg-neutral-900 border border-white/10 rounded-2xl flex flex-col p-2 shadow-2xl transition-all duration-300 focus-within:border-white/20 focus-within:shadow-blue-500/10">
         
+        {/* Glow bleeding outside (secondary blur) */}
+        <div className="absolute inset-x-4 -bottom-px h-[2px] w-[calc(100%-2rem)] z-[-1] pointer-events-none">
+          <div className="absolute inset-0 shimmer-glow-effect w-[100%] h-full bg-gradient-to-r from-transparent via-blue-500/80 via-purple-500/80 to-transparent blur-xl opacity-50" />
+        </div>
+
         {/* Input Area */}
         <textarea
-          ref={textareaRef}
-          value={value}
-          onChange={handleInput}
           placeholder="Create a landing page for my SaaS idea of Voice Agents"
-          className="w-full bg-transparent text-neutral-200 placeholder:text-neutral-500 px-6 pt-6 pb-2 min-h-[100px] resize-none outline-none border-none focus:ring-0 text-[15px] sm:text-base leading-relaxed glow-input-scrollbar"
-          rows={1}
-          {...props}
+          className="w-full bg-transparent text-white placeholder-neutral-400 p-4 outline-none resize-none min-h-[120px] text-lg font-medium"
+          rows={3}
         />
 
         {/* Toolbar */}
-        <div className="flex items-center justify-between px-3 pb-3 pt-2">
-          
-          {/* Left: Templates & Blocks */}
+        <div className="flex items-center justify-between px-2 pb-2 mt-2">
+          {/* Left Controls */}
           <div className="flex items-center gap-2">
-            <button type="button" className="flex items-center gap-2 px-4 py-2 rounded-full bg-neutral-800 hover:bg-neutral-700 transition-colors text-neutral-300 text-sm font-medium">
-              <LayoutTemplate className="w-4 h-4 text-neutral-400" />
-              <span className="hidden sm:inline">Templates</span>
+            <button className="flex items-center gap-2 bg-neutral-800 hover:bg-neutral-700 text-neutral-300 hover:text-white text-sm font-medium px-4 py-2 rounded-full transition-colors">
+              <LayoutTemplate className="w-4 h-4" />
+              Templates
             </button>
-            <button type="button" className="flex items-center gap-2 px-4 py-2 rounded-full bg-neutral-800 hover:bg-neutral-700 transition-colors text-neutral-300 text-sm font-medium">
-              <Blocks className="w-4 h-4 text-neutral-400" />
-              <span className="hidden sm:inline">Blocks</span>
+            <button className="flex items-center gap-2 bg-neutral-800 hover:bg-neutral-700 text-neutral-300 hover:text-white text-sm font-medium px-4 py-2 rounded-full transition-colors">
+              <Blocks className="w-4 h-4" />
+              Blocks
             </button>
           </div>
 
-          {/* Right: Actions */}
-          <div className="flex items-center gap-2 sm:gap-3">
-            <button type="button" className="p-2 rounded-full text-neutral-400 hover:text-neutral-200 hover:bg-neutral-800 transition-colors">
+          {/* Right Controls */}
+          <div className="flex items-center gap-2">
+            <button className="p-2 text-neutral-400 hover:text-white transition-colors rounded-full hover:bg-neutral-800">
               <ImageIcon className="w-5 h-5" />
             </button>
-            <button type="button" className="p-2 rounded-full text-neutral-400 hover:text-neutral-200 hover:bg-neutral-800 transition-colors">
+            <button className="p-2 text-neutral-400 hover:text-white transition-colors rounded-full hover:bg-neutral-800">
               <Mic className="w-5 h-5" />
             </button>
-            
-            {/* Submit Button */}
-            <button 
-              type="submit" 
-              disabled={!value.trim()}
-              className="flex items-center justify-center w-10 h-10 rounded-xl bg-blue-600 hover:bg-blue-500 disabled:bg-neutral-800 disabled:text-neutral-600 disabled:cursor-not-allowed transition-all text-white shadow-lg"
-            >
+            <LmButton aria-label="Submit Prompt" className="ml-2 !rounded-xl !p-3">
               <ArrowUp className="w-5 h-5" />
-            </button>
+            </LmButton>
           </div>
-
         </div>
-
-        {/* Thin Inner Bottom Glow Line (Optional touch for depth) */}
-        <div 
-          className="absolute bottom-0 left-0 right-0 h-[1px] opacity-40"
-          style={{
-            background: "linear-gradient(90deg, transparent, #3b82f6, #a855f7, #ec4899, #14b8a6, transparent)",
-            backgroundSize: "200% 100%",
-            animation: "moveGradient 8s linear infinite",
-          }}
-        />
       </div>
     </div>
   );

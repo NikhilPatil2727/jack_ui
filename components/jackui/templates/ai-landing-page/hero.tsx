@@ -115,10 +115,16 @@ export function Hero({
             <a href="#pricing" className="text-zinc-700 hover:text-yellow-600 text-[14px] sm:text-[15px] font-medium transition-colors">Pricing</a>
           </div>
 
-          <button className="group flex items-center gap-2 bg-[#FBBF24] hover:bg-[#F59E0B] hover:scale-105 transition-all duration-300 text-zinc-900 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-sm font-semibold border border-yellow-300/30 shadow-md">
+          <button 
+            className="group flex items-center gap-2 transition-all duration-300 text-yellow-950 px-4 sm:px-5 py-2 sm:py-2.5 rounded-2xl text-sm font-semibold hover:scale-105 border-0"
+            style={{
+                background: "linear-gradient(180deg, #fde047 0%, #eab308 100%)",
+                boxShadow: "#ca8a04 0px 0px 0px 2px inset, rgba(255, 255, 255, 0.5) 0px 0px 0px 3px inset, rgba(255, 255, 255, 0.3) 0px 0px 10px 0px inset, rgba(202, 138, 4, 0.2) 0px 14px 28px -6px"
+            }}
+          >
             Get Started
-            <span className="flex items-center justify-center w-5 h-5 rounded-full border border-black/10 bg-black/5 group-hover:bg-black/10 transition-colors">
-              <ArrowUpRight className="h-3 w-3" />
+            <span className="flex items-center justify-center w-5 h-5 rounded-full bg-black/10 group-hover:bg-black/20 transition-colors">
+              <ArrowUpRight className="h-3 w-3 text-yellow-950" />
             </span>
           </button>
         </nav>

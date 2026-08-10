@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { Menu, X, ArrowRight, Aperture, Sun, Moon } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { LmButton } from "@/components/ui/lm-button";
 
 export interface NavItem {
   label: string;
@@ -84,13 +85,14 @@ export function Navbar({
 
           {/* CTA Button */}
           <div className="hidden md:flex items-center gap-4">
-            <button
+            <LmButton
               onClick={onCtaClick}
-              className="group relative inline-flex items-center gap-1.5 rounded-full bg-white px-5 py-2 text-sm font-semibold text-[#0D1117] transition-all hover:bg-white/90 hover:scale-105 shadow-[0_0_20px_rgba(255,255,255,0.2)]"
+              variant="primary"
+              className="!rounded-xl"
             >
               <span>{ctaText}</span>
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </button>
+            </LmButton>
           </div>
 
           {/* Mobile Menu Controls */}
@@ -123,16 +125,17 @@ export function Navbar({
                 {item.label}
               </a>
             ))}
-            <button
+            <LmButton
               onClick={() => {
                 setIsOpen(false);
                 onCtaClick?.();
               }}
-              className="mt-4 flex w-full items-center justify-center gap-2 rounded-full bg-white py-3 text-sm font-semibold text-[#0D1117] transition-colors hover:bg-white/90"
+              variant="primary"
+              className="mt-4 flex w-full !rounded-xl py-3"
             >
               <span>{ctaText}</span>
               <ArrowRight className="h-4 w-4" />
-            </button>
+            </LmButton>
           </div>
         </div>
       </div>
