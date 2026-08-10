@@ -20,20 +20,20 @@ export function FAQ({
   subtitle = "Everything you need to know about setting up and running autonomous workflows.",
   faqs = [
     {
-      question: "Do I need a custom API key for OpenAI or Anthropic?",
-      answer: "No. By default, Aether operates on premium, pre-configured instances of global models. However, you can toggle Developer Mode to insert your own custom keys and pay raw inference rates directly.",
+      question: "Do I need technical expertise to use the platform?",
+      answer: "No. Our intuitive visual builder allows anyone to create complex automation flows. Advanced users can drop into developer mode to write custom scripts and webhooks.",
     },
     {
-      question: "How secure is my connected database?",
-      answer: "Extremely secure. All connections use read-only SSL tunnels, with automated token rotating. We never cache or store raw table records on our cloud coordinators; data remains entirely under your sovereignty.",
+      question: "How secure is my data?",
+      answer: "Enterprise-grade security is built-in. We use end-to-end encryption, strict access controls, and we never store your raw processing data permanently. Your information remains entirely under your sovereignty.",
     },
     {
-      question: "What is an 'execution session' exactly?",
-      answer: "An execution session is defined as one agent pipeline run from ingestion to finalized action (e.g. running a query, parsing results, formatting reports, and delivering to Slack). Single tasks running multiple nested logic loops only count as a single session.",
+      question: "How does billing work for automation runs?",
+      answer: "A run is counted each time a workflow is successfully triggered and completed. Internal logic loops, conditional branches, and retries within a single workflow execution do not count as extra runs.",
     },
     {
-      question: "Can I self-host Aether locally?",
-      answer: "Yes! Enterprise customers gain access to our custom local docker builds, allowing full agent compilation inside private air-gapped VPC systems.",
+      question: "Can I connect custom internal tools?",
+      answer: "Yes! Our platform supports custom webhooks and standard REST API integrations, allowing you to seamlessly connect proprietary databases, legacy software, and bespoke internal systems.",
     },
   ],
 }: FaqProps) {
@@ -44,7 +44,7 @@ export function FAQ({
   };
 
   return (
-    <section id="faq" className="bg-background py-24">
+    <section id="faq" className="bg-background py-24 font-sans">
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <h2 className="text-3xl font-extrabold tracking-tight text-zinc-950 sm:text-4xl dark:text-zinc-50">
@@ -65,7 +65,7 @@ export function FAQ({
               >
                 <button
                   onClick={() => toggleFaq(index)}
-                  className="flex w-full items-center justify-between p-6 text-left font-semibold text-zinc-900 hover:text-indigo-600 dark:text-zinc-50 dark:hover:text-indigo-400"
+                  className="flex w-full items-center justify-between p-6 text-left font-semibold text-zinc-900 hover:text-[#F59E0B] dark:text-zinc-50 dark:hover:text-[#F59E0B]"
                   aria-expanded={isOpen}
                 >
                   <span>{faq.question}</span>
@@ -78,7 +78,7 @@ export function FAQ({
 
                 <AnimatePresence initial={false}>
                   {isOpen && (
-                    <motion.div
+                     <motion.div
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: "auto", opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}

@@ -69,8 +69,8 @@ export default function AILandingPage({
   };
 
   return (
-    <div className={cn("relative min-h-screen w-full bg-white p-2 sm:p-4 md:p-6 lg:p-8 dark:bg-zinc-950 font-sans text-zinc-900 antialiased selection:bg-blue-500 selection:text-white", previewMode && "max-h-[480px] overflow-hidden p-2")}>
-      <div className="relative mx-auto flex w-full max-w-[100rem] flex-col overflow-hidden rounded-[2rem] sm:rounded-[2.5rem] bg-[#F5F8FC] shadow-2xl ring-1 ring-zinc-200/50 dark:bg-[#0D1117] dark:ring-zinc-800/50 transition-colors duration-300">
+    <div className={cn("relative min-h-screen w-full bg-white p-2 sm:p-4 md:p-6 lg:p-8 dark:bg-zinc-950 font-sans text-zinc-900 antialiased selection:bg-[#FBBF24] selection:text-zinc-900", previewMode && "max-h-[480px] overflow-hidden p-2")}>
+      <div className="relative mx-auto flex w-full max-w-[100rem] flex-col overflow-hidden rounded-[2rem] sm:rounded-[2.5rem] bg-[#FFFDF6] shadow-2xl ring-1 ring-zinc-200/50 dark:bg-[#0D1117] dark:ring-zinc-800/50 transition-colors duration-300">
         <Hero {...heroProps} />
         
         {!previewMode && (
