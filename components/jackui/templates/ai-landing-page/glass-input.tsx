@@ -85,10 +85,10 @@ export function GlassInput({
                       : "text-zinc-500 hover:text-zinc-900 hover:bg-white/60"
                   )}
                 >
-                  {React.cloneElement(filter.icon as React.ReactElement, {
+                  {React.cloneElement(filter.icon as React.ReactElement<{ className?: string }>, {
                     className: cn(
                       "h-4 w-4 transition-all duration-300", 
-                      isActive ? "text-amber-500 scale-110 drop-shadow-sm" : "text-zinc-400 group-hover:text-zinc-600 group-hover:scale-110"
+                      isActive ? "text-fuchsia-500 scale-110 drop-shadow-sm" : "text-zinc-400 group-hover:text-zinc-600 group-hover:scale-110"
                     )
                   })}
                   <span>{filter.name}</span>
@@ -185,7 +185,7 @@ export function GlassInput({
 
               <button
                 type="submit"
-                className="flex items-center justify-center w-[46px] h-[46px] rounded-full bg-zinc-950 hover:bg-zinc-800 text-white shadow-md hover:scale-105 transition-all cursor-pointer"
+                className="flex items-center justify-center w-[46px] h-[46px] rounded-full text-white border border-[#0f0f0f] bg-gradient-to-b from-[#2d2d2d] to-[#171717] hover:from-[#363636] hover:to-[#202020] shadow-[inset_0_1px_1px_rgba(255,255,255,0.5),0_4px_12px_rgba(0,0,0,0.3)] hover:scale-105 transition-all cursor-pointer"
               >
                 <ArrowUp className="h-5 w-5" strokeWidth={2.5} />
               </button>

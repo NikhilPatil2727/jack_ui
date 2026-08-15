@@ -31,48 +31,48 @@ export function Testimonials({
       quote: "This platform replaced hours of manual data entry. We now execute processes significantly faster—with complete accuracy and a leaner team.",
       author: "Sarah J.",
       role: "Operations Lead",
-      color: "from-yellow-300",
-      logo: <div className="flex items-center gap-1.5 font-semibold text-zinc-800 dark:text-white"><Triangle className="h-4 w-4 text-yellow-500 fill-yellow-400" /> Acme Corp</div>
+      color: "from-purple-300",
+      logo: <div className="flex items-center gap-1.5 font-semibold text-zinc-800 dark:text-white"><Triangle className="h-4 w-4 text-purple-500 fill-purple-400" /> Acme Corp</div>
     },
     {
       company: "Lumina",
       quote: "The seamless integrations transformed our fragmented tech stack into a unified powerhouse. Truly a game-changer for our daily operations.",
       author: "Michael T.",
       role: "CTO",
-      color: "from-yellow-400",
-      logo: <div className="flex items-center gap-1.5 font-semibold text-zinc-800 dark:text-white"><Circle className="h-4 w-4 text-yellow-500 fill-yellow-400" /> Lumina</div>
+      color: "from-purple-400",
+      logo: <div className="flex items-center gap-1.5 font-semibold text-zinc-800 dark:text-white"><Circle className="h-4 w-4 text-purple-500 fill-purple-400" /> Lumina</div>
     },
     {
       company: "Vertex",
       quote: "We scaled our customer outreach tenfold without adding overhead. The automation rules are incredibly intuitive and robust.",
       author: "Emily R.",
       role: "VP of Growth",
-      color: "from-yellow-500",
-      logo: <div className="flex items-center gap-1.5 font-semibold text-zinc-800 dark:text-white"><Diamond className="h-4 w-4 text-yellow-500 fill-yellow-500" /> Vertex</div>
+      color: "from-purple-500",
+      logo: <div className="flex items-center gap-1.5 font-semibold text-zinc-800 dark:text-white"><Diamond className="h-4 w-4 text-purple-500 fill-purple-500" /> Vertex</div>
     },
     {
       company: "Nova",
       quote: "It's rare to find software that is both enterprise-grade and user-friendly. We onboarded our entire team in less than a week.",
       author: "David L.",
       role: "Director of Product",
-      color: "from-yellow-300",
-      logo: <div className="flex items-center gap-1.5 font-semibold text-zinc-800 dark:text-white"><Hexagon className="h-4 w-4 text-yellow-500 fill-yellow-400" /> Nova</div>
+      color: "from-purple-300",
+      logo: <div className="flex items-center gap-1.5 font-semibold text-zinc-800 dark:text-white"><Hexagon className="h-4 w-4 text-purple-500 fill-purple-400" /> Nova</div>
     },
     {
       company: "Zenith",
       quote: "The analytics dashboards gave us visibility into workflow bottlenecks we didn't even know we had. Highly recommended.",
       author: "Jessica M.",
       role: "Data Analyst",
-      color: "from-yellow-400",
-      logo: <div className="flex items-center gap-1.5 font-semibold text-zinc-800 dark:text-white"><Box className="h-4 w-4 text-yellow-500 fill-yellow-400" /> Zenith</div>
+      color: "from-purple-400",
+      logo: <div className="flex items-center gap-1.5 font-semibold text-zinc-800 dark:text-white"><Box className="h-4 w-4 text-purple-500 fill-purple-400" /> Zenith</div>
     },
     {
       company: "Pulse",
       quote: "We migrated from a legacy system to this platform and the performance jump was instant. The support team is also fantastic.",
       author: "Daniel K.",
       role: "Engineering Manager",
-      color: "from-yellow-500",
-      logo: <div className="flex items-center gap-1.5 font-semibold text-zinc-800 dark:text-white"><Shield className="h-4 w-4 text-yellow-500 fill-yellow-500" /> Pulse</div>
+      color: "from-purple-500",
+      logo: <div className="flex items-center gap-1.5 font-semibold text-zinc-800 dark:text-white"><Shield className="h-4 w-4 text-purple-500 fill-purple-500" /> Pulse</div>
     },
   ],
 }: TestimonialsProps) {
@@ -83,7 +83,7 @@ export function Testimonials({
         {/* Header */}
         <div className="mx-auto max-w-3xl text-center flex flex-col items-center">
           {badge && (
-            <div className="mb-6 inline-flex rounded-full border border-yellow-200 bg-yellow-50 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-yellow-700 shadow-sm">
+            <div className="mb-6 inline-flex rounded-full border border-purple-200 bg-purple-50 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-purple-700 shadow-sm">
               {badge}
             </div>
           )}
@@ -109,7 +109,7 @@ export function Testimonials({
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="relative flex flex-col justify-between overflow-hidden rounded-[2rem] border border-zinc-200/60 bg-white p-8 shadow-sm backdrop-blur-md transition-all hover:border-yellow-400/40 hover:shadow-lg dark:border-zinc-800/60 dark:bg-zinc-900/40"
+              className="relative flex flex-col justify-between overflow-hidden rounded-[2rem] border border-zinc-200/60 bg-white p-8 shadow-sm backdrop-blur-md transition-all hover:border-purple-400/40 hover:shadow-lg dark:border-zinc-800/60 dark:bg-zinc-900/40"
             >
               {/* Subtle top-left gradient based on brand color */}
               <div className={cn("absolute top-0 left-0 h-32 w-32 -translate-x-1/3 -translate-y-1/3 rounded-full bg-gradient-to-br to-transparent blur-3xl opacity-30 dark:opacity-20", item.color)} />

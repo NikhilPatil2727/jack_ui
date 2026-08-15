@@ -71,7 +71,7 @@ export function Pricing({
         {/* Header Block */}
         <div className="flex flex-col items-center text-center">
           {badge && (
-            <div className="mb-6 inline-flex rounded-full border border-yellow-200 bg-yellow-50 px-4 py-1.5 text-[13px] font-semibold text-yellow-700 shadow-sm">
+            <div className="mb-6 inline-flex rounded-full border border-purple-200 bg-purple-50 px-4 py-1.5 text-[13px] font-semibold text-purple-700 shadow-sm">
               {badge}
             </div>
           )}
@@ -110,10 +110,10 @@ export function Pricing({
 
               <button
                 onClick={plans[0].onCtaClick}
-                className="group mt-8 flex w-full h-[48px] items-center justify-center gap-2 rounded-full border border-yellow-400 bg-white px-5 text-[15px] font-semibold text-zinc-800 transition-all hover:bg-yellow-50 hover:scale-[1.02] shadow-sm"
+                className="group mt-8 flex w-full h-[48px] items-center justify-center gap-2 rounded-full border border-purple-400 bg-white px-5 text-[15px] font-semibold text-zinc-800 transition-all hover:bg-purple-50 hover:scale-[1.02] shadow-sm"
               >
                 <span>{plans[0].ctaText}</span>
-                <span className="flex items-center justify-center w-6 h-6 rounded-full border border-yellow-300 bg-yellow-50 text-yellow-600 transition-colors">
+                <span className="flex items-center justify-center w-6 h-6 rounded-full border border-purple-300 bg-purple-50 text-purple-600 transition-colors">
                   <ArrowUpRight className="h-3 w-3" />
                 </span>
               </button>
@@ -130,7 +130,7 @@ export function Pricing({
                     key={feature.name} 
                     className="flex items-start gap-3"
                   >
-                    <CheckCircle2 className="h-[18px] w-[18px] text-yellow-500 shrink-0 mt-0.5" strokeWidth={2.5} />
+                    <CheckCircle2 className="h-[18px] w-[18px] text-purple-500 shrink-0 mt-0.5" strokeWidth={2.5} />
                     <span className="text-[15px] text-zinc-700">{feature.name}</span>
                   </motion.li>
                 ))}
@@ -143,10 +143,10 @@ export function Pricing({
             <motion.div
               whileHover={{ y: -4 }}
               transition={{ duration: 0.3 }}
-              className="w-full md:w-[440px] rounded-[24px] shadow-[0_20px_50px_rgba(251,191,36,0.15)] z-20 md:-ml-6 md:-mt-12 mt-8 flex flex-col overflow-hidden border border-yellow-200"
+              className="w-full md:w-[440px] rounded-[24px] shadow-[0_20px_50px_rgba(192,132,252,0.15)] z-20 md:-ml-6 md:-mt-12 mt-8 flex flex-col overflow-hidden border border-purple-200"
             >
               {/* Top Gradient Half */}
-              <div className="bg-gradient-to-br from-[#FEF08A] to-[#FBBF24] p-[32px] sm:p-[40px] pb-[40px] flex flex-col relative overflow-hidden">
+              <div className="bg-gradient-to-br from-[#E9D5FF] to-[#C084FC] p-[32px] sm:p-[40px] pb-[40px] flex flex-col relative overflow-hidden">
                 {/* Decorative glows inside */}
                 <div className="absolute top-[-20%] right-[-10%] w-64 h-64 bg-white/40 rounded-full blur-[60px] pointer-events-none" />
                 <div className="absolute bottom-[-10%] left-[-10%] w-64 h-64 bg-[#FEF9C3]/35 rounded-full blur-[60px] pointer-events-none" />
@@ -156,8 +156,8 @@ export function Pricing({
                     {plans[1].name}
                   </h3>
                   {plans[1].isPopular && (
-                    <span className="inline-flex items-center gap-1.5 rounded-full bg-white/80 border border-yellow-300 px-3.5 py-1.5 text-[12px] font-semibold text-yellow-800 shadow-sm">
-                      <Sparkles className="h-3.5 w-3.5 text-yellow-600" />
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-white/80 border border-purple-300 px-3.5 py-1.5 text-[12px] font-semibold text-purple-800 shadow-sm">
+                      <Sparkles className="h-3.5 w-3.5 text-purple-600" />
                       Popular
                     </span>
                   )}
@@ -172,19 +172,19 @@ export function Pricing({
 
                 <button
                   onClick={plans[1].onCtaClick}
-                  className="group mt-10 flex w-full h-[52px] items-center justify-between rounded-full bg-white pl-6 pr-2 py-2 text-[15px] font-semibold text-zinc-900 border border-yellow-300 shadow-sm transition-all hover:scale-[1.02] hover:bg-yellow-50 relative z-10"
+                  className="group mt-10 flex w-full h-[52px] items-center justify-between rounded-full bg-white pl-6 pr-2 py-2 text-[15px] font-semibold text-zinc-900 border border-purple-300 shadow-sm transition-all hover:scale-[1.02] hover:bg-purple-50 relative z-10"
                 >
                   <span>{plans[1].ctaText}</span>
-                  <span className="flex items-center justify-center w-10 h-10 rounded-full border border-yellow-300 bg-yellow-50 text-yellow-600 transition-colors">
+                  <span className="flex items-center justify-center w-10 h-10 rounded-full border border-purple-300 bg-purple-50 text-purple-600 transition-colors">
                     <ArrowUpRight className="h-4 w-4" strokeWidth={2.5} />
                   </span>
                 </button>
               </div>
 
               {/* Bottom Light Half */}
-              <div className="bg-[#FFFDF5] p-[32px] flex-1 flex flex-col relative border-t border-yellow-100">
+              <div className="bg-[#FFFDF5] p-[32px] flex-1 flex flex-col relative border-t border-purple-100">
                 {/* A subtle shadow overlapping the top half */}
-                <div className="absolute top-0 left-0 right-0 h-4 bg-gradient-to-b from-yellow-500/[0.02] to-transparent pointer-events-none" />
+                <div className="absolute top-0 left-0 right-0 h-4 bg-gradient-to-b from-purple-500/[0.02] to-transparent pointer-events-none" />
                 
                 <ul className="space-y-4">
                   {plans[1].features.map((feature, i) => (
@@ -196,7 +196,7 @@ export function Pricing({
                       key={feature.name} 
                       className="flex items-start gap-3"
                     >
-                      <CheckCircle2 className="h-[18px] w-[18px] text-yellow-500 shrink-0 mt-0.5" strokeWidth={2.5} />
+                      <CheckCircle2 className="h-[18px] w-[18px] text-purple-500 shrink-0 mt-0.5" strokeWidth={2.5} />
                       <span className="text-[15px] text-zinc-700">{feature.name}</span>
                     </motion.li>
                   ))}

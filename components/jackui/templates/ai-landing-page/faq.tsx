@@ -65,7 +65,7 @@ export function FAQ({
               >
                 <button
                   onClick={() => toggleFaq(index)}
-                  className="flex w-full items-center justify-between p-6 text-left font-semibold text-zinc-900 hover:text-[#F59E0B] dark:text-zinc-50 dark:hover:text-[#F59E0B]"
+                  className="flex w-full items-center justify-between p-6 text-left font-semibold text-zinc-900 hover:text-[#A855F7] dark:text-zinc-50 dark:hover:text-[#A855F7]"
                   aria-expanded={isOpen}
                 >
                   <span>{faq.question}</span>
