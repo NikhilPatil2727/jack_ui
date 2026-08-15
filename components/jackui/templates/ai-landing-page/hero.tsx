@@ -48,7 +48,7 @@ export function Hero({
         }
       `}</style>
 
-      <div className="relative w-full min-h-[90vh] overflow-hidden rounded-[2rem] sm:rounded-[2.5rem] border border-zinc-200/60 shadow-2xl bg-white flex flex-col font-sans">
+      <div className="relative w-full min-h-[90vh] overflow-hidden bg-transparent flex flex-col font-sans">
 
         {/* Background Mesh Gradients & Ribbon */}
         <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
