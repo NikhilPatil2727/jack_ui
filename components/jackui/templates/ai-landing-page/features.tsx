@@ -4,6 +4,8 @@ import React from "react";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
+import featureImg from "./public/Ai-landing-page01.png";
 
 export interface FeatureItem {
   id?: string;
@@ -34,171 +36,27 @@ export function Features({
   const defaultFeatures: FeatureItem[] = [
     {
       id: "f1",
-      title: "Autonomous Workflows",
-      description: "Chain together complex logic with intelligent agents that adapt to dynamic data structures automatically.",
-      className: "md:col-span-2 min-h-[360px]",
+      title: "",
+      description: "",
+      className: "md:col-span-3 !bg-transparent !border-none !shadow-none hover:!shadow-none !p-0 overflow-visible",
       visual: (
-        <div className="absolute right-0 top-0 w-full md:w-[60%] h-full pointer-events-none flex items-center justify-end overflow-hidden">
-          {/* Subtle background glow */}
-          <div className="absolute right-[10%] top-[20%] w-[300px] h-[300px] bg-purple-400/5 blur-[80px] rounded-full" />
-          
-          <div className="relative w-full max-w-[340px] h-[240px] translate-x-12 translate-y-12 md:translate-y-0 md:translate-x-4 group-hover:-translate-x-2 group-hover:-translate-y-2 transition-transform duration-700 ease-out z-10">
-            {/* UI Mockup: Workflow Canvas */}
-            <div className="absolute inset-0 bg-white/40 backdrop-blur-md rounded-tl-2xl rounded-bl-2xl border border-white/60 shadow-[0_4px_24px_-4px_rgba(0,0,0,0.05)] overflow-hidden flex flex-col">
-              {/* Header */}
-              <div className="h-10 border-b border-zinc-200/50 flex items-center px-4 gap-2 bg-white/50">
-                <div className="flex gap-1.5">
-                  <div className="w-2.5 h-2.5 rounded-full bg-zinc-200" />
-                  <div className="w-2.5 h-2.5 rounded-full bg-zinc-200" />
-                  <div className="w-2.5 h-2.5 rounded-full bg-zinc-200" />
-                </div>
-              </div>
-              {/* Canvas body */}
-              <div className="flex-1 relative bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] [background-position:-8px_-8px] opacity-70">
-                
-                {/* Node 1 */}
-                <div className="absolute top-6 left-6 px-3 py-2 bg-white rounded-lg shadow-sm border border-zinc-200 flex items-center gap-2 z-10">
-                  <div className="w-4 h-4 rounded-[4px] bg-purple-100 flex items-center justify-center">
-                    <div className="w-2 h-2 rounded-sm bg-purple-500" />
-                  </div>
-                  <div className="w-16 h-1.5 bg-zinc-200 rounded-full" />
-                </div>
-                
-                {/* Node 2 */}
-                <div className="absolute top-20 left-32 px-3 py-2 bg-white rounded-lg shadow-sm border border-zinc-200 flex items-center gap-2 z-10">
-                  <div className="w-4 h-4 rounded-[4px] bg-blue-100 flex items-center justify-center">
-                    <div className="w-2 h-2 rounded-sm bg-blue-500" />
-                  </div>
-                  <div className="w-16 h-1.5 bg-zinc-200 rounded-full" />
-                </div>
-                
-                {/* Node 3 */}
-                <div className="absolute top-36 left-12 px-3 py-2 bg-white rounded-lg shadow-sm border border-zinc-200 flex items-center gap-2 z-10">
-                  <div className="w-4 h-4 rounded-[4px] bg-green-100 flex items-center justify-center">
-                    <div className="w-2 h-2 rounded-sm bg-green-500" />
-                  </div>
-                  <div className="w-16 h-1.5 bg-zinc-200 rounded-full" />
-                </div>
+        <div className="w-full flex items-center justify-center px-4 sm:px-8">
+          <div className="relative w-full max-w-5xl rounded-[24px] sm:rounded-[32px] p-[3px] sm:p-[4px] group mx-auto">
+            
+            {/* Default Subtle Border */}
+            <div className="absolute inset-0 rounded-[24px] sm:rounded-[32px] border border-zinc-200/40 transition-opacity duration-500 group-hover:opacity-0 z-0"></div>
 
-                {/* SVG Connections */}
-                <svg className="absolute inset-0 w-full h-full z-0" style={{ filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.05))' }}>
-                  <path d="M 80 40 C 120 40, 100 90, 140 90" stroke="#d4d4d8" strokeWidth="2" fill="none" />
-                  <path d="M 140 100 C 120 100, 100 150, 120 150" stroke="#d4d4d8" strokeWidth="2" fill="none" />
-                  {/* Animated dot on path */}
-                  <circle r="3" fill="#a855f7">
-                    <animateMotion dur="3s" repeatCount="indefinite" path="M 80 40 C 120 40, 100 90, 140 90" />
-                  </circle>
-                </svg>
+            {/* Solid Pink Gradient Border (Fades in on hover) - Very Faint */}
+            <div className="absolute inset-0 rounded-[24px] sm:rounded-[32px] bg-gradient-to-r from-pink-400 via-fuchsia-400 to-pink-400 opacity-0 group-hover:opacity-50 transition-opacity duration-500 z-0"></div>
 
-              </div>
-            </div>
-          </div>
-        </div>
-      )
-    },
-    {
-      id: "f2",
-      title: "Real-time Sync",
-      description: "Sub-second data synchronization across all your platforms.",
-      className: "md:col-span-1 min-h-[360px]",
-      visual: (
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute inset-0 bg-gradient-to-t from-white/80 to-transparent z-10" />
-          <div className="absolute -bottom-12 -right-12 z-0">
-            <div className="relative w-64 h-64 group-hover:scale-105 transition-transform duration-700">
-              {/* Outer ring */}
-              <svg className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 100 100">
-                <circle cx="50" cy="50" r="46" stroke="#f4f4f5" strokeWidth="2" fill="none" />
-                <circle cx="50" cy="50" r="46" stroke="url(#syncGrad)" strokeWidth="2" fill="none" strokeDasharray="289" strokeDashoffset="289" className="animate-[dash_4s_ease-in-out_infinite]" strokeLinecap="round" />
-                <defs>
-                  <linearGradient id="syncGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#3b82f6" />
-                    <stop offset="100%" stopColor="#8b5cf6" />
-                  </linearGradient>
-                </defs>
-              </svg>
-              {/* Inner ring */}
-              <svg className="absolute inset-6 w-[calc(100%-3rem)] h-[calc(100%-3rem)] rotate-90" viewBox="0 0 100 100">
-                <circle cx="50" cy="50" r="46" stroke="#f4f4f5" strokeWidth="2" fill="none" strokeDasharray="4 4" />
-                <circle cx="50" cy="50" r="46" stroke="#e4e4e7" strokeWidth="2" fill="none" strokeDasharray="289" strokeDashoffset="0" className="animate-[dash_6s_linear_infinite_reverse]" />
-              </svg>
-              {/* Center icon */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-16 h-16 rounded-full bg-white shadow-[0_4px_16px_rgba(0,0,0,0.05)] border border-zinc-100 flex items-center justify-center">
-                  <div className="w-4 h-4 rounded-full bg-zinc-800" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      )
-    },
-    {
-      id: "f3",
-      title: "Intelligent Routing",
-      description: "Dynamically route tasks to the most capable models.",
-      className: "md:col-span-1 min-h-[360px]",
-      visual: (
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(ellipse_at_center,rgba(217,70,239,0.05),transparent_60%)]" />
-          <div className="absolute -bottom-4 -right-4 flex flex-col items-end gap-3 group-hover:-translate-y-2 group-hover:-translate-x-2 transition-transform duration-700 ease-out z-0">
-            {/* Pill 1 */}
-            <div className="w-56 h-12 bg-white/80 backdrop-blur-md rounded-2xl shadow-sm border border-zinc-200/80 flex items-center px-4 gap-3 relative overflow-hidden group-hover:w-64 transition-all duration-500">
-              <div className="absolute left-0 top-0 bottom-0 w-1 bg-fuchsia-400" />
-              <div className="w-5 h-5 rounded-md bg-zinc-100 flex items-center justify-center">
-                <div className="w-2.5 h-2.5 rounded-sm bg-fuchsia-500" />
-              </div>
-              <div className="flex-1 h-2 bg-zinc-200 rounded-full" />
-            </div>
-            {/* Pill 2 */}
-            <div className="w-48 h-12 bg-white/60 backdrop-blur-md rounded-2xl shadow-sm border border-zinc-200/60 flex items-center px-4 gap-3 relative overflow-hidden mr-6 group-hover:-translate-x-2 transition-all duration-500">
-              <div className="absolute left-0 top-0 bottom-0 w-1 bg-purple-400" />
-              <div className="w-5 h-5 rounded-md bg-zinc-100 flex items-center justify-center">
-                <div className="w-2.5 h-2.5 rounded-sm bg-purple-500" />
-              </div>
-              <div className="flex-1 h-2 bg-zinc-200 rounded-full" />
-            </div>
-            {/* Pill 3 */}
-            <div className="w-52 h-12 bg-white/40 backdrop-blur-md rounded-2xl shadow-sm border border-zinc-200/40 flex items-center px-4 gap-3 relative overflow-hidden -mr-8 group-hover:translate-x-2 transition-all duration-500">
-              <div className="absolute left-0 top-0 bottom-0 w-1 bg-blue-400" />
-              <div className="w-5 h-5 rounded-md bg-zinc-100 flex items-center justify-center">
-                <div className="w-2.5 h-2.5 rounded-sm bg-blue-500" />
-              </div>
-              <div className="flex-1 h-2 bg-zinc-200 rounded-full" />
-            </div>
-          </div>
-        </div>
-      )
-    },
-    {
-      id: "f4",
-      title: "Enterprise Grade Security",
-      description: "Bank-level encryption and SOC2 compliance built in from day one.",
-      className: "md:col-span-2 min-h-[360px]",
-      visual: (
-        <div className="absolute right-0 top-0 w-full md:w-[60%] h-full pointer-events-none flex items-center justify-center md:justify-end md:pr-12">
-          {/* Subtle grid bg */}
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)]" />
-          
-          <div className="relative w-full max-w-[280px] h-[200px] flex items-center justify-center z-10 group-hover:scale-105 transition-transform duration-700 ease-out">
-            <div className="relative w-32 h-32">
-               {/* Center Badge */}
-               <div className="absolute inset-0 flex items-center justify-center z-20">
-                 <div className="w-16 h-16 bg-white rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.08)] border border-zinc-200 flex items-center justify-center">
-                   <div className="w-5 h-5 border-[2px] border-zinc-800 rounded-md flex items-center justify-center">
-                     <div className="w-1 h-1 bg-zinc-800 rounded-sm" />
-                   </div>
-                 </div>
-               </div>
-               
-               {/* Orbital rings */}
-               <div className="absolute inset-0 rounded-full border border-zinc-200/80" />
-               <div className="absolute -inset-8 rounded-full border border-zinc-200/40 border-dashed" />
-               
-               {/* Glowing dots */}
-               <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-green-500 shadow-[0_0_12px_rgba(34,197,94,0.6)]" />
-               <div className="absolute bottom-[15%] right-0 translate-x-1/2 w-2 h-2 rounded-full bg-blue-500 shadow-[0_0_12px_rgba(59,130,246,0.6)]" />
-               <div className="absolute bottom-[15%] left-0 -translate-x-1/2 w-2 h-2 rounded-full bg-purple-500 shadow-[0_0_12px_rgba(168,85,247,0.6)]" />
+            {/* Glowing Pink Smoke Outer Blurs (Only on hover) - Very Faint */}
+            <div className="absolute -inset-[1px] rounded-[24px] sm:rounded-[32px] bg-gradient-to-r from-pink-400 via-fuchsia-400 to-pink-400 blur-md sm:blur-xl opacity-0 group-hover:opacity-30 transition-opacity duration-700 z-0"></div>
+            <div className="absolute -inset-[2px] rounded-[24px] sm:rounded-[32px] bg-gradient-to-tr from-fuchsia-300 to-pink-400 blur-xl opacity-0 group-hover:opacity-20 transition-opacity duration-1000 animate-pulse z-0"></div>
+            
+            {/* The Image Container */}
+            <div className="relative w-full rounded-[21px] sm:rounded-[28px] overflow-hidden bg-white z-10 shadow-2xl">
+               <Image src={featureImg} alt="Feature Showcase" className="w-full h-auto transition-transform duration-700 group-hover:scale-[1.02]" />
+               <div className="absolute inset-0 ring-1 ring-inset ring-black/10 rounded-[21px] sm:rounded-[28px] pointer-events-none z-20"></div>
             </div>
           </div>
         </div>
@@ -208,15 +66,13 @@ export function Features({
 
   const items = features || defaultFeatures;
 
-
   return (
     <section id="features" className="py-24 sm:py-32 font-sans bg-transparent relative overflow-hidden">
-      <style>{`
-        @keyframes dash {
-          to { stroke-dashoffset: 0; }
-        }
-      `}</style>
+      {/* Premium Grid Background */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#d4d4d8_1px,transparent_1px),linear-gradient(to_bottom,#d4d4d8_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,#000_80%,transparent_100%)] opacity-70 z-0" />
+      
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
+        
         {/* Section Header */}
         <div className="mx-auto max-w-3xl text-center flex flex-col items-center">
           {badge && (
@@ -269,7 +125,7 @@ export function Features({
               viewport={{ once: true }}
               transition={{ duration: 0.7, delay: index * 0.1, ease: [0.21, 0.47, 0.32, 0.98] }}
               className={cn(
-                "group relative flex flex-col justify-start overflow-hidden rounded-[2rem] bg-white/70 backdrop-blur-xl border border-zinc-200/80 shadow-[0_8px_30px_rgb(0,0,0,0.02)] transition-all duration-500 hover:shadow-[0_12px_40px_rgb(0,0,0,0.06)] hover:-translate-y-1",
+                "group relative flex flex-col justify-start overflow-hidden rounded-[2rem] bg-white/70 backdrop-blur-xl border border-zinc-200/80 shadow-[0_8px_30px_rgb(0,0,0,0.02)] transition-all duration-500 hover:shadow-[0_12px_40px_rgb(0,0,0,0.06)]",
                 feature.className
               )}
             >
@@ -277,21 +133,22 @@ export function Features({
               <div className="absolute inset-0 rounded-[2rem] shadow-[inset_0_1px_1px_rgba(255,255,255,1)] pointer-events-none z-20" />
               
               {/* Content */}
-              <div className="relative z-30 p-8 sm:p-10 flex flex-col h-full justify-start max-w-[380px]">
-
-                <div>
-                  <h3 className="text-[22px] font-semibold tracking-tight text-zinc-900 dark:text-zinc-50">
-                    {feature.title}
-                  </h3>
-                  <p className="mt-3 text-[16px] text-zinc-500 leading-relaxed dark:text-zinc-400 font-medium tracking-tight">
-                    {feature.description}
-                  </p>
+              {(feature.title || feature.description) && (
+                <div className="relative z-30 p-8 sm:p-10 flex flex-col h-full justify-start max-w-[380px] pointer-events-none">
+                  <div>
+                    <h3 className="text-[22px] font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 pointer-events-auto">
+                      {feature.title}
+                    </h3>
+                    <p className="mt-3 text-[16px] text-zinc-500 leading-relaxed dark:text-zinc-400 font-medium tracking-tight pointer-events-auto">
+                      {feature.description}
+                    </p>
+                  </div>
                 </div>
-              </div>
+              )}
               
               {/* Visual Element */}
               {feature.visual && (
-                <div className="absolute inset-0 z-10">
+                <div className={cn("z-10", (feature.title || feature.description) ? "absolute inset-0" : "relative w-full")}>
                   {feature.visual}
                 </div>
               )}
