@@ -85,7 +85,7 @@ export function GlassInput({
                       : "text-zinc-500 hover:text-zinc-900 hover:bg-white/60"
                   )}
                 >
-                  {React.cloneElement(filter.icon as React.ReactElement, {
+                  {React.cloneElement(filter.icon as React.ReactElement<{ className?: string }>, {
                     className: cn(
                       "h-4 w-4 transition-all duration-300", 
                       isActive ? "text-amber-500 scale-110 drop-shadow-sm" : "text-zinc-400 group-hover:text-zinc-600 group-hover:scale-110"
