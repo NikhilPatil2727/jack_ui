@@ -25,9 +25,9 @@
     "components/tweet-card",
     "components/vercel-v0-chat",
     "components/matrix-text",
+    "---Templates---",
+    "templates/ai-landing-page",
     "---Blocks---",
-    
-   
     "blocks/auth-basic",
     "blocks/pricing",
    
