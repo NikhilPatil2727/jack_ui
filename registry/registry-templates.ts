@@ -20,7 +20,7 @@ export const templates: Registry = [
                 type: "registry:component",
             },
             {
-                path: "components/jackui/templates/ai-landing-page/logo-cloud.tsx",
+                path: "components/jackui/templates/ai-landing-page/glass-input.tsx",
                 type: "registry:component",
             },
             {
@@ -28,7 +28,7 @@ export const templates: Registry = [
                 type: "registry:component",
             },
             {
-                path: "components/jackui/templates/ai-landing-page/how-it-works.tsx",
+                path: "components/jackui/templates/ai-landing-page/showcase.tsx",
                 type: "registry:component",
             },
             {
