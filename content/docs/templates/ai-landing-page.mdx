@@ -1,0 +1,63 @@
+---
+title: AI Landing Page
+description: A premium, conversion-optimized landing page template for modern AI projects and startups.
+icon: Dna
+full: true
+---
+
+import AILandingPage from "@/components/jackui/templates/ai-landing-page";
+
+## Preview & Code
+
+<Preview link="templates/ai-landing-page" isBlock>
+  <AILandingPage previewMode={true} />
+</Preview>
+
+```tsx
+import AILandingPage from "@/components/jackui/templates/ai-landing-page";
+
+export default function LandingPage() {
+  return (
+    <AILandingPage
+      heroProps={{
+        title: "Automate Workflows with",
+        highlightedText: "Autonomous Agents",
+        description: "Deploy custom AI agents that integrate with your tools, analyze data in real time, and scale operations automatically."
+      }}
+    />
+  );
+}
+```
+
+## Installation
+
+<Tabs items={["npx", "pnpm", "bun"]}>
+
+```bash tab="npx"
+npx shadcn@latest add https://jack-ui-ten.vercel.app/r/ai-landing-page.json
+```
+
+```bash tab="pnpm"
+pnpm dlx shadcn@latest add https://jack-ui-ten.vercel.app/r/ai-landing-page.json
+```
+
+```bash tab="bun"
+bunx shadcn@latest add https://jack-ui-ten.vercel.app/r/ai-landing-page.json
+```
+
+</Tabs>
+
+## Props
+
+| Prop | Type | Description |
+| :--- | :--- | :--- |
+| `navbarProps` | `NavbarProps` | Configuration properties for the navigation header. |
+| `heroProps` | `HeroProps` | Title, subtitle, CTAs, and background options for the Hero banner. |
+| `logoCloudProps` | `LogoCloudProps` | Branding and integration logos to display. |
+| `featuresProps` | `FeaturesProps` | Composed grid/list of product features. |
+| `howItWorksProps` | `HowItWorksProps` | Setup flow or pipeline visual steps. |
+| `pricingProps` | `PricingProps` | Subscriptions tiers, billing toggle and pricing. |
+| `testimonialsProps` | `TestimonialsProps` | Customer validation quote grids. |
+| `faqProps` | `FaqProps` | Interactive accordion with pre-packaged support questions. |
+| `ctaProps` | `CtaProps` | The closing pitch section with a call-to-action button. |
+| `footerProps` | `FooterProps` | The navigation links and copyright branding. |
