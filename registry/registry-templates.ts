@@ -28,6 +28,10 @@ export const templates: Registry = [
                 type: "registry:component",
             },
             {
+                path: "components/jackui/templates/ai-landing-page/image-data.ts",
+                type: "registry:component",
+            },
+            {
                 path: "components/jackui/templates/ai-landing-page/showcase.tsx",
                 type: "registry:component",
             },

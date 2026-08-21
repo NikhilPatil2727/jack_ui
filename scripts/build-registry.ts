@@ -43,21 +43,6 @@ async function writeFileRecursive(filePath: string, data: string) {
 
 const readFileAndProcess = async (filePath: string, normalizedPath: string): Promise<string> => {
     let content = await fs.readFile(filePath, "utf-8");
-    if (normalizedPath.endsWith("features.tsx")) {
-        content = content
-            .replace(
-                `import Image from "next/image";`,
-                `// Image import removed to support standalone registry compatibility`
-            )
-            .replace(
-                `import featureImg from "./public/Ai-landing-page01.png";`,
-                `// local image import removed`
-            )
-            .replace(
-                `<Image src={featureImg} alt="Feature Showcase" className="w-full h-auto transition-transform duration-700 group-hover:scale-[1.02]" />`,
-                `<img src="/Ai-landing-page01.png" alt="Feature Showcase" className="w-full h-auto transition-transform duration-700 group-hover:scale-[1.02]" />`
-            );
-    }
     return content;
 };
 

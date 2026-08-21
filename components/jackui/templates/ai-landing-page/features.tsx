@@ -4,8 +4,8 @@ import React from "react";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
-import Image from "next/image";
-import featureImg from "./public/Ai-landing-page01.png";
+import { featureImg } from "./image-data";
+
 
 export interface FeatureItem {
   id?: string;
@@ -55,7 +55,7 @@ export function Features({
             
             {/* The Image Container */}
             <div className="relative w-full rounded-[21px] sm:rounded-[28px] overflow-hidden bg-white z-10 shadow-2xl">
-               <Image src={featureImg} alt="Feature Showcase" className="w-full h-auto transition-transform duration-700 group-hover:scale-[1.02]" />
+               <img src={featureImg} alt="Feature Showcase" className="w-full h-auto transition-transform duration-700 group-hover:scale-[1.02]" />
                <div className="absolute inset-0 ring-1 ring-inset ring-black/10 rounded-[21px] sm:rounded-[28px] pointer-events-none z-20"></div>
             </div>
           </div>
