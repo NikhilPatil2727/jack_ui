@@ -63,6 +63,28 @@ export function GlassInput({
           50% { transform: translateX(12px) translateY(-1px) scale(1.1); opacity: 0.5; }
           100% { transform: translateX(0px) translateY(1px) scale(0.95); opacity: 0.7; }
         }
+        @keyframes button-spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+        @keyframes button-smoke-wisp-1 {
+          0% { transform: translate(-50%, 0px) scale(0.5); opacity: 0; filter: blur(2px); }
+          25% { opacity: 0.6; }
+          75% { opacity: 0.2; }
+          100% { transform: translate(calc(-50% - 8px), -28px) scale(1.5); opacity: 0; filter: blur(5px); }
+        }
+        @keyframes button-smoke-wisp-2 {
+          0% { transform: translate(-50%, 0px) scale(0.5); opacity: 0; filter: blur(2px); }
+          25% { opacity: 0.5; }
+          75% { opacity: 0.15; }
+          100% { transform: translate(calc(-50% + 8px), -32px) scale(1.7); opacity: 0; filter: blur(6px); }
+        }
+        @keyframes button-smoke-wisp-3 {
+          0% { transform: translate(-50%, 0px) scale(0.4); opacity: 0; filter: blur(1.5px); }
+          30% { opacity: 0.7; }
+          70% { opacity: 0.1; }
+          100% { transform: translate(calc(-50% - 2px), -22px) scale(1.2); opacity: 0; filter: blur(4px); }
+        }
       `}</style>
       <div className="w-full max-w-[760px] mx-auto flex flex-col gap-3">
         {/* Filters Row */}
@@ -183,12 +205,49 @@ export function GlassInput({
                 </button>
               </div>
 
-              <button
-                type="submit"
-                className="flex items-center justify-center w-[46px] h-[46px] rounded-full bg-zinc-950 hover:bg-zinc-800 text-white shadow-md hover:scale-105 transition-all cursor-pointer"
-              >
-                <ArrowUp className="h-5 w-5" strokeWidth={2.5} />
-              </button>
+              <div className="relative w-[46px] h-[46px] group/btn">
+                {/* Small smoke wisps container rising from the button */}
+                <div className="absolute inset-0 pointer-events-none z-0 opacity-40 group-hover/btn:opacity-100 transition-opacity duration-500">
+                  <div 
+                    className="absolute top-1 left-1/2 w-4 h-4 rounded-full bg-gradient-to-tr from-purple-500/40 to-fuchsia-500/40"
+                    style={{
+                      animation: 'button-smoke-wisp-1 2.5s ease-out infinite',
+                    }}
+                  />
+                  <div 
+                    className="absolute top-1 left-1/2 w-5 h-5 rounded-full bg-gradient-to-tr from-cyan-400/40 to-blue-500/40"
+                    style={{
+                      animation: 'button-smoke-wisp-2 3s ease-out infinite',
+                      animationDelay: '0.8s',
+                    }}
+                  />
+                  <div 
+                    className="absolute top-1 left-1/2 w-3.5 h-3.5 rounded-full bg-gradient-to-tr from-amber-400/30 to-rose-500/30"
+                    style={{
+                      animation: 'button-smoke-wisp-3 2.2s ease-out infinite',
+                      animationDelay: '1.5s',
+                    }}
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  className="relative flex items-center justify-center w-full h-full rounded-full text-white bg-[#171717] shadow-[0_4px_12px_rgba(0,0,0,0.3)] hover:scale-105 transition-all duration-300 cursor-pointer overflow-hidden z-10"
+                >
+                  {/* Rotating Rainbow Ring Border inside the button */}
+                  <div 
+                    className="absolute inset-[-50%] bg-[conic-gradient(from_0deg,#f87171,#fbbf24,#a3e635,#38bdf8,#818cf8,#c084fc,#f472b6,#f87171)]"
+                    style={{
+                      animation: 'button-spin 4s linear infinite',
+                    }}
+                  />
+
+                  {/* Inner Dark Mask */}
+                  <div className="absolute inset-[1.2px] rounded-full bg-gradient-to-b from-[#2d2d2d] to-[#171717] group-hover/btn:from-[#363636] group-hover/btn:to-[#202020] transition-all duration-300 flex items-center justify-center z-20">
+                    <ArrowUp className="h-5 w-5 relative z-30" strokeWidth={2.5} />
+                  </div>
+                </button>
+              </div>
             </div>
           </form>
         </div>
