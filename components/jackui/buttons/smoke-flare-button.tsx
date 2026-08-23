@@ -50,21 +50,13 @@ const ambientOffsets: Record<SmokeFlareButtonSize, string> = {
   lg: "-inset-[32px]",
 };
 
-// ─── Flares ───────────────────────────────────────────────────────────────────
 
-const FLARES = [
-  { top: "32%", left: "19%", w: 3, h: 3, delay: "0s" },
-  { top: "62%", left: "73%", w: 2.5, h: 2.5, delay: "0.7s" },
-  { top: "72%", left: "45%", w: 2, h: 2, delay: "1.3s" },
-  { top: "24%", left: "60%", w: 1.8, h: 1.8, delay: "2s" },
-  { top: "55%", left: "28%", w: 2.2, h: 2.2, delay: "2.8s" },
-];
 
 /**
  * SmokeFlareButton
  *
  * A premium button design system component featuring cosmic smoke patterns,
- * hovering ambient glow flares, and interactive canvas ripple pulses on click.
+ * and interactive canvas ripple pulses on click.
  * Enhanced with magnetic pull, mouse-tracking premium border lighting,
  * and high-end landing page aesthetics.
  *
@@ -184,8 +176,6 @@ export function SmokeFlareButton({
           --sf-glow-opacity: 0.15; /* Higher opacity to pop on light backgrounds */
           --sf-shadow-color: 0, 0, 0; /* Deep black drop shadow */
           --sf-shadow-opacity: 0.26;
-          --sf-flare-bg: rgba(255, 255, 255, 0.95);
-          --sf-flare-glow: rgba(255, 255, 255, 0.7);
         }
         .dark {
           /* Dark Mode: Black button on dark page background */
@@ -197,19 +187,13 @@ export function SmokeFlareButton({
           --sf-glow-opacity: 0.08;
           --sf-shadow-color: 255, 255, 255; /* Soft white shadow bloom */
           --sf-shadow-opacity: 0.18;
-          --sf-flare-bg: rgba(255, 255, 255, 0.9);
-          --sf-flare-glow: rgba(255, 255, 255, 0.6);
         }
 
         @keyframes jack-smokeflare-smoke-rot {
           from { transform: rotate(0deg) scale(1); }
           to   { transform: rotate(360deg) scale(1.05); }
         }
-        @keyframes jack-smokeflare-flare {
-          0%, 100% { transform: translate(0,0) scale(1); opacity: 0.7; }
-          33%      { transform: translate(2px,-4px) scale(1.3); opacity: 1; }
-          66%      { transform: translate(-1px,3px) scale(0.8); opacity: 0.4; }
-        }
+
         @keyframes jack-smokeflare-text-pulse {
           0%, 100% {
             text-shadow: 0 0 10px rgba(255,255,255,0.6), 0 0 20px rgba(255,255,255,0.2);
@@ -337,22 +321,7 @@ export function SmokeFlareButton({
           transition={{ duration: 0.85, ease: "easeInOut" }}
         />
 
-        {/* Floating flares */}
-        {FLARES.map((f, i) => (
-          <span
-            key={i}
-            className="absolute rounded-full pointer-events-none blur-[0.5px] animate-[jack-smokeflare-flare_4s_ease-in-out_infinite]"
-            style={{
-              top: f.top,
-              left: f.left,
-              width: f.w,
-              height: f.h,
-              animationDelay: f.delay,
-              backgroundColor: "var(--sf-flare-bg)",
-              boxShadow: "0 0 3px var(--sf-flare-glow)",
-            }}
-          />
-        ))}
+
 
         {/* Ripples */}
         {ripples.map((rp) => (

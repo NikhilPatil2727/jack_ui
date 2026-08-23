@@ -79,7 +79,7 @@ export function Testimonials({
   return (
     <section id="testimonials" className="py-24 sm:py-32 font-sans bg-transparent">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        
+
         {/* Header */}
         <div className="mx-auto max-w-3xl text-center flex flex-col items-center">
           {badge && (
@@ -113,12 +113,12 @@ export function Testimonials({
             >
               {/* Subtle top-left gradient based on brand color */}
               <div className={cn("absolute top-0 left-0 h-32 w-32 -translate-x-1/3 -translate-y-1/3 rounded-full bg-gradient-to-br to-transparent blur-3xl opacity-30 dark:opacity-20", item.color)} />
-              
+
               <div className="relative z-10 flex flex-col h-full">
                 <div className="mb-6">
                   {item.logo}
                 </div>
-                
+
                 <p className="text-sm text-zinc-500 leading-relaxed flex-1 dark:text-zinc-400 mb-8">
                   "{item.quote}"
                 </p>
