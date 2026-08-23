@@ -67,7 +67,7 @@ export function Pricing({
     <section id="pricing" className="w-full flex justify-center py-20 px-4 sm:px-6 font-sans">
       {/* Outer Container */}
       <div className="w-full max-w-[1100px] bg-white rounded-[32px] pt-[64px] px-[20px] sm:px-[40px] md:px-[80px] pb-[80px] shadow-sm border border-zinc-100 flex flex-col items-center">
-        
+
         {/* Header Block */}
         <div className="flex flex-col items-center text-center">
           {badge && (
@@ -90,7 +90,7 @@ export function Pricing({
 
         {/* Cards Layout */}
         <div className="flex flex-col md:flex-row items-center justify-center mt-12 w-full max-w-[900px]">
-          
+
           {/* Starter Card (Left) */}
           {plans[0] && (
             <motion.div
@@ -122,12 +122,12 @@ export function Pricing({
 
               <ul className="mt-8 space-y-4">
                 {plans[0].features.map((feature, i) => (
-                  <motion.li 
+                  <motion.li
                     initial={{ opacity: 0, x: -10 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: 0.1 + i * 0.05 }}
-                    key={feature.name} 
+                    key={feature.name}
                     className="flex items-start gap-3"
                   >
                     <CheckCircle2 className="h-[18px] w-[18px] text-purple-500 shrink-0 mt-0.5" strokeWidth={2.5} />
@@ -150,7 +150,7 @@ export function Pricing({
                 {/* Decorative glows inside */}
                 <div className="absolute top-[-20%] right-[-10%] w-64 h-64 bg-white/40 rounded-full blur-[60px] pointer-events-none" />
                 <div className="absolute bottom-[-10%] left-[-10%] w-64 h-64 bg-[#FEF9C3]/35 rounded-full blur-[60px] pointer-events-none" />
-                
+
                 <div className="flex items-center justify-between relative z-10">
                   <h3 className="text-[28px] sm:text-[32px] font-medium text-zinc-900 tracking-tight">
                     {plans[1].name}
@@ -185,15 +185,15 @@ export function Pricing({
               <div className="bg-[#FFFDF5] p-[32px] flex-1 flex flex-col relative border-t border-purple-100">
                 {/* A subtle shadow overlapping the top half */}
                 <div className="absolute top-0 left-0 right-0 h-4 bg-gradient-to-b from-purple-500/[0.02] to-transparent pointer-events-none" />
-                
+
                 <ul className="space-y-4">
                   {plans[1].features.map((feature, i) => (
-                    <motion.li 
+                    <motion.li
                       initial={{ opacity: 0, x: -10 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true }}
                       transition={{ delay: 0.2 + i * 0.05 }}
-                      key={feature.name} 
+                      key={feature.name}
                       className="flex items-start gap-3"
                     >
                       <CheckCircle2 className="h-[18px] w-[18px] text-purple-500 shrink-0 mt-0.5" strokeWidth={2.5} />

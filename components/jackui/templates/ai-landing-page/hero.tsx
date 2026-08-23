@@ -48,7 +48,7 @@ export function Hero({
         }
       `}</style>
 
-      <div className="relative w-full min-h-[90vh] overflow-hidden bg-transparent flex flex-col font-sans">
+      <div className="relative w-full min-h-[98vh] overflow-hidden bg-transparent flex flex-col font-sans">
 
         {/* Background Mesh Gradients & Ribbon */}
         <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
@@ -121,7 +121,7 @@ export function Hero({
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/80 border border-purple-200/60 backdrop-blur-md mb-3 shadow-[0_2px_10px_-3px_rgba(168,85,247,0.2)] cursor-pointer hover:bg-white transition-colors"
           >
             <span className="flex items-center justify-center w-5 h-5 rounded-full bg-purple-100 text-purple-600">
-             🎉
+              🎉
             </span>
             <span className="text-xs sm:text-sm text-zinc-700 font-medium tracking-wide pr-1">
               {badgeText}
@@ -184,8 +184,8 @@ export function Hero({
           transition={{ delay: 0.5, duration: 1 }}
           className="relative z-10 w-full pb-4 sm:pb-6 flex flex-col items-center mt-auto px-4"
         >
-          
-          
+
+
         </motion.div>
 
       </div>

@@ -72,7 +72,7 @@ export default function AILandingPage({
     <div className={cn("relative min-h-screen w-full bg-white p-2 sm:p-3 md:p-3 lg:p-3 dark:bg-zinc-950 font-sans text-zinc-900 antialiased selection:bg-[#C084FC] selection:text-zinc-900", previewMode && "max-h-[480px] overflow-hidden p-2")}>
       <div className="relative mx-auto flex w-full max-w-[100rem] flex-col overflow-hidden rounded-[1.5rem] sm:rounded-[2rem] bg-[#FFFDF6] shadow-2xl ring-1 ring-zinc-200/50 dark:bg-[#0D1117] dark:ring-zinc-800/50 transition-colors duration-300">
         <Hero {...heroProps} />
-        
+
         {!previewMode && (
           <>
             <Features {...featuresProps} />

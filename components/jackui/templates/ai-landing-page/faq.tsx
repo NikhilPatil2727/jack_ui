@@ -70,15 +70,14 @@ export function FAQ({
                 >
                   <span>{faq.question}</span>
                   <ChevronDown
-                    className={`h-5 w-5 text-zinc-500 transition-transform duration-300 ${
-                      isOpen ? "rotate-180" : ""
-                    }`}
+                    className={`h-5 w-5 text-zinc-500 transition-transform duration-300 ${isOpen ? "rotate-180" : ""
+                      }`}
                   />
                 </button>
 
                 <AnimatePresence initial={false}>
                   {isOpen && (
-                     <motion.div
+                    <motion.div
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: "auto", opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}

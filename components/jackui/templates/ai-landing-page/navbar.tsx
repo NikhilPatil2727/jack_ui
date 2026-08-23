@@ -56,7 +56,7 @@ export function Navbar({
   };
 
   return (
-    <header 
+    <header
       className={cn(
         "absolute top-6 inset-x-0 flex justify-center z-50 px-4 pointer-events-none transition-all duration-300",
         scrolled ? "top-4" : "top-6"

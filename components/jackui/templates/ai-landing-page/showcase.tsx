@@ -18,7 +18,7 @@ export function Showcase({
   return (
     <section id="showcase" className="py-24 sm:py-32 font-sans bg-transparent relative overflow-hidden">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
-        
+
         {/* Section Header */}
         <div className="mx-auto max-w-3xl text-center flex flex-col items-center">
           {badge && (
@@ -63,7 +63,7 @@ export function Showcase({
 
         {/* Bento Grid */}
         <div className="mt-20 grid grid-cols-1 gap-6 lg:grid-cols-2">
-          
+
           {/* Tall Left Card: Workflow Engine */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -73,7 +73,7 @@ export function Showcase({
             className="group relative flex flex-col justify-between overflow-hidden rounded-[2rem] bg-white/70 backdrop-blur-xl border border-zinc-200/80 shadow-[0_8px_30px_rgb(0,0,0,0.02)] transition-all duration-500 hover:shadow-[0_12px_40px_rgb(0,0,0,0.06)] min-h-[500px]"
           >
             <div className="absolute inset-0 rounded-[2rem] shadow-[inset_0_1px_1px_rgba(255,255,255,1)] pointer-events-none z-20" />
-            
+
             <div className="relative z-30 p-8 sm:p-10">
               <h3 className="text-[26px] font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 leading-[1.2]">
                 Experience frictionless integration with<br />our Workflow Engine
@@ -82,62 +82,62 @@ export function Showcase({
                 Build complex data pipelines in seconds with ready-made templates for CRM, marketing, and sales.
               </p>
             </div>
-            
+
             {/* Visual: Realistic Code / Config Editor Mockup */}
             <div className="relative flex-1 w-full flex items-end justify-center px-8 pb-0 pt-8 overflow-hidden z-10">
-               <div className="absolute inset-0 bg-gradient-to-t from-zinc-50/50 to-transparent" />
-               <div className="w-full max-w-[400px] h-[260px] bg-zinc-950 rounded-t-xl border border-zinc-800 shadow-2xl overflow-hidden flex flex-col translate-y-4 group-hover:translate-y-2 transition-transform duration-500 ease-out">
-                 {/* MacOS Window Header */}
-                 <div className="h-10 border-b border-zinc-800 flex items-center px-4 gap-2 bg-zinc-900/50">
-                   <div className="flex gap-1.5">
-                     <div className="w-3 h-3 rounded-full bg-zinc-700" />
-                     <div className="w-3 h-3 rounded-full bg-zinc-700" />
-                     <div className="w-3 h-3 rounded-full bg-zinc-700" />
-                   </div>
-                   <div className="ml-auto text-[11px] font-mono text-zinc-500">pipeline.yaml</div>
-                 </div>
-                 {/* Code Content */}
-                 <div className="flex-1 p-5 font-mono text-[13px] leading-relaxed text-zinc-400">
-                    <div className="flex">
-                      <span className="w-6 text-zinc-600 select-none">1</span>
-                      <span><span className="text-fuchsia-400">name</span>: user_registration</span>
-                    </div>
-                    <div className="flex">
-                      <span className="w-6 text-zinc-600 select-none">2</span>
-                      <span><span className="text-fuchsia-400">trigger</span>:</span>
-                    </div>
-                    <div className="flex">
-                      <span className="w-6 text-zinc-600 select-none">3</span>
-                      <span className="ml-4"><span className="text-fuchsia-400">event</span>: <span className="text-emerald-400">'on_signup'</span></span>
-                    </div>
-                    <div className="flex">
-                      <span className="w-6 text-zinc-600 select-none">4</span>
-                      <span><span className="text-fuchsia-400">actions</span>:</span>
-                    </div>
-                    <div className="flex">
-                      <span className="w-6 text-zinc-600 select-none">5</span>
-                      <span className="ml-4">- <span className="text-blue-400">create_record</span>:</span>
-                    </div>
-                    <div className="flex">
-                      <span className="w-6 text-zinc-600 select-none">6</span>
-                      <span className="ml-8"><span className="text-fuchsia-400">table</span>: <span className="text-emerald-400">'users'</span></span>
-                    </div>
-                    <div className="flex">
-                      <span className="w-6 text-zinc-600 select-none">7</span>
-                      <span className="ml-4">- <span className="text-blue-400">send_email</span>:</span>
-                    </div>
-                    <div className="flex">
-                      <span className="w-6 text-zinc-600 select-none">8</span>
-                      <span className="ml-8"><span className="text-fuchsia-400">template</span>: <span className="text-emerald-400">'welcome_v2'</span></span>
-                    </div>
-                 </div>
-               </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-zinc-50/50 to-transparent" />
+              <div className="w-full max-w-[400px] h-[260px] bg-zinc-950 rounded-t-xl border border-zinc-800 shadow-2xl overflow-hidden flex flex-col translate-y-4 group-hover:translate-y-2 transition-transform duration-500 ease-out">
+                {/* MacOS Window Header */}
+                <div className="h-10 border-b border-zinc-800 flex items-center px-4 gap-2 bg-zinc-900/50">
+                  <div className="flex gap-1.5">
+                    <div className="w-3 h-3 rounded-full bg-zinc-700" />
+                    <div className="w-3 h-3 rounded-full bg-zinc-700" />
+                    <div className="w-3 h-3 rounded-full bg-zinc-700" />
+                  </div>
+                  <div className="ml-auto text-[11px] font-mono text-zinc-500">pipeline.yaml</div>
+                </div>
+                {/* Code Content */}
+                <div className="flex-1 p-5 font-mono text-[13px] leading-relaxed text-zinc-400">
+                  <div className="flex">
+                    <span className="w-6 text-zinc-600 select-none">1</span>
+                    <span><span className="text-fuchsia-400">name</span>: user_registration</span>
+                  </div>
+                  <div className="flex">
+                    <span className="w-6 text-zinc-600 select-none">2</span>
+                    <span><span className="text-fuchsia-400">trigger</span>:</span>
+                  </div>
+                  <div className="flex">
+                    <span className="w-6 text-zinc-600 select-none">3</span>
+                    <span className="ml-4"><span className="text-fuchsia-400">event</span>: <span className="text-emerald-400">'on_signup'</span></span>
+                  </div>
+                  <div className="flex">
+                    <span className="w-6 text-zinc-600 select-none">4</span>
+                    <span><span className="text-fuchsia-400">actions</span>:</span>
+                  </div>
+                  <div className="flex">
+                    <span className="w-6 text-zinc-600 select-none">5</span>
+                    <span className="ml-4">- <span className="text-blue-400">create_record</span>:</span>
+                  </div>
+                  <div className="flex">
+                    <span className="w-6 text-zinc-600 select-none">6</span>
+                    <span className="ml-8"><span className="text-fuchsia-400">table</span>: <span className="text-emerald-400">'users'</span></span>
+                  </div>
+                  <div className="flex">
+                    <span className="w-6 text-zinc-600 select-none">7</span>
+                    <span className="ml-4">- <span className="text-blue-400">send_email</span>:</span>
+                  </div>
+                  <div className="flex">
+                    <span className="w-6 text-zinc-600 select-none">8</span>
+                    <span className="ml-8"><span className="text-fuchsia-400">template</span>: <span className="text-emerald-400">'welcome_v2'</span></span>
+                  </div>
+                </div>
+              </div>
             </div>
           </motion.div>
 
           {/* Right Column Stack */}
           <div className="flex flex-col gap-6">
-            
+
             {/* Top Right Card: Automation Blocks */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -147,7 +147,7 @@ export function Showcase({
               className="group relative flex flex-col overflow-hidden rounded-[2rem] bg-white/70 backdrop-blur-xl border border-zinc-200/80 shadow-[0_8px_30px_rgb(0,0,0,0.02)] transition-all duration-500 hover:shadow-[0_12px_40px_rgb(0,0,0,0.06)] min-h-[280px]"
             >
               <div className="absolute inset-0 rounded-[2rem] shadow-[inset_0_1px_1px_rgba(255,255,255,1)] pointer-events-none z-20" />
-              
+
               <div className="relative z-30 p-8 sm:p-10 pb-0">
                 <h3 className="text-[22px] font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 leading-[1.2]">
                   Unify your operations with<br />powerful automation blocks.
@@ -197,7 +197,7 @@ export function Showcase({
               className="group relative flex flex-col justify-between overflow-hidden rounded-[2rem] bg-white/70 backdrop-blur-xl border border-zinc-200/80 shadow-[0_8px_30px_rgb(0,0,0,0.02)] transition-all duration-500 hover:shadow-[0_12px_40px_rgb(0,0,0,0.06)] min-h-[280px]"
             >
               <div className="absolute inset-0 rounded-[2rem] shadow-[inset_0_1px_1px_rgba(255,255,255,1)] pointer-events-none z-20" />
-              
+
               <div className="relative z-30 p-8 sm:p-10 flex flex-col h-full justify-between">
                 <div>
                   <h3 className="text-[22px] font-semibold tracking-tight text-zinc-900 dark:text-white leading-[1.2]">
@@ -207,13 +207,13 @@ export function Showcase({
                     Empower your team with actionable insights—track data flow and identify bottlenecks.
                   </p>
                 </div>
-                
+
                 <div className="mt-8 flex justify-between items-end">
                   <button className="group/btn relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-[#0f0f0f] bg-gradient-to-b from-[#2d2d2d] to-[#171717] px-6 py-2.5 text-sm font-semibold text-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_4px_12px_rgba(0,0,0,0.2)] transition-all hover:scale-105">
                     <span>View Analytics</span>
                     <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover/btn:translate-x-1" />
                   </button>
-                  
+
                   {/* Visual: Realistic Bar Chart Mockup */}
                   <div className="flex items-end gap-1.5 h-16 opacity-80 group-hover:opacity-100 transition-opacity duration-300">
                     <motion.div initial={{ height: "40%" }} whileInView={{ height: "40%" }} className="w-6 rounded-t-sm bg-zinc-200" />
@@ -221,10 +221,10 @@ export function Showcase({
                     <motion.div initial={{ height: "10%" }} whileInView={{ height: "50%" }} transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }} className="w-6 rounded-t-sm bg-zinc-300" />
                     <motion.div initial={{ height: "10%" }} whileInView={{ height: "85%" }} transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }} className="w-6 rounded-t-sm bg-zinc-800" />
                     <motion.div initial={{ height: "10%" }} whileInView={{ height: "100%" }} transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }} className="w-6 rounded-t-sm bg-zinc-900 relative">
-                       {/* Tooltip on hover */}
-                       <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-zinc-900 text-white text-[10px] py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap pointer-events-none">
-                         +24%
-                       </div>
+                      {/* Tooltip on hover */}
+                      <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-zinc-900 text-white text-[10px] py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap pointer-events-none">
+                        +24%
+                      </div>
                     </motion.div>
                   </div>
                 </div>
