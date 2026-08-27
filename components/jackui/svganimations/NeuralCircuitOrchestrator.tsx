@@ -118,34 +118,7 @@ const ToolsIcon = memo(() => (
 ));
 ToolsIcon.displayName = "ToolsIcon";
 
-// ─── Twinkling Star Flare Decoration ─────────────────────────────────────────
-const StarFlare = memo(
-  ({ className, x, y, delay = 0 }: { className?: string; x: number; y: number; delay?: number }) => (
-    <motion.g
-      className={className}
-      style={{ transformOrigin: `${x}px ${y}px`, x, y }}
-      initial={{ scale: 0.3, rotate: 0, opacity: 0.3 }}
-      animate={{
-        scale: [0.3, 1.1, 0.3],
-        rotate: [0, 90, 180],
-        opacity: [0.3, 1, 0.3],
-      }}
-      transition={{
-        duration: 5,
-        repeat: Infinity,
-        ease: "easeInOut",
-        delay,
-      }}
-    >
-      <path
-        d="M -5 0 Q 0 0 0 -5 Q 0 0 5 0 Q 0 0 0 5 Q 0 0 -5 0 Z"
-        fill="#ffffff"
-        className="drop-shadow-[0_0_4px_#fff]"
-      />
-    </motion.g>
-  )
-);
-StarFlare.displayName = "StarFlare";
+
 
 const DEFAULT_CARDS: OrchestratorCard[] = [
   {
@@ -374,18 +347,7 @@ export function NeuralCircuitOrchestrator({
             />
           </g>
 
-          {/* Decorative Junction dots */}
-          <g>
-            <circle cx="210" cy="110" r="3" fill="#a78bfa" className="animate-pulse" />
-            <circle cx="150" cy="120" r="2.5" className="fill-zinc-400/80" />
-            <circle cx="490" cy="30" r="3" fill="#ec4899" />
-            <circle cx="590" cy="110" r="3" fill="#fb7185" className="animate-pulse" />
-          </g>
 
-          {/* Sparkles at key junctions */}
-          <StarFlare x={210} y={110} delay={0} />
-          <StarFlare x={590} y={110} delay={1} />
-          <StarFlare x={490} y={30} delay={0.5} />
         </svg>
 
         {/* Central Core Gateway CPU */}
@@ -457,4 +419,4 @@ export function NeuralCircuitOrchestrator({
   );
 }
 
-export default NeuralCircuitOrchestrator;
+export default NeuralCircuitOrchestrator;
