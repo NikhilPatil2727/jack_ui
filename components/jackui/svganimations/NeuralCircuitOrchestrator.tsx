@@ -39,7 +39,7 @@ export interface OrchestratorCard {
 /**
  * Defines configuration options for the NeuralCircuitOrchestrator component.
  */
-export interface NeuralCircuitOrchestratorProps {
+export interface NeuralCircuitOrchestratorProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
    * Custom Tailwind classes to apply to the root container.
    */
@@ -126,6 +126,7 @@ export function NeuralCircuitOrchestrator({
   onGatewayClick,
   cards = DEFAULT_CARDS,
   onCardClick,
+  ...props
 }: NeuralCircuitOrchestratorProps) {
   const uid = useId().replace(/:/g, "");
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
@@ -174,6 +175,7 @@ export function NeuralCircuitOrchestrator({
         "relative w-full max-w-[1200px] mx-auto overflow-hidden transition-colors duration-300 font-sans p-6 rounded-2xl bg-white dark:bg-black border border-zinc-200 dark:border-zinc-800 shadow-sm text-sm",
         className
       )}
+      {...props}
     >
       {/* Circuit Board SVG Canvas */}
       <div className="relative w-full h-[220px] pointer-events-none z-0">
@@ -204,12 +206,12 @@ export function NeuralCircuitOrchestrator({
           </defs>
 
           {/* Background Grid Lines Network (Subtle animated breathing effect with color shift) */}
-          <motion.g 
-            stroke="currentColor" 
-            strokeWidth="1" 
-            fill="none" 
+          <motion.g
+            stroke="currentColor"
+            strokeWidth="1"
+            fill="none"
             initial={{ opacity: 0.15, color: "#a855f7" }}
-            animate={{ 
+            animate={{
               opacity: [0.15, 0.35, 0.15, 0.35, 0.15],
               color: ["#a855f7", "#10b981", "#f43f5e", "#10b981", "#a855f7"]
             }}
@@ -370,11 +372,11 @@ export function NeuralCircuitOrchestrator({
                 "bg-white dark:bg-[#151515]", // Backgrounds
                 "border-zinc-200 dark:border-white/15", // Borders
                 "dark:shadow-[0_0_0_1px_rgba(255,255,255,0.03),0_20px_60px_rgba(0,0,0,0.45)]", // Complex shadow
-                
+
                 // Dark mode 'before' pseudo-element
                 "dark:before:absolute dark:before:inset-0 dark:before:pointer-events-none dark:before:rounded-[24px]",
                 "dark:before:bg-[linear-gradient(135deg,rgba(255,255,255,0.08),transparent_35%,transparent_70%,rgba(255,255,255,0.025))]",
-                
+
                 // Dark mode 'after' pseudo-element
                 "dark:after:absolute dark:after:inset-[1px] dark:after:pointer-events-none dark:after:rounded-[23px] dark:after:border dark:after:border-white/[0.035]",
 
