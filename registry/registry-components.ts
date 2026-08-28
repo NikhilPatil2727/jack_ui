@@ -224,7 +224,7 @@ export const component: Registry = [
     {
         name: "neural-circuit-orchestrator",
         type: "registry:component",
-        dependencies: ["motion", "lucide-react"],
+        dependencies: ["motion", "react-icons"],
         files: [
             {
                 path: "components/jackui/svganimations/NeuralCircuitOrchestrator.tsx",
