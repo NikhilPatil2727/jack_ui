@@ -1,0 +1,76 @@
+# NeuralCircuitOrchestrator
+
+Displays a premium, animated Neural Circuit Grid that visually aggregates gateway sources.
+`Card` `Animation` `SVG` `Premium`
+
+## Preview & Code
+
+```tsx
+import React from 'react';
+import { NeuralCircuitOrchestrator } from '@/components/jackui/svganimations/NeuralCircuitOrchestrator';
+import { SiVercel } from 'react-icons/si';
+
+export default function NeuralCircuitDemo() {
+  return (
+    <div className="p-10 w-full min-h-screen bg-black flex items-center justify-center">
+      <NeuralCircuitOrchestrator
+        gatewayLabel="INITIALIZE AGENT"
+        onGatewayClick={() => console.log("Gateway Activated!")}
+        cards={[
+          {
+            id: "vercel",
+            title: "Vercel",
+            description: "Deploy your Next.js applications seamlessly with zero configuration.",
+            icon: <SiVercel className="w-8 h-8 text-white" />,
+            theme: "violet"
+          },
+          {
+            id: "analytics",
+            title: "Analytics",
+            description: "Real-time insights and performance monitoring for your applications.",
+            theme: "emerald"
+          },
+          {
+            id: "storage",
+            title: "Edge Storage",
+            description: "Lightning-fast, globally distributed data storage.",
+            theme: "rose"
+          }
+        ]}
+      />
+    </div>
+  );
+}
+```
+
+## Installation
+
+```bash
+# 1. Ensure you have the required dependencies
+npm install motion/react react-icons clsx tailwind-merge
+
+# 2. Copy the component into your project
+# Place it at components/jackui/svganimations/NeuralCircuitOrchestrator.tsx
+```
+
+## Props
+
+| Prop | Type | Description |
+| :--- | :--- | :--- |
+| `className` | `string` | Optional. Custom Tailwind classes to apply to the root container. Default: `undefined` |
+| `gatewayLabel` | `string` | Optional. Central gateway button text. Default: `"AGENT GATEWAY"` |
+| `onGatewayClick` | `() => void` | Optional. Callback event triggered when the central gateway button is clicked. |
+| `cards` | `OrchestratorCard[]` | Optional. Custom list of orchestrator cards to render. Defaults to a standard 3-card layout (React, Next.js, TanStack). |
+| `onCardClick` | `(cardId: string) => void` | Optional. Callback event triggered when an individual card is clicked. Receives the `cardId` as an argument. |
+| `...rest` | `React.HTMLAttributes<HTMLDivElement>` | Optional. Any standard HTML attributes (e.g. `style`, `id`, `aria-label`) are passed through to the root container `div`. |
+
+### OrchestratorCard Type
+
+| Property | Type | Description |
+| :--- | :--- | :--- |
+| `id` | `string` | Required. Unique identifier for the card and its connection track. |
+| `title` | `string` | Required. Main title of the card. |
+| `description` | `string` | Required. Text description explaining the card's purpose. |
+| `href` | `string` | Optional. Action link target when the card is clicked. Default: `"#"` |
+| `icon` | `React.ReactNode` | Optional. Custom element to render as the card's top icon. Falls back to a default `CognitiveIcon`. |
+| `theme` | `"violet" \| "emerald" \| "rose"` | Optional. Selects the neon theme mapped for stroke glows and hover highlights. Default: `"violet"` |

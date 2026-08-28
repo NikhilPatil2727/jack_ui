@@ -76,3 +76,71 @@ import NeuralCircuitOrchestrator from "@/components/jackui/svganimations/NeuralC
 <Preview link="svg-animations/NeuralCircuitOrchestrator" height="520px">
     <NeuralCircuitOrchestrator />
 </Preview>
+
+#### Overview & Selection Guide
+Displays a premium, animated Neural Circuit Grid that visually aggregates gateway sources.
+
+#### Installation
+
+<Tabs items={["npx", "pnpm", "bun"]}>
+
+```bash tab="npx"
+npx shadcn@latest add https://jack-ui-ten.vercel.app/r/neural-circuit-orchestrator.json
+```
+
+```bash tab="pnpm"
+pnpm dlx shadcn@latest add https://jack-ui-ten.vercel.app/r/neural-circuit-orchestrator.json
+```
+
+```bash tab="bun"
+bunx shadcn@latest add https://jack-ui-ten.vercel.app/r/neural-circuit-orchestrator.json
+```
+
+</Tabs>
+
+#### Usage
+
+```tsx
+import NeuralCircuitOrchestrator from "@/components/jackui/svganimations/NeuralCircuitOrchestrator";
+import { SiVercel } from 'react-icons/si';
+
+export default function Demo() {
+  return (
+    <NeuralCircuitOrchestrator
+      gatewayLabel="INITIALIZE AGENT"
+      onGatewayClick={() => console.log("Gateway Activated!")}
+      cards={[
+        {
+          id: "vercel",
+          title: "Vercel",
+          description: "Deploy your Next.js applications seamlessly with zero configuration.",
+          icon: <SiVercel className="w-8 h-8 text-zinc-900 dark:text-white" />,
+          theme: "violet"
+        }
+      ]}
+    />
+  );
+}
+```
+
+#### Props
+
+| Prop | Type | Description |
+| :--- | :--- | :--- |
+| `className` | `string` | Optional. Custom Tailwind classes to apply to the root container. |
+| `gatewayLabel` | `string` | Optional. Central gateway button text. Default: `"AGENT GATEWAY"` |
+| `onGatewayClick` | `() => void` | Optional. Callback event triggered when the central gateway button is clicked. |
+| `cards` | `OrchestratorCard[]` | Optional. Custom list of orchestrator cards to render. Defaults to a standard 3-card layout. |
+| `onCardClick` | `(cardId: string) => void` | Optional. Callback event triggered when an individual card is clicked. |
+| `...rest` | `React.HTMLAttributes<HTMLDivElement>` | Optional. Any standard HTML attributes passed through to the root container `div`. |
+
+##### OrchestratorCard Type
+
+| Property | Type | Description |
+| :--- | :--- | :--- |
+| `id` | `string` | Required. Unique identifier for the card and its connection track. |
+| `title` | `string` | Required. Main title of the card. |
+| `description` | `string` | Required. Text description explaining the card's purpose. |
+| `href` | `string` | Optional. Action link target when the card is clicked. Default: `"#"` |
+| `icon` | `React.ReactNode` | Optional. Custom element to render as the card's top icon. |
+| `theme` | `"violet" \| "emerald" \| "rose"` | Optional. Selects the neon theme mapped for stroke glows and hover highlights. Default: `"violet"` |
