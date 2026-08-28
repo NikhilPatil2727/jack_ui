@@ -3,6 +3,7 @@
 import React, { useId, useState, memo } from "react";
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
+import { SiReact, SiNextdotjs, SiTanstack } from "react-icons/si";
 
 /**
  * Definition for dynamic card items in the orchestrator.
@@ -64,88 +65,50 @@ export interface NeuralCircuitOrchestratorProps {
 
 // ─── Custom Premium SVG Icons (AI Orchestrator Theme) ────────────────────────
 
-const CognitiveIcon = memo(() => (
-  <svg
-    viewBox="0 0 24 24"
-    className="w-8 h-8 text-violet-400 drop-shadow-[0_0_8px_rgba(167,139,250,0.4)]"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="1.5"
-    aria-hidden="true"
-  >
-    <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15A2.5 2.5 0 0 1 9.5 22M14.5 2a2.5 2.5 0 0 0-2.5 2.5v15a2.5 2.5 0 0 0 2.5 2.5" />
-    <path d="M12 9h5a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-5M12 5h7a2 2 0 0 1 2 2v1a2 2 0 0 1-2 2h-7" />
-    <path d="M12 19H7a2 2 0 0 1-2-2v-2a2 2 0 0 1 2-2h5M12 15H5a2 2 0 0 1-2-2v-1a2 2 0 0 1 2-2h7" />
-    <circle cx="12" cy="4.5" r="1.5" className="fill-violet-400 animate-pulse" />
-    <circle cx="12" cy="19.5" r="1.5" className="fill-violet-400 animate-pulse" />
-  </svg>
-));
-CognitiveIcon.displayName = "CognitiveIcon";
-
-const MemoryIcon = memo(() => (
-  <svg
-    viewBox="0 0 24 24"
-    className="w-8 h-8 text-emerald-400 drop-shadow-[0_0_8px_rgba(52,211,153,0.4)]"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="1.5"
-    aria-hidden="true"
-  >
-    <ellipse cx="12" cy="5" rx="9" ry="3" />
-    <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
-    <path d="M3 12c0 1.66 4 3 9 3s9-1.34 9-3" />
-    <line x1="12" y1="8" x2="12" y2="22" strokeDasharray="3 3" />
-    <circle cx="12" cy="12" r="2" className="fill-emerald-400" />
-  </svg>
-));
-MemoryIcon.displayName = "MemoryIcon";
-
-const ToolsIcon = memo(() => (
-  <svg
-    viewBox="0 0 24 24"
-    className="w-8 h-8 text-rose-400 drop-shadow-[0_0_8px_rgba(244,63,94,0.4)]"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="1.5"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    aria-hidden="true"
-  >
-    <rect x="4" y="4" width="16" height="16" rx="2" />
-    <path d="M9 22V12h6v10M12 2v2M2 12h2M20 12h2" />
-    <circle cx="12" cy="8" r="1" className="fill-rose-400 animate-ping" />
-  </svg>
-));
-ToolsIcon.displayName = "ToolsIcon";
-
-
-
 const DEFAULT_CARDS: OrchestratorCard[] = [
   {
-    id: "cognitive",
-    title: "Cognitive Engine",
+    id: "react",
+    title: "React",
     description:
-      "Deconstructs complex user requests into dynamic workflows, selecting parameters and execution models programmatically.",
-    icon: <CognitiveIcon />,
+      "The library for web and native user interfaces. Next.js is built on the latest React features, including Server Components and Actions.",
+    icon: <SiReact className="w-8 h-8 text-zinc-900 dark:text-white" />,
     theme: "violet",
   },
   {
-    id: "memory",
-    title: "Vector Memory",
+    id: "nextjs",
+    title: "Next.js",
     description:
-      "High-speed multi-modal database retrieving long-term agent memories and contextual semantic maps in real-time.",
-    icon: <MemoryIcon />,
+      "The React Framework for the Web. Used by some of the world's largest companies, Next.js enables you to create high-quality web applications.",
+    icon: <SiNextdotjs className="w-8 h-8 text-zinc-900 dark:text-white" />,
     theme: "emerald",
   },
   {
-    id: "tools",
-    title: "Autonomous Tools",
+    id: "tanstack",
+    title: "TanStack",
     description:
-      "Secure sandbox environment containing code compilers, API interfaces, and file system executors.",
-    icon: <ToolsIcon />,
+      "High-quality open-source software for web developers. Headless UI, Data Fetching, Routing, and more for modern frontend apps.",
+    icon: <SiTanstack className="w-8 h-8 text-zinc-900 dark:text-white" />,
     theme: "rose",
   },
 ];
+
+const CognitiveIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className="w-8 h-8 text-zinc-900 dark:text-white"
+  >
+    <path d="M2 12h20" />
+    <path d="M12 2v20" />
+    <path d="m4.93 4.93 14.14 14.14" />
+    <path d="m4.93 19.07 14.14-14.14" />
+  </svg>
+);
 
 /**
  * NeuralCircuitOrchestrator
@@ -265,7 +228,7 @@ export function NeuralCircuitOrchestrator({
               className={cn(themeClasses.violet.stroke, "transition-all duration-300")}
               style={{
                 filter: themeClasses.violet.glow,
-                opacity: hoveredCard === "cognitive" ? 0.9 : 0.4,
+                opacity: hoveredCard === "react" ? 0.9 : 0.4,
               }}
             />
 
@@ -275,7 +238,7 @@ export function NeuralCircuitOrchestrator({
               className={cn(themeClasses.emerald.stroke, "transition-all duration-300")}
               style={{
                 filter: themeClasses.emerald.glow,
-                opacity: hoveredCard === "memory" ? 0.9 : 0.4,
+                opacity: hoveredCard === "nextjs" ? 0.9 : 0.4,
               }}
             />
 
@@ -285,7 +248,7 @@ export function NeuralCircuitOrchestrator({
               className={cn(themeClasses.rose.stroke, "transition-all duration-300")}
               style={{
                 filter: themeClasses.rose.glow,
-                opacity: hoveredCard === "tools" ? 0.9 : 0.4,
+                opacity: hoveredCard === "tanstack" ? 0.9 : 0.4,
               }}
             />
           </g>
@@ -299,7 +262,7 @@ export function NeuralCircuitOrchestrator({
               initial={{ pathLength: 1, pathOffset: 1, opacity: 1 }}
               animate={{
                 pathOffset: [1, 0, 0, 0, 1],
-                opacity: hoveredCard === "cognitive" ? [1, 1, 1, 0, 1] : [0.85, 0.85, 0.85, 0, 0.85],
+                opacity: hoveredCard === "react" ? [1, 1, 1, 0, 1] : [0.85, 0.85, 0.85, 0, 0.85],
               }}
               transition={{
                 duration: 3,
@@ -317,7 +280,7 @@ export function NeuralCircuitOrchestrator({
               initial={{ pathLength: 1, pathOffset: 1, opacity: 1 }}
               animate={{
                 pathOffset: [1, 0, 0, 0, 1],
-                opacity: hoveredCard === "memory" ? [1, 1, 1, 0, 1] : [0.85, 0.85, 0.85, 0, 0.85],
+                opacity: hoveredCard === "nextjs" ? [1, 1, 1, 0, 1] : [0.85, 0.85, 0.85, 0, 0.85],
               }}
               transition={{
                 duration: 3,
@@ -335,7 +298,7 @@ export function NeuralCircuitOrchestrator({
               initial={{ pathLength: 1, pathOffset: 1, opacity: 1 }}
               animate={{
                 pathOffset: [1, 0, 0, 0, 1],
-                opacity: hoveredCard === "tools" ? [1, 1, 1, 0, 1] : [0.85, 0.85, 0.85, 0, 0.85],
+                opacity: hoveredCard === "tanstack" ? [1, 1, 1, 0, 1] : [0.85, 0.85, 0.85, 0, 0.85],
               }}
               transition={{
                 duration: 3,
@@ -372,6 +335,14 @@ export function NeuralCircuitOrchestrator({
           const themeConf = themeClasses[card.theme || "violet"];
           const isHovered = hoveredCard === card.id;
 
+          // Determine the accent color based on theme
+          const accentColors: Record<"violet" | "emerald" | "rose", string> = {
+            violet: "#a855f7",
+            emerald: "#10b981",
+            rose: "#f43f5e"
+          };
+          const accentColor = accentColors[card.theme || "violet"];
+
           return (
             <motion.a
               key={card.id}
@@ -385,30 +356,58 @@ export function NeuralCircuitOrchestrator({
                 }
               }}
               className={cn(
-                "flex flex-col text-left cursor-pointer outline-none no-underline py-8 px-8 rounded-2xl transition-all duration-300 border bg-white dark:bg-zinc-950/40 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-zinc-400",
-                isHovered
-                  ? cn(themeConf.cardBorderActive, themeConf.cardShadow, "-translate-y-1")
-                  : themeConf.cardBorderInactive
+                "group relative flex flex-col justify-start text-left cursor-pointer outline-none no-underline p-8 overflow-hidden transition-all duration-300 border focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-zinc-400",
+                "rounded-2xl dark:rounded-[24px]", // Base radius vs Dark mode radius
+                "bg-white dark:bg-[#151515]", // Backgrounds
+                "border-zinc-200 dark:border-white/15", // Borders
+                "dark:shadow-[0_0_0_1px_rgba(255,255,255,0.03),0_20px_60px_rgba(0,0,0,0.45)]", // Complex shadow
+                
+                // Dark mode 'before' pseudo-element
+                "dark:before:absolute dark:before:inset-0 dark:before:pointer-events-none dark:before:rounded-[24px]",
+                "dark:before:bg-[linear-gradient(135deg,rgba(255,255,255,0.08),transparent_35%,transparent_70%,rgba(255,255,255,0.025))]",
+                
+                // Dark mode 'after' pseudo-element
+                "dark:after:absolute dark:after:inset-[1px] dark:after:pointer-events-none dark:after:rounded-[23px] dark:after:border dark:after:border-white/[0.035]",
+
+                isHovered ? "shadow-sm dark:border-white/30" : ""
               )}
+              style={{ "--accent": accentColor } as React.CSSProperties}
               aria-label={`Navigate to ${card.title}`}
             >
+              {/* Top Edge Gradient Highlight */}
+              <div
+                className={cn(
+                  "absolute inset-x-0 top-0 h-[1px] w-full transition-opacity duration-300 hidden dark:block",
+                  isHovered ? "opacity-100" : "opacity-40"
+                )}
+                style={{
+                  background: `linear-gradient(90deg, transparent 0%, var(--accent) 50%, transparent 100%)`
+                }}
+              />
+
               {/* Icon Container */}
-              <div className="mb-4 shrink-0 flex items-center">
+              <div className="mb-10 shrink-0 flex items-center relative z-10">
                 {card.icon || <CognitiveIcon />}
               </div>
 
               {/* Title */}
-              <div className="flex items-center gap-[6px] mb-1.5">
-                <h3 className="font-bold tracking-tight font-sans text-sm text-zinc-800 dark:text-zinc-200">
+              <div className="flex items-center gap-[6px] mb-2 relative z-10">
+                <h3 className="font-bold tracking-tight font-sans text-[18px] md:text-[20px] text-zinc-900 dark:text-[#ededed] dark:group-hover:text-[#fafafa] transition-colors">
                   {card.title}
                 </h3>
-                <span className="text-zinc-400 dark:text-zinc-500 text-xs font-bold" aria-hidden="true">
+                <span
+                  className={cn(
+                    "text-zinc-400 dark:text-[#888888] text-sm font-bold transition-transform duration-200",
+                    isHovered ? "translate-x-0.5 -translate-y-0.5 text-zinc-600 dark:text-[#ededed]" : ""
+                  )}
+                  aria-hidden="true"
+                >
                   ↗
                 </span>
               </div>
 
               {/* Description */}
-              <p className="font-normal font-sans text-xs leading-[18.5px] text-zinc-500 dark:text-zinc-400">
+              <p className="font-normal font-sans text-[14px] leading-relaxed text-zinc-600 dark:text-[#888888] relative z-10 max-w-[95%]">
                 {card.description}
               </p>
             </motion.a>
