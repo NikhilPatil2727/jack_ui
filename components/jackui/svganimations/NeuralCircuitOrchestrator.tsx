@@ -203,8 +203,18 @@ export function NeuralCircuitOrchestrator({
             </filter>
           </defs>
 
-          {/* Background Grid Lines Network */}
-          <g stroke="currentColor" className="text-zinc-200 dark:text-white/40" strokeWidth="1" fill="none" opacity="0.6">
+          {/* Background Grid Lines Network (Subtle animated breathing effect with color shift) */}
+          <motion.g 
+            stroke="currentColor" 
+            strokeWidth="1" 
+            fill="none" 
+            initial={{ opacity: 0.15, color: "#a855f7" }}
+            animate={{ 
+              opacity: [0.15, 0.35, 0.15, 0.35, 0.15],
+              color: ["#a855f7", "#10b981", "#f43f5e", "#10b981", "#a855f7"]
+            }}
+            transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+          >
             <path d="M 400 35 L 400 15 M 430 45 L 450 15 H 510 V 35" />
             <path d="M 370 45 L 350 15 H 290 V 35" />
             <path d="M 250 15 H 180 V 65 H 100" />
@@ -212,13 +222,12 @@ export function NeuralCircuitOrchestrator({
 
             <path d="M 133 120 H 260 V 55" />
             <path d="M 667 120 H 540 V 55" />
-            <path d="M 350 145 H 450 V 175 H 400" />
 
             {/* Inactive Main paths */}
             <path d="M 350 110 H 133 V 220" />
             <path d="M 400 135 V 220" />
             <path d="M 450 110 H 667 V 220" />
-          </g>
+          </motion.g>
 
           {/* Glowing active circuit tracks */}
           <g fill="none" strokeWidth="2" strokeLinecap="round">
