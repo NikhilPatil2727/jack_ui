@@ -204,7 +204,7 @@ export function NeuralCircuitOrchestrator({
           </defs>
 
           {/* Background Grid Lines Network */}
-          <g stroke="currentColor" className="text-zinc-200 dark:text-zinc-800" strokeWidth="1" fill="none" opacity="0.6">
+          <g stroke="currentColor" className="text-zinc-200 dark:text-white/40" strokeWidth="1" fill="none" opacity="0.6">
             <path d="M 400 35 L 400 15 M 430 45 L 450 15 H 510 V 35" />
             <path d="M 370 45 L 350 15 H 290 V 35" />
             <path d="M 250 15 H 180 V 65 H 100" />
@@ -320,7 +320,7 @@ export function NeuralCircuitOrchestrator({
             onClick={onGatewayClick}
             className={cn(
               "px-6 py-3.5 text-xs font-semibold text-white tracking-wider uppercase select-none transition-all duration-200 outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-zinc-500",
-              "bg-gradient-to-b from-zinc-800 to-zinc-950 hover:from-zinc-700 hover:to-zinc-900 border border-zinc-700/60 shadow-lg cursor-pointer"
+              "bg-gradient-to-b from-zinc-700 to-zinc-900 hover:from-zinc-600 hover:to-zinc-800 border border-zinc-700/60 shadow-lg cursor-pointer"
             )}
             aria-label={gatewayLabel}
           >
