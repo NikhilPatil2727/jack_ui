@@ -157,26 +157,28 @@ export default function PreviewContent({
 
             <div className={cn("relative mt-4", "rounded-xl px-0 py-3 sm:p-3")}>
                 <div className="relative flex flex-col gap-3 lg:flex-row lg:items-center">
-                    {/* <a
-                        href={`${prePath}/preview/${link}`}
-                        target="_blank"
-                        rel="noreferrer"
-                        className={cn(
-                            "flex items-center gap-2",
-                            "text-sm font-medium",
-                            "text-zinc-800 dark:text-zinc-200",
-                            "hover:text-zinc-600 dark:hover:text-zinc-400",
-                            "transition-all duration-200 no-underline group"
-                        )}
-                    >
-                        Live Preview
-                        <ArrowUpRight
+                    {link.startsWith("templates/") && (
+                        <a
+                            href={`${prePath}/preview/${link}`}
+                            target="_blank"
+                            rel="noreferrer"
                             className={cn(
-                                "h-4 w-4",
-                                "transition-transform duration-200 group-hover:rotate-12"
+                                "flex items-center gap-2",
+                                "text-sm font-semibold",
+                                "text-zinc-800 dark:text-zinc-200",
+                                "hover:text-indigo-600 dark:hover:text-indigo-400",
+                                "transition-all duration-200 no-underline group cursor-pointer"
                             )}
-                        />
-                    </a> */}
+                        >
+                            Live Preview
+                            <ArrowUpRight
+                                className={cn(
+                                    "h-4 w-4",
+                                    "transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                                )}
+                            />
+                        </a>
+                    )}
 
                     <div className="flex w-full flex-wrap items-center gap-2 lg:w-auto lg:justify-start">
                         <div className="inline-flex items-center rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 p-0.5 shadow-xs relative">

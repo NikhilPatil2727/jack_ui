@@ -26,4 +26,4 @@ const create = server<typeof Config, import("fumadocs-mdx/runtime/types").Intern
 
 export const docs = await create.doc("docs", "content/docs", {"index.mdx": __fd_glob_0, "blocks/auth-basic.mdx": __fd_glob_1, "blocks/pricing.mdx": __fd_glob_2, "hooks/use-auto-resize-textarea.mdx": __fd_glob_3, "hooks/use-click-outside.mdx": __fd_glob_4, "components/card.mdx": __fd_glob_5, "components/dock.mdx": __fd_glob_6, "components/svg-animations.mdx": __fd_glob_7, "components/terminal.mdx": __fd_glob_8, "components/buttons/3d-tilt-shimmer-button.mdx": __fd_glob_9, "components/buttons/ink-fill-button.mdx": __fd_glob_10, "components/buttons/smoke-flare-button.mdx": __fd_glob_11, "components/buttons/spark-button.mdx": __fd_glob_12, "components/buttons/spring-animated-button.mdx": __fd_glob_13, "components/buttons/star-burst-button.mdx": __fd_glob_14, });
 
-export const meta = await create.meta("meta", "content/docs", {"meta.json": __fd_glob_15, "components/buttons/meta.json": __fd_glob_16, });
+export const meta = await create.meta("meta", "content/docs", {"meta.json": __fd_glob_16, "components/buttons/meta.json": __fd_glob_17, });
