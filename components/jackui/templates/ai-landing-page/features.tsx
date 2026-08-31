@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion, LayoutGroup, AnimatePresence } from "framer-motion";
 import {
   ArrowRight,
   Check,
@@ -123,169 +123,208 @@ function WorkflowBuilderSplit() {
 }
 
 // ==========================================
-// CARD 2: Interactive AI Console Component
+// CARD 2: Rules Engine Node Component
 // ==========================================
-interface ConsoleItem {
-  prompt: string;
-  category: string;
+// Custom Bespoke Geometric Icons (Strict Square Edges)
+const GeoSquare = () => (
+  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="2.5" y="2.5" width="9" height="9" stroke="currentColor" strokeWidth="1.5"/>
+  </svg>
+);
+
+const GeoCircle = () => (
+  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="7" cy="7" r="4.5" stroke="currentColor" strokeWidth="1.5"/>
+  </svg>
+);
+
+const GeoTriangle = () => (
+  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M7 3L11.5 10H2.5L7 3Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="miter"/>
+  </svg>
+);
+
+interface Rule {
+  id: string;
+  label: string;
   action: string;
-  confidence: string;
-  status: "success" | "warning" | "info";
+  icon: React.ReactNode;
+  color: string;
 }
 
 function AIDecisionConsole() {
   const shouldReduceMotion = useReducedMotion();
+  const [activeIndex, setActiveIndex] = useState(0);
 
-  const consoleData: ConsoleItem[] = [
-    {
-      prompt: "If customer sentiment is negative, escalate directly to premium support.",
-      category: "Sentiment / Escalation",
-      action: "Route to Tier-2 Agent",
-      confidence: "99.4%",
-      status: "warning",
-    },
-    {
-      prompt: "Analyze billing webhook and sync updated record to PostgreSQL database.",
-      category: "Integrations / DB Sync",
-      action: "Query Stripe API & Update PG",
-      confidence: "98.7%",
-      status: "success",
-    },
-    {
-      prompt: "Alert Slack Dev Channel if server health check yields 500 error code.",
-      category: "Ops / Alerts",
-      action: "Trigger Slack & PagerDuty",
-      confidence: "99.9%",
-      status: "info",
-    }
+  const rules: Rule[] = [
+    { id: "r1", label: "type == 'payment'", action: "Ledger DB", icon: <GeoSquare />, color: "text-blue-400" },
+    { id: "r2", label: "fraud_score > 90", action: "Flag Account", icon: <GeoTriangle />, color: "text-rose-400" },
+    { id: "r3", label: "default_fallback", action: "Log Event", icon: <GeoCircle />, color: "text-zinc-400" },
   ];
 
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [typedPrompt, setTypedPrompt] = useState("");
-
-  // Cycle prompt every 6 seconds
   useEffect(() => {
-    const timer = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % consoleData.length);
-    }, 6000);
-    return () => clearInterval(timer);
-  }, []);
-
-  // Simple typewriter effect for the active prompt
-  useEffect(() => {
-    const fullText = consoleData[activeIndex].prompt;
-    setTypedPrompt("");
-
-    if (shouldReduceMotion) {
-      setTypedPrompt(fullText);
-      return;
-    }
-
-    let currentText = "";
-    let i = 0;
-    let isMounted = true;
-
-    const type = () => {
-      if (i < fullText.length && isMounted) {
-        currentText += fullText.charAt(i);
-        setTypedPrompt(currentText);
-        i++;
-        setTimeout(type, 20);
-      }
-    };
-    type();
-
-    return () => {
-      isMounted = false;
-    };
-  }, [activeIndex, shouldReduceMotion]);
-
-  const currentItem = consoleData[activeIndex];
+    const interval = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % rules.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [rules.length]);
 
   return (
-    <div className="flex flex-col h-full w-full p-6 sm:p-8 justify-between space-y-6">
-      {/* Title Block */}
-      <div className="space-y-2">
-
-        <h3 className="text-xl sm:text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 leading-snug">
-          AI Decision Nodes
+    <div className="group flex flex-col h-full w-full p-6 sm:p-8 justify-between space-y-6 relative overflow-hidden bg-white dark:bg-[#050505] transition-colors duration-500">
+      
+      {/* Header Block */}
+      <div className="space-y-2 relative z-20">
+        <h3 className="text-xl font-medium tracking-tight text-zinc-900 dark:text-zinc-100">
+          Rules Engine
         </h3>
-        <p className="text-sm text-zinc-500 dark:text-zinc-400 font-medium leading-relaxed tracking-tight">
-          Evaluate natural language conditions and route workflows dynamically using semantic understanding.
+        <p className="text-sm text-zinc-500 font-medium leading-relaxed tracking-tight max-w-[220px]">
+          Evaluate payloads against logical conditions in real-time.
         </p>
       </div>
 
-      {/* Simulated Console Window */}
-      <div className="relative flex-1 min-h-[190px] bg-zinc-950 border border-zinc-800 dark:border-zinc-800/80 rounded-xl p-4 font-mono text-[11px] text-zinc-300 shadow-2xl overflow-hidden flex flex-col justify-between">
-        {/* Console Header */}
-        <div className="flex items-center justify-between pb-3 border-b border-zinc-900 mb-2.5">
-          <div className="flex gap-1.5">
-            <div className="w-2.5 h-2.5 rounded-full bg-zinc-800 border border-zinc-700/60" />
-            <div className="w-2.5 h-2.5 rounded-full bg-zinc-800 border border-zinc-700/60" />
-            <div className="w-2.5 h-2.5 rounded-full bg-zinc-800 border border-zinc-700/60" />
+      {/* Interactive Environment - Strict Square Brutalist Aesthetic */}
+      <div className="relative flex-1 w-full bg-[#0a0a0a] border border-zinc-200 dark:border-[#222] p-4 sm:p-5 flex flex-col z-10 shadow-inner overflow-hidden font-mono">
+        
+        {/* Subtle internal animated glow */}
+        <motion.div 
+          className="absolute inset-0 pointer-events-none opacity-30"
+          animate={shouldReduceMotion ? {} : { background: ["radial-gradient(circle at 0% 0%, rgba(255,255,255,0.08) 0%, transparent 60%)", "radial-gradient(circle at 100% 100%, rgba(255,255,255,0.08) 0%, transparent 60%)", "radial-gradient(circle at 0% 0%, rgba(255,255,255,0.08) 0%, transparent 60%)"] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+        />
+
+        {/* Incoming Payload Box */}
+        <div className="relative bg-[#111] border border-white/5 p-3 z-20 shadow-md">
+          <div className="flex items-center justify-between mb-2">
+             <span className="text-xs text-zinc-500">{"// payload.json"}</span>
           </div>
-          <span className="text-[10px] text-zinc-500 tracking-wider">model: aether-flash</span>
-        </div>
-
-        {/* Console Body */}
-        <div className="space-y-3 flex-1 flex flex-col justify-between">
-          {/* Input Block */}
-          <div className="space-y-1">
-            <div className="text-zinc-500 flex items-center justify-between">
-              <span>cond_prompt.txt</span>
-              <span className="text-[9px] bg-zinc-900 border border-zinc-800 px-1 rounded text-purple-400 font-semibold uppercase">input</span>
-            </div>
-            <p className="text-zinc-200 min-h-[38px] font-sans text-xs tracking-tight leading-relaxed">
-              "{typedPrompt}"
-              <span className="inline-block w-1.5 h-3.5 bg-purple-400 ml-0.5 animate-pulse" />
-            </p>
-          </div>
-
-          {/* Analyzing loading state / result */}
-          <div className="space-y-2 pt-2 border-t border-zinc-900">
-            <div className="text-zinc-500 flex items-center justify-between">
-              <span>decision_output</span>
-              <span className="text-[9px] bg-zinc-900 border border-zinc-800 px-1 rounded text-emerald-400 font-semibold uppercase">output</span>
-            </div>
-
-            <div className="space-y-1.5 font-sans">
-              <div className="flex items-center justify-between text-xs">
-                <span className="text-zinc-400">Class:</span>
-                <span className="text-zinc-100 font-semibold text-[11px] bg-zinc-900 px-2 py-0.5 rounded border border-zinc-850">
-                  {currentItem.category}
-                </span>
-              </div>
-              <div className="flex items-center justify-between text-xs">
-                <span className="text-zinc-400">Action:</span>
-                <span className="text-zinc-100 font-semibold text-[11px]">
-                  {currentItem.action}
-                </span>
-              </div>
-              <div className="flex items-center justify-between text-xs">
-                <span className="text-zinc-400">Confidence:</span>
-                <span className="text-emerald-400 font-mono font-bold text-[11px]">
-                  {currentItem.confidence}
-                </span>
-              </div>
-            </div>
+          <div className="text-[11px] text-zinc-400 leading-relaxed">
+            <span className="text-purple-400">{"{"}</span><br/>
+            &nbsp;&nbsp;<span className="text-blue-400">"type"</span>: <span className="text-amber-300">"payment"</span>,<br/>
+            &nbsp;&nbsp;<span className="text-blue-400">"score"</span>: <span className="text-amber-300">{activeIndex === 1 ? '95' : '12'}</span><br/>
+            <span className="text-purple-400">{"}"}</span>
           </div>
         </div>
 
-        {/* Manual Tab Selectors */}
-        <div className="flex gap-2.5 pt-3 border-t border-zinc-900 mt-3 justify-center">
-          {consoleData.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setActiveIndex(index)}
-              className={cn(
-                "w-2.5 h-2.5 rounded-full transition-all duration-300 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950",
-                activeIndex === index
-                  ? "bg-purple-500 scale-125 shadow-[0_0_8px_rgba(168,85,247,0.8)]"
-                  : "bg-zinc-700 hover:bg-zinc-500"
-              )}
-              aria-label={`Show prompt example ${index + 1}`}
-            />
-          ))}
+        {/* Layout with Tree SVG on Left, Rules on Right */}
+        <div className="flex-1 flex mt-4 relative">
+          
+          {/* SVG Line Drawing (Tree) */}
+          <div className="w-[24px] flex-shrink-0 relative">
+             <svg width="24" height="150" className="absolute inset-0 overflow-visible">
+                <defs>
+                  <linearGradient id="smoke-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stopColor="transparent" />
+                    <stop offset="60%" stopColor="rgba(255,255,255,0.2)" />
+                    <stop offset="100%" stopColor="white" />
+                  </linearGradient>
+                  <mask id="smoke-mask">
+                     <motion.rect
+                        x="-10" y="-150"
+                        width="44" height="150"
+                        fill="url(#smoke-gradient)"
+                        animate={{ y: [0, 300] }}
+                        transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
+                     />
+                  </mask>
+                </defs>
+
+                {/* Base faint tracks */}
+                <path d="M 12 0 L 12 21 L 24 21" fill="none" className="stroke-zinc-800" strokeWidth="1.5" strokeLinejoin="miter" />
+                <path d="M 12 0 L 12 71 L 24 71" fill="none" className="stroke-zinc-800" strokeWidth="1.5" strokeLinejoin="miter" />
+                <path d="M 12 0 L 12 121 L 24 121" fill="none" className="stroke-zinc-800" strokeWidth="1.5" strokeLinejoin="miter" />
+                
+                {/* Animated active path (Core drawn line) */}
+                {!shouldReduceMotion && (
+                   <motion.path 
+                     d={
+                       activeIndex === 0 ? "M 12 0 L 12 21 L 24 21" :
+                       activeIndex === 1 ? "M 12 0 L 12 71 L 24 71" :
+                       "M 12 0 L 12 121 L 24 121"
+                     }
+                     fill="none" 
+                     className="stroke-zinc-500"
+                     strokeWidth="1.5"
+                     strokeLinejoin="miter"
+                     initial={{ pathLength: 0 }}
+                     animate={{ pathLength: 1 }}
+                     transition={{ duration: 0.5, ease: "easeOut" }}
+                     key={`tree-core-${activeIndex}`}
+                   />
+                )}
+
+                {/* Flowing Smoke / Energy Beam Effect */}
+                {!shouldReduceMotion && (
+                   <motion.path 
+                     d={
+                       activeIndex === 0 ? "M 12 0 L 12 21 L 24 21" :
+                       activeIndex === 1 ? "M 12 0 L 12 71 L 24 71" :
+                       "M 12 0 L 12 121 L 24 121"
+                     }
+                     fill="none" 
+                     className="stroke-white"
+                     strokeWidth="2"
+                     strokeLinejoin="miter"
+                     filter="blur(1px)"
+                     mask="url(#smoke-mask)"
+                     key={`tree-smoke-${activeIndex}`}
+                   />
+                )}
+             </svg>
+          </div>
+
+          {/* Rules List demonstrating layout animations and spring physics */}
+          <LayoutGroup>
+            <div className="flex-1 flex flex-col gap-2 z-20">
+              {rules.map((rule, idx) => {
+                const isActive = activeIndex === idx;
+                return (
+                  <motion.div
+                    layout
+                    key={rule.id}
+                    initial={false}
+                    animate={{ 
+                      opacity: isActive ? 1 : 0.5,
+                      scale: isActive ? 1 : 0.98
+                    }}
+                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                    className={cn(
+                      "flex items-center justify-between p-2.5 h-[42px] border overflow-hidden transition-colors duration-500",
+                      isActive 
+                        ? "bg-white/5 border-white/10" 
+                        : "bg-transparent border-transparent"
+                    )}
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className={cn("p-1 bg-[#111] border border-white/5 transition-colors duration-500", rule.color)}>
+                        {rule.icon}
+                      </div>
+                      <span className="text-[11px] text-zinc-300 tracking-tight transition-colors duration-500">
+                        {rule.label}
+                      </span>
+                    </div>
+
+                    <AnimatePresence mode="popLayout">
+                      {isActive && (
+                        <motion.div
+                          layout
+                          initial={{ opacity: 0, x: -10, filter: "blur(4px)" }}
+                          animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+                          exit={{ opacity: 0, x: 10, filter: "blur(4px)" }}
+                          transition={{ type: "spring", stiffness: 400, damping: 30, delay: 0.1 }}
+                          className="bg-white/10 px-2 py-1 border border-white/10 shadow-none"
+                        >
+                          <span className="text-[9px] uppercase font-bold tracking-wider text-zinc-100">
+                            {rule.action}
+                          </span>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </motion.div>
+                )
+              })}
+            </div>
+          </LayoutGroup>
+
         </div>
       </div>
     </div>
@@ -300,24 +339,24 @@ function OrchestrationPipeline() {
 
   return (
     <div className="group flex flex-col h-full w-full p-6 sm:p-8 justify-between space-y-6 relative overflow-hidden bg-[#050505] transition-all duration-500">
-      
+
       {/* Background Dots Pattern */}
-      <div 
+      <div
         className="absolute inset-0 z-0 opacity-30 transition-opacity duration-500 group-hover:opacity-50"
         style={{
           backgroundImage: "radial-gradient(circle at center, rgba(255,255,255,0.15) 1px, transparent 1px)",
           backgroundSize: "24px 24px",
         }}
       >
-         <motion.div
-            className="absolute inset-0"
-            animate={shouldReduceMotion ? {} : { opacity: [0.2, 0.5, 0.2] }}
-            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-            style={{
-              backgroundImage: "radial-gradient(circle at center, rgba(255,255,255,0.2) 1px, transparent 1px)",
-              backgroundSize: "48px 48px",
-            }}
-         />
+        <motion.div
+          className="absolute inset-0"
+          animate={shouldReduceMotion ? {} : { opacity: [0.2, 0.5, 0.2] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          style={{
+            backgroundImage: "radial-gradient(circle at center, rgba(255,255,255,0.2) 1px, transparent 1px)",
+            backgroundSize: "48px 48px",
+          }}
+        />
       </div>
 
       {/* Header Block */}
@@ -332,14 +371,14 @@ function OrchestrationPipeline() {
 
       {/* Interactive Environment */}
       <div className="relative flex-1 min-h-[220px] w-full flex items-center justify-center p-4 mt-4 z-10">
-        
+
         {/* Glows */}
-        <motion.div 
+        <motion.div
           className="absolute right-[15%] top-[10%] w-40 h-40 bg-blue-500/10 blur-[60px] rounded-full pointer-events-none transition-all duration-700 group-hover:bg-blue-500/20 group-hover:scale-110"
           animate={shouldReduceMotion ? {} : { opacity: [0.4, 0.7, 0.4], scale: [1, 1.05, 1] }}
           transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
         />
-        <motion.div 
+        <motion.div
           className="absolute left-[15%] bottom-[10%] w-40 h-40 bg-orange-500/10 blur-[60px] rounded-full pointer-events-none transition-all duration-700 group-hover:bg-orange-500/20 group-hover:scale-110"
           animate={shouldReduceMotion ? {} : { opacity: [0.4, 0.7, 0.4], scale: [1, 1.05, 1] }}
           transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1 }}
@@ -354,7 +393,7 @@ function OrchestrationPipeline() {
               d="M 250 125 L 100 125 L 100 50 L 20 50" stroke="rgba(255,255,255,0.25)" strokeWidth="1.5" fill="none" strokeLinejoin="round" strokeDasharray="20 400"
               initial={shouldReduceMotion ? {} : { strokeDashoffset: 420 }} animate={shouldReduceMotion ? {} : { strokeDashoffset: -420 }} transition={{ duration: 5, repeat: Infinity, ease: "linear", delay: 0.5 }}
             />
-            
+
             <path d="M 250 125 L 400 125 L 400 200 L 480 200" stroke="rgba(255,255,255,0.06)" strokeWidth="1.5" fill="none" strokeLinejoin="round" />
             <motion.path
               d="M 250 125 L 400 125 L 400 200 L 480 200" stroke="rgba(255,255,255,0.25)" strokeWidth="1.5" fill="none" strokeLinejoin="round" strokeDasharray="20 400"
@@ -366,7 +405,7 @@ function OrchestrationPipeline() {
               d="M 250 125 L 350 125 L 350 40 L 450 40" stroke="rgba(255,255,255,0.25)" strokeWidth="1.5" fill="none" strokeLinejoin="round" strokeDasharray="20 400"
               initial={shouldReduceMotion ? {} : { strokeDashoffset: 420 }} animate={shouldReduceMotion ? {} : { strokeDashoffset: -420 }} transition={{ duration: 5.5, repeat: Infinity, ease: "linear", delay: 2.5 }}
             />
-            
+
             <path d="M 250 125 L 150 125 L 150 200 L 50 200" stroke="rgba(255,255,255,0.06)" strokeWidth="1.5" fill="none" strokeLinejoin="round" />
             <motion.path
               d="M 250 125 L 150 125 L 150 200 L 50 200" stroke="rgba(255,255,255,0.25)" strokeWidth="1.5" fill="none" strokeLinejoin="round" strokeDasharray="20 400"
@@ -376,7 +415,7 @@ function OrchestrationPipeline() {
         </div>
 
         {/* Center Card */}
-        <motion.div 
+        <motion.div
           className="relative bg-[#0a0a0a] border border-white/10 rounded-2xl p-6 md:p-8 shadow-2xl transition-all duration-500 group-hover:border-white/20 group-hover:shadow-[0_0_30px_rgba(255,255,255,0.05)] z-20 group-hover:brightness-110"
           animate={shouldReduceMotion ? {} : { y: [0, -3, 0] }}
           transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
@@ -386,9 +425,9 @@ function OrchestrationPipeline() {
 
           {/* SVG Centerpiece Container */}
           <motion.div
-             animate={shouldReduceMotion ? {} : { scale: [1, 1.015, 1] }}
-             transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-             className="relative transition-transform duration-500 group-hover:scale-[1.02]"
+            animate={shouldReduceMotion ? {} : { scale: [1, 1.015, 1] }}
+            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+            className="relative transition-transform duration-500 group-hover:scale-[1.02]"
           >
             {/* SVG Drawing Layer - Existing SVG Unchanged except color adaptions for dark mode */}
             {/* SVG Drawing Layer - Existing SVG Unchanged except color adaptions for dark mode */}
