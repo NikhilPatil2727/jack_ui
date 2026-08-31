@@ -84,37 +84,42 @@ function WorkflowBuilderSplit() {
           <div className="absolute -inset-[2px] rounded-[20px] bg-gradient-to-tr from-fuchsia-350 to-pink-400 blur-xl opacity-0 group-hover:opacity-20 transition-opacity duration-1000 animate-pulse z-0"></div>
 
           {/* The Image Container */}
-          <div className="relative w-full rounded-[18px] overflow-hidden bg-white dark:bg-[#0a0a0a] z-10 shadow-lg">
+          <div className="relative w-full rounded-[18px] overflow-hidden bg-white dark:bg-[#0a0a0a] z-10 shadow-lg group/img">
             <img
               src={featureImg}
               alt="Feature Showcase"
-              className="relative z-0 w-full h-auto transition-transform duration-700 group-hover:scale-[1.01]"
+              className="relative z-0 w-full h-auto transition-all duration-700 ease-in-out group-hover:scale-[1.01] group-hover:grayscale group-hover:contrast-[1.6] group-hover:blur-[1px]"
             />
 
-            {/* Premium Cosmic Smoke Layer A (Clockwise slow rotation) */}
-            <div
-              className="absolute inset-[-15%] pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-1000 z-10"
+            {/* DUOTONE EFFECT: Multiply Layer (Maps Whites/Highlights to Light Cream/White) */}
+            <div className="absolute inset-0 bg-[#fdfbf7] mix-blend-multiply opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-10"></div>
+            
+            {/* DUOTONE EFFECT: Screen Layer (Maps Blacks/Shadows to Faded Blush Pink) */}
+            <div className="absolute inset-0 bg-[#f472b6] mix-blend-screen opacity-0 group-hover:opacity-[0.95] transition-opacity duration-700 pointer-events-none z-10"></div>
+
+            {/* HALFTONE / DITHER TEXTURE: Heavy Pixelated Grain */}
+            <div 
+              className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-20 mix-blend-overlay"
               style={{
-                background: "radial-gradient(ellipse 55% 45% at 30% 35%, rgba(244, 63, 94, 0.15) 0%, transparent 60%), radial-gradient(ellipse 45% 55% at 75% 65%, rgba(168, 85, 247, 0.15) 0%, transparent 65%)",
-                animation: shouldReduceMotion ? "none" : "jack-inner-smoke-clockwise 20s linear infinite",
+                backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%221.5%22 numOctaves=%221%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E")',
               }}
             />
 
-            {/* Premium Cosmic Smoke Layer B (Counter-clockwise slow rotation) */}
-            <div
-              className="absolute inset-[-15%] pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-1000 z-10"
+            {/* HALFTONE / DITHER TEXTURE: Dot-pattern noise (breaks out smooth gradients) */}
+            <div 
+              className="absolute inset-0 opacity-0 group-hover:opacity-60 transition-opacity duration-700 pointer-events-none z-20 mix-blend-hard-light"
               style={{
-                background: "radial-gradient(ellipse 65% 45% at 70% 30%, rgba(99, 102, 241, 0.12) 0%, transparent 70%), radial-gradient(ellipse 45% 45% at 25% 70%, rgba(6, 182, 212, 0.12) 0%, transparent 60%)",
-                animation: shouldReduceMotion ? "none" : "jack-inner-smoke-counter 24s linear infinite",
+                backgroundImage: 'radial-gradient(circle, #888 1px, transparent 1.5px)',
+                backgroundSize: '4px 4px'
               }}
             />
 
             {/* Premium Moving Glass Highlight / Shimmer sweep on hover */}
             <div
-              className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-[1200ms] translate-y-full group-hover:translate-y-[-100%] pointer-events-none z-15"
+              className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-[1200ms] translate-y-full group-hover:translate-y-[-100%] pointer-events-none z-30"
             />
 
-            <div className="absolute inset-0 ring-1 ring-inset ring-black/5 dark:ring-white/30 rounded-[18px] pointer-events-none z-20"></div>
+            <div className="absolute inset-0 ring-1 ring-inset ring-black/5 dark:ring-white/30 rounded-[18px] pointer-events-none z-40"></div>
           </div>
         </div>
       </div>
@@ -128,19 +133,19 @@ function WorkflowBuilderSplit() {
 // Custom Bespoke Geometric Icons (Strict Square Edges)
 const GeoSquare = () => (
   <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <rect x="2.5" y="2.5" width="9" height="9" stroke="currentColor" strokeWidth="1.5"/>
+    <rect x="2.5" y="2.5" width="9" height="9" stroke="currentColor" strokeWidth="1.5" />
   </svg>
 );
 
 const GeoCircle = () => (
   <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="7" cy="7" r="4.5" stroke="currentColor" strokeWidth="1.5"/>
+    <circle cx="7" cy="7" r="4.5" stroke="currentColor" strokeWidth="1.5" />
   </svg>
 );
 
 const GeoTriangle = () => (
   <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M7 3L11.5 10H2.5L7 3Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="miter"/>
+    <path d="M7 3L11.5 10H2.5L7 3Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="miter" />
   </svg>
 );
 
@@ -171,7 +176,7 @@ function AIDecisionConsole() {
 
   return (
     <div className="group flex flex-col h-full w-full p-6 sm:p-8 justify-between space-y-6 relative overflow-hidden bg-white dark:bg-[#050505] transition-colors duration-500">
-      
+
       {/* Header Block */}
       <div className="space-y-2 relative z-20">
         <h3 className="text-xl font-medium tracking-tight text-zinc-900 dark:text-zinc-100">
@@ -184,9 +189,9 @@ function AIDecisionConsole() {
 
       {/* Interactive Environment - Strict Square Brutalist Aesthetic */}
       <div className="relative flex-1 w-full bg-[#0a0a0a] border border-zinc-200 dark:border-[#222] p-4 sm:p-5 flex flex-col z-10 shadow-inner overflow-hidden font-mono">
-        
+
         {/* Subtle internal animated glow */}
-        <motion.div 
+        <motion.div
           className="absolute inset-0 pointer-events-none opacity-30"
           animate={shouldReduceMotion ? {} : { background: ["radial-gradient(circle at 0% 0%, rgba(255,255,255,0.08) 0%, transparent 60%)", "radial-gradient(circle at 100% 100%, rgba(255,255,255,0.08) 0%, transparent 60%)", "radial-gradient(circle at 0% 0%, rgba(255,255,255,0.08) 0%, transparent 60%)"] }}
           transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
@@ -195,81 +200,81 @@ function AIDecisionConsole() {
         {/* Incoming Payload Box */}
         <div className="relative bg-[#111] border border-white/5 p-3 z-20 shadow-md">
           <div className="flex items-center justify-between mb-2">
-             <span className="text-xs text-zinc-500">{"// payload.json"}</span>
+            <span className="text-xs text-zinc-500">{"// payload.json"}</span>
           </div>
           <div className="text-[11px] text-zinc-400 leading-relaxed">
-            <span className="text-purple-400">{"{"}</span><br/>
-            &nbsp;&nbsp;<span className="text-blue-400">"type"</span>: <span className="text-amber-300">"payment"</span>,<br/>
-            &nbsp;&nbsp;<span className="text-blue-400">"score"</span>: <span className="text-amber-300">{activeIndex === 1 ? '95' : '12'}</span><br/>
+            <span className="text-purple-400">{"{"}</span><br />
+            &nbsp;&nbsp;<span className="text-blue-400">"type"</span>: <span className="text-amber-300">"payment"</span>,<br />
+            &nbsp;&nbsp;<span className="text-blue-400">"score"</span>: <span className="text-amber-300">{activeIndex === 1 ? '95' : '12'}</span><br />
             <span className="text-purple-400">{"}"}</span>
           </div>
         </div>
 
         {/* Layout with Tree SVG on Left, Rules on Right */}
         <div className="flex-1 flex mt-4 relative">
-          
+
           {/* SVG Line Drawing (Tree) */}
           <div className="w-[24px] flex-shrink-0 relative">
-             <svg width="24" height="150" className="absolute inset-0 overflow-visible">
-                <defs>
-                  <linearGradient id="smoke-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" stopColor="transparent" />
-                    <stop offset="60%" stopColor="rgba(255,255,255,0.2)" />
-                    <stop offset="100%" stopColor="white" />
-                  </linearGradient>
-                  <mask id="smoke-mask">
-                     <motion.rect
-                        x="-10" y="-150"
-                        width="44" height="150"
-                        fill="url(#smoke-gradient)"
-                        animate={{ y: [0, 300] }}
-                        transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
-                     />
-                  </mask>
-                </defs>
+            <svg width="24" height="150" className="absolute inset-0 overflow-visible">
+              <defs>
+                <linearGradient id="smoke-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stopColor="transparent" />
+                  <stop offset="60%" stopColor="rgba(255,255,255,0.2)" />
+                  <stop offset="100%" stopColor="white" />
+                </linearGradient>
+                <mask id="smoke-mask">
+                  <motion.rect
+                    x="-10" y="-150"
+                    width="44" height="150"
+                    fill="url(#smoke-gradient)"
+                    animate={{ y: [0, 300] }}
+                    transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
+                  />
+                </mask>
+              </defs>
 
-                {/* Base faint tracks */}
-                <path d="M 12 0 L 12 21 L 24 21" fill="none" className="stroke-zinc-800" strokeWidth="1.5" strokeLinejoin="miter" />
-                <path d="M 12 0 L 12 71 L 24 71" fill="none" className="stroke-zinc-800" strokeWidth="1.5" strokeLinejoin="miter" />
-                <path d="M 12 0 L 12 121 L 24 121" fill="none" className="stroke-zinc-800" strokeWidth="1.5" strokeLinejoin="miter" />
-                
-                {/* Animated active path (Core drawn line) */}
-                {!shouldReduceMotion && (
-                   <motion.path 
-                     d={
-                       activeIndex === 0 ? "M 12 0 L 12 21 L 24 21" :
-                       activeIndex === 1 ? "M 12 0 L 12 71 L 24 71" :
-                       "M 12 0 L 12 121 L 24 121"
-                     }
-                     fill="none" 
-                     className="stroke-zinc-500"
-                     strokeWidth="1.5"
-                     strokeLinejoin="miter"
-                     initial={{ pathLength: 0 }}
-                     animate={{ pathLength: 1 }}
-                     transition={{ duration: 0.5, ease: "easeOut" }}
-                     key={`tree-core-${activeIndex}`}
-                   />
-                )}
+              {/* Base faint tracks */}
+              <path d="M 12 0 L 12 21 L 24 21" fill="none" className="stroke-zinc-800" strokeWidth="1.5" strokeLinejoin="miter" />
+              <path d="M 12 0 L 12 71 L 24 71" fill="none" className="stroke-zinc-800" strokeWidth="1.5" strokeLinejoin="miter" />
+              <path d="M 12 0 L 12 121 L 24 121" fill="none" className="stroke-zinc-800" strokeWidth="1.5" strokeLinejoin="miter" />
 
-                {/* Flowing Smoke / Energy Beam Effect */}
-                {!shouldReduceMotion && (
-                   <motion.path 
-                     d={
-                       activeIndex === 0 ? "M 12 0 L 12 21 L 24 21" :
-                       activeIndex === 1 ? "M 12 0 L 12 71 L 24 71" :
-                       "M 12 0 L 12 121 L 24 121"
-                     }
-                     fill="none" 
-                     className="stroke-white"
-                     strokeWidth="2"
-                     strokeLinejoin="miter"
-                     filter="blur(1px)"
-                     mask="url(#smoke-mask)"
-                     key={`tree-smoke-${activeIndex}`}
-                   />
-                )}
-             </svg>
+              {/* Animated active path (Core drawn line) */}
+              {!shouldReduceMotion && (
+                <motion.path
+                  d={
+                    activeIndex === 0 ? "M 12 0 L 12 21 L 24 21" :
+                      activeIndex === 1 ? "M 12 0 L 12 71 L 24 71" :
+                        "M 12 0 L 12 121 L 24 121"
+                  }
+                  fill="none"
+                  className="stroke-zinc-500"
+                  strokeWidth="1.5"
+                  strokeLinejoin="miter"
+                  initial={{ pathLength: 0 }}
+                  animate={{ pathLength: 1 }}
+                  transition={{ duration: 0.5, ease: "easeOut" }}
+                  key={`tree-core-${activeIndex}`}
+                />
+              )}
+
+              {/* Flowing Smoke / Energy Beam Effect */}
+              {!shouldReduceMotion && (
+                <motion.path
+                  d={
+                    activeIndex === 0 ? "M 12 0 L 12 21 L 24 21" :
+                      activeIndex === 1 ? "M 12 0 L 12 71 L 24 71" :
+                        "M 12 0 L 12 121 L 24 121"
+                  }
+                  fill="none"
+                  className="stroke-white"
+                  strokeWidth="2"
+                  strokeLinejoin="miter"
+                  filter="blur(1px)"
+                  mask="url(#smoke-mask)"
+                  key={`tree-smoke-${activeIndex}`}
+                />
+              )}
+            </svg>
           </div>
 
           {/* Rules List demonstrating layout animations and spring physics */}
@@ -282,15 +287,15 @@ function AIDecisionConsole() {
                     layout
                     key={rule.id}
                     initial={false}
-                    animate={{ 
+                    animate={{
                       opacity: isActive ? 1 : 0.5,
                       scale: isActive ? 1 : 0.98
                     }}
                     transition={{ type: "spring", stiffness: 400, damping: 30 }}
                     className={cn(
                       "flex items-center justify-between p-2.5 h-[42px] border overflow-hidden transition-colors duration-500",
-                      isActive 
-                        ? "bg-white/5 border-white/10" 
+                      isActive
+                        ? "bg-white/5 border-white/10"
                         : "bg-transparent border-transparent"
                     )}
                   >
