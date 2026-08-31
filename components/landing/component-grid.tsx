@@ -42,7 +42,7 @@ const StarBurstButton = dynamic(() => import("@/components/jackui/buttons/star-b
 
 
 
-const AnimatedDockDemo = dynamic(() => import("@/components/jackui/dock/animated-dock-demo"), {
+const AnimatedDockDemo = dynamic(() => import("@/components/jackui/dock/animated-dock"), {
   ssr: false,
   loading: () => <div className="w-full h-full bg-zinc-100/50 dark:bg-zinc-800/20 animate-pulse rounded-xl" />
 });
@@ -501,7 +501,7 @@ export default function ComponentGrid() {
       {/* Header Container */}
       <div className="max-w-6xl mx-auto text-left mb-12 relative z-10">
         <span className="text-rose-600 dark:text-rose-400 font-bold text-sm tracking-widest uppercase block mb-3 font-sans">
-         
+
         </span>
         <h2 className="text-4xl md:text-6xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 mb-4 font-sans leading-tight flex flex-wrap items-center gap-x-2">
           Interactive{" "}
