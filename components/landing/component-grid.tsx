@@ -336,133 +336,6 @@ export default function ComponentGrid() {
         node.y += node.vy;
       });
 
-      // Pass 1: Glowing shadow path (wider, very faint orange)
-      ctx.lineWidth = 1.8;
-      ctx.strokeStyle = isDark
-        ? "rgba(251, 146, 60, 0.025)"
-        : "rgba(249, 115, 22, 0.02)";
-
-      // Draw horizontal glow
-      for (let r = 0; r < rows; r++) {
-        ctx.beginPath();
-        for (let c = 0; c < cols; c++) {
-          const idx = r * cols + c;
-          const node = nodes[idx];
-          if (node) {
-            if (c === 0) ctx.moveTo(node.x, node.y);
-            else ctx.lineTo(node.x, node.y);
-          }
-        }
-        ctx.stroke();
-      }
-
-      // Draw vertical glow
-      for (let c = 0; c < cols; c++) {
-        ctx.beginPath();
-        for (let r = 0; r < rows; r++) {
-          const idx = r * cols + c;
-          const node = nodes[idx];
-          if (node) {
-            if (r === 0) ctx.moveTo(node.x, node.y);
-            else ctx.lineTo(node.x, node.y);
-          }
-        }
-        ctx.stroke();
-      }
-
-      // Pass 2: Core line path (thinner, more defined orange)
-      ctx.lineWidth = 0.6;
-
-      // Horizontal cores
-      for (let r = 0; r < rows; r++) {
-        ctx.beginPath();
-        for (let c = 0; c < cols; c++) {
-          const idx = r * cols + c;
-          const node = nodes[idx];
-          if (node) {
-            if (c === 0) ctx.moveTo(node.x, node.y);
-            else ctx.lineTo(node.x, node.y);
-          }
-        }
-        ctx.strokeStyle = isDark
-          ? "rgba(251, 146, 60, 0.12)"
-          : "rgba(249, 115, 22, 0.09)";
-        ctx.stroke();
-      }
-
-      // Vertical cores
-      for (let c = 0; c < cols; c++) {
-        ctx.beginPath();
-        for (let r = 0; r < rows; r++) {
-          const idx = r * cols + c;
-          const node = nodes[idx];
-          if (node) {
-            if (r === 0) ctx.moveTo(node.x, node.y);
-            else ctx.lineTo(node.x, node.y);
-          }
-        }
-        ctx.strokeStyle = isDark
-          ? "rgba(251, 146, 60, 0.10)"
-          : "rgba(249, 115, 22, 0.08)";
-        ctx.stroke();
-      }
-
-      // Draw Spotlight Aura tracking mouse
-      if (mouse.active) {
-        // Cyan Spotlight (underlying)
-        const cyanGrad = ctx.createRadialGradient(
-          mouse.x,
-          mouse.y,
-          0,
-          mouse.x,
-          mouse.y,
-          300
-        );
-        cyanGrad.addColorStop(0, isDark ? "rgba(56, 189, 248, 0.06)" : "rgba(14, 165, 233, 0.03)");
-        cyanGrad.addColorStop(0.6, isDark ? "rgba(56, 189, 248, 0.015)" : "rgba(14, 165, 233, 0.005)");
-        cyanGrad.addColorStop(1, "transparent");
-
-        ctx.fillStyle = cyanGrad;
-        ctx.beginPath();
-        ctx.arc(mouse.x, mouse.y, 300, 0, Math.PI * 2);
-        ctx.fill();
-
-        // Flashy faint Orange highlight tracking mouse
-        const orangeGrad = ctx.createRadialGradient(
-          mouse.x,
-          mouse.y,
-          0,
-          mouse.x,
-          mouse.y,
-          200
-        );
-        orangeGrad.addColorStop(0, isDark ? "rgba(251, 146, 60, 0.08)" : "rgba(249, 115, 22, 0.05)");
-        orangeGrad.addColorStop(0.5, isDark ? "rgba(251, 146, 60, 0.02)" : "rgba(249, 115, 22, 0.01)");
-        orangeGrad.addColorStop(1, "transparent");
-
-        ctx.fillStyle = orangeGrad;
-        ctx.beginPath();
-        ctx.arc(mouse.x, mouse.y, 200, 0, Math.PI * 2);
-        ctx.fill();
-
-        // Rose Highlight Center
-        const roseGrad = ctx.createRadialGradient(
-          mouse.x,
-          mouse.y,
-          0,
-          mouse.x,
-          mouse.y,
-          100
-        );
-        roseGrad.addColorStop(0, isDark ? "rgba(251, 113, 133, 0.04)" : "rgba(225, 29, 72, 0.02)");
-        roseGrad.addColorStop(1, "transparent");
-
-        ctx.fillStyle = roseGrad;
-        ctx.beginPath();
-        ctx.arc(mouse.x, mouse.y, 100, 0, Math.PI * 2);
-        ctx.fill();
-      }
-
       if (isVisible) {
         animationFrameId = requestAnimationFrame(draw);
       } else {
@@ -486,12 +359,6 @@ export default function ComponentGrid() {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       className="w-full py-16 px-4 md:px-8 bg-background relative overflow-hidden"
-      style={{
-        backgroundImage: `
-          radial-gradient(circle at center, transparent 40%, var(--background) 100%),
-          repeating-linear-gradient(-45deg, var(--stripe-color) 0px, var(--stripe-color) 1px, transparent 1px, transparent 3px)
-        `
-      }}
     >
       {/* Interactive Glowing Canvas Background */}
       <canvas
@@ -509,23 +376,27 @@ export default function ComponentGrid() {
             className="font-geist tracking-tight text-zinc-500 dark:text-zinc-400 block sm:inline-block origin-left relative cursor-pointer select-none px-2 align-middle"
           >
             Components
-
-            <motion.path
-              d="M 5 3 C 35 6, 65 6, 95 3"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              variants={{
-                initial: { pathLength: 0, opacity: 0 },
-                hover: {
-                  pathLength: 1,
-                  opacity: 1,
-                  transition: { type: "spring", stiffness: 140, damping: 12 }
-                }
-              }}
-            />
-
+            <svg
+              className="absolute left-1 bottom-0 w-[95%] h-2 text-zinc-300 dark:text-zinc-700 pointer-events-none"
+              viewBox="0 0 100 10"
+              preserveAspectRatio="none"
+            >
+              <motion.path
+                d="M 5 3 C 35 6, 65 6, 95 3"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                variants={{
+                  initial: { pathLength: 0, opacity: 0 },
+                  hover: {
+                    pathLength: 1,
+                    opacity: 1,
+                    transition: { type: "spring", stiffness: 140, damping: 12 }
+                  }
+                }}
+              />
+            </svg>
           </motion.span>
         </h2>
         <p className="text-lg md:text-xl text-zinc-600 dark:text-zinc-400 max-w-3xl mb-6 font-geist font-light leading-relaxed">
@@ -538,10 +409,10 @@ export default function ComponentGrid() {
         {componentsList.map((item) => (
           <div
             key={item.id}
-            className="group/card relative rounded-2xl bg-card p-1 transition-all duration-200 dark:bg-muted/70 dark:group-hover/card:brightness-110 shadow-[0px_0px_0px_1px_rgba(0,0,0,0.06),0px_1px_2px_-1px_rgba(0,0,0,0.06),0px_2px_4px_0px_rgba(0,0,0,0.04)] hover:shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08),0px_2px_4px_-1px_rgba(0,0,0,0.1),0px_4px_8px_0px_rgba(0,0,0,0.06)] dark:shadow-[0px_0px_0px_1px_rgba(255,255,255,0.06),0px_1px_2px_-1px_rgba(255,255,255,0.03),0px_2px_4px_0px_rgba(0,0,0,0.2)] dark:hover:shadow-[0px_0px_0px_1px_rgba(255,255,255,0.1),0px_2px_4px_-1px_rgba(255,255,255,0.05),0px_4px_8px_0px_rgba(0,0,0,0.3)]"
+            className="group/card relative rounded-2xl bg-card p-1 transition-all duration-200 border border-border/40 hover:border-border/80 shadow-sm hover:shadow-md"
           >
             {/* Card Inner Content */}
-            <div className="bg-white dark:bg-zinc-900 rounded-xl p-4 flex flex-col justify-between h-full gap-4">
+            <div className="bg-card rounded-xl p-4 flex flex-col justify-between h-full gap-4">
               {/* Component Preview Container */}
               <div className="w-full flex-1">
                 {item.preview()}
