@@ -131,7 +131,7 @@ export default function HeroSection() {
                 scale: 1.03,
                 transition: { type: "spring", stiffness: 220, damping: 14 },
               }}
-              className="font-geist font-bold tracking-tight bg-clip-text text-transparent bg-[linear-gradient(110deg,#27272a_0%,#27272a_42%,#ffffff_50%,#27272a_58%,#27272a_100%)] dark:bg-[linear-gradient(110deg,#f4f4f5_0%,#f4f4f5_42%,#ffffff_50%,#a1a1aa_58%,#f4f4f5_100%)] animate-premium-sweep inline-block origin-center cursor-pointer select-none"
+              className="font-geist font-bold tracking-tight bg-clip-text text-transparent text-shimmer-premium inline-block origin-center cursor-pointer select-none"
             >
               premium
             </motion.span>
