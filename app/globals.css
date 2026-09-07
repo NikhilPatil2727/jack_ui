@@ -186,7 +186,15 @@
   }
 }
 
-.animate-premium-sweep {
-  background-size: 250% 100%;
-  animation: premium-light-sweep 9s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+@layer utilities {
+  .text-shimmer-premium {
+    background-image: linear-gradient(110deg, #27272a 0%, #27272a 42%, #ffffff 50%, #27272a 58%, #27272a 100%);
+    background-size: 250% 100%;
+    animation: premium-light-sweep 9s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    will-change: background-position;
+  }
+
+  .dark .text-shimmer-premium {
+    background-image: linear-gradient(110deg, #f4f4f5 0%, #f4f4f5 42%, #ffffff 50%, #a1a1aa 58%, #f4f4f5 100%);
+  }
 }
