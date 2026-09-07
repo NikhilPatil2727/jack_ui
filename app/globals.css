@@ -12,6 +12,7 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-sans);
   --font-mono: var(--font-geist-mono);
+  --font-geist: var(--font-geist-sans);
   --font-outfit: var(--font-outfit);
   --font-heading: var(--font-outfit);
   --font-instrument: var(--font-instrument);
