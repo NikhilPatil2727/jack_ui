@@ -358,7 +358,7 @@ export default function ComponentGrid() {
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className="w-full py-16 px-4 md:px-8 bg-background relative overflow-hidden"
+      className="w-full py-16 px-4 md:px-8 bg-background relative overflow-hidden bg-[linear-gradient(to_right,rgba(0,0,0,0.035)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.035)_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,rgba(255,255,255,0.025)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.025)_1px,transparent_1px)] bg-[size:14px_14px]"
     >
       {/* Interactive Glowing Canvas Background */}
       <canvas
