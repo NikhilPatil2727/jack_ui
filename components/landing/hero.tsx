@@ -6,15 +6,15 @@ import { ArrowRight } from "lucide-react";
 import { BrowseComponentsButton } from "../ui/browse-button";
 import { BrowseBlocksButton } from "../ui/browse-blocks";
 import Features from "./feature-block";
-import { useState, useRef } from "react";
+import { useRef } from "react";
 
 export default function HeroSection() {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
-  const [opacity, setOpacity] = useState(0);
+  const opacity = useMotionValue(0);
 
   function handleMouseEnter(e: React.MouseEvent<HTMLDivElement>) {
-    setOpacity(1);
+    opacity.set(1);
   }
 
   function handleMouseMove(e: React.MouseEvent<HTMLDivElement>) {
@@ -24,7 +24,7 @@ export default function HeroSection() {
   }
 
   function handleMouseLeave() {
-    setOpacity(0);
+    opacity.set(0);
   }
 
   const background = useMotionTemplate`radial-gradient(300px circle at ${mouseX}px ${mouseY}px, var(--cursor-glow-color), transparent 80%)`;
