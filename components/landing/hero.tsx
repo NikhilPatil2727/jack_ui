@@ -58,7 +58,7 @@ export default function HeroSection() {
               },
             },
           }}
-          className="font-geist text-5xl sm:text-6xl md:text-[72px] lg:text-[72px] font-bold tracking-tight leading-[1.12] cursor-default flex flex-col items-center justify-center gap-y-1 md:gap-y-2"
+          className="font-geist text-4xl sm:text-5xl md:text-6xl lg:text-[64px] font-bold tracking-tight leading-[1.12] cursor-default flex flex-col items-center justify-center gap-y-1 md:gap-y-2"
           style={{ perspective: 1000 }}
         >
           <div className="flex flex-wrap items-center justify-center gap-x-2 sm:gap-x-3">
@@ -131,7 +131,7 @@ export default function HeroSection() {
                 scale: 1.03,
                 transition: { type: "spring", stiffness: 220, damping: 14 },
               }}
-              className="font-geist font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-zinc-800 via-zinc-500 to-zinc-800 dark:from-zinc-100 dark:via-zinc-300 dark:to-zinc-100 inline-block origin-center cursor-pointer select-none"
+              className="font-geist font-bold tracking-tight bg-clip-text text-transparent bg-[linear-gradient(110deg,#27272a_0%,#27272a_42%,#ffffff_50%,#27272a_58%,#27272a_100%)] dark:bg-[linear-gradient(110deg,#f4f4f5_0%,#f4f4f5_42%,#ffffff_50%,#a1a1aa_58%,#f4f4f5_100%)] animate-premium-sweep inline-block origin-center cursor-pointer select-none"
             >
               premium
             </motion.span>
