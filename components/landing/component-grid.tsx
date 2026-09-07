@@ -210,331 +210,41 @@ const componentsList: ComponentItem[] = [
 ];
 
 export default function ComponentGrid() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const mouseRef = useRef({ x: 0, y: 0, active: false });
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setMounted(true);
-  }, []);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!containerRef.current) return;
-    const rect = containerRef.current.getBoundingClientRect();
-    mouseRef.current.x = e.clientX - rect.left;
-    mouseRef.current.y = e.clientY - rect.top;
-    mouseRef.current.active = true;
-  };
-
-  const handleMouseEnter = () => {
-    mouseRef.current.active = true;
-  };
-
-  const handleMouseLeave = () => {
-    mouseRef.current.active = false;
-  };
-
-  useEffect(() => {
-    if (!mounted) return;
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    let animationFrameId: number = 0;
-    let width = (canvas.width = canvas.offsetWidth);
-    let height = (canvas.height = canvas.offsetHeight);
-
-    let isVisible = true;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          isVisible = entry.isIntersecting;
-          if (isVisible && !animationFrameId) {
-            draw();
-          }
-        });
-      },
-      { threshold: 0 }
-    );
-    observer.observe(canvas);
-
-    const handleResize = () => {
-      if (!canvas) return;
-      width = canvas.width = canvas.offsetWidth;
-      height = canvas.height = canvas.offsetHeight;
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    // Grid mesh settings (fewer cols/rows for component grid height)
-    const cols = 28;
-    const rows = 20;
-    const nodes: Array<{
-      x: number;
-      y: number;
-      origX: number;
-      origY: number;
-      vx: number;
-      vy: number;
-    }> = [];
-
-    const colSpacing = width / (cols - 1);
-    const rowSpacing = height / (rows - 1);
-
-    for (let r = 0; r < rows; r++) {
-      for (let c = 0; c < cols; c++) {
-        const x = c * colSpacing;
-        const y = r * rowSpacing;
-        nodes.push({
-          x,
-          y,
-          origX: x,
-          origY: y,
-          vx: 0,
-          vy: 0,
-        });
-      }
-    }
-
-    let time = 0;
-
-    const draw = () => {
-      ctx.clearRect(0, 0, width, height);
-      time += 0.003;
-
-      const isDark = document.documentElement.classList.contains("dark");
-      const mouse = mouseRef.current;
-
-      // Update mesh node positions
-      nodes.forEach((node) => {
-        const waveX = Math.sin(time + node.origY * 0.004) * 6;
-        const waveY = Math.cos(time + node.origX * 0.004) * 6;
-
-        let targetX = node.origX + waveX;
-        let targetY = node.origY + waveY;
-
-        if (mouse.active) {
-          const dx = node.origX - mouse.x;
-          const dy = node.origY - mouse.y;
-          const dist = Math.hypot(dx, dy);
-          if (dist < 260) {
-            const force = (260 - dist) / 260;
-            targetX -= (dx / dist) * force * 24;
-            targetY -= (dy / dist) * force * 24;
-          }
-        }
-
-        node.vx += (targetX - node.x) * 0.08;
-        node.vy += (targetY - node.y) * 0.08;
-        node.vx *= 0.8;
-        node.vy *= 0.8;
-        node.x += node.vx;
-        node.y += node.vy;
-      });
-
-      // Pass 1: Glowing shadow path (wider, very faint orange)
-      ctx.lineWidth = 1.8;
-      ctx.strokeStyle = isDark
-        ? "rgba(251, 146, 60, 0.025)"
-        : "rgba(249, 115, 22, 0.02)";
-
-      // Draw horizontal glow
-      for (let r = 0; r < rows; r++) {
-        ctx.beginPath();
-        for (let c = 0; c < cols; c++) {
-          const idx = r * cols + c;
-          const node = nodes[idx];
-          if (node) {
-            if (c === 0) ctx.moveTo(node.x, node.y);
-            else ctx.lineTo(node.x, node.y);
-          }
-        }
-        ctx.stroke();
-      }
-
-      // Draw vertical glow
-      for (let c = 0; c < cols; c++) {
-        ctx.beginPath();
-        for (let r = 0; r < rows; r++) {
-          const idx = r * cols + c;
-          const node = nodes[idx];
-          if (node) {
-            if (r === 0) ctx.moveTo(node.x, node.y);
-            else ctx.lineTo(node.x, node.y);
-          }
-        }
-        ctx.stroke();
-      }
-
-      // Pass 2: Core line path (thinner, more defined orange)
-      ctx.lineWidth = 0.6;
-
-      // Horizontal cores
-      for (let r = 0; r < rows; r++) {
-        ctx.beginPath();
-        for (let c = 0; c < cols; c++) {
-          const idx = r * cols + c;
-          const node = nodes[idx];
-          if (node) {
-            if (c === 0) ctx.moveTo(node.x, node.y);
-            else ctx.lineTo(node.x, node.y);
-          }
-        }
-        ctx.strokeStyle = isDark
-          ? "rgba(251, 146, 60, 0.12)"
-          : "rgba(249, 115, 22, 0.09)";
-        ctx.stroke();
-      }
-
-      // Vertical cores
-      for (let c = 0; c < cols; c++) {
-        ctx.beginPath();
-        for (let r = 0; r < rows; r++) {
-          const idx = r * cols + c;
-          const node = nodes[idx];
-          if (node) {
-            if (r === 0) ctx.moveTo(node.x, node.y);
-            else ctx.lineTo(node.x, node.y);
-          }
-        }
-        ctx.strokeStyle = isDark
-          ? "rgba(251, 146, 60, 0.10)"
-          : "rgba(249, 115, 22, 0.08)";
-        ctx.stroke();
-      }
-
-      // Draw Spotlight Aura tracking mouse
-      if (mouse.active) {
-        // Cyan Spotlight (underlying)
-        const cyanGrad = ctx.createRadialGradient(
-          mouse.x,
-          mouse.y,
-          0,
-          mouse.x,
-          mouse.y,
-          300
-        );
-        cyanGrad.addColorStop(0, isDark ? "rgba(56, 189, 248, 0.06)" : "rgba(14, 165, 233, 0.03)");
-        cyanGrad.addColorStop(0.6, isDark ? "rgba(56, 189, 248, 0.015)" : "rgba(14, 165, 233, 0.005)");
-        cyanGrad.addColorStop(1, "transparent");
-
-        ctx.fillStyle = cyanGrad;
-        ctx.beginPath();
-        ctx.arc(mouse.x, mouse.y, 300, 0, Math.PI * 2);
-        ctx.fill();
-
-        // Flashy faint Orange highlight tracking mouse
-        const orangeGrad = ctx.createRadialGradient(
-          mouse.x,
-          mouse.y,
-          0,
-          mouse.x,
-          mouse.y,
-          200
-        );
-        orangeGrad.addColorStop(0, isDark ? "rgba(251, 146, 60, 0.08)" : "rgba(249, 115, 22, 0.05)");
-        orangeGrad.addColorStop(0.5, isDark ? "rgba(251, 146, 60, 0.02)" : "rgba(249, 115, 22, 0.01)");
-        orangeGrad.addColorStop(1, "transparent");
-
-        ctx.fillStyle = orangeGrad;
-        ctx.beginPath();
-        ctx.arc(mouse.x, mouse.y, 200, 0, Math.PI * 2);
-        ctx.fill();
-
-        // Rose Highlight Center
-        const roseGrad = ctx.createRadialGradient(
-          mouse.x,
-          mouse.y,
-          0,
-          mouse.x,
-          mouse.y,
-          100
-        );
-        roseGrad.addColorStop(0, isDark ? "rgba(251, 113, 133, 0.04)" : "rgba(225, 29, 72, 0.02)");
-        roseGrad.addColorStop(1, "transparent");
-
-        ctx.fillStyle = roseGrad;
-        ctx.beginPath();
-        ctx.arc(mouse.x, mouse.y, 100, 0, Math.PI * 2);
-        ctx.fill();
-      }
-
-      if (isVisible) {
-        animationFrameId = requestAnimationFrame(draw);
-      } else {
-        animationFrameId = 0;
-      }
-    };
-
-    draw();
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-      if (animationFrameId) cancelAnimationFrame(animationFrameId);
-      observer.disconnect();
-    };
-  }, [mounted]);
-
   return (
     <section
-      ref={containerRef}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      className="w-full py-16 px-4 md:px-8 bg-background relative overflow-hidden"
-      style={{
-        backgroundImage: `
-          radial-gradient(circle at center, transparent 40%, var(--background) 100%),
-          repeating-linear-gradient(-45deg, var(--stripe-color) 0px, var(--stripe-color) 1px, transparent 1px, transparent 3px)
-        `
-      }}
+      className="w-full py-16 px-4 md:px-8 bg-background relative overflow-hidden bg-[linear-gradient(to_right,rgba(0,0,0,0.035)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.035)_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,rgba(255,255,255,0.025)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.025)_1px,transparent_1px)] bg-[size:14px_14px]"
     >
-      {/* Interactive Glowing Canvas Background */}
-      <canvas
-        ref={canvasRef}
-        className="pointer-events-none absolute inset-0 z-0 w-full h-full"
-      />
       {/* Header Container */}
       <div className="max-w-6xl mx-auto text-left mb-12 relative z-10">
-        <span className="text-rose-600 dark:text-rose-400 font-bold text-sm tracking-widest uppercase block mb-3 font-sans">
 
-        </span>
-        <h2 className="text-4xl md:text-6xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 mb-4 font-sans leading-tight flex flex-wrap items-center gap-x-2">
+        <h2 className="text-4xl md:text-6xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 mb-4 font-geist leading-tight flex flex-wrap items-center gap-x-2">
           Interactive{" "}
           <motion.span
             whileHover="hover"
             initial="initial"
-            className="font-instrument tracking-tight text-zinc-500 dark:text-zinc-400 block sm:inline-block origin-left relative cursor-pointer select-none px-2 align-middle"
+            className="font-geist tracking-tight text-zinc-500 dark:text-zinc-400 block sm:inline-block origin-left relative cursor-pointer select-none px-2 align-middle"
           >
             Components
-            <svg
-              className="absolute left-1 bottom-0 w-[95%] h-2 text-zinc-300 dark:text-zinc-700 pointer-events-none"
-              viewBox="0 0 100 10"
-              preserveAspectRatio="none"
-            >
-              <motion.path
-                d="M 5 3 C 35 6, 65 6, 95 3"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                variants={{
-                  initial: { pathLength: 0, opacity: 0 },
-                  hover: {
-                    pathLength: 1,
-                    opacity: 1,
-                    transition: { type: "spring", stiffness: 140, damping: 12 }
-                  }
-                }}
-              />
-            </svg>
+
+            <motion.path
+              d="M 5 3 C 35 6, 65 6, 95 3"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              variants={{
+                initial: { pathLength: 0, opacity: 0 },
+                hover: {
+                  pathLength: 1,
+                  opacity: 1,
+                  transition: { type: "spring", stiffness: 140, damping: 12 }
+                }
+              }}
+            />
+
           </motion.span>
         </h2>
-        <p className="text-lg md:text-xl text-zinc-600 dark:text-zinc-400 max-w-3xl mb-6 font-sans font-light leading-relaxed">
+        <p className="text-lg md:text-xl text-zinc-600 dark:text-zinc-400 max-w-3xl mb-6 font-geist font-light leading-relaxed">
           A preview of the layout blocks, including card overlays, simple spring gestures, and clean SVG animations.
         </p>
       </div>
@@ -544,10 +254,10 @@ export default function ComponentGrid() {
         {componentsList.map((item) => (
           <div
             key={item.id}
-            className="group/card relative rounded-2xl bg-card p-1 transition-all duration-200 dark:bg-muted/70 dark:group-hover/card:brightness-110 shadow-[0px_0px_0px_1px_rgba(0,0,0,0.06),0px_1px_2px_-1px_rgba(0,0,0,0.06),0px_2px_4px_0px_rgba(0,0,0,0.04)] hover:shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08),0px_2px_4px_-1px_rgba(0,0,0,0.1),0px_4px_8px_0px_rgba(0,0,0,0.06)] dark:shadow-[0px_0px_0px_1px_rgba(255,255,255,0.06),0px_1px_2px_-1px_rgba(255,255,255,0.03),0px_2px_4px_0px_rgba(0,0,0,0.2)] dark:hover:shadow-[0px_0px_0px_1px_rgba(255,255,255,0.1),0px_2px_4px_-1px_rgba(255,255,255,0.05),0px_4px_8px_0px_rgba(0,0,0,0.3)]"
+            className="group/card relative rounded-2xl bg-card p-1 transition-all duration-200 border border-border/40 hover:border-border/80 shadow-sm hover:shadow-md"
           >
             {/* Card Inner Content */}
-            <div className="bg-white dark:bg-zinc-900 rounded-xl p-4 flex flex-col justify-between h-full gap-4">
+            <div className="bg-card rounded-xl p-4 flex flex-col justify-between h-full gap-4">
               {/* Component Preview Container */}
               <div className="w-full flex-1">
                 {item.preview()}

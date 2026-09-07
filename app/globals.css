@@ -173,3 +173,20 @@
   background-repeat: repeat-x;
   background-position: center bottom;
 }
+
+@keyframes premium-light-sweep {
+  0% {
+    background-position: -250% 0;
+  }
+  45% {
+    background-position: 250% 0;
+  }
+  100% {
+    background-position: 250% 0;
+  }
+}
+
+.animate-premium-sweep {
+  background-size: 250% 100%;
+  animation: premium-light-sweep 9s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
