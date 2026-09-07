@@ -64,7 +64,7 @@ export default function HeroSection() {
               },
             },
           }}
-          className="font-heading text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.12] cursor-default flex flex-col items-center justify-center gap-y-1 md:gap-y-2"
+          className="font-geist text-5xl sm:text-6xl md:text-[72px] lg:text-[72px] font-bold tracking-tight leading-[1.12] cursor-default flex flex-col items-center justify-center gap-y-1 md:gap-y-2"
           style={{ perspective: 1000 }}
         >
           <div className="flex flex-wrap items-center justify-center gap-x-1 sm:gap-x-2">
@@ -81,18 +81,14 @@ export default function HeroSection() {
                 rotateY: 8,
                 translateZ: 15,
                 scale: 1.03,
-                filter:
-                  "drop-shadow(0px 12px 24px rgba(59, 130, 246, 0.45))",
                 transition: { type: "spring", stiffness: 220, damping: 14 },
               }}
-              className="font-instrument italic font-medium tracking-normal pr-3 -mr-2 bg-clip-text text-transparent bg-gradient-to-r from-zinc-800 via-zinc-500 to-zinc-800 dark:from-zinc-100 dark:via-zinc-300 dark:to-zinc-100 hover:from-emerald-500 hover:via-blue-500 hover:to-violet-500 dark:hover:from-emerald-400 dark:hover:via-blue-400 dark:hover:to-violet-400 transition-all duration-300 inline-block origin-center cursor-pointer select-none"
+              className="font-geist font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-zinc-800 via-zinc-500 to-zinc-800 dark:from-zinc-100 dark:via-zinc-300 dark:to-zinc-100 transition-all duration-300 inline-block origin-center cursor-pointer select-none"
             >
               Interactive
             </motion.span>
 
             <motion.span
-              whileHover="hover"
-              initial="initial"
               variants={{
                 hidden: { opacity: 0, scale: 0.94 },
                 visible: {
@@ -101,37 +97,9 @@ export default function HeroSection() {
                   transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] },
                 },
               }}
-              className="font-instrument tracking-tight text-zinc-500 dark:text-zinc-400 inline-block origin-center px-2 relative cursor-pointer select-none align-middle"
+              className="font-geist tracking-tight text-zinc-500 dark:text-zinc-400 inline-block origin-center px-2 relative cursor-pointer select-none align-middle"
             >
               by design,
-              <svg
-                className="absolute left-2 bottom-0 w-[95%] h-2 pointer-events-none"
-                viewBox="0 0 100 10"
-                preserveAspectRatio="none"
-              >
-                <defs>
-                  <linearGradient id="line-gradient-1" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#10b981" />
-                    <stop offset="50%" stopColor="#3b82f6" />
-                    <stop offset="100%" stopColor="#8b5cf6" />
-                  </linearGradient>
-                </defs>
-                <motion.path
-                  d="M 5 3 C 35 6, 65 6, 95 3"
-                  fill="none"
-                  stroke="url(#line-gradient-1)"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                  variants={{
-                    initial: { pathLength: 0, opacity: 0 },
-                    hover: {
-                      pathLength: 1,
-                      opacity: 1,
-                      transition: { type: "spring", stiffness: 140, damping: 12 }
-                    }
-                  }}
-                />
-              </svg>
             </motion.span>
           </div>
 
@@ -149,18 +117,14 @@ export default function HeroSection() {
                 rotateY: -8,
                 translateZ: 15,
                 scale: 1.03,
-                filter:
-                  "drop-shadow(0px 12px 24px rgba(244, 63, 94, 0.45))",
                 transition: { type: "spring", stiffness: 220, damping: 14 },
               }}
-              className="font-instrument italic font-medium tracking-normal pr-3 -mr-2 bg-clip-text text-transparent bg-gradient-to-r from-zinc-800 via-zinc-500 to-zinc-800 dark:from-zinc-100 dark:via-zinc-300 dark:to-zinc-100 hover:from-rose-500 hover:via-yellow-500 hover:to-orange-500 dark:hover:from-rose-400 dark:hover:via-yellow-400 dark:hover:to-orange-400 transition-all duration-300 inline-block origin-center cursor-pointer select-none"
+              className="font-geist font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-zinc-800 via-zinc-500 to-zinc-800 dark:from-zinc-100 dark:via-zinc-300 dark:to-zinc-100 transition-all duration-300 inline-block origin-center cursor-pointer select-none"
             >
               premium
             </motion.span>
 
             <motion.span
-              whileHover="hover"
-              initial="initial"
               variants={{
                 hidden: { opacity: 0, scale: 0.94 },
                 visible: {
@@ -169,37 +133,9 @@ export default function HeroSection() {
                   transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] },
                 },
               }}
-              className="font-instrument tracking-tight text-zinc-500 dark:text-zinc-400 inline-block origin-center px-2 relative cursor-pointer select-none align-middle"
+              className="font-geist tracking-tight text-zinc-500 dark:text-zinc-400 inline-block origin-center px-2 relative cursor-pointer select-none align-middle"
             >
               by default.
-              <svg
-                className="absolute left-2 bottom-0 w-[95%] h-2 pointer-events-none"
-                viewBox="0 0 100 10"
-                preserveAspectRatio="none"
-              >
-                <defs>
-                  <linearGradient id="line-gradient-2" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#f43f5e" />
-                    <stop offset="50%" stopColor="#eab308" />
-                    <stop offset="100%" stopColor="#f97316" />
-                  </linearGradient>
-                </defs>
-                <motion.path
-                  d="M 5 3 C 35 6, 65 6, 95 3"
-                  fill="none"
-                  stroke="url(#line-gradient-2)"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                  variants={{
-                    initial: { pathLength: 0, opacity: 0 },
-                    hover: {
-                      pathLength: 1,
-                      opacity: 1,
-                      transition: { type: "spring", stiffness: 140, damping: 12 }
-                    }
-                  }}
-                />
-              </svg>
             </motion.span>
           </div>
         </motion.h1>
