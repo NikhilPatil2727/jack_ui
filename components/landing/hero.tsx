@@ -45,12 +45,7 @@ export default function HeroSection() {
       <div className="relative z-10 mx-auto w-full max-w-5xl min-h-screen flex flex-col items-center justify-center gap-8 px-4 sm:px-6 py-16 text-center">
 
       {/* Heading */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.1 }}
-        className="flex flex-col items-center gap-4"
-      >
+      <div className="flex flex-col items-center gap-4">
         <motion.h1
           initial="hidden"
           animate="visible"
@@ -59,22 +54,22 @@ export default function HeroSection() {
             visible: {
               opacity: 1,
               transition: {
-                staggerChildren: 0.15,
-                delayChildren: 0.1,
+                staggerChildren: 0.08, // 80ms delay per word (0ms, 80ms, 160ms, 240ms...)
               },
             },
           }}
           className="font-geist text-5xl sm:text-6xl md:text-[72px] lg:text-[72px] font-bold tracking-tight leading-[1.12] cursor-default flex flex-col items-center justify-center gap-y-1 md:gap-y-2"
           style={{ perspective: 1000 }}
         >
-          <div className="flex flex-wrap items-center justify-center gap-x-1 sm:gap-x-2">
+          <div className="flex flex-wrap items-center justify-center gap-x-2 sm:gap-x-3">
             <motion.span
               variants={{
-                hidden: { opacity: 0, scale: 0.94 },
+                hidden: { opacity: 0, y: 24, filter: "blur(8px)" },
                 visible: {
                   opacity: 1,
-                  scale: 1,
-                  transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] },
+                  y: 0,
+                  filter: "blur(0px)",
+                  transition: { duration: 0.75, ease: [0.22, 1, 0.36, 1] },
                 },
               }}
               whileHover={{
@@ -83,34 +78,51 @@ export default function HeroSection() {
                 scale: 1.03,
                 transition: { type: "spring", stiffness: 220, damping: 14 },
               }}
-              className="font-geist font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-zinc-800 via-zinc-500 to-zinc-800 dark:from-zinc-100 dark:via-zinc-300 dark:to-zinc-100 transition-all duration-300 inline-block origin-center cursor-pointer select-none"
+              className="font-geist font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-zinc-800 via-zinc-500 to-zinc-800 dark:from-zinc-100 dark:via-zinc-300 dark:to-zinc-100 inline-block origin-center cursor-pointer select-none"
             >
               Interactive
             </motion.span>
 
             <motion.span
               variants={{
-                hidden: { opacity: 0, scale: 0.94 },
+                hidden: { opacity: 0, y: 24, filter: "blur(8px)" },
                 visible: {
                   opacity: 1,
-                  scale: 1,
-                  transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] },
+                  y: 0,
+                  filter: "blur(0px)",
+                  transition: { duration: 0.75, ease: [0.22, 1, 0.36, 1] },
                 },
               }}
-              className="font-geist tracking-tight text-zinc-500 dark:text-zinc-400 inline-block origin-center px-2 relative cursor-pointer select-none align-middle"
+              className="font-geist tracking-tight text-zinc-500 dark:text-zinc-400 inline-block origin-center cursor-pointer select-none align-middle"
             >
-              by design,
+              by
+            </motion.span>
+
+            <motion.span
+              variants={{
+                hidden: { opacity: 0, y: 24, filter: "blur(8px)" },
+                visible: {
+                  opacity: 1,
+                  y: 0,
+                  filter: "blur(0px)",
+                  transition: { duration: 0.75, ease: [0.22, 1, 0.36, 1] },
+                },
+              }}
+              className="font-geist tracking-tight text-zinc-500 dark:text-zinc-400 inline-block origin-center cursor-pointer select-none align-middle"
+            >
+              design,
             </motion.span>
           </div>
 
-          <div className="flex flex-wrap items-center justify-center gap-x-1 sm:gap-x-2">
+          <div className="flex flex-wrap items-center justify-center gap-x-2 sm:gap-x-3">
             <motion.span
               variants={{
-                hidden: { opacity: 0, scale: 0.94 },
+                hidden: { opacity: 0, y: 24, filter: "blur(8px)" },
                 visible: {
                   opacity: 1,
-                  scale: 1,
-                  transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] },
+                  y: 0,
+                  filter: "blur(0px)",
+                  transition: { duration: 0.75, ease: [0.22, 1, 0.36, 1] },
                 },
               }}
               whileHover={{
@@ -119,23 +131,39 @@ export default function HeroSection() {
                 scale: 1.03,
                 transition: { type: "spring", stiffness: 220, damping: 14 },
               }}
-              className="font-geist font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-zinc-800 via-zinc-500 to-zinc-800 dark:from-zinc-100 dark:via-zinc-300 dark:to-zinc-100 transition-all duration-300 inline-block origin-center cursor-pointer select-none"
+              className="font-geist font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-zinc-800 via-zinc-500 to-zinc-800 dark:from-zinc-100 dark:via-zinc-300 dark:to-zinc-100 inline-block origin-center cursor-pointer select-none"
             >
               premium
             </motion.span>
 
             <motion.span
               variants={{
-                hidden: { opacity: 0, scale: 0.94 },
+                hidden: { opacity: 0, y: 24, filter: "blur(8px)" },
                 visible: {
                   opacity: 1,
-                  scale: 1,
-                  transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] },
+                  y: 0,
+                  filter: "blur(0px)",
+                  transition: { duration: 0.75, ease: [0.22, 1, 0.36, 1] },
                 },
               }}
-              className="font-geist tracking-tight text-zinc-500 dark:text-zinc-400 inline-block origin-center px-2 relative cursor-pointer select-none align-middle"
+              className="font-geist tracking-tight text-zinc-500 dark:text-zinc-400 inline-block origin-center cursor-pointer select-none align-middle"
             >
-              by default.
+              by
+            </motion.span>
+
+            <motion.span
+              variants={{
+                hidden: { opacity: 0, y: 24, filter: "blur(8px)" },
+                visible: {
+                  opacity: 1,
+                  y: 0,
+                  filter: "blur(0px)",
+                  transition: { duration: 0.75, ease: [0.22, 1, 0.36, 1] },
+                },
+              }}
+              className="font-geist tracking-tight text-zinc-500 dark:text-zinc-400 inline-block origin-center cursor-pointer select-none align-middle"
+            >
+              default.
             </motion.span>
           </div>
         </motion.h1>
@@ -153,9 +181,8 @@ export default function HeroSection() {
           <span className="font-semibold bg-clip-text text-transparent bg-gradient-to-r from-zinc-800 via-zinc-500 to-zinc-800 dark:from-zinc-100 dark:via-zinc-300 dark:to-zinc-100">
             shadcn/ui
           </span>{" "}
-          for modern React and Next.js applications.
         </p>
-      </motion.div>
+      </div>
 
       {/* CTA Buttons */}
       <motion.div
