@@ -225,27 +225,23 @@ export default function ComponentGrid() {
             className="font-geist tracking-tight text-zinc-500 dark:text-zinc-400 block sm:inline-block origin-left relative cursor-pointer select-none px-2 align-middle"
           >
             Components
-            <svg
-              className="absolute left-1 bottom-0 w-[95%] h-2 text-zinc-300 dark:text-zinc-700 pointer-events-none"
-              viewBox="0 0 100 10"
-              preserveAspectRatio="none"
-            >
-              <motion.path
-                d="M 5 3 C 35 6, 65 6, 95 3"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                variants={{
-                  initial: { pathLength: 0, opacity: 0 },
-                  hover: {
-                    pathLength: 1,
-                    opacity: 1,
-                    transition: { type: "spring", stiffness: 140, damping: 12 }
-                  }
-                }}
-              />
-            </svg>
+
+            <motion.path
+              d="M 5 3 C 35 6, 65 6, 95 3"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              variants={{
+                initial: { pathLength: 0, opacity: 0 },
+                hover: {
+                  pathLength: 1,
+                  opacity: 1,
+                  transition: { type: "spring", stiffness: 140, damping: 12 }
+                }
+              }}
+            />
+
           </motion.span>
         </h2>
         <p className="text-lg md:text-xl text-zinc-600 dark:text-zinc-400 max-w-3xl mb-6 font-geist font-light leading-relaxed">
