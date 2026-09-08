@@ -1,6 +1,5 @@
 import * as React from "react"
-import { Brain, Code, FileText, MessageSquare, MoreHorizontal, Paperclip, Globe, ArrowUp } from "lucide-react"
-import { cn } from "@/lib/utils"
+import { Sparkles } from "lucide-react"
 
 export interface GlassInputProps {
   placeholder?: string
@@ -10,21 +9,10 @@ export interface GlassInputProps {
 }
 
 export function GlassInput({
-  placeholder = "Ask Anything",
+  placeholder = "A cat, orange fur, playful — chibi style",
   onSubmit,
-  onFilterSelect,
-  showFilters = true,
 }: GlassInputProps) {
   const [value, setValue] = React.useState("")
-  const [activeFilter, setActiveFilter] = React.useState("Brainstorm")
-
-  const filters = [
-    { name: "Brainstorm", icon: <Brain className="h-4 w-4" /> },
-    { name: "Code", icon: <Code className="h-4 w-4" /> },
-    { name: "Text", icon: <FileText className="h-4 w-4" /> },
-    { name: "Advice", icon: <MessageSquare className="h-4 w-4" /> },
-    { name: "More", icon: <MoreHorizontal className="h-4 w-4" /> },
-  ]
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -63,92 +51,39 @@ export function GlassInput({
           50% { transform: translateX(12px) translateY(-1px) scale(1.1); opacity: 0.5; }
           100% { transform: translateX(0px) translateY(1px) scale(0.95); opacity: 0.7; }
         }
-        @keyframes button-spin {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
-        }
-        @keyframes button-smoke-wisp-1 {
-          0% { transform: translate(-50%, 0px) scale(0.5); opacity: 0; filter: blur(2px); }
-          25% { opacity: 0.6; }
-          75% { opacity: 0.2; }
-          100% { transform: translate(calc(-50% - 8px), -28px) scale(1.5); opacity: 0; filter: blur(5px); }
-        }
-        @keyframes button-smoke-wisp-2 {
-          0% { transform: translate(-50%, 0px) scale(0.5); opacity: 0; filter: blur(2px); }
-          25% { opacity: 0.5; }
-          75% { opacity: 0.15; }
-          100% { transform: translate(calc(-50% + 8px), -32px) scale(1.7); opacity: 0; filter: blur(6px); }
-        }
-        @keyframes button-smoke-wisp-3 {
-          0% { transform: translate(-50%, 0px) scale(0.4); opacity: 0; filter: blur(1.5px); }
-          30% { opacity: 0.7; }
-          70% { opacity: 0.1; }
-          100% { transform: translate(calc(-50% - 2px), -22px) scale(1.2); opacity: 0; filter: blur(4px); }
-        }
       `}</style>
-      <div className="w-full max-w-[760px] mx-auto flex flex-col gap-3">
-        {/* Filters Row */}
-        {showFilters && (
-          <div className="flex flex-wrap items-center justify-center gap-1.5 p-1.5 rounded-[1.25rem] bg-white/60 backdrop-blur-xl border border-white/80 shadow-[0_4px_16px_-4px_rgba(0,0,0,0.05)] w-fit mx-auto relative z-10 transition-colors duration-300">
-            {filters.map((filter) => {
-              const isActive = activeFilter === filter.name
-              return (
-                <button
-                  key={filter.name}
-                  type="button"
-                  onClick={() => {
-                    setActiveFilter(filter.name)
-                    if (onFilterSelect) onFilterSelect(filter.name)
-                  }}
-                  className={cn(
-                    "group flex items-center gap-2 px-4 py-2 rounded-xl text-[13.5px] font-semibold transition-all duration-300 cursor-pointer",
-                    isActive
-                      ? "bg-white text-zinc-900 shadow-sm ring-1 ring-zinc-200/50"
-                      : "text-zinc-500 hover:text-zinc-900 hover:bg-white/60"
-                  )}
-                >
-                  {React.cloneElement(filter.icon as React.ReactElement<{ className?: string }>, {
-                    className: cn(
-                      "h-4 w-4 transition-all duration-300", 
-                      isActive ? "text-fuchsia-500 scale-110 drop-shadow-sm" : "text-zinc-400 group-hover:text-zinc-600 group-hover:scale-110"
-                    )
-                  })}
-                  <span>{filter.name}</span>
-                </button>
-              )
-            })}
-          </div>
-        )}
 
+
+      <div className="w-full max-w-[680px] mx-auto">
         {/* Input container wrapper to let glow bleed outside overflow-hidden */}
         <div className="relative w-full">
-          {/* Animated subtle ambient glow under the input box (Premium Rainbow Smoke) */}
-          <div className="absolute left-1/2 -translate-x-1/2 -bottom-[4px] w-[85%] h-5 pointer-events-none z-0 opacity-60 group-hover:opacity-100 transition-opacity duration-700">
+          {/* Animated subtle ambient glow under the input box (Preserved Rainbow Smoke) */}
+          <div className="absolute left-1/2 -translate-x-1/2 -bottom-[4px] w-[88%] h-6 pointer-events-none z-0 opacity-70 group-hover:opacity-100 transition-opacity duration-700">
             {/* Base sliding glow */}
-            <div 
-              className="absolute inset-0 rounded-full blur-[10px]"
+            <div
+              className="absolute inset-0 rounded-full blur-[12px]"
               style={{
                 background: 'linear-gradient(90deg, #f87171, #fbbf24, #a3e635, #38bdf8, #818cf8, #c084fc, #f472b6, #f87171)',
                 backgroundSize: '200% 100%',
                 animation: 'border-slide 6s linear infinite',
               }}
             />
-            {/* Independent Smoke Wisps for small detailing */}
-            <div 
+            {/* Independent Smoke Wisps */}
+            <div
               className="absolute left-[5%] top-1/2 -translate-y-1/2 w-[35%] h-[160%] rounded-full blur-[8px]"
               style={{
                 background: 'linear-gradient(90deg, #fbbf24, #f87171)',
                 animation: 'smoke-1 4s ease-in-out infinite',
               }}
             />
-            <div 
+            <div
               className="absolute left-[35%] top-1/2 -translate-y-1/2 w-[30%] h-[140%] rounded-full blur-[8px]"
               style={{
                 background: 'linear-gradient(90deg, #38bdf8, #a3e635)',
                 animation: 'smoke-2 5s ease-in-out infinite',
               }}
             />
-            <div 
+            <div
               className="absolute right-[10%] top-1/2 -translate-y-1/2 w-[35%] h-[160%] rounded-full blur-[8px]"
               style={{
                 background: 'linear-gradient(90deg, #c084fc, #f472b6)',
@@ -157,16 +92,17 @@ export function GlassInput({
             />
           </div>
 
+
           <form
             onSubmit={handleSubmit}
-            className="relative w-full rounded-[32px] bg-black/80 backdrop-blur-xl p-4 sm:p-5 flex flex-col justify-between transition-all duration-300 shadow-[0_8px_32px_rgba(0,0,0,0.5)] group overflow-hidden z-10"
+            className="relative w-full rounded-[20px] bg-[#262220] p-4 sm:p-5 flex flex-col justify-between transition-all duration-300 shadow-[0_12px_40px_rgba(0,0,0,0.8)] group overflow-hidden z-10 border border-white/10"
           >
-            {/* Top/Left subtle border for glass effect */}
-            <div className="absolute inset-0 rounded-[32px] border-[1.5px] border-zinc-800/80 pointer-events-none" />
+            {/* Subtle glass highlight border */}
+            <div className="absolute inset-0 rounded-[20px] ring-1 ring-inset ring-white/10 pointer-events-none" />
 
             {/* The animated bottom border line inside the container (Rainbow) */}
             <div className="absolute bottom-0 left-8 right-8 h-[1px] z-20">
-              <div 
+              <div
                 className="absolute inset-0 opacity-70 transition-opacity duration-500 group-hover:opacity-100"
                 style={{
                   background: 'linear-gradient(90deg, #f87171, #fbbf24, #a3e635, #38bdf8, #818cf8, #c084fc, #f472b6, #f87171)',
@@ -178,74 +114,26 @@ export function GlassInput({
               />
             </div>
 
-            {/* Text Area */}
+            {/* TEXTAREA */}
             <textarea
               value={value}
               onChange={(e) => setValue(e.target.value)}
               onKeyDown={handleKeyDown}
               placeholder={placeholder}
-              rows={2}
-              className="w-full bg-transparent text-white placeholder-zinc-400 text-[16px] font-medium outline-none resize-none pt-1 relative z-10"
+              rows={1}
+              className="w-full bg-transparent text-zinc-200 placeholder-zinc-400 text-[16px] font-normal outline-none resize-none pt-0.5 relative z-10 leading-relaxed tracking-normal min-h-[34px]"
             />
 
-            {/* Bottom row */}
-            <div className="flex items-center justify-between mt-4 relative z-10">
-              <div className="flex items-center gap-3">
-                <button
-                  type="button"
-                  className="flex items-center justify-center w-[42px] h-[42px] rounded-full bg-zinc-900 shadow-sm text-zinc-300 hover:text-white hover:bg-zinc-800 hover:scale-105 transition-all cursor-pointer border border-zinc-800"
-                >
-                  <Paperclip className="h-5 w-5" />
-                </button>
-                <button
-                  type="button"
-                  className="flex items-center justify-center w-[42px] h-[42px] rounded-full bg-zinc-900 shadow-sm text-zinc-300 hover:text-white hover:bg-zinc-800 hover:scale-105 transition-all cursor-pointer border border-zinc-800"
-                >
-                  <Globe className="h-5 w-5" />
-                </button>
-              </div>
-
-              <div className="relative w-[46px] h-[46px] group/btn">
-                {/* Small smoke wisps container rising from the button */}
-                <div className="absolute inset-0 pointer-events-none z-0 opacity-40 group-hover/btn:opacity-100 transition-opacity duration-500">
-                  <div 
-                    className="absolute top-1 left-1/2 w-4 h-4 rounded-full bg-gradient-to-tr from-purple-500/40 to-fuchsia-500/40"
-                    style={{
-                      animation: 'button-smoke-wisp-1 2.5s ease-out infinite',
-                    }}
-                  />
-                  <div 
-                    className="absolute top-1 left-1/2 w-5 h-5 rounded-full bg-gradient-to-tr from-cyan-400/40 to-blue-500/40"
-                    style={{
-                      animation: 'button-smoke-wisp-2 3s ease-out infinite',
-                      animationDelay: '0.8s',
-                    }}
-                  />
-                  <div 
-                    className="absolute top-1 left-1/2 w-3.5 h-3.5 rounded-full bg-gradient-to-tr from-amber-400/30 to-rose-500/30"
-                    style={{
-                      animation: 'button-smoke-wisp-3 2.2s ease-out infinite',
-                      animationDelay: '1.5s',
-                    }}
-                  />
-                </div>
-
+            {/* BOTTOM ROW SPACING */}
+            <div className="flex items-center justify-end mt-3.5 relative z-10">
+              {/* CUSTOMIZABLE: Generate Button Size & Padding (Adjust px-5 py-2, text-[15px]) */}
+              <div className="p-1 rounded-[20px] bg-[#9A3B18]/60 border border-[#C84E20]/40 flex items-center justify-center">
                 <button
                   type="submit"
-                  className="relative flex items-center justify-center w-full h-full rounded-full text-white bg-[#171717] shadow-[0_4px_12px_rgba(0,0,0,0.3)] hover:scale-105 transition-all duration-300 cursor-pointer overflow-hidden z-10"
+                  className="flex items-center gap-2 px-5 py-2 rounded-[14px] bg-gradient-to-r from-[#FF6529] to-[#FF5519] text-white text-[15px] font-bold tracking-tight shadow-[inset_0_1px_1px_rgba(255,255,255,0.35),0_4px_12px_rgba(255,85,25,0.4)] hover:brightness-110 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 cursor-pointer"
                 >
-                  {/* Rotating Rainbow Ring Border inside the button */}
-                  <div 
-                    className="absolute inset-[-50%] bg-[conic-gradient(from_0deg,#f87171,#fbbf24,#a3e635,#38bdf8,#818cf8,#c084fc,#f472b6,#f87171)]"
-                    style={{
-                      animation: 'button-spin 4s linear infinite',
-                    }}
-                  />
-
-                  {/* Inner Dark Mask */}
-                  <div className="absolute inset-[1.2px] rounded-full bg-gradient-to-b from-[#2d2d2d] to-[#171717] group-hover/btn:from-[#363636] group-hover/btn:to-[#202020] transition-all duration-300 flex items-center justify-center z-20">
-                    <ArrowUp className="h-5 w-5 relative z-30 text-white" strokeWidth={2.5} />
-                  </div>
+                  <span className="font-semibold text-white">Generate</span>
+                  <Sparkles className="h-4 w-4 fill-white text-white shrink-0" />
                 </button>
               </div>
             </div>

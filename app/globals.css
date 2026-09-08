@@ -137,17 +137,22 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
+
   html {
     @apply font-sans;
   }
-  #nd-sidebar, .fd-sidebar {
+
+  #nd-sidebar,
+  .fd-sidebar {
     background-color: var(--sidebar) !important;
   }
-  #nd-sidebar button, 
-  .fd-sidebar button, 
+
+  #nd-sidebar button,
+  .fd-sidebar button,
   [data-theme-toggle],
   .fd-sidebar-footer button,
   .fd-sidebar-theme-toggle,
@@ -161,6 +166,7 @@
 .dotted-border-bottom {
   position: relative;
 }
+
 .dotted-border-bottom::after {
   content: "";
   position: absolute;
@@ -178,9 +184,11 @@
   0% {
     background-position: -250% 0;
   }
+
   45% {
     background-position: 250% 0;
   }
+
   100% {
     background-position: 250% 0;
   }

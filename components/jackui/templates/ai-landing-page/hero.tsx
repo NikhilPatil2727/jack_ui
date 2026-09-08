@@ -3,8 +3,14 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Workflow, Database, BarChart3, Zap, MoreHorizontal } from "lucide-react";
+import { Schibsted_Grotesk } from "next/font/google";
+import { cn } from "@/lib/utils";
 import { GlassInput } from "./glass-input";
 import { Navbar } from "./navbar";
+
+const schibstedFont = Schibsted_Grotesk({
+  subsets: ["latin"],
+});
 
 export interface HeroProps {
   badgeText?: string;
@@ -85,7 +91,10 @@ export function Hero({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-center mb-8 text-white font-geist text-4xl sm:text-5xl md:text-6xl lg:text-[4.5rem] tracking-tighter leading-[1.05] max-w-4xl drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]"
+            className={cn(
+              schibstedFont.className,
+              "text-center mb-8 text-white text-4xl sm:text-5xl md:text-6xl lg:text-[4.5rem] tracking-tighter leading-[1.05] max-w-4xl drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]"
+            )}
           >
             {titlePart1}{" "}
             {titlePart2.split('\n').map((line, i) => (
@@ -102,7 +111,10 @@ export function Hero({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.15 }}
-            className="mt-4 text-center text-white/90 font-geist text-[15px] sm:text-[17px] max-w-lg font-medium tracking-tight leading-relaxed drop-shadow-[0_1px_8px_rgba(0,0,0,0.5)]"
+            className={cn(
+              schibstedFont.className,
+              "mt-4 text-center text-white/90 text-[15px] sm:text-[17px] max-w-lg font-medium tracking-tight leading-relaxed drop-shadow-[0_1px_8px_rgba(0,0,0,0.5)]"
+            )}
           >
             The easiest way to build, deploy, and manage your autonomous agents. No complex coding required.
           </motion.p>
