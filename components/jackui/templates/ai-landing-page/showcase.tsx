@@ -26,7 +26,7 @@ export function Showcase({
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="mb-6 inline-flex rounded-full border border-zinc-200/60 dark:border-zinc-800/60 bg-white/60 dark:bg-zinc-900/60 backdrop-blur-xl px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-zinc-600 dark:text-zinc-300 shadow-[0_2px_8px_rgba(0,0,0,0.04)]"
+              className="mb-6 inline-flex rounded-full border border-zinc-200/60 bg-white/60 backdrop-blur-xl px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-zinc-600 shadow-[0_2px_8px_rgba(0,0,0,0.04)]"
             >
               {badge}
             </motion.div>
@@ -36,7 +36,7 @@ export function Showcase({
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-4xl font-semibold tracking-tighter text-zinc-900 sm:text-5xl md:text-[3.5rem] dark:text-zinc-50 leading-[1.05]"
+            className="text-4xl font-semibold tracking-tighter text-zinc-900 sm:text-5xl md:text-[3.5rem] leading-[1.05]"
           >
             {title.split('\n').map((line, i) => (
               <React.Fragment key={i}>
@@ -50,7 +50,7 @@ export function Showcase({
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="mt-6 text-[17px] text-zinc-500 sm:text-[19px] max-w-[640px] leading-relaxed dark:text-zinc-400 tracking-tight font-medium"
+            className="mt-6 text-[17px] text-zinc-500 sm:text-[19px] max-w-[640px] leading-relaxed tracking-tight font-medium"
           >
             {subtitle.split('\n').map((line, i) => (
               <React.Fragment key={i}>
@@ -70,22 +70,22 @@ export function Showcase({
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, ease: [0.21, 0.47, 0.32, 0.98] }}
-            className="group relative flex flex-col justify-between overflow-hidden rounded-[2rem] bg-white/70 dark:bg-zinc-900/40 backdrop-blur-xl border border-zinc-200/80 dark:border-zinc-800/80 shadow-[0_8px_30px_rgb(0,0,0,0.02)] transition-all duration-500 hover:shadow-[0_12px_40px_rgb(0,0,0,0.06)] min-h-[500px]"
+            className="group relative flex flex-col justify-between overflow-hidden rounded-[2rem] bg-white/70 backdrop-blur-xl border border-zinc-200/80 shadow-[0_8px_30px_rgb(0,0,0,0.02)] transition-all duration-500 hover:shadow-[0_12px_40px_rgb(0,0,0,0.06)] min-h-[500px]"
           >
-            <div className="absolute inset-0 rounded-[2rem] shadow-[inset_0_1px_1px_rgba(255,255,255,1)] dark:shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)] pointer-events-none z-20" />
+            <div className="absolute inset-0 rounded-[2rem] shadow-[inset_0_1px_1px_rgba(255,255,255,1)] pointer-events-none z-20" />
 
             <div className="relative z-30 p-8 sm:p-10">
-              <h3 className="text-[26px] font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 leading-[1.2]">
+              <h3 className="text-[26px] font-semibold tracking-tight text-zinc-900 leading-[1.2]">
                 Experience frictionless integration with<br />our Workflow Engine
               </h3>
-              <p className="mt-4 text-[16px] text-zinc-500 dark:text-zinc-400 max-w-[340px] leading-relaxed font-medium tracking-tight">
+              <p className="mt-4 text-[16px] text-zinc-500 max-w-[340px] leading-relaxed font-medium tracking-tight">
                 Build complex data pipelines in seconds with ready-made templates for CRM, marketing, and sales.
               </p>
             </div>
 
             {/* Visual: Realistic Code / Config Editor Mockup */}
             <div className="relative flex-1 w-full flex items-end justify-center px-8 pb-0 pt-8 overflow-hidden z-10">
-              <div className="absolute inset-0 bg-gradient-to-t from-zinc-50/50 dark:from-zinc-950/50 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-zinc-50/50 to-transparent" />
               <div className="w-full max-w-[400px] h-[260px] bg-zinc-950 rounded-t-xl border border-zinc-800 shadow-2xl overflow-hidden flex flex-col translate-y-4 group-hover:translate-y-2 transition-transform duration-500 ease-out">
                 {/* MacOS Window Header */}
                 <div className="h-10 border-b border-zinc-800 flex items-center px-4 gap-2 bg-zinc-900/50">
@@ -144,15 +144,15 @@ export function Showcase({
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7, delay: 0.1, ease: [0.21, 0.47, 0.32, 0.98] }}
-              className="group relative flex flex-col overflow-hidden rounded-[2rem] bg-white/70 dark:bg-zinc-900/40 backdrop-blur-xl border border-zinc-200/80 dark:border-zinc-800/80 shadow-[0_8px_30px_rgb(0,0,0,0.02)] transition-all duration-500 hover:shadow-[0_12px_40px_rgb(0,0,0,0.06)] min-h-[280px]"
+              className="group relative flex flex-col overflow-hidden rounded-[2rem] bg-white/70 backdrop-blur-xl border border-zinc-200/80 shadow-[0_8px_30px_rgb(0,0,0,0.02)] transition-all duration-500 hover:shadow-[0_12px_40px_rgb(0,0,0,0.06)] min-h-[280px]"
             >
-              <div className="absolute inset-0 rounded-[2rem] shadow-[inset_0_1px_1px_rgba(255,255,255,1)] dark:shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)] pointer-events-none z-20" />
+              <div className="absolute inset-0 rounded-[2rem] shadow-[inset_0_1px_1px_rgba(255,255,255,1)] pointer-events-none z-20" />
 
               <div className="relative z-30 p-8 sm:p-10 pb-0">
-                <h3 className="text-[22px] font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 leading-[1.2]">
+                <h3 className="text-[22px] font-semibold tracking-tight text-zinc-900 leading-[1.2]">
                   Unify your operations with<br />powerful automation blocks.
                 </h3>
-                <p className="mt-3 text-[16px] text-zinc-500 leading-relaxed dark:text-zinc-400 font-medium tracking-tight">
+                <p className="mt-3 text-[16px] text-zinc-500 leading-relaxed font-medium tracking-tight">
                   Connect APIs, customize modules, and launch automated features—fast and reliably.
                 </p>
               </div>
@@ -161,21 +161,21 @@ export function Showcase({
               <div className="relative flex-1 mt-8 w-full px-8 pb-8 flex items-end justify-end">
                 <div className="grid grid-cols-2 gap-3 w-[80%] max-w-[280px]">
                   {/* Block 1 */}
-                  <div className="col-span-2 bg-white dark:bg-zinc-800/80 rounded-xl border border-zinc-200/80 dark:border-zinc-700/80 shadow-sm p-3 flex items-center gap-3 transition-colors duration-300 group-hover:border-zinc-300 dark:group-hover:border-zinc-600">
-                    <div className="w-6 h-6 rounded border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 flex items-center justify-center">
-                      <div className="w-2 h-2 rounded-sm bg-zinc-800 dark:bg-zinc-200" />
+                  <div className="col-span-2 bg-white rounded-xl border border-zinc-200/80 shadow-sm p-3 flex items-center gap-3 transition-colors duration-300 group-hover:border-zinc-300">
+                    <div className="w-6 h-6 rounded border border-zinc-200 bg-zinc-50 flex items-center justify-center">
+                      <div className="w-2 h-2 rounded-sm bg-zinc-800" />
                     </div>
                     <div className="flex-1 space-y-1.5">
-                      <div className="h-1.5 w-1/2 bg-zinc-200 dark:bg-zinc-600 rounded-full" />
-                      <div className="h-1.5 w-1/3 bg-zinc-100 dark:bg-zinc-700 rounded-full" />
+                      <div className="h-1.5 w-1/2 bg-zinc-200 rounded-full" />
+                      <div className="h-1.5 w-1/3 bg-zinc-100 rounded-full" />
                     </div>
                   </div>
                   {/* Block 2 */}
-                  <div className="bg-white dark:bg-zinc-800/80 rounded-xl border border-zinc-200/80 dark:border-zinc-700/80 shadow-sm p-3 flex flex-col gap-3 transition-colors duration-300 group-hover:border-zinc-300 dark:group-hover:border-zinc-600">
-                    <div className="w-5 h-5 rounded-full bg-fuchsia-100 dark:bg-fuchsia-950 flex items-center justify-center">
+                  <div className="bg-white rounded-xl border border-zinc-200/80 shadow-sm p-3 flex flex-col gap-3 transition-colors duration-300 group-hover:border-zinc-300">
+                    <div className="w-5 h-5 rounded-full bg-fuchsia-100 flex items-center justify-center">
                       <div className="w-1.5 h-1.5 rounded-full bg-fuchsia-500" />
                     </div>
-                    <div className="h-1.5 w-2/3 bg-zinc-200 dark:bg-zinc-600 rounded-full" />
+                    <div className="h-1.5 w-2/3 bg-zinc-200 rounded-full" />
                   </div>
                   {/* Block 3 */}
                   <div className="bg-zinc-900 rounded-xl border border-zinc-800 shadow-sm p-3 flex flex-col gap-3 group-hover:bg-zinc-800 transition-colors duration-300">
@@ -194,35 +194,35 @@ export function Showcase({
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7, delay: 0.2, ease: [0.21, 0.47, 0.32, 0.98] }}
-              className="group relative flex flex-col justify-between overflow-hidden rounded-[2rem] bg-white/70 dark:bg-zinc-900/40 backdrop-blur-xl border border-zinc-200/80 dark:border-zinc-800/80 shadow-[0_8px_30px_rgb(0,0,0,0.02)] transition-all duration-500 hover:shadow-[0_12px_40px_rgb(0,0,0,0.06)] min-h-[280px]"
+              className="group relative flex flex-col justify-between overflow-hidden rounded-[2rem] bg-white/70 backdrop-blur-xl border border-zinc-200/80 shadow-[0_8px_30px_rgb(0,0,0,0.02)] transition-all duration-500 hover:shadow-[0_12px_40px_rgb(0,0,0,0.06)] min-h-[280px]"
             >
-              <div className="absolute inset-0 rounded-[2rem] shadow-[inset_0_1px_1px_rgba(255,255,255,1)] dark:shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)] pointer-events-none z-20" />
+              <div className="absolute inset-0 rounded-[2rem] shadow-[inset_0_1px_1px_rgba(255,255,255,1)] pointer-events-none z-20" />
 
               <div className="relative z-30 p-8 sm:p-10 flex flex-col h-full justify-between">
                 <div>
-                  <h3 className="text-[22px] font-semibold tracking-tight text-zinc-900 dark:text-white leading-[1.2]">
+                  <h3 className="text-[22px] font-semibold tracking-tight text-zinc-900 leading-[1.2]">
                     Advanced analytics to monitor<br />your workflow instantly.
                   </h3>
-                  <p className="mt-3 text-[16px] text-zinc-500 leading-relaxed dark:text-zinc-400 font-medium tracking-tight max-w-[90%]">
+                  <p className="mt-3 text-[16px] text-zinc-500 leading-relaxed font-medium tracking-tight max-w-[90%]">
                     Empower your team with actionable insights—track data flow and identify bottlenecks.
                   </p>
                 </div>
 
                 <div className="mt-8 flex justify-between items-end">
-                  <button className="group/btn relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-[#0f0f0f] dark:border-purple-500/40 bg-gradient-to-b from-[#2d2d2d] to-[#171717] dark:from-purple-900 dark:to-zinc-900 px-6 py-2.5 text-sm font-semibold text-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_4px_12px_rgba(0,0,0,0.2)] transition-all hover:scale-105">
+                  <button className="group/btn relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-[#0f0f0f] bg-gradient-to-b from-[#2d2d2d] to-[#171717] px-6 py-2.5 text-sm font-semibold text-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_4px_12px_rgba(0,0,0,0.2)] transition-all hover:scale-105">
                     <span>View Analytics</span>
                     <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover/btn:translate-x-1" />
                   </button>
 
                   {/* Visual: Realistic Bar Chart Mockup */}
                   <div className="flex items-end gap-1.5 h-16 opacity-80 group-hover:opacity-100 transition-opacity duration-300">
-                    <motion.div initial={{ height: "40%" }} whileInView={{ height: "40%" }} className="w-6 rounded-t-sm bg-zinc-200 dark:bg-zinc-700" />
-                    <motion.div initial={{ height: "10%" }} whileInView={{ height: "65%" }} transition={{ duration: 0.8, ease: "easeOut" }} className="w-6 rounded-t-sm bg-zinc-300 dark:bg-zinc-600" />
-                    <motion.div initial={{ height: "10%" }} whileInView={{ height: "50%" }} transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }} className="w-6 rounded-t-sm bg-zinc-300 dark:bg-zinc-600" />
-                    <motion.div initial={{ height: "10%" }} whileInView={{ height: "85%" }} transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }} className="w-6 rounded-t-sm bg-zinc-800 dark:bg-purple-600" />
-                    <motion.div initial={{ height: "10%" }} whileInView={{ height: "100%" }} transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }} className="w-6 rounded-t-sm bg-zinc-900 dark:bg-purple-500 relative">
+                    <motion.div initial={{ height: "40%" }} whileInView={{ height: "40%" }} className="w-6 rounded-t-sm bg-zinc-200" />
+                    <motion.div initial={{ height: "10%" }} whileInView={{ height: "65%" }} transition={{ duration: 0.8, ease: "easeOut" }} className="w-6 rounded-t-sm bg-zinc-300" />
+                    <motion.div initial={{ height: "10%" }} whileInView={{ height: "50%" }} transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }} className="w-6 rounded-t-sm bg-zinc-300" />
+                    <motion.div initial={{ height: "10%" }} whileInView={{ height: "85%" }} transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }} className="w-6 rounded-t-sm bg-zinc-800" />
+                    <motion.div initial={{ height: "10%" }} whileInView={{ height: "100%" }} transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }} className="w-6 rounded-t-sm bg-zinc-900 relative">
                       {/* Tooltip on hover */}
-                      <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-zinc-900 dark:bg-zinc-800 text-white text-[10px] py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap pointer-events-none border border-zinc-700">
+                      <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-zinc-900 text-white text-[10px] py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap pointer-events-none border border-zinc-700">
                         +24%
                       </div>
                     </motion.div>
@@ -238,3 +238,4 @@ export function Showcase({
     </section>
   );
 }
+

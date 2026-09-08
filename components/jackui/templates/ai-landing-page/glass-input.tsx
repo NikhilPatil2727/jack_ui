@@ -89,7 +89,7 @@ export function GlassInput({
       <div className="w-full max-w-[760px] mx-auto flex flex-col gap-3">
         {/* Filters Row */}
         {showFilters && (
-          <div className="flex flex-wrap items-center justify-center gap-1.5 p-1.5 rounded-[1.25rem] bg-white/60 dark:bg-zinc-900/60 backdrop-blur-xl border border-white/80 dark:border-zinc-800/80 shadow-[0_4px_16px_-4px_rgba(0,0,0,0.05)] w-fit mx-auto relative z-10 transition-colors duration-300">
+          <div className="flex flex-wrap items-center justify-center gap-1.5 p-1.5 rounded-[1.25rem] bg-white/60 backdrop-blur-xl border border-white/80 shadow-[0_4px_16px_-4px_rgba(0,0,0,0.05)] w-fit mx-auto relative z-10 transition-colors duration-300">
             {filters.map((filter) => {
               const isActive = activeFilter === filter.name
               return (
@@ -103,14 +103,14 @@ export function GlassInput({
                   className={cn(
                     "group flex items-center gap-2 px-4 py-2 rounded-xl text-[13.5px] font-semibold transition-all duration-300 cursor-pointer",
                     isActive
-                      ? "bg-white dark:bg-zinc-800 text-zinc-900 dark:text-white shadow-sm ring-1 ring-zinc-200/50 dark:ring-zinc-700/50"
-                      : "text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-white/60 dark:hover:bg-zinc-800/60"
+                      ? "bg-white text-zinc-900 shadow-sm ring-1 ring-zinc-200/50"
+                      : "text-zinc-500 hover:text-zinc-900 hover:bg-white/60"
                   )}
                 >
                   {React.cloneElement(filter.icon as React.ReactElement<{ className?: string }>, {
                     className: cn(
                       "h-4 w-4 transition-all duration-300", 
-                      isActive ? "text-fuchsia-500 scale-110 drop-shadow-sm" : "text-zinc-400 dark:text-zinc-500 group-hover:text-zinc-600 dark:group-hover:text-zinc-300 group-hover:scale-110"
+                      isActive ? "text-fuchsia-500 scale-110 drop-shadow-sm" : "text-zinc-400 group-hover:text-zinc-600 group-hover:scale-110"
                     )
                   })}
                   <span>{filter.name}</span>
@@ -159,10 +159,10 @@ export function GlassInput({
 
           <form
             onSubmit={handleSubmit}
-            className="relative w-full rounded-[32px] bg-[#FDFBF7]/80 dark:bg-[#161B22]/80 backdrop-blur-xl p-4 sm:p-5 flex flex-col justify-between transition-all duration-300 shadow-[0_4px_24px_rgba(0,0,0,0.03)] dark:shadow-[0_4px_24px_rgba(0,0,0,0.4)] group overflow-hidden z-10"
+            className="relative w-full rounded-[32px] bg-black/80 backdrop-blur-xl p-4 sm:p-5 flex flex-col justify-between transition-all duration-300 shadow-[0_8px_32px_rgba(0,0,0,0.5)] group overflow-hidden z-10"
           >
             {/* Top/Left subtle border for glass effect */}
-            <div className="absolute inset-0 rounded-[32px] border-[1.5px] border-white/60 dark:border-zinc-700/50 pointer-events-none" />
+            <div className="absolute inset-0 rounded-[32px] border-[1.5px] border-zinc-800/80 pointer-events-none" />
 
             {/* The animated bottom border line inside the container (Rainbow) */}
             <div className="absolute bottom-0 left-8 right-8 h-[1px] z-20">
@@ -185,7 +185,7 @@ export function GlassInput({
               onKeyDown={handleKeyDown}
               placeholder={placeholder}
               rows={2}
-              className="w-full bg-transparent text-zinc-800 dark:text-zinc-100 placeholder-zinc-400 dark:placeholder-zinc-500 text-[16px] font-medium outline-none resize-none pt-1 relative z-10"
+              className="w-full bg-transparent text-white placeholder-zinc-400 text-[16px] font-medium outline-none resize-none pt-1 relative z-10"
             />
 
             {/* Bottom row */}
@@ -193,13 +193,13 @@ export function GlassInput({
               <div className="flex items-center gap-3">
                 <button
                   type="button"
-                  className="flex items-center justify-center w-[42px] h-[42px] rounded-full bg-white dark:bg-zinc-800 shadow-sm text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white hover:scale-105 transition-all cursor-pointer border border-transparent dark:border-zinc-700/60"
+                  className="flex items-center justify-center w-[42px] h-[42px] rounded-full bg-zinc-900 shadow-sm text-zinc-300 hover:text-white hover:bg-zinc-800 hover:scale-105 transition-all cursor-pointer border border-zinc-800"
                 >
                   <Paperclip className="h-5 w-5" />
                 </button>
                 <button
                   type="button"
-                  className="flex items-center justify-center w-[42px] h-[42px] rounded-full bg-white dark:bg-zinc-800 shadow-sm text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white hover:scale-105 transition-all cursor-pointer border border-transparent dark:border-zinc-700/60"
+                  className="flex items-center justify-center w-[42px] h-[42px] rounded-full bg-zinc-900 shadow-sm text-zinc-300 hover:text-white hover:bg-zinc-800 hover:scale-105 transition-all cursor-pointer border border-zinc-800"
                 >
                   <Globe className="h-5 w-5" />
                 </button>
@@ -255,3 +255,4 @@ export function GlassInput({
     </>
   )
 }
+

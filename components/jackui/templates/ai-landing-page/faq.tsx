@@ -47,10 +47,10 @@ export function FAQ({
     <section id="faq" className="bg-background py-24 font-sans">
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
         <div className="text-center">
-          <h2 className="text-3xl font-extrabold tracking-tight text-zinc-950 sm:text-4xl dark:text-zinc-50">
+          <h2 className="text-3xl font-extrabold tracking-tight text-zinc-950 sm:text-4xl">
             {title}
           </h2>
-          <p className="mt-4 text-base text-zinc-600 dark:text-zinc-400">
+          <p className="mt-4 text-base text-zinc-600">
             {subtitle}
           </p>
         </div>
@@ -61,11 +61,11 @@ export function FAQ({
             return (
               <div
                 key={faq.question}
-                className="overflow-hidden rounded-2xl border border-zinc-200/50 bg-white dark:border-zinc-800/50 dark:bg-zinc-900/30"
+                className="overflow-hidden rounded-2xl border border-zinc-200/50 bg-white"
               >
                 <button
                   onClick={() => toggleFaq(index)}
-                  className="flex w-full items-center justify-between p-6 text-left font-semibold text-zinc-900 hover:text-[#A855F7] dark:text-zinc-50 dark:hover:text-[#A855F7]"
+                  className="flex w-full items-center justify-between p-6 text-left font-semibold text-zinc-900 hover:text-[#A855F7]"
                   aria-expanded={isOpen}
                 >
                   <span>{faq.question}</span>
@@ -83,7 +83,7 @@ export function FAQ({
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.3, ease: "easeInOut" }}
                     >
-                      <div className="border-t border-zinc-100 p-6 text-sm text-zinc-600 leading-relaxed dark:border-zinc-800 dark:text-zinc-400">
+                      <div className="border-t border-zinc-100 p-6 text-sm text-zinc-600 leading-relaxed">
                         {faq.answer}
                       </div>
                     </motion.div>
@@ -97,3 +97,4 @@ export function FAQ({
     </section>
   );
 }
+
