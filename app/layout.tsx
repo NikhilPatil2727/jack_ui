@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Figtree, Outfit, Instrument_Serif} from "next/font/google";
+import { Geist, Geist_Mono, Figtree, Outfit, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 import { ViewTransitions } from "next-view-transitions";
 import { cn } from "@/lib/utils";

@@ -4,14 +4,7 @@ import React, { useState, useEffect } from "react";
 import { motion, useReducedMotion, LayoutGroup, AnimatePresence } from "framer-motion";
 import {
   ArrowRight,
-  Check,
-  Workflow,
-  Brain,
-  Zap,
-  Sparkles,
-  Send,
-  Database,
-  Activity
+  Check
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { featureImg } from "./image-data";
@@ -37,18 +30,16 @@ export interface FeaturesProps {
 // CARD 1: Workflow Builder Split Component
 // ==========================================
 function WorkflowBuilderSplit() {
-  const shouldReduceMotion = useReducedMotion();
-
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 p-8 sm:p-10 items-center h-full w-full">
       {/* Left Panel: Text & Checklist */}
       <div className="lg:col-span-5 flex flex-col justify-center h-full space-y-6">
 
         <div>
-          <h3 className="text-2xl sm:text-3xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 leading-tight">
+          <h3 className="text-2xl sm:text-3xl font-semibold tracking-tight text-zinc-900 leading-tight">
             Autonomous Workflows
           </h3>
-          <p className="mt-3.5 text-zinc-500 dark:text-zinc-400 font-medium tracking-tight text-[15px] sm:text-[16px] leading-relaxed">
+          <p className="mt-3.5 text-zinc-500 font-medium tracking-tight text-[15px] sm:text-[16px] leading-relaxed">
             Construct, deploy, and monitor complex automated pipelines inside a clean, visual editor. Connect your API nodes in minutes with zero friction.
           </p>
         </div>
@@ -60,8 +51,8 @@ function WorkflowBuilderSplit() {
             "Real-time event logging and debugging",
             "Universal third-party API webhooks",
           ].map((item, i) => (
-            <li key={i} className="flex items-center gap-3 text-zinc-600 dark:text-zinc-300 text-sm font-medium">
-              <span className="flex-shrink-0 flex items-center justify-center w-5 h-5 rounded-full bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-100 dark:border-emerald-900/30 text-emerald-600 dark:text-emerald-400">
+            <li key={i} className="flex items-center gap-3 text-zinc-600 text-sm font-medium">
+              <span className="flex-shrink-0 flex items-center justify-center w-5 h-5 rounded-full bg-emerald-50 border border-emerald-100 text-emerald-600">
                 <Check className="h-3 w-3" strokeWidth={3} />
               </span>
               <span>{item}</span>
@@ -74,7 +65,7 @@ function WorkflowBuilderSplit() {
       <div className="lg:col-span-7 relative w-full h-full flex items-center justify-center">
         <div className="relative w-full rounded-[20px] p-[2px] group">
           {/* Default Subtle Border */}
-          <div className="absolute inset-0 rounded-[20px] border border-zinc-200/40 dark:border-zinc-800/40 transition-opacity duration-500 group-hover:opacity-0 z-0"></div>
+          <div className="absolute inset-0 rounded-[20px] border border-zinc-200/40 transition-opacity duration-500 group-hover:opacity-0 z-0"></div>
 
           {/* Solid Pink Gradient Border (Fades in on hover) */}
           <div className="absolute inset-0 rounded-[20px] bg-gradient-to-r from-pink-400 via-fuchsia-400 to-pink-400 opacity-0 group-hover:opacity-50 transition-opacity duration-500 z-0"></div>
@@ -84,7 +75,7 @@ function WorkflowBuilderSplit() {
           <div className="absolute -inset-[2px] rounded-[20px] bg-gradient-to-tr from-fuchsia-350 to-pink-400 blur-xl opacity-0 group-hover:opacity-20 transition-opacity duration-1000 animate-pulse z-0"></div>
 
           {/* The Image Container */}
-          <div className="relative w-full rounded-[18px] overflow-hidden bg-white dark:bg-[#0a0a0a] z-10 shadow-lg group/img">
+          <div className="relative w-full rounded-[18px] overflow-hidden bg-white z-10 shadow-lg group/img">
             <img
               src={featureImg}
               alt="Feature Showcase"
@@ -119,7 +110,7 @@ function WorkflowBuilderSplit() {
               className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-[1200ms] translate-y-full group-hover:translate-y-[-100%] pointer-events-none z-30"
             />
 
-            <div className="absolute inset-0 ring-1 ring-inset ring-black/5 dark:ring-white/30 rounded-[18px] pointer-events-none z-40"></div>
+            <div className="absolute inset-0 ring-1 ring-inset ring-black/5 rounded-[18px] pointer-events-none z-40"></div>
           </div>
         </div>
       </div>
@@ -130,7 +121,6 @@ function WorkflowBuilderSplit() {
 // ==========================================
 // CARD 2: Rules Engine Node Component
 // ==========================================
-// Custom Bespoke Geometric Icons (Strict Square Edges)
 const GeoSquare = () => (
   <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
     <rect x="2.5" y="2.5" width="9" height="9" stroke="currentColor" strokeWidth="1.5" />
@@ -175,11 +165,11 @@ function AIDecisionConsole() {
   }, [rules.length]);
 
   return (
-    <div className="group flex flex-col h-full w-full p-6 sm:p-8 justify-between space-y-6 relative overflow-hidden bg-white dark:bg-[#050505] transition-colors duration-500">
+    <div className="group flex flex-col h-full w-full p-6 sm:p-8 justify-between space-y-6 relative overflow-hidden bg-white transition-colors duration-500">
 
       {/* Header Block */}
       <div className="space-y-2 relative z-20">
-        <h3 className="text-xl font-medium tracking-tight text-zinc-900 dark:text-zinc-100">
+        <h3 className="text-xl font-medium tracking-tight text-zinc-900">
           Rules Engine
         </h3>
         <p className="text-sm text-zinc-500 font-medium leading-relaxed tracking-tight max-w-[220px]">
@@ -188,7 +178,7 @@ function AIDecisionConsole() {
       </div>
 
       {/* Interactive Environment - Strict Square Brutalist Aesthetic */}
-      <div className="relative flex-1 w-full bg-[#0a0a0a] border border-zinc-200 dark:border-[#222] p-4 sm:p-5 flex flex-col z-10 shadow-inner overflow-hidden font-mono">
+      <div className="relative flex-1 w-full bg-[#0a0a0a] border border-zinc-200 p-4 sm:p-5 flex flex-col z-10 shadow-inner overflow-hidden font-mono">
 
         {/* Subtle internal animated glow */}
         <motion.div
@@ -238,7 +228,7 @@ function AIDecisionConsole() {
               <path d="M 12 0 L 12 71 L 24 71" fill="none" className="stroke-zinc-800" strokeWidth="1.5" strokeLinejoin="miter" />
               <path d="M 12 0 L 12 121 L 24 121" fill="none" className="stroke-zinc-800" strokeWidth="1.5" strokeLinejoin="miter" />
 
-              {/* Animated active path (Core drawn line) */}
+              {/* Animated active path */}
               {!shouldReduceMotion && (
                 <motion.path
                   d={
@@ -257,7 +247,7 @@ function AIDecisionConsole() {
                 />
               )}
 
-              {/* Flowing Smoke / Energy Beam Effect */}
+              {/* Flowing Smoke Effect */}
               {!shouldReduceMotion && (
                 <motion.path
                   d={
@@ -277,7 +267,7 @@ function AIDecisionConsole() {
             </svg>
           </div>
 
-          {/* Rules List demonstrating layout animations and spring physics */}
+          {/* Rules List */}
           <LayoutGroup>
             <div className="flex-1 flex flex-col gap-2 z-20">
               {rules.map((rule, idx) => {
@@ -434,8 +424,6 @@ function OrchestrationPipeline() {
             transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
             className="relative transition-transform duration-500 group-hover:scale-[1.02]"
           >
-            {/* SVG Drawing Layer - Existing SVG Unchanged except color adaptions for dark mode */}
-            {/* SVG Drawing Layer - Existing SVG Unchanged except color adaptions for dark mode */}
             <svg className="w-full max-w-[420px] h-[140px] z-10 overflow-visible" viewBox="0 0 400 140">
               <defs>
                 <linearGradient id="smoke-grad-1" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -479,18 +467,16 @@ function OrchestrationPipeline() {
                 </filter>
               </defs>
 
-              {/* Connector Paths (Background Lines) */}
+              {/* Connector Paths */}
               <path d="M 50 70 L 150 70" className="stroke-zinc-800/80" strokeWidth="2.5" fill="none" />
               <path d="M 210 70 C 250 70, 250 35, 290 35" className="stroke-zinc-800/80" strokeWidth="2.5" fill="none" />
               <path d="M 210 70 C 250 70, 250 105, 290 105" className="stroke-zinc-800/80" strokeWidth="2.5" fill="none" />
 
               {/* Masked Sweeping Energy - Pulse 1 */}
               <g mask="url(#sweep-mask-1)">
-                {/* Smoke Trails */}
                 <path d="M 50 70 L 150 70" stroke="url(#smoke-grad-1)" strokeWidth="7" strokeLinecap="round" fill="none" filter="url(#smoke-blur)" />
                 <path d="M 210 70 C 250 70, 250 35, 290 35" stroke="url(#smoke-grad-2)" strokeWidth="7" strokeLinecap="round" fill="none" filter="url(#smoke-blur)" />
                 <path d="M 210 70 C 250 70, 250 105, 290 105" stroke="url(#smoke-grad-3)" strokeWidth="7" strokeLinecap="round" fill="none" filter="url(#smoke-blur)" />
-                {/* Sharp Cores */}
                 <path d="M 50 70 L 150 70" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" fill="none" />
                 <path d="M 210 70 C 250 70, 250 35, 290 35" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" fill="none" />
                 <path d="M 210 70 C 250 70, 250 105, 290 105" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" fill="none" />
@@ -498,11 +484,9 @@ function OrchestrationPipeline() {
 
               {/* Masked Sweeping Energy - Pulse 2 */}
               <g mask="url(#sweep-mask-2)">
-                {/* Smoke Trails */}
                 <path d="M 50 70 L 150 70" stroke="url(#smoke-grad-1)" strokeWidth="7" strokeLinecap="round" fill="none" filter="url(#smoke-blur)" />
                 <path d="M 210 70 C 250 70, 250 35, 290 35" stroke="url(#smoke-grad-2)" strokeWidth="7" strokeLinecap="round" fill="none" filter="url(#smoke-blur)" />
                 <path d="M 210 70 C 250 70, 250 105, 290 105" stroke="url(#smoke-grad-3)" strokeWidth="7" strokeLinecap="round" fill="none" filter="url(#smoke-blur)" />
-                {/* Sharp Cores */}
                 <path d="M 50 70 L 150 70" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" fill="none" />
                 <path d="M 210 70 C 250 70, 250 35, 290 35" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" fill="none" />
                 <path d="M 210 70 C 250 70, 250 105, 290 105" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" fill="none" />
@@ -570,7 +554,6 @@ function OrchestrationPipeline() {
 // MAIN FEATURES COMPONENT
 // ==========================================
 export function Features({
-
   title = "Unlock the potential of your team\nwith smart automation.",
   subtitle = "Streamline your processes, connect your data, and optimize performance\nacross your entire organization.",
   features,
@@ -583,21 +566,21 @@ export function Features({
       id: "f1",
       title: "",
       description: "",
-      className: "md:col-span-3 bg-white/70 dark:bg-zinc-900/50 border border-zinc-200/80 dark:border-white/40 p-0 overflow-hidden",
+      className: "md:col-span-3 bg-white/70 border border-zinc-200/80 p-0 overflow-hidden",
       visual: <WorkflowBuilderSplit />
     },
     {
       id: "f2",
       title: "",
       description: "",
-      className: "md:col-span-1 bg-white/70 dark:bg-zinc-900/50 border border-zinc-200/80 dark:border-white/40 p-0 overflow-hidden",
+      className: "md:col-span-1 bg-white/70 border border-zinc-200/80 p-0 overflow-hidden",
       visual: <AIDecisionConsole />
     },
     {
       id: "f3",
       title: "",
       description: "",
-      className: "md:col-span-2 bg-white/70 dark:bg-zinc-900/50 border border-zinc-200/80 dark:border-white/40 p-0 overflow-hidden",
+      className: "md:col-span-2 bg-white/70 border border-zinc-200/80 p-0 overflow-hidden",
       visual: <OrchestrationPipeline />
     }
   ];
@@ -605,24 +588,10 @@ export function Features({
   const items = features || defaultFeatures;
 
   return (
-    <section id="features" className="py-24 sm:py-32 font-sans bg-transparent dark:bg-black relative overflow-hidden">
-      {/* Custom keyframes for premium inner cosmic smoke hover effect */}
+    <section id="features" className="py-24 sm:py-32 font-sans bg-transparent relative overflow-hidden">
       <style>{`
-        @keyframes jack-inner-smoke-clockwise {
-          0% { transform: rotate(0deg) scale(1); }
-          50% { transform: rotate(180deg) scale(1.06); }
-          100% { transform: rotate(360deg) scale(1); }
-        }
-        @keyframes jack-inner-smoke-counter {
-          0% { transform: rotate(360deg) scale(1.04); }
-          50% { transform: rotate(180deg) scale(0.96); }
-          100% { transform: rotate(0deg) scale(1.04); }
-        }
         :root {
           --grid-color: rgba(24, 24, 27, 0.06);
-        }
-        .dark {
-          --grid-color: rgba(255, 255, 255, 0.15);
         }
       `}</style>
 
@@ -644,7 +613,7 @@ export function Features({
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-4xl font-semibold tracking-tighter text-zinc-900 sm:text-5xl md:text-[3.5rem] dark:text-zinc-50 leading-[1.05]"
+            className="text-4xl font-semibold tracking-tighter text-zinc-900 sm:text-5xl md:text-[3.5rem] leading-[1.05]"
           >
             {title.split('\n').map((line, i) => (
               <React.Fragment key={i}>
@@ -658,7 +627,7 @@ export function Features({
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="mt-6 text-[17px] text-zinc-500 sm:text-[19px] max-w-[640px] leading-relaxed dark:text-zinc-400 tracking-tight font-medium"
+            className="mt-6 text-[17px] text-zinc-500 sm:text-[19px] max-w-[640px] leading-relaxed tracking-tight font-medium"
           >
             {subtitle.split('\n').map((line, i) => (
               <React.Fragment key={i}>
@@ -679,21 +648,21 @@ export function Features({
               viewport={{ once: true }}
               transition={{ duration: 0.7, delay: index * 0.1, ease: [0.21, 0.47, 0.32, 0.98] }}
               className={cn(
-                "group relative flex flex-col justify-start overflow-hidden rounded-[2rem] bg-white/70 dark:bg-zinc-900/50 backdrop-blur-xl border border-zinc-200/80 dark:border-white/40 shadow-[0_8px_30px_rgb(0,0,0,0.02)] transition-all duration-500 hover:shadow-[0_12px_40px_rgb(0,0,0,0.06)]",
+                "group relative flex flex-col justify-start overflow-hidden rounded-[2rem] bg-white/70 backdrop-blur-xl border border-zinc-200/80 shadow-[0_8px_30px_rgb(0,0,0,0.02)] transition-all duration-500 hover:shadow-[0_12px_40px_rgb(0,0,0,0.06)]",
                 feature.className
               )}
             >
               {/* Inner subtle glare */}
-              <div className="absolute inset-0 rounded-[2rem] shadow-[inset_0_1px_1px_rgba(255,255,255,1)] dark:shadow-[inset_0_1px_2px_rgba(255,255,255,0.4)] pointer-events-none z-20" />
+              <div className="absolute inset-0 rounded-[2rem] shadow-[inset_0_1px_1px_rgba(255,255,255,1)] pointer-events-none z-20" />
 
-              {/* Content (Title & Description overlays if passed custom) */}
+              {/* Content */}
               {(feature.title || feature.description) && (
                 <div className="relative z-30 p-8 sm:p-10 flex flex-col h-full justify-start max-w-[380px] pointer-events-none">
                   <div>
-                    <h3 className="text-[22px] font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 pointer-events-auto">
+                    <h3 className="text-[22px] font-semibold tracking-tight text-zinc-900 pointer-events-auto">
                       {feature.title}
                     </h3>
-                    <p className="mt-3 text-[16px] text-zinc-500 leading-relaxed dark:text-zinc-400 font-medium tracking-tight pointer-events-auto">
+                    <p className="mt-3 text-[16px] text-zinc-500 leading-relaxed font-medium tracking-tight pointer-events-auto">
                       {feature.description}
                     </p>
                   </div>
@@ -720,7 +689,7 @@ export function Features({
         >
           <button
             onClick={onCtaClick}
-            className="group relative flex items-center gap-2 transition-all duration-300 text-white px-6 py-3 rounded-full text-sm font-semibold hover:scale-105 border border-[#0f0f0f] bg-gradient-to-b from-[#2d2d2d] to-[#171717] hover:from-[#363636] hover:to-[#202020] dark:border-[#2d2d2d] dark:from-[#1f1f1f] dark:to-[#0f0f0f] dark:hover:from-[#2e2e2e] dark:hover:to-[#171717] shadow-[inset_0_1px_1px_rgba(255,255,255,0.5),0_4px_12px_rgba(0,0,0,0.3)] cursor-pointer"
+            className="group relative flex items-center gap-2 transition-all duration-300 text-white px-6 py-3 rounded-full text-sm font-semibold hover:scale-105 border border-[#0f0f0f] bg-gradient-to-b from-[#2d2d2d] to-[#171717] hover:from-[#363636] hover:to-[#202020] shadow-[inset_0_1px_1px_rgba(255,255,255,0.5),0_4px_12px_rgba(0,0,0,0.3)] cursor-pointer"
           >
             <span className="tracking-wide">{ctaText}</span>
             <span className="flex items-center justify-center w-5 h-5 rounded-full bg-white/10 group-hover:bg-white/20 transition-colors shadow-[inset_0_1px_1px_rgba(255,255,255,0.4)]">
@@ -732,3 +701,4 @@ export function Features({
     </section>
   );
 }
+
