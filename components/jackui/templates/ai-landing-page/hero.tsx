@@ -69,6 +69,7 @@ export function Hero({
   return (
     <>
       <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Lastik&display=swap');
         @keyframes drift {
           0% { transform: translate(0, 0) scale(1); }
           33% { transform: translate(30px, -50px) scale(1.05); }
@@ -116,10 +117,8 @@ export function Hero({
             variants={titleContainerVariants}
             initial="hidden"
             animate="visible"
-            className={cn(
-              schibstedFont.className,
-              "text-center mb-8 text-white text-4xl sm:text-5xl md:text-6xl lg:text-[4.5rem] tracking-tighter leading-[1.05] max-w-4xl drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]"
-            )}
+            style={{ fontFamily: "'Lastik', serif" }}
+            className="text-center mb-8 pb-20 text-white text-4xl sm:text-5xl md:text-6xl lg:text-[4.5rem] tracking-tight leading-[1.05] max-w-4xl drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)] font-normal"
           >
             {titleLines.map((line, lineIdx) => (
               <React.Fragment key={lineIdx}>
