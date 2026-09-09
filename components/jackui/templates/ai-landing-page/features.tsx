@@ -70,56 +70,27 @@ function WorkflowBuilderSplit() {
         </ul>
       </div>
 
-      {/* Right Panel: Showcase Image with Smoke Border GLows */}
+      {/* Right Panel: Showcase Image with Glowing Pink Border */}
       <div className="lg:col-span-7 relative w-full h-full flex items-center justify-center">
         <div className="relative w-full rounded-[20px] p-[2px] group">
-          {/* Default Subtle Border */}
-          <div className="absolute inset-0 rounded-[20px] border border-zinc-200/40 transition-opacity duration-500 group-hover:opacity-0 z-0"></div>
+          {/* Default Border */}
+          <div className="absolute inset-0 rounded-[20px] border border-zinc-200/60 transition-opacity duration-300 group-hover:opacity-0 z-0"></div>
 
-          {/* Solid Pink Gradient Border (Fades in on hover) */}
-          <div className="absolute inset-0 rounded-[20px] bg-gradient-to-r from-pink-400 via-fuchsia-400 to-pink-400 opacity-0 group-hover:opacity-50 transition-opacity duration-500 z-0"></div>
+          {/* Glowing Pink Border (Fades in on hover) */}
+          <div className="absolute inset-0 rounded-[20px] bg-gradient-to-r from-pink-400 via-pink-300 to-pink-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0"></div>
 
-          {/* Glowing Pink Smoke Outer Blurs (Only on hover) */}
-          <div className="absolute -inset-[1px] rounded-[20px] bg-gradient-to-r from-pink-400 via-fuchsia-400 to-pink-400 blur-md opacity-0 group-hover:opacity-30 transition-opacity duration-700 z-0"></div>
-          <div className="absolute -inset-[2px] rounded-[20px] bg-gradient-to-tr from-fuchsia-350 to-pink-400 blur-xl opacity-0 group-hover:opacity-20 transition-opacity duration-1000 animate-pulse z-0"></div>
+          {/* Soft Glowing Pink Outer Glow */}
+          <div className="absolute -inset-[2px] rounded-[20px] bg-pink-400/40 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0"></div>
+          <div className="absolute -inset-[4px] rounded-[20px] bg-pink-300/25 blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0"></div>
 
           {/* The Image Container */}
-          <div className="relative w-full rounded-[18px] overflow-hidden bg-white z-10 shadow-lg group/img">
+          <div className="relative w-full rounded-[18px] overflow-hidden bg-white z-10 shadow-lg">
             <img
               src={featureImg}
               alt="Feature Showcase"
-              className="relative z-0 w-full h-auto transition-all duration-700 ease-in-out group-hover:scale-[1.01] group-hover:grayscale group-hover:contrast-[1.6] group-hover:blur-[1px]"
+              className="relative z-0 w-full h-auto"
             />
-
-            {/* DUOTONE EFFECT: Multiply Layer (Maps Whites/Highlights to Light Cream/White) */}
-            <div className="absolute inset-0 bg-[#fdfbf7] mix-blend-multiply opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-10"></div>
-
-            {/* DUOTONE EFFECT: Screen Layer (Maps Blacks/Shadows to Faded Blush Pink) */}
-            <div className="absolute inset-0 bg-[#f472b6] mix-blend-screen opacity-0 group-hover:opacity-[0.95] transition-opacity duration-700 pointer-events-none z-10"></div>
-
-            {/* HALFTONE / DITHER TEXTURE: Heavy Pixelated Grain */}
-            <div
-              className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-20 mix-blend-overlay"
-              style={{
-                backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%221.5%22 numOctaves=%221%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E")',
-              }}
-            />
-
-            {/* HALFTONE / DITHER TEXTURE: Dot-pattern noise (breaks out smooth gradients) */}
-            <div
-              className="absolute inset-0 opacity-0 group-hover:opacity-60 transition-opacity duration-700 pointer-events-none z-20 mix-blend-hard-light"
-              style={{
-                backgroundImage: 'radial-gradient(circle, #888 1px, transparent 1.5px)',
-                backgroundSize: '4px 4px'
-              }}
-            />
-
-            {/* Premium Moving Glass Highlight / Shimmer sweep on hover */}
-            <div
-              className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-[1200ms] translate-y-full group-hover:translate-y-[-100%] pointer-events-none z-30"
-            />
-
-            <div className="absolute inset-0 ring-1 ring-inset ring-black/5 rounded-[18px] pointer-events-none z-40"></div>
+            <div className="absolute inset-0 ring-1 ring-inset ring-black/5 rounded-[18px] pointer-events-none z-20"></div>
           </div>
         </div>
       </div>
