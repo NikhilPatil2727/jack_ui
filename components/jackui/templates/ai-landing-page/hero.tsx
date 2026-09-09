@@ -56,10 +56,10 @@ export function Hero({
         }
       `}</style>
 
-      <div className="relative w-full min-h-[98vh] overflow-hidden bg-transparent flex flex-col font-sans">
+      <div className="relative w-full min-h-[98vh] rounded-b-[32px] overflow-hidden bg-transparent flex flex-col font-sans">
 
         {/* Background Mesh Gradients, Background Image & Ribbon */}
-        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+        <div className="absolute inset-0 z-0 rounded-b-[32px] overflow-hidden pointer-events-none">
           {/* Hero Background Image */}
           {heroImageSrc && (
             <div className="absolute inset-0 z-0 flex items-center justify-center">
