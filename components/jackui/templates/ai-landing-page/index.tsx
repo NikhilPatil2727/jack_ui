@@ -4,7 +4,6 @@ import React from "react";
 import { Navbar, type NavbarProps } from "./navbar";
 import { Hero, type HeroProps } from "./hero";
 import { Features, type FeaturesProps } from "./features";
-import { Showcase, type ShowcaseProps } from "./showcase";
 import { Pricing, type PricingProps } from "./pricing";
 import { Testimonials, type TestimonialsProps } from "./testimonials";
 import { FAQ, type FaqProps } from "./faq";
@@ -16,7 +15,6 @@ export {
   Navbar,
   Hero,
   Features,
-  Showcase,
   Pricing,
   Testimonials,
   FAQ,
@@ -28,7 +26,6 @@ export interface AILandingPageProps {
   navbarProps?: NavbarProps;
   heroProps?: HeroProps;
   featuresProps?: FeaturesProps;
-  showcaseProps?: ShowcaseProps;
   pricingProps?: PricingProps;
   testimonialsProps?: TestimonialsProps;
   faqProps?: FaqProps;
@@ -45,7 +42,6 @@ export default function AILandingPage({
   navbarProps,
   heroProps,
   featuresProps,
-  showcaseProps,
   pricingProps,
   testimonialsProps,
   faqProps,
@@ -64,7 +60,6 @@ export default function AILandingPage({
         {!previewMode && (
           <>
             <Features {...featuresProps} />
-            <Showcase {...showcaseProps} />
             <Pricing {...pricingProps} />
             <Testimonials {...testimonialsProps} />
             <FAQ {...faqProps} />
