@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
+import { motion, Variants } from "motion/react";
 import { Workflow, Database, BarChart3, Zap, MoreHorizontal } from "lucide-react";
 import { Schibsted_Grotesk } from "next/font/google";
 import { cn } from "@/lib/utils";
@@ -11,6 +11,30 @@ import { Navbar } from "./navbar";
 const schibstedFont = Schibsted_Grotesk({
   subsets: ["latin"],
 });
+
+const titleContainerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.08,
+      delayChildren: 0.1,
+    },
+  },
+};
+
+const titleWordVariants: Variants = {
+  hidden: { opacity: 0, y: 18, filter: "blur(4px)" },
+  visible: {
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: {
+      duration: 0.45,
+      ease: [0.2, 0.65, 0.3, 0.9] as const,
+    },
+  },
+};
 
 export interface HeroProps {
   badgeText?: string;
@@ -39,6 +63,9 @@ export function Hero({
   heroImageSrc = "https://ik.imagekit.io/7k3exsyaa/heroSection.png",
   heroImageAlt = "AI Workspace Dashboard Preview",
 }: HeroProps) {
+  const fullTitle = `${titlePart1} ${titlePart2}`;
+  const titleLines = fullTitle.split("\n");
+
   return (
     <>
       <style>{`
@@ -84,25 +111,28 @@ export function Hero({
         {/* Main Hero Content */}
         <div className="relative z-10 flex-1 flex flex-col items-center justify-center px-4 mt-4 sm:mt-6 mb-4">
 
-
-
-          {/* Headline */}
+          {/* Headline with Word-by-Word Reveal */}
           <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
+            variants={titleContainerVariants}
+            initial="hidden"
+            animate="visible"
             className={cn(
               schibstedFont.className,
               "text-center mb-8 text-white text-4xl sm:text-5xl md:text-6xl lg:text-[4.5rem] tracking-tighter leading-[1.05] max-w-4xl drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]"
             )}
           >
-            {titlePart1}{" "}
-            {titlePart2.split('\n').map((line, i) => (
-              <React.Fragment key={i}>
-                <span className="inline-block text-white pr-3 pb-2 -mr-3">
-                  {line}
-                </span>
-                {i === 0 && <br />}
+            {titleLines.map((line, lineIdx) => (
+              <React.Fragment key={lineIdx}>
+                {lineIdx > 0 && <br />}
+                {line.split(" ").map((word, wordIdx) => (
+                  <motion.span
+                    key={`${lineIdx}-${wordIdx}`}
+                    variants={titleWordVariants}
+                    className="inline-block mr-[0.25em] text-white"
+                  >
+                    {word}
+                  </motion.span>
+                ))}
               </React.Fragment>
             ))}
           </motion.h1>
