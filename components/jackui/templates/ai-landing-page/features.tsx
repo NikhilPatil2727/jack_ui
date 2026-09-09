@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 import { motion, useReducedMotion, LayoutGroup, AnimatePresence } from "motion/react";
 import { Instrument_Sans } from "next/font/google";
 import {
@@ -12,7 +13,6 @@ import {
   Sliders
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { featureImg } from "./image-data";
 
 const instrumentSans = Instrument_Sans({
   subsets: ["latin"],
@@ -85,9 +85,11 @@ function WorkflowBuilderSplit() {
 
           {/* The Image Container */}
           <div className="relative w-full rounded-[18px] overflow-hidden bg-white z-10 shadow-lg">
-            <img
-              src={featureImg}
+            <Image
+              src="https://ik.imagekit.io/7k3exsyaa/Ai-landing-page01.png"
               alt="Feature Showcase"
+              width={1200}
+              height={800}
               className="relative z-0 w-full h-auto"
             />
             <div className="absolute inset-0 ring-1 ring-inset ring-black/5 rounded-[18px] pointer-events-none z-20"></div>
