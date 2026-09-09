@@ -110,7 +110,7 @@ export function Hero({
         <Navbar />
 
         {/* Main Hero Content */}
-        <div className="relative z-10 flex-1 flex flex-col items-center justify-center px-4 mt-4 sm:mt-6 mb-4">
+        <div className="relative z-10 flex-1 flex flex-col items-center justify-center px-4 pt-20 sm:pt-24 mb-4">
 
           {/* Headline with Word-by-Word Reveal */}
           <motion.h1
