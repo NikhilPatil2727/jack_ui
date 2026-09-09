@@ -70,18 +70,18 @@ function WorkflowBuilderSplit() {
         </ul>
       </div>
 
-      {/* Right Panel: Showcase Image with Glowing Pink Border */}
+      {/* Right Panel: Showcase Image with Glowing Violet Border */}
       <div className="lg:col-span-7 relative w-full h-full flex items-center justify-center">
         <div className="relative w-full rounded-[20px] p-[2px] group">
           {/* Default Border */}
           <div className="absolute inset-0 rounded-[20px] border border-zinc-200/60 transition-opacity duration-300 group-hover:opacity-0 z-0"></div>
 
-          {/* Glowing Pink Border (Fades in on hover) */}
-          <div className="absolute inset-0 rounded-[20px] bg-gradient-to-r from-pink-400 via-pink-300 to-pink-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0"></div>
+          {/* Glowing Violet Border (Fades in on hover) */}
+          <div className="absolute inset-0 rounded-[20px] bg-gradient-to-r from-violet-500 via-purple-400 to-violet-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0"></div>
 
-          {/* Soft Glowing Pink Outer Glow */}
-          <div className="absolute -inset-[2px] rounded-[20px] bg-pink-400/40 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0"></div>
-          <div className="absolute -inset-[4px] rounded-[20px] bg-pink-300/25 blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0"></div>
+          {/* Soft Glowing Violet Outer Glow */}
+          <div className="absolute -inset-[2px] rounded-[20px] bg-violet-500/40 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0"></div>
+          <div className="absolute -inset-[4px] rounded-[20px] bg-purple-400/30 blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0"></div>
 
           {/* The Image Container */}
           <div className="relative w-full rounded-[18px] overflow-hidden bg-white z-10 shadow-lg">

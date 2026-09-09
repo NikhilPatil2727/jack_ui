@@ -44,7 +44,7 @@ export function Navbar({
   }, []);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 flex justify-center pointer-events-none px-4 sm:px-6">
+    <header className="sticky top-0 z-50 flex justify-center pointer-events-none px-4 sm:px-6 w-full -mb-20 sm:-mb-24">
       <div
         className={cn(
           "pointer-events-auto relative z-50 flex items-center justify-between w-full transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",

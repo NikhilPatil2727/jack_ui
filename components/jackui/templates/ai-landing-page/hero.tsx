@@ -37,6 +37,7 @@ const titleWordVariants: Variants = {
 };
 
 export interface HeroProps {
+  hideNavbar?: boolean;
   badgeText?: string;
   titlePart1?: string;
   titlePart2?: string;
@@ -49,7 +50,7 @@ export interface HeroProps {
 }
 
 export function Hero({
-  // badgeText = "Automate your workflows with intelligent precision",
+  hideNavbar = false,
   titlePart1 = "Scale",
   titlePart2 = "automate\nwith intelligent logic.",
   chips = [
@@ -107,10 +108,10 @@ export function Hero({
         </div>
 
         {/* Navbar */}
-        <Navbar />
+        {!hideNavbar && <Navbar />}
 
         {/* Main Hero Content */}
-        <div className="relative z-10 flex-1 flex flex-col items-center justify-center px-4 pt-20 sm:pt-24 mb-4">
+        <div className="relative z-10 flex-1 flex flex-col items-center justify-center px-4 pt-24 sm:pt-28 mb-4">
 
           {/* Headline with Word-by-Word Reveal */}
           <motion.h1
