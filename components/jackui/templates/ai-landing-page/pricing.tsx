@@ -208,8 +208,7 @@ export function Pricing({
               <div
                 key={plan.name || index}
                 className={cn(
-                  "relative flex flex-col justify-between rounded-[24px] bg-white border p-5 sm:p-6 transition-all duration-300 shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:shadow-[0_6px_20px_rgba(0,0,0,0.06)]",
-                  plan.isPopular ? "border-violet-500/50 ring-1 ring-violet-500/20" : "border-zinc-200/90"
+                  "relative flex flex-col justify-between rounded-[20px] bg-white border border-neutral-900/15 outline outline-1 outline-neutral-900/10 outline-offset-[5px] p-5 sm:p-6 transition-all duration-300 shadow-[0_1px_3px_rgba(0,0,0,0.03)]"
                 )}
               >
                 {/* Most Popular Floating Badge */}
