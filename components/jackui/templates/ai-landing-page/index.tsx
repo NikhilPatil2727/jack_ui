@@ -59,8 +59,9 @@ export default function AILandingPage({
         {!previewMode && (
           <>
             <Features {...featuresProps} />
-            <Pricing {...pricingProps} />
             <Testimonials {...testimonialsProps} />
+            <Pricing {...pricingProps} />
+
             <FAQ {...faqProps} />
             <CTA {...ctaProps} />
             <Footer {...footerProps} />
