@@ -4,6 +4,8 @@ import React, { useState, useEffect, useRef, useCallback, forwardRef } from "rea
 import { cn } from "@/lib/utils";
 import { motion } from "motion/react";
 
+import { ShaderGradient, ShaderGradientCanvas } from "@shadergradient/react";
+
 export interface TerminalMockupProps extends React.HTMLAttributes<HTMLDivElement> {
   autoPlay?: boolean;
   loop?: boolean;
@@ -143,37 +145,73 @@ const TerminalMockup = forwardRef<HTMLDivElement, TerminalMockupProps>(
         {/* Mockup Outer Container with Fluid Grainy Mesh Gradient */}
         <div
           className={cn(
-            "mockup-bg-container relative w-full overflow-hidden p-8 md:p-16",
-            "border border-zinc-800/20 shadow-2xl transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] bg-[#a7f3d0]" // Base mint green
+            "mockup-bg-container relative w-full overflow-hidden p-8 md:p-16 rounded-2xl",
+            "border border-zinc-800/20 shadow-2xl transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] isolate"
           )}
         >
-          {/* Animated Mesh Gradient Blobs */}
-          <div className="absolute inset-0 overflow-hidden pointer-events-none z-0 saturate-150">
-            {/* Top Left Cream/Yellow Blob */}
-            <div 
-              className="absolute -top-[10%] -left-[10%] w-[70%] h-[70%] bg-[#fef08a] rounded-full blur-[80px] mix-blend-normal animate-[pulseBlob_18s_ease-in-out_infinite_alternate]"
-              style={{ transform: "translate3d(0, 0, 0)" }}
-            />
-            {/* Center Right Peach/Orange Blob */}
-            <div 
-              className="absolute top-[10%] -right-[20%] w-[80%] h-[80%] bg-[#fdba74] rounded-full blur-[100px] mix-blend-normal animate-[pulseBlob_25s_ease-in-out_infinite_alternate-reverse]"
-              style={{ transform: "translate3d(0, 0, 0)" }}
-            />
-            {/* Bottom Right Soft Orange Blob */}
-            <div 
-              className="absolute -bottom-[20%] right-[10%] w-[60%] h-[60%] bg-[#fbd38d] rounded-full blur-[90px] mix-blend-normal animate-[pulseBlob_22s_ease-in-out_infinite_alternate]"
-              style={{ transform: "translate3d(0, 0, 0)" }}
-            />
-            {/* Bottom Left Mint Blob */}
-            <div 
-              className="absolute -bottom-[10%] -left-[20%] w-[70%] h-[70%] bg-[#6ee7b7] rounded-full blur-[100px] mix-blend-normal animate-[pulseBlob_20s_ease-in-out_infinite_alternate-reverse]"
-              style={{ transform: "translate3d(0, 0, 0)" }}
-            />
+          {/* 3D ShaderGradient Background Canvas */}
+          <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+            {mounted && (
+              <ShaderGradientCanvas
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  width: "100%",
+                  height: "100%",
+                  pointerEvents: "none",
+                }}
+              >
+                <ShaderGradient
+                  animate="off"
+                  brightness={1.2}
+                  cAzimuthAngle={180}
+                  cDistance={1.3}
+                  cPolarAngle={90}
+                  cameraZoom={1}
+                  color1="#ff5005"
+                  color2="#dbba95"
+                  color3="#d0bce1"
+                  envPreset="city"
+                  grain="on"
+                  lightType="3d"
+                  positionX={-1.4}
+                  positionY={0}
+                  positionZ={0}
+                  range="disabled"
+                  rangeEnd={40}
+                  rangeStart={0}
+                  reflection={0.1}
+                  rotationX={0}
+                  rotationY={10}
+                  rotationZ={50}
+                  shader="defaults"
+                  type="plane"
+                  uAmplitude={1}
+                  uDensity={1.3}
+                  uFrequency={5.5}
+                  uSpeed={0.4}
+                  uStrength={4}
+                  uTime={0}
+                  wireframe={false}
+                  {...({
+                    axesHelper: "off",
+                    destination: "onCanvas",
+                    embedMode: "off",
+                    format: "gif",
+                    fov: 45,
+                    frameRate: 10,
+                    gizmoHelper: "hide",
+                    pixelDensity: 1,
+                  } as any)}
+                />
+              </ShaderGradientCanvas>
+            )}
           </div>
 
-          {/* Heavy Film Grain Noise Layer for texture (like the image) */}
+          {/* Heavy Film Grain Noise Layer for texture */}
           <div
-            className="absolute inset-0 pointer-events-none opacity-[0.6] mix-blend-overlay z-0"
+            className="absolute inset-0 pointer-events-none opacity-[0.6] mix-blend-overlay z-1"
             style={{
               backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
             }}
@@ -186,7 +224,7 @@ const TerminalMockup = forwardRef<HTMLDivElement, TerminalMockupProps>(
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
             className={cn(
-              "relative z-10 w-full overflow-hidden backdrop-blur-md transition-all duration-500 ease-out",
+              "relative z-10 w-full overflow-hidden backdrop-blur-md transition-all duration-500 ease-out rounded-lg",
               // Premium metallic gradient border
               "bg-gradient-to-b from-zinc-700/40 via-zinc-900/40 to-black p-[1px]",
               // Sleek, heavy shadow
@@ -210,7 +248,7 @@ const TerminalMockup = forwardRef<HTMLDivElement, TerminalMockupProps>(
 
             {/* Terminal Inner Console Frame */}
             <div className="relative w-full bg-[#09090b]/96 overflow-hidden">
-              
+
               {/* Header Title Bar */}
               <div className="relative flex items-center justify-between px-5 py-4 bg-[#050505]/92 border-b border-zinc-800/60 z-25">
                 {/* macOS window controls */}
@@ -278,7 +316,8 @@ const TerminalMockup = forwardRef<HTMLDivElement, TerminalMockupProps>(
         </div>
 
         {/* Global style keyframes for micro-interactions */}
-        <style dangerouslySetInnerHTML={{ __html: `
+        <style dangerouslySetInnerHTML={{
+          __html: `
           @keyframes grainNoise {
             0%, 100% { transform:translate(0, 0) }
             10% { transform:translate(-1%, -1%) }
