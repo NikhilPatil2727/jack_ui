@@ -1,13 +1,22 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { motion, useReducedMotion, LayoutGroup, AnimatePresence } from "framer-motion";
+import Image from "next/image";
+import { motion, useReducedMotion, LayoutGroup, AnimatePresence } from "motion/react";
+import { Instrument_Sans } from "next/font/google";
 import {
   ArrowRight,
-  Check
+  Check,
+  Zap,
+  ShieldCheck,
+  GitBranch,
+  Sliders
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { featureImg } from "./image-data";
+
+const instrumentSans = Instrument_Sans({
+  subsets: ["latin"],
+});
 
 export interface FeatureItem {
   id?: string;
@@ -31,7 +40,7 @@ export interface FeaturesProps {
 // ==========================================
 function WorkflowBuilderSplit() {
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 p-8 sm:p-10 items-center h-full w-full">
+    <div className={cn(instrumentSans.className, "grid grid-cols-1 lg:grid-cols-12 gap-8 p-8 sm:p-10 items-center h-full w-full")}>
       {/* Left Panel: Text & Checklist */}
       <div className="lg:col-span-5 flex flex-col justify-center h-full space-y-6">
 
@@ -61,56 +70,26 @@ function WorkflowBuilderSplit() {
         </ul>
       </div>
 
-      {/* Right Panel: Showcase Image with Smoke Border GLows */}
+      {/* Right Panel: Showcase Image with Soft Violet Smoke Glow */}
       <div className="lg:col-span-7 relative w-full h-full flex items-center justify-center">
-        <div className="relative w-full rounded-[20px] p-[2px] group">
-          {/* Default Subtle Border */}
-          <div className="absolute inset-0 rounded-[20px] border border-zinc-200/40 transition-opacity duration-500 group-hover:opacity-0 z-0"></div>
+        <div className="relative w-full rounded-[20px] group">
+          {/* Soft Glowing Violet Outer Smoke Blur (Only on hover) */}
+          <div className="absolute -inset-[2px] rounded-[20px] bg-violet-500/35 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0"></div>
+          <div className="absolute -inset-[4px] rounded-[20px] bg-purple-500/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 z-0"></div>
 
-          {/* Solid Pink Gradient Border (Fades in on hover) */}
-          <div className="absolute inset-0 rounded-[20px] bg-gradient-to-r from-pink-400 via-fuchsia-400 to-pink-400 opacity-0 group-hover:opacity-50 transition-opacity duration-500 z-0"></div>
-
-          {/* Glowing Pink Smoke Outer Blurs (Only on hover) */}
-          <div className="absolute -inset-[1px] rounded-[20px] bg-gradient-to-r from-pink-400 via-fuchsia-400 to-pink-400 blur-md opacity-0 group-hover:opacity-30 transition-opacity duration-700 z-0"></div>
-          <div className="absolute -inset-[2px] rounded-[20px] bg-gradient-to-tr from-fuchsia-350 to-pink-400 blur-xl opacity-0 group-hover:opacity-20 transition-opacity duration-1000 animate-pulse z-0"></div>
+          {/* Neutral Border Line */}
+          <div className="absolute inset-0 rounded-[20px] border border-zinc-200/80 transition-colors duration-500 group-hover:border-zinc-300 z-0"></div>
 
           {/* The Image Container */}
-          <div className="relative w-full rounded-[18px] overflow-hidden bg-white z-10 shadow-lg group/img">
-            <img
-              src={featureImg}
+          <div className="relative w-full rounded-[18px] overflow-hidden bg-white z-10 shadow-lg">
+            <Image
+              src="https://ik.imagekit.io/7k3exsyaa/Ai-landing-page01.png"
               alt="Feature Showcase"
-              className="relative z-0 w-full h-auto transition-all duration-700 ease-in-out group-hover:scale-[1.01] group-hover:grayscale group-hover:contrast-[1.6] group-hover:blur-[1px]"
+              width={1200}
+              height={800}
+              className="relative z-0 w-full h-auto"
             />
-
-            {/* DUOTONE EFFECT: Multiply Layer (Maps Whites/Highlights to Light Cream/White) */}
-            <div className="absolute inset-0 bg-[#fdfbf7] mix-blend-multiply opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-10"></div>
-            
-            {/* DUOTONE EFFECT: Screen Layer (Maps Blacks/Shadows to Faded Blush Pink) */}
-            <div className="absolute inset-0 bg-[#f472b6] mix-blend-screen opacity-0 group-hover:opacity-[0.95] transition-opacity duration-700 pointer-events-none z-10"></div>
-
-            {/* HALFTONE / DITHER TEXTURE: Heavy Pixelated Grain */}
-            <div 
-              className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-20 mix-blend-overlay"
-              style={{
-                backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%221.5%22 numOctaves=%221%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E")',
-              }}
-            />
-
-            {/* HALFTONE / DITHER TEXTURE: Dot-pattern noise (breaks out smooth gradients) */}
-            <div 
-              className="absolute inset-0 opacity-0 group-hover:opacity-60 transition-opacity duration-700 pointer-events-none z-20 mix-blend-hard-light"
-              style={{
-                backgroundImage: 'radial-gradient(circle, #888 1px, transparent 1.5px)',
-                backgroundSize: '4px 4px'
-              }}
-            />
-
-            {/* Premium Moving Glass Highlight / Shimmer sweep on hover */}
-            <div
-              className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-[1200ms] translate-y-full group-hover:translate-y-[-100%] pointer-events-none z-30"
-            />
-
-            <div className="absolute inset-0 ring-1 ring-inset ring-black/5 rounded-[18px] pointer-events-none z-40"></div>
+            <div className="absolute inset-0 ring-1 ring-inset ring-black/5 rounded-[18px] pointer-events-none z-20"></div>
           </div>
         </div>
       </div>
@@ -148,179 +127,113 @@ interface Rule {
 }
 
 function AIDecisionConsole() {
-  const shouldReduceMotion = useReducedMotion();
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const rules: Rule[] = [
-    { id: "r1", label: "type == 'payment'", action: "Ledger DB", icon: <GeoSquare />, color: "text-blue-400" },
-    { id: "r2", label: "fraud_score > 90", action: "Flag Account", icon: <GeoTriangle />, color: "text-rose-400" },
-    { id: "r3", label: "default_fallback", action: "Log Event", icon: <GeoCircle />, color: "text-zinc-400" },
+  const rules = [
+    {
+      id: "r1",
+      condition: "IF amount > $500",
+      action: "Route to VIP Queue",
+      tag: "Priority",
+      icon: <Zap className="h-3.5 w-3.5 text-amber-500" />,
+      color: "bg-amber-50 border-amber-200/60 text-amber-700",
+      activeBg: "bg-gradient-to-r from-amber-50/90 via-white to-amber-50/30 border-amber-300/80 shadow-xs",
+    },
+    {
+      id: "r2",
+      condition: "IF plan == 'enterprise'",
+      action: "Assign Dedicated Agent",
+      tag: "Routing",
+      icon: <GitBranch className="h-3.5 w-3.5 text-blue-500" />,
+      color: "bg-blue-50 border-blue-200/60 text-blue-700",
+      activeBg: "bg-gradient-to-r from-blue-50/90 via-white to-blue-50/30 border-blue-300/80 shadow-xs",
+    },
+    {
+      id: "r3",
+      condition: "IF fraud_score > 85",
+      action: "Require 2FA Verification",
+      tag: "Security",
+      icon: <ShieldCheck className="h-3.5 w-3.5 text-rose-500" />,
+      color: "bg-rose-50 border-rose-200/60 text-rose-700",
+      activeBg: "bg-gradient-to-r from-rose-50/90 via-white to-rose-50/30 border-rose-300/80 shadow-xs",
+    },
   ];
 
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveIndex((prev) => (prev + 1) % rules.length);
-    }, 4000);
+    }, 3200);
     return () => clearInterval(interval);
   }, [rules.length]);
 
   return (
-    <div className="group flex flex-col h-full w-full p-6 sm:p-8 justify-between space-y-6 relative overflow-hidden bg-white transition-colors duration-500">
-
+    <div className={cn(instrumentSans.className, "group flex flex-col h-full w-full p-6 sm:p-8 justify-between space-y-6 relative overflow-hidden bg-white transition-colors duration-500")}>
       {/* Header Block */}
       <div className="space-y-2 relative z-20">
-        <h3 className="text-xl font-medium tracking-tight text-zinc-900">
-          Rules Engine
-        </h3>
-        <p className="text-sm text-zinc-500 font-medium leading-relaxed tracking-tight max-w-[220px]">
+        <div className="flex items-center justify-between">
+          <h3 className="text-xl font-semibold tracking-tight text-zinc-900">
+            Rules Engine
+          </h3>
+
+        </div>
+        <p className="text-sm text-zinc-500 font-medium leading-relaxed tracking-tight max-w-[240px]">
           Evaluate payloads against logical conditions in real-time.
         </p>
       </div>
 
-      {/* Interactive Environment - Strict Square Brutalist Aesthetic */}
-      <div className="relative flex-1 w-full bg-[#0a0a0a] border border-zinc-200 p-4 sm:p-5 flex flex-col z-10 shadow-inner overflow-hidden font-mono">
-
-        {/* Subtle internal animated glow */}
-        <motion.div
-          className="absolute inset-0 pointer-events-none opacity-30"
-          animate={shouldReduceMotion ? {} : { background: ["radial-gradient(circle at 0% 0%, rgba(255,255,255,0.08) 0%, transparent 60%)", "radial-gradient(circle at 100% 100%, rgba(255,255,255,0.08) 0%, transparent 60%)", "radial-gradient(circle at 0% 0%, rgba(255,255,255,0.08) 0%, transparent 60%)"] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-        />
-
-        {/* Incoming Payload Box */}
-        <div className="relative bg-[#111] border border-white/5 p-3 z-20 shadow-md">
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-xs text-zinc-500">{"// payload.json"}</span>
-          </div>
-          <div className="text-[11px] text-zinc-400 leading-relaxed">
-            <span className="text-purple-400">{"{"}</span><br />
-            &nbsp;&nbsp;<span className="text-blue-400">"type"</span>: <span className="text-amber-300">"payment"</span>,<br />
-            &nbsp;&nbsp;<span className="text-blue-400">"score"</span>: <span className="text-amber-300">{activeIndex === 1 ? '95' : '12'}</span><br />
-            <span className="text-purple-400">{"}"}</span>
-          </div>
-        </div>
-
-        {/* Layout with Tree SVG on Left, Rules on Right */}
-        <div className="flex-1 flex mt-4 relative">
-
-          {/* SVG Line Drawing (Tree) */}
-          <div className="w-[24px] flex-shrink-0 relative">
-            <svg width="24" height="150" className="absolute inset-0 overflow-visible">
-              <defs>
-                <linearGradient id="smoke-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                  <stop offset="0%" stopColor="transparent" />
-                  <stop offset="60%" stopColor="rgba(255,255,255,0.2)" />
-                  <stop offset="100%" stopColor="white" />
-                </linearGradient>
-                <mask id="smoke-mask">
-                  <motion.rect
-                    x="-10" y="-150"
-                    width="44" height="150"
-                    fill="url(#smoke-gradient)"
-                    animate={{ y: [0, 300] }}
-                    transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
-                  />
-                </mask>
-              </defs>
-
-              {/* Base faint tracks */}
-              <path d="M 12 0 L 12 21 L 24 21" fill="none" className="stroke-zinc-800" strokeWidth="1.5" strokeLinejoin="miter" />
-              <path d="M 12 0 L 12 71 L 24 71" fill="none" className="stroke-zinc-800" strokeWidth="1.5" strokeLinejoin="miter" />
-              <path d="M 12 0 L 12 121 L 24 121" fill="none" className="stroke-zinc-800" strokeWidth="1.5" strokeLinejoin="miter" />
-
-              {/* Animated active path */}
-              {!shouldReduceMotion && (
-                <motion.path
-                  d={
-                    activeIndex === 0 ? "M 12 0 L 12 21 L 24 21" :
-                      activeIndex === 1 ? "M 12 0 L 12 71 L 24 71" :
-                        "M 12 0 L 12 121 L 24 121"
-                  }
-                  fill="none"
-                  className="stroke-zinc-500"
-                  strokeWidth="1.5"
-                  strokeLinejoin="miter"
-                  initial={{ pathLength: 0 }}
-                  animate={{ pathLength: 1 }}
-                  transition={{ duration: 0.5, ease: "easeOut" }}
-                  key={`tree-core-${activeIndex}`}
-                />
+      {/* Rules Interactive Panel */}
+      <div className="relative flex-1 w-full bg-zinc-50/70 border border-zinc-200/80 rounded-2xl p-3.5 flex flex-col justify-between space-y-2.5 z-10 shadow-inner">
+        {rules.map((rule, idx) => {
+          const isActive = activeIndex === idx;
+          return (
+            <motion.div
+              key={rule.id}
+              onClick={() => setActiveIndex(idx)}
+              animate={{
+                scale: isActive ? 1 : 0.98,
+                opacity: isActive ? 1 : 0.65,
+              }}
+              transition={{ type: "spring", stiffness: 350, damping: 25 }}
+              className={cn(
+                "p-3 rounded-xl border transition-all duration-300 cursor-pointer flex flex-col space-y-1.5 shadow-xs",
+                isActive ? rule.activeBg : "bg-white border-zinc-200/60 hover:border-zinc-300"
               )}
+            >
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <div className="p-1 rounded-md bg-white border border-zinc-200/80 shadow-2xs">
+                    {rule.icon}
+                  </div>
+                  <span className="text-xs font-semibold text-zinc-800 font-mono">
+                    {rule.condition}
+                  </span>
+                </div>
 
-              {/* Flowing Smoke Effect */}
-              {!shouldReduceMotion && (
-                <motion.path
-                  d={
-                    activeIndex === 0 ? "M 12 0 L 12 21 L 24 21" :
-                      activeIndex === 1 ? "M 12 0 L 12 71 L 24 71" :
-                        "M 12 0 L 12 121 L 24 121"
-                  }
-                  fill="none"
-                  className="stroke-white"
-                  strokeWidth="2"
-                  strokeLinejoin="miter"
-                  filter="blur(1px)"
-                  mask="url(#smoke-mask)"
-                  key={`tree-smoke-${activeIndex}`}
-                />
-              )}
-            </svg>
-          </div>
-
-          {/* Rules List */}
-          <LayoutGroup>
-            <div className="flex-1 flex flex-col gap-2 z-20">
-              {rules.map((rule, idx) => {
-                const isActive = activeIndex === idx;
-                return (
+                {/* Toggle Switch */}
+                <div
+                  className={cn(
+                    "w-7 h-4 rounded-full p-0.5 transition-colors duration-300 flex items-center",
+                    isActive ? "bg-zinc-900 justify-end" : "bg-zinc-200 justify-start"
+                  )}
+                >
                   <motion.div
                     layout
-                    key={rule.id}
-                    initial={false}
-                    animate={{
-                      opacity: isActive ? 1 : 0.5,
-                      scale: isActive ? 1 : 0.98
-                    }}
-                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                    className={cn(
-                      "flex items-center justify-between p-2.5 h-[42px] border overflow-hidden transition-colors duration-500",
-                      isActive
-                        ? "bg-white/5 border-white/10"
-                        : "bg-transparent border-transparent"
-                    )}
-                  >
-                    <div className="flex items-center gap-3">
-                      <div className={cn("p-1 bg-[#111] border border-white/5 transition-colors duration-500", rule.color)}>
-                        {rule.icon}
-                      </div>
-                      <span className="text-[11px] text-zinc-300 tracking-tight transition-colors duration-500">
-                        {rule.label}
-                      </span>
-                    </div>
+                    className="w-3 h-3 rounded-full bg-white shadow-xs"
+                  />
+                </div>
+              </div>
 
-                    <AnimatePresence mode="popLayout">
-                      {isActive && (
-                        <motion.div
-                          layout
-                          initial={{ opacity: 0, x: -10, filter: "blur(4px)" }}
-                          animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
-                          exit={{ opacity: 0, x: 10, filter: "blur(4px)" }}
-                          transition={{ type: "spring", stiffness: 400, damping: 30, delay: 0.1 }}
-                          className="bg-white/10 px-2 py-1 border border-white/10 shadow-none"
-                        >
-                          <span className="text-[9px] uppercase font-bold tracking-wider text-zinc-100">
-                            {rule.action}
-                          </span>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </motion.div>
-                )
-              })}
-            </div>
-          </LayoutGroup>
-
-        </div>
+              <div className="flex items-center justify-between pt-0.5">
+                <span className="text-[12px] font-medium text-zinc-600">
+                  {rule.action}
+                </span>
+                <span className={cn("text-[10px] font-medium px-2 py-0.5 rounded-md border", rule.color)}>
+                  {rule.tag}
+                </span>
+              </div>
+            </motion.div>
+          );
+        })}
       </div>
     </div>
   );
@@ -333,7 +246,7 @@ function OrchestrationPipeline() {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <div className="group flex flex-col h-full w-full p-6 sm:p-8 justify-between space-y-6 relative overflow-hidden bg-[#050505] transition-all duration-500">
+    <div className={cn(instrumentSans.className, "group flex flex-col h-full w-full p-6 sm:p-8 justify-between space-y-6 relative overflow-hidden bg-[#050505] transition-all duration-500")}>
 
       {/* Background Dots Pattern */}
       <div
@@ -566,21 +479,21 @@ export function Features({
       id: "f1",
       title: "",
       description: "",
-      className: "md:col-span-3 bg-white/70 border border-zinc-200/80 p-0 overflow-hidden",
+      className: "md:col-span-3",
       visual: <WorkflowBuilderSplit />
     },
     {
       id: "f2",
       title: "",
       description: "",
-      className: "md:col-span-1 bg-white/70 border border-zinc-200/80 p-0 overflow-hidden",
+      className: "md:col-span-1",
       visual: <AIDecisionConsole />
     },
     {
       id: "f3",
       title: "",
       description: "",
-      className: "md:col-span-2 bg-white/70 border border-zinc-200/80 p-0 overflow-hidden",
+      className: "md:col-span-2",
       visual: <OrchestrationPipeline />
     }
   ];
@@ -590,18 +503,8 @@ export function Features({
   return (
     <section id="features" className="py-24 sm:py-32 font-sans bg-transparent relative overflow-hidden">
       <style>{`
-        :root {
-          --grid-color: rgba(24, 24, 27, 0.06);
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Lastik&display=swap');
       `}</style>
-
-      {/* Premium Grid Background */}
-      <div
-        className="absolute inset-0 bg-[size:1.5rem_1.5rem] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,#000_80%,transparent_100%)] opacity-100 z-0"
-        style={{
-          backgroundImage: "linear-gradient(to right, var(--grid-color) 1px, transparent 1px), linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px)"
-        }}
-      />
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
 
@@ -613,7 +516,8 @@ export function Features({
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-4xl font-semibold tracking-tighter text-zinc-900 sm:text-5xl md:text-[3.5rem] leading-[1.05]"
+            style={{ fontFamily: "'Lastik', serif" }}
+            className="text-3xl sm:text-[44px] font-normal tracking-tight text-zinc-900 leading-[1.15]"
           >
             {title.split('\n').map((line, i) => (
               <React.Fragment key={i}>
@@ -639,7 +543,7 @@ export function Features({
         </div>
 
         {/* Bento Grid */}
-        <div className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+        <div className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
           {items.map((feature, index) => (
             <motion.div
               key={feature.id || index}
@@ -648,33 +552,36 @@ export function Features({
               viewport={{ once: true }}
               transition={{ duration: 0.7, delay: index * 0.1, ease: [0.21, 0.47, 0.32, 0.98] }}
               className={cn(
-                "group relative flex flex-col justify-start overflow-hidden rounded-[2rem] bg-white/70 backdrop-blur-xl border border-zinc-200/80 shadow-[0_8px_30px_rgb(0,0,0,0.02)] transition-all duration-500 hover:shadow-[0_12px_40px_rgb(0,0,0,0.06)]",
+                instrumentSans.className,
+                "group relative flex flex-col justify-start rounded-[24px] border border-zinc-200/80 bg-neutral-100 p-1 sm:p-1.5 transition-all duration-500 hover:border-zinc-300/90 shadow-[0_2px_8px_rgba(0,0,0,0.02)]",
                 feature.className
               )}
             >
-              {/* Inner subtle glare */}
-              <div className="absolute inset-0 rounded-[2rem] shadow-[inset_0_1px_1px_rgba(255,255,255,1)] pointer-events-none z-20" />
-
-              {/* Content */}
-              {(feature.title || feature.description) && (
-                <div className="relative z-30 p-8 sm:p-10 flex flex-col h-full justify-start max-w-[380px] pointer-events-none">
-                  <div>
-                    <h3 className="text-[22px] font-semibold tracking-tight text-zinc-900 pointer-events-auto">
-                      {feature.title}
-                    </h3>
-                    <p className="mt-3 text-[16px] text-zinc-500 leading-relaxed font-medium tracking-tight pointer-events-auto">
-                      {feature.description}
-                    </p>
+              {/* Inner White Card Container */}
+              <div
+                className="relative z-10 w-full h-full flex flex-col justify-start overflow-hidden rounded-[18px] bg-white border border-zinc-200/90 shadow-[0_1px_4px_rgba(0,0,0,0.02)] transition-all duration-500 group-hover:shadow-[0_4px_16px_rgba(0,0,0,0.04)]"
+              >
+                {/* Content */}
+                {(feature.title || feature.description) && (
+                  <div className="relative z-30 p-8 sm:p-10 flex flex-col h-full justify-start max-w-[380px] pointer-events-none">
+                    <div>
+                      <h3 className="text-[22px] font-semibold tracking-tight text-zinc-900 pointer-events-auto">
+                        {feature.title}
+                      </h3>
+                      <p className="mt-3 text-[16px] text-zinc-500 leading-relaxed font-medium tracking-tight pointer-events-auto">
+                        {feature.description}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              )}
+                )}
 
-              {/* Visual Element */}
-              {feature.visual && (
-                <div className={cn("z-10 h-full w-full", (feature.title || feature.description) ? "absolute inset-0" : "relative w-full")}>
-                  {feature.visual}
-                </div>
-              )}
+                {/* Visual Element */}
+                {feature.visual && (
+                  <div className={cn("z-10 h-full w-full", (feature.title || feature.description) ? "absolute inset-0" : "relative w-full")}>
+                    {feature.visual}
+                  </div>
+                )}
+              </div>
             </motion.div>
           ))}
         </div>

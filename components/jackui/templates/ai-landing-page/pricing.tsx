@@ -1,19 +1,26 @@
 "use client";
 
-import React from "react";
-import { motion } from "framer-motion";
-import { CheckCircle2, Sparkles, ArrowUpRight } from "lucide-react";
+import React, { useState } from "react";
+import { Check } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export interface PricingFeature {
   name: string;
-  included: boolean;
+  included?: boolean;
 }
 
 export interface PricingPlan {
   name: string;
   price: string;
+  monthlyPrice?: string;
+  annualPrice?: string;
+  originalPrice?: string;
+  period?: string;
   description: string;
-  features: PricingFeature[];
+  subDescription?: string;
+  highlightText?: string;
+  discountBadge?: string;
+  features: (string | PricingFeature)[];
   isPopular?: boolean;
   ctaText: string;
   onCtaClick?: () => void;
@@ -28,183 +35,284 @@ export interface PricingProps {
 
 export function Pricing({
   badge = "Pricing",
-  title = "Simple, Transparent Pricing",
-  subtitle = "Choose the right plan for your team.\nScale your workflow without hidden fees.",
-  plans = [
-    {
-      name: "Basic",
-      price: "Free",
-      description: "For individuals exploring intelligent automation and basic workflows.",
-      ctaText: "Start for Free",
-      features: [
-        { name: "100 Automation runs/month", included: true },
-        { name: "Core productivity tools", included: true },
-        { name: "Standard integrations", included: true },
-        { name: "Community support", included: true },
-        { name: "1 user seat", included: true },
-      ],
-    },
-    {
-      name: "Premium",
-      price: "$49",
-      description: "Advanced workflow automation, premium integrations, and priority support.",
-      isPopular: true,
-      ctaText: "Upgrade to Premium",
-      features: [
-        { name: "Unlimited Automation runs", included: true },
-        { name: "Custom API & Webhooks", included: true },
-        { name: "Advanced analytics dashboard", included: true },
-        { name: "Priority 24/7 support", included: true },
-        { name: "Up to 10 user seats", included: true },
-        { name: "Audit logs & history", included: true },
-        { name: "Team collaboration tools", included: true },
-      ],
-    },
-  ],
+  title = "Beautiful captions,\nsimple pricing",
+  subtitle = "Start free with welcome credits. Paid\nplans work out to about 37¢ a video.",
+  plans,
 }: PricingProps) {
-  return (
-    <section id="pricing" className="w-full flex justify-center py-20 px-4 sm:px-6 font-sans">
-      {/* Outer Container */}
-      <div className="w-full max-w-[1100px] bg-white rounded-[32px] pt-[64px] px-[20px] sm:px-[40px] md:px-[80px] pb-[80px] shadow-sm border border-zinc-100 flex flex-col items-center transition-colors duration-300">
+  const [billingCycle, setBillingCycle] = useState<"monthly" | "annual">("annual");
 
-        {/* Header Block */}
+  const defaultPlans: PricingPlan[] = [
+    {
+      name: "Free",
+      price: "$0",
+      monthlyPrice: "$0",
+      annualPrice: "$0",
+      period: "forever",
+      description: "Try it out, no card needed",
+      subDescription: "No card needed",
+      highlightText: "200 welcome credits",
+      ctaText: "Start free",
+      features: [
+        "1080p export",
+        "Up to 3 projects",
+        "1 min per video",
+        "300 MB per upload",
+        "500 MB storage",
+        "Curated templates",
+        "Motion elements",
+        "Selected caption styles & effects",
+        "99+ languages",
+      ],
+    },
+    {
+      name: "Creator",
+      price: "$5.56",
+      monthlyPrice: "$7.42",
+      annualPrice: "$5.56",
+      originalPrice: "$7.42",
+      period: "/mo + tax",
+      description: "For creators who post regularly",
+      discountBadge: "Extra 25% off first year",
+      subDescription: "$66.74 now, then $88.99",
+      highlightText: "2,500 credits/month",
+      isPopular: true,
+      ctaText: "Claim 25% off",
+      features: [
+        "2K export",
+        "Unlimited projects",
+        "5 min per video",
+        "500 MB per upload",
+        "10 GB storage",
+        "Curated templates + variations",
+        "Motion elements",
+        "All caption styles & effects",
+        "Custom font uploads",
+        "99+ languages",
+        "Credit rollover",
+        "SRT / subtitle export",
+      ],
+    },
+    {
+      name: "Studio",
+      price: "$12.37",
+      monthlyPrice: "$16.50",
+      annualPrice: "$12.37",
+      originalPrice: "$16.50",
+      period: "/mo + tax",
+      description: "For power users & teams",
+      discountBadge: "Extra 25% off first year",
+      subDescription: "$148.49 now, then $197.99",
+      highlightText: "8,000 credits/month",
+      ctaText: "Claim 25% off",
+      features: [
+        "4K export",
+        "Unlimited projects",
+        "10 min per video",
+        "750 MB per upload",
+        "30 GB storage",
+        "Curated templates + variations",
+        "Motion elements",
+        "All caption styles & effects",
+        "Custom font uploads",
+        "99+ languages",
+        "Credit rollover",
+        "SRT / subtitle export",
+        "Priority support",
+      ],
+    },
+  ];
+
+  const displayPlans = plans || defaultPlans;
+
+  return (
+    <section id="pricing" className="w-full flex justify-center py-20 px-4 sm:px-6 lg:px-8 font-sans bg-transparent">
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Lastik&display=swap');
+      `}</style>
+      <div className="w-full max-w-5xl flex flex-col items-center">
+
+        {/* Section Header */}
         <div className="flex flex-col items-center text-center">
           {badge && (
-            <div className="mb-6 inline-flex rounded-full border border-purple-200 bg-purple-50 px-4 py-1.5 text-[13px] font-semibold text-purple-700 shadow-sm">
+            <div className="mb-4 inline-flex items-center rounded-full border border-zinc-200 bg-zinc-100/80 px-3 py-1 text-xs font-medium text-zinc-600 shadow-2xs">
               {badge}
             </div>
           )}
-          <h2 className="text-[36px] sm:text-[42px] font-medium text-zinc-900 tracking-tight leading-[1.15] max-w-2xl">
-            {title}
-          </h2>
-          <p className="mt-5 text-[15px] text-zinc-500 leading-[1.6] max-w-[650px]">
-            {subtitle.split('\n').map((line, i) => (
+          <h2
+            style={{ fontFamily: "'Lastik', serif" }}
+            className="text-3xl sm:text-5xl font-normal tracking-tight text-zinc-900 leading-[1.15] max-w-2xl"
+          >
+            {title.split("\n").map((line, i) => (
               <React.Fragment key={i}>
                 {line}
                 {i === 0 && <br className="hidden sm:block" />}
               </React.Fragment>
             ))}
-          </p>
-        </div>
+          </h2>
+          {subtitle && (
+            <p className="mt-4 text-sm sm:text-base text-zinc-500 max-w-md leading-relaxed font-normal">
+              {subtitle.split("\n").map((line, i) => (
+                <React.Fragment key={i}>
+                  {line}
+                  {i === 0 && <br className="hidden sm:block" />}
+                </React.Fragment>
+              ))}
+            </p>
+          )}
 
-        {/* Cards Layout */}
-        <div className="flex flex-col md:flex-row items-center justify-center mt-12 w-full max-w-[900px]">
-
-          {/* Starter Card (Left) */}
-          {plans[0] && (
-            <motion.div
-              whileHover={{ y: -4 }}
-              transition={{ duration: 0.3 }}
-              className="w-full md:w-[400px] bg-white border border-zinc-200/80 rounded-[24px] p-[32px] shadow-[0_4px_20px_rgba(0,0,0,0.02)] z-10 md:mt-8 flex flex-col animate-fade-in transition-colors duration-300"
-            >
-              <h3 className="text-[24px] font-medium text-zinc-900">
-                {plans[0].name}
-              </h3>
-              <div className="mt-4 text-[44px] font-bold text-zinc-900 tracking-tight leading-none">
-                {plans[0].price}
-              </div>
-              <p className="mt-3 text-[14px] text-zinc-500 leading-relaxed min-h-[42px]">
-                {plans[0].description}
-              </p>
-
+          {/* Billing Toggle */}
+          <div className="mt-8 flex items-center justify-center gap-3">
+            <div className="inline-flex items-center rounded-full bg-zinc-100 p-1 border border-zinc-200/80 shadow-2xs">
               <button
-                onClick={plans[0].onCtaClick}
-                className="group mt-8 flex w-full h-[48px] items-center justify-center gap-2 rounded-full border border-purple-400 bg-white px-5 text-[15px] font-semibold text-zinc-800 transition-all hover:bg-purple-50 hover:scale-[1.02] shadow-sm"
+                onClick={() => setBillingCycle("monthly")}
+                className={cn(
+                  "px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 cursor-pointer",
+                  billingCycle === "monthly"
+                    ? "bg-black text-white shadow-xs"
+                    : "text-zinc-600 hover:text-zinc-900"
+                )}
               >
-                <span>{plans[0].ctaText}</span>
-                <span className="flex items-center justify-center w-6 h-6 rounded-full border border-purple-300 bg-purple-50 text-purple-600 transition-colors">
-                  <ArrowUpRight className="h-3 w-3" />
-                </span>
+                Monthly
               </button>
+              <button
+                onClick={() => setBillingCycle("annual")}
+                className={cn(
+                  "px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 cursor-pointer",
+                  billingCycle === "annual"
+                    ? "bg-black text-white shadow-xs"
+                    : "text-zinc-600 hover:text-zinc-900"
+                )}
+              >
+                Annual
+              </button>
+            </div>
 
-              <div className="mt-10 h-px w-full bg-zinc-100" />
-
-              <ul className="mt-8 space-y-4">
-                {plans[0].features.map((feature, i) => (
-                  <motion.li
-                    initial={{ opacity: 0, x: -10 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.1 + i * 0.05 }}
-                    key={feature.name}
-                    className="flex items-start gap-3"
-                  >
-                    <CheckCircle2 className="h-[18px] w-[18px] text-purple-500 shrink-0 mt-0.5" strokeWidth={2.5} />
-                    <span className="text-[15px] text-zinc-700">{feature.name}</span>
-                  </motion.li>
-                ))}
-              </ul>
-            </motion.div>
-          )}
-
-          {/* Pro Card (Right, Overlapping) */}
-          {plans[1] && (
-            <motion.div
-              whileHover={{ y: -4 }}
-              transition={{ duration: 0.3 }}
-              className="w-full md:w-[440px] rounded-[24px] shadow-[0_20px_50px_rgba(192,132,252,0.15)] z-20 md:-ml-6 md:-mt-12 mt-8 flex flex-col overflow-hidden border border-purple-200"
-            >
-              {/* Top Gradient Half */}
-              <div className="bg-gradient-to-br from-[#E9D5FF] to-[#C084FC] p-[32px] sm:p-[40px] pb-[40px] flex flex-col relative overflow-hidden">
-                {/* Decorative glows inside */}
-                <div className="absolute top-[-20%] right-[-10%] w-64 h-64 bg-white/40 rounded-full blur-[60px] pointer-events-none" />
-                <div className="absolute bottom-[-10%] left-[-10%] w-64 h-64 bg-[#FEF9C3]/35 rounded-full blur-[60px] pointer-events-none" />
-
-                <div className="flex items-center justify-between relative z-10">
-                  <h3 className="text-[28px] sm:text-[32px] font-medium text-zinc-900 tracking-tight">
-                    {plans[1].name}
-                  </h3>
-                  {plans[1].isPopular && (
-                    <span className="inline-flex items-center gap-1.5 rounded-full bg-white/80 border border-purple-300 px-3.5 py-1.5 text-[12px] font-semibold text-purple-800 shadow-sm">
-                      <Sparkles className="h-3.5 w-3.5 text-purple-600" />
-                      Popular
-                    </span>
-                  )}
-                </div>
-
-                <div className="mt-2 text-[56px] font-bold text-zinc-900 tracking-tight leading-none relative z-10">
-                  {plans[1].price}
-                </div>
-                <p className="mt-6 text-[14px] text-zinc-800/80 leading-relaxed max-w-[280px] relative z-10">
-                  {plans[1].description}
-                </p>
-
-                <button
-                  onClick={plans[1].onCtaClick}
-                  className="group mt-10 flex w-full h-[52px] items-center justify-between rounded-full bg-white pl-6 pr-2 py-2 text-[15px] font-semibold text-zinc-900 border border-purple-300 shadow-sm transition-all hover:scale-[1.02] hover:bg-purple-50 relative z-10"
-                >
-                  <span>{plans[1].ctaText}</span>
-                  <span className="flex items-center justify-center w-10 h-10 rounded-full border border-purple-300 bg-purple-50 text-purple-600 transition-colors">
-                    <ArrowUpRight className="h-4 w-4" strokeWidth={2.5} />
-                  </span>
-                </button>
-              </div>
-
-              {/* Bottom Light Half */}
-              <div className="bg-[#FFFDF5] p-[32px] flex-1 flex flex-col relative border-t border-purple-100">
-                {/* A subtle shadow overlapping the top half */}
-                <div className="absolute top-0 left-0 right-0 h-4 bg-gradient-to-b from-purple-500/[0.02] to-transparent pointer-events-none" />
-
-                <ul className="space-y-4">
-                  {plans[1].features.map((feature, i) => (
-                    <motion.li
-                      initial={{ opacity: 0, x: -10 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: 0.2 + i * 0.05 }}
-                      key={feature.name}
-                      className="flex items-start gap-3"
-                    >
-                      <CheckCircle2 className="h-[18px] w-[18px] text-purple-500 shrink-0 mt-0.5" strokeWidth={2.5} />
-                      <span className="text-[15px] text-zinc-700">{feature.name}</span>
-                    </motion.li>
-                  ))}
-                </ul>
-              </div>
-            </motion.div>
-          )}
-
+            {/* Discount Tag */}
+            <span className="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2.5 py-1 text-[11px] font-bold text-blue-600 border border-blue-200/60 shadow-2xs">
+              Save 18%
+            </span>
+          </div>
         </div>
+
+        {/* Pricing Cards Grid */}
+        <div className={cn(
+          "mt-16 grid w-full gap-4 sm:gap-5 lg:gap-6 items-stretch",
+          displayPlans.length === 2 ? "grid-cols-1 md:grid-cols-2 max-w-4xl" : "grid-cols-1 md:grid-cols-3"
+        )}>
+          {displayPlans.map((plan, index) => {
+            const activePrice = billingCycle === "annual"
+              ? (plan.annualPrice || plan.price)
+              : (plan.monthlyPrice || plan.price);
+
+            return (
+              <div
+                key={plan.name || index}
+                className={cn(
+                  "relative flex flex-col justify-between rounded-[20px] bg-white border border-neutral-900/15 outline outline-1 outline-neutral-900/10 outline-offset-[5px] p-5 sm:p-6 transition-all duration-300 shadow-[0_1px_3px_rgba(0,0,0,0.03)]"
+                )}
+              >
+                {/* Most Popular Floating Badge */}
+                {plan.isPopular && (
+                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 z-20">
+                    <span className="inline-flex items-center rounded-full bg-gradient-to-b from-violet-500 via-violet-600 to-violet-700 px-3.5 py-1 text-xs font-semibold text-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.4)] border border-violet-400/40">
+                      Most popular
+                    </span>
+                  </div>
+                )}
+
+                {/* Card Header & Content */}
+                <div>
+                  {/* Plan Name & Description */}
+                  <h3 className="text-xl font-semibold text-zinc-900 tracking-tight">
+                    {plan.name}
+                  </h3>
+                  <p className="mt-1 text-xs text-zinc-500 font-medium min-h-[18px]">
+                    {plan.description}
+                  </p>
+
+                  {/* Price Block */}
+                  <div className="mt-6 flex items-baseline flex-wrap gap-x-1.5">
+                    <span className="text-4xl sm:text-5xl font-bold tracking-tight text-zinc-900">
+                      {activePrice}
+                    </span>
+                    <span className="text-xs text-zinc-500 font-medium">
+                      {plan.period || (activePrice === "$0" ? "forever" : "/mo + tax")}
+                    </span>
+                    {billingCycle === "annual" && plan.originalPrice && (
+                      <span className="text-xs text-zinc-400 line-through font-medium ml-1">
+                        {plan.originalPrice}
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Optional Discount Badge */}
+                  {plan.discountBadge && (
+                    <div className="mt-2.5">
+                      <span className="inline-flex items-center rounded-full bg-violet-50 px-2.5 py-0.5 text-[11px] font-medium text-violet-600 border border-violet-100">
+                        {plan.discountBadge}
+                      </span>
+                    </div>
+                  )}
+
+                  {/* Sub-description line */}
+                  {plan.subDescription && (
+                    <p className="mt-1.5 text-[11px] text-zinc-400 font-medium">
+                      {plan.subDescription}
+                    </p>
+                  )}
+
+                  {/* Highlight text / Credits */}
+                  {plan.highlightText && (
+                    <div className="mt-4 pt-1">
+                      <span className="text-xs font-semibold text-zinc-800 border-b border-dashed border-zinc-400 pb-0.5">
+                        {plan.highlightText}
+                      </span>
+                    </div>
+                  )}
+
+                  {/* CTA Button */}
+                  <button
+                    onClick={plan.onCtaClick}
+                    className={cn(
+                      "mt-8 w-full py-3 rounded-full text-sm font-semibold transition-all duration-200 cursor-pointer hover:scale-[1.01] active:scale-[0.99]",
+                      plan.isPopular
+                        ? "bg-gradient-to-b from-violet-500 via-violet-600 to-violet-700 text-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.4),0_4px_14px_rgba(124,58,237,0.35)] border border-violet-400/40 hover:from-violet-600 hover:to-violet-800"
+                        : "bg-white hover:bg-zinc-50 text-zinc-900 border border-zinc-200/90"
+                    )}
+                  >
+                    {plan.ctaText}
+                  </button>
+
+                  {/* Horizontal Divider */}
+                  <div className="my-7 h-px w-full bg-zinc-100" />
+
+                  {/* Feature List */}
+                  <ul className="space-y-3">
+                    {plan.features.map((feature, i) => {
+                      const featureName = typeof feature === "string" ? feature : feature.name;
+                      const isIncluded = typeof feature === "string" ? true : feature.included !== false;
+
+                      return (
+                        <li key={i} className="flex items-center gap-3 text-xs sm:text-sm font-medium text-zinc-650">
+                          <div className={cn(
+                            "flex h-4 w-4 shrink-0 items-center justify-center rounded-full",
+                            isIncluded ? "bg-violet-50 text-violet-600" : "bg-zinc-100 text-zinc-400"
+                          )}>
+                            <Check className="h-2.5 w-2.5" strokeWidth={3} />
+                          </div>
+                          <span className={isIncluded ? "text-zinc-700" : "text-zinc-400 line-through"}>
+                            {featureName}
+                          </span>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
       </div>
     </section>
   );

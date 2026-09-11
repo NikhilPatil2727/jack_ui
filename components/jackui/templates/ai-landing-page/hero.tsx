@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
+import { motion, Variants } from "motion/react";
 import { Workflow, Database, BarChart3, Zap, MoreHorizontal } from "lucide-react";
 import { Schibsted_Grotesk } from "next/font/google";
 import { cn } from "@/lib/utils";
@@ -12,7 +12,32 @@ const schibstedFont = Schibsted_Grotesk({
   subsets: ["latin"],
 });
 
+const titleContainerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.08,
+      delayChildren: 0.1,
+    },
+  },
+};
+
+const titleWordVariants: Variants = {
+  hidden: { opacity: 0, y: 18, filter: "blur(4px)" },
+  visible: {
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: {
+      duration: 0.45,
+      ease: [0.2, 0.65, 0.3, 0.9] as const,
+    },
+  },
+};
+
 export interface HeroProps {
+  hideNavbar?: boolean;
   badgeText?: string;
   titlePart1?: string;
   titlePart2?: string;
@@ -25,7 +50,7 @@ export interface HeroProps {
 }
 
 export function Hero({
-  // badgeText = "Automate your workflows with intelligent precision",
+  hideNavbar = false,
   titlePart1 = "Scale",
   titlePart2 = "automate\nwith intelligent logic.",
   chips = [
@@ -39,9 +64,13 @@ export function Hero({
   heroImageSrc = "https://ik.imagekit.io/7k3exsyaa/heroSection.png",
   heroImageAlt = "AI Workspace Dashboard Preview",
 }: HeroProps) {
+  const fullTitle = `${titlePart1} ${titlePart2}`;
+  const titleLines = fullTitle.split("\n");
+
   return (
     <>
       <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Lastik&display=swap');
         @keyframes drift {
           0% { transform: translate(0, 0) scale(1); }
           33% { transform: translate(30px, -50px) scale(1.05); }
@@ -56,10 +85,10 @@ export function Hero({
         }
       `}</style>
 
-      <div className="relative w-full min-h-[98vh] overflow-hidden bg-transparent flex flex-col font-sans">
+      <div className="relative w-full min-h-[98vh] rounded-b-[32px] overflow-hidden bg-transparent flex flex-col font-sans">
 
         {/* Background Mesh Gradients, Background Image & Ribbon */}
-        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+        <div className="absolute inset-0 z-0 rounded-b-[32px] overflow-hidden pointer-events-none">
           {/* Hero Background Image */}
           {heroImageSrc && (
             <div className="absolute inset-0 z-0 flex items-center justify-center">
@@ -79,30 +108,31 @@ export function Hero({
         </div>
 
         {/* Navbar */}
-        <Navbar />
+        {!hideNavbar && <Navbar />}
 
         {/* Main Hero Content */}
-        <div className="relative z-10 flex-1 flex flex-col items-center justify-center px-4 mt-4 sm:mt-6 mb-4">
+        <div className="relative z-10 flex-1 flex flex-col items-center justify-center px-4 pt-24 sm:pt-28 mb-4">
 
-
-
-          {/* Headline */}
+          {/* Headline with Word-by-Word Reveal */}
           <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className={cn(
-              schibstedFont.className,
-              "text-center mb-8 text-white text-4xl sm:text-5xl md:text-6xl lg:text-[4.5rem] tracking-tighter leading-[1.05] max-w-4xl drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]"
-            )}
+            variants={titleContainerVariants}
+            initial="hidden"
+            animate="visible"
+            style={{ fontFamily: "'Lastik', serif" }}
+            className="text-center mb-8 pb-20 text-white text-4xl sm:text-5xl md:text-6xl lg:text-[4.5rem] tracking-tight leading-[1.05] max-w-4xl drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)] font-normal"
           >
-            {titlePart1}{" "}
-            {titlePart2.split('\n').map((line, i) => (
-              <React.Fragment key={i}>
-                <span className="inline-block text-white pr-3 pb-2 -mr-3">
-                  {line}
-                </span>
-                {i === 0 && <br />}
+            {titleLines.map((line, lineIdx) => (
+              <React.Fragment key={lineIdx}>
+                {lineIdx > 0 && <br />}
+                {line.split(" ").map((word, wordIdx) => (
+                  <motion.span
+                    key={`${lineIdx}-${wordIdx}`}
+                    variants={titleWordVariants}
+                    className="inline-block mr-[0.25em] text-white"
+                  >
+                    {word}
+                  </motion.span>
+                ))}
               </React.Fragment>
             ))}
           </motion.h1>
